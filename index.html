@@ -320,7 +320,7 @@
     </header>
 
     <!-- Floating exit button, shown only in fullscreen mode -->
-    <button id="exitFullscreenBtn" onclick="toggleFullscreen()" class="hidden fixed top-3 left-3 z-[250] p-2.5 rounded-lg bg-slate-900/95 text-amber-400 border border-amber-500/40 shadow-lg cursor-pointer no-print">
+    <button id="exitFullscreenBtn" onclick="toggleFullscreen()" style="top: max(0.75rem, calc(env(safe-area-inset-top) + 0.5rem));" class="hidden fixed left-3 z-[250] p-2.5 rounded-lg bg-slate-900/95 text-amber-400 border border-amber-500/40 shadow-lg cursor-pointer no-print">
         <i data-lucide="minimize" class="w-5 h-5"></i>
     </button>
 
