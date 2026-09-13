@@ -236,10 +236,10 @@
             border-color: #d97706;
         }
 
+        #pdfPrintTemplate { display: none; }
         @media print {
-            .no-print { display: none !important; }
-            body { background: white; color: black; }
-            .glass-panel { background: white; border: 1px solid #ccc; color: black; }
+            body > *:not(#pdfPrintTemplate) { display: none !important; }
+            #pdfPrintTemplate { display: block !important; }
         }
     </style>
 </head>
@@ -771,6 +771,16 @@
                 </div>
             </div>
 
+            <!-- PERSONAL STATUS - private per-device tracking -->
+            <div class="glass-panel rounded-2xl p-4 sm:p-6 space-y-2 no-print">
+                <div class="flex items-center gap-2">
+                    <i data-lucide="target" class="w-4 h-4 text-amber-400"></i>
+                    <h3 class="text-sm font-bold text-white">סטטוס אישי</h3>
+                    <span class="text-[10px] text-slate-500">(נשמר רק בדפדפן שלך)</span>
+                </div>
+                <div id="statusSelector" class="flex flex-wrap gap-2"></div>
+            </div>
+
             <!-- PERSONAL NOTES - saved locally per device, never shared -->
             <div class="glass-panel rounded-2xl p-4 sm:p-6 space-y-2 no-print">
                 <div class="flex items-center gap-2">
@@ -785,11 +795,15 @@
             <!-- REPORT ACTIONS (moved to bottom per request) -->
             <div class="relative flex flex-col sm:flex-row items-center justify-center gap-2.5 pt-1 no-print">
                 <span class="absolute left-0 top-1 text-[9px] sm:text-[10px] bg-amber-500/20 text-amber-400 font-bold px-2 py-0.5 rounded border border-amber-500/30">v5.0 PRO</span>
+                <button id="shareQuickBtn" onclick="shareCountryQuick()" class="px-4 py-2 rounded-lg text-xs font-semibold bg-slate-800/90 text-slate-300 hover:bg-slate-700 hover:text-white border border-slate-700 transition flex items-center gap-1.5 cursor-pointer">
+                    <i data-lucide="share-2" class="w-4 h-4 text-amber-500"></i>
+                    <span>שיתוף כ-PDF</span>
+                </button>
                 <button onclick="copyCurrentReport()" class="px-4 py-2 rounded-lg text-xs font-semibold bg-slate-800/90 text-slate-300 hover:bg-slate-700 hover:text-white border border-slate-700 transition flex items-center gap-1.5 cursor-pointer">
                     <i data-lucide="copy" class="w-4 h-4 text-amber-500"></i>
                     <span>העתקת סקירה</span>
                 </button>
-                <button onclick="window.print()" class="px-4 py-2 rounded-lg text-xs font-semibold bg-slate-800/90 text-slate-300 hover:bg-slate-700 hover:text-white border border-slate-700 transition flex items-center gap-1.5 cursor-pointer">
+                <button onclick="printCountryReport()" class="px-4 py-2 rounded-lg text-xs font-semibold bg-slate-800/90 text-slate-300 hover:bg-slate-700 hover:text-white border border-slate-700 transition flex items-center gap-1.5 cursor-pointer">
                     <i data-lucide="printer" class="w-4 h-4 text-amber-500"></i>
                     <span>הדפסת דוח</span>
                 </button>
@@ -821,11 +835,14 @@
 
             <div id="comparePicker" class="space-y-3">
                 <div class="flex gap-2">
-                    <button id="modeCountriesBtn" onclick="setCompareMode('countries')" class="flex-1 py-2 rounded-lg text-xs font-semibold border transition cursor-pointer bg-amber-500/15 text-amber-400 border-amber-500/40">
+                    <button id="modeCountriesBtn" onclick="setCompareMode('countries')" class="flex-1 py-2 rounded-lg text-[11px] sm:text-xs font-semibold border transition cursor-pointer bg-amber-500/15 text-amber-400 border-amber-500/40">
                         השוואת מדינות
                     </button>
-                    <button id="modePlatformsBtn" onclick="setCompareMode('platforms')" class="flex-1 py-2 rounded-lg text-xs font-semibold border transition cursor-pointer bg-slate-800/80 text-slate-300 border-slate-700">
+                    <button id="modePlatformsBtn" onclick="setCompareMode('platforms')" class="flex-1 py-2 rounded-lg text-[11px] sm:text-xs font-semibold border transition cursor-pointer bg-slate-800/80 text-slate-300 border-slate-700">
                         השוואת פלטפורמות
+                    </button>
+                    <button id="modeSummaryBtn" onclick="setCompareMode('summary')" class="flex-1 py-2 rounded-lg text-[11px] sm:text-xs font-semibold border transition cursor-pointer bg-slate-800/80 text-slate-300 border-slate-700">
+                        תקציר מנהלים
                     </button>
                 </div>
                 <p id="comparePickerHint" class="text-xs sm:text-sm text-slate-400">בחר 2 עד 3 מדינות להשוואה זו-לצד-זו:</p>
@@ -838,14 +855,20 @@
                     <button onclick="backToPicker()" class="text-xs text-amber-400 hover:text-amber-300 flex items-center gap-1 cursor-pointer">
                         <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i> בחר מדינות אחרות
                     </button>
-                    <button onclick="closeCompareMode()" class="text-xs text-slate-400 hover:text-white flex items-center gap-1 cursor-pointer">
-                        <i data-lucide="log-out" class="w-3.5 h-3.5"></i> סגור וחזור לדף הראשי
-                    </button>
+                    <div class="flex items-center gap-3">
+                        <button id="summaryCopyBtn" onclick="copySummaryText()" class="hidden text-xs text-amber-400 hover:text-amber-300 flex items-center gap-1 cursor-pointer">
+                            <i data-lucide="copy" class="w-3.5 h-3.5"></i> העתק תקציר
+                        </button>
+                        <button onclick="closeCompareMode()" class="text-xs text-slate-400 hover:text-white flex items-center gap-1 cursor-pointer">
+                            <i data-lucide="log-out" class="w-3.5 h-3.5"></i> סגור וחזור לדף הראשי
+                        </button>
+                    </div>
                 </div>
                 <div id="compareTableWrap" class="overflow-x-auto">
                     <table id="compareTable" class="w-full text-xs sm:text-sm border-collapse"></table>
                 </div>
                 <div id="comparePlatformsWrap" class="hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+                <div id="compareSummaryWrap" class="hidden space-y-3"></div>
             </div>
         </div>
     </div>
@@ -917,6 +940,7 @@
             'book-open': '<path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/>',
             maximize: '<path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/>',
             minimize: '<path d="M8 3v3a2 2 0 0 1-2 2H3"/><path d="M21 8h-3a2 2 0 0 1-2-2V3"/><path d="M3 16h3a2 2 0 0 1 2 2v3"/><path d="M16 21v-3a2 2 0 0 1 2-2h3"/>',
+            'share-2': '<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/>',
             star: '<path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/>',
             pencil: '<path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/>'
         };
@@ -2007,16 +2031,62 @@
             btn.title = fav ? 'הסר מהמועדפים' : 'הוסף למועדפים';
             lucide.createIcons();
         }
+
+        // ============================================================
+        // PERSONAL STATUS TAGS - private per-device tracking of where
+        // you stand with each country. Not shared, not synced.
+        // ============================================================
+        const STATUS_OPTIONS = [
+            { key: 'inprogress', label: 'בתהליך', dot: 'bg-amber-400', chipActive: 'bg-amber-500/20 text-amber-400 border-amber-500/40' },
+            { key: 'contacted', label: 'יצרתי קשר', dot: 'bg-blue-400', chipActive: 'bg-blue-500/20 text-blue-400 border-blue-500/40' },
+            { key: 'notrelevant', label: 'לא רלוונטי כרגע', dot: 'bg-red-400', chipActive: 'bg-red-500/20 text-red-400 border-red-500/40' }
+        ];
+        function getCountryStatus(name) {
+            try {
+                return localStorage.getItem('aerovision_status_' + name) || '';
+            } catch (e) {
+                return '';
+            }
+        }
+        function setCountryStatus(name, key) {
+            try {
+                const current = getCountryStatus(name);
+                if (current === key) {
+                    localStorage.removeItem('aerovision_status_' + name);
+                } else {
+                    localStorage.setItem('aerovision_status_' + name, key);
+                }
+            } catch (e) { /* storage unavailable - fail silently */ }
+            populateSidebar();
+            renderStatusSelector();
+        }
+        function renderStatusSelector() {
+            const el = document.getElementById('statusSelector');
+            if (!el) return;
+            const current = getCountryStatus(currentCountryKey);
+            el.innerHTML = STATUS_OPTIONS.map(s => {
+                const active = current === s.key;
+                const cls = active
+                    ? `px-2.5 py-1.5 rounded-lg text-xs font-semibold border transition cursor-pointer flex items-center gap-1.5 ${s.chipActive}`
+                    : 'px-2.5 py-1.5 rounded-lg text-xs font-semibold border border-slate-700 bg-slate-800/80 text-slate-400 hover:text-white transition cursor-pointer flex items-center gap-1.5';
+                return `<button data-status-key="${escapeHtml(s.key)}" onclick="setCountryStatus(currentCountryKey, this.dataset.statusKey)" class="${cls}">
+                    <span class="w-2 h-2 rounded-full ${s.dot}"></span>${escapeHtml(s.label)}
+                </button>`;
+            }).join('');
+        }
         function sidebarCountryButtonHtml(name) {
             const flag = presetData[name].flag || '🌐';
             const fav = isFavorite(name);
+            const status = getCountryStatus(name);
+            const statusOpt = STATUS_OPTIONS.find(s => s.key === status);
+            const statusDot = statusOpt ? `<span class="w-2 h-2 rounded-full ${statusOpt.dot} shrink-0" title="${escapeHtml(statusOpt.label)}"></span>` : '';
             return `<div class="flex items-center gap-1">
-                <button onclick="toggleFavorite('${escapeHtml(name)}', event)" title="${fav ? 'הסר מהמועדפים' : 'הוסף למועדפים'}" class="p-1.5 rounded-lg text-slate-500 hover:text-amber-400 shrink-0 cursor-pointer">
+                <button data-country="${escapeHtml(name)}" onclick="toggleFavorite(this.dataset.country, event)" title="${fav ? 'הסר מהמועדפים' : 'הוסף למועדפים'}" class="p-1.5 rounded-lg text-slate-500 hover:text-amber-400 shrink-0 cursor-pointer">
                     <i data-lucide="star" class="w-4 h-4${fav ? ' fill-amber-400 text-amber-400' : ''}"></i>
                 </button>
                 <button data-country="${escapeHtml(name)}" onclick="selectFromSidebar(this.dataset.country)"
                     class="sidebar-country-btn flex-grow text-right px-2 py-2 rounded-lg text-sm text-slate-300 hover:bg-slate-800/80 border border-transparent transition flex items-center gap-2 cursor-pointer">
-                    <span>${flag}</span><span>${escapeHtml(name)}</span>
+                    <span>${flag}</span><span>${escapeHtml(name)}</span>${statusDot}
                 </button>
             </div>`;
         }
@@ -2067,24 +2137,24 @@
         }
 
         // ============================================================
-        // COMPARE MODE - pick 2-3 countries, render side-by-side table
-        // (country KPIs) or a platform-by-platform breakdown
+        // COMPARE MODE - pick countries, render a side-by-side KPI
+        // table, a platform-by-platform breakdown, or a scannable
+        // executive-summary briefing across a whole group.
         // ============================================================
         let compareMode = 'countries';
+        const COMPARE_MODE_BTNS = {
+            countries: { id: 'modeCountriesBtn', hint: 'בחר 2 עד 3 מדינות להשוואה זו-לצד-זו:' },
+            platforms: { id: 'modePlatformsBtn', hint: 'בחר 2 עד 3 מדינות כדי להשוות את הפלטפורמות שבשירות בכל אחת מהן (למשל ישראל מול מדינה מתחרה):' },
+            summary: { id: 'modeSummaryBtn', hint: 'בחר מדינה אחת או יותר (עד 8) לתקציר מנהלים, ממוין מהמדינה המבטיחה ביותר:' }
+        };
         function setCompareMode(mode) {
             compareMode = mode;
-            const countriesBtn = document.getElementById('modeCountriesBtn');
-            const platformsBtn = document.getElementById('modePlatformsBtn');
-            const hint = document.getElementById('comparePickerHint');
-            if (mode === 'countries') {
-                countriesBtn.className = 'flex-1 py-2 rounded-lg text-xs font-semibold border transition cursor-pointer bg-amber-500/15 text-amber-400 border-amber-500/40';
-                platformsBtn.className = 'flex-1 py-2 rounded-lg text-xs font-semibold border transition cursor-pointer bg-slate-800/80 text-slate-300 border-slate-700';
-                hint.textContent = 'בחר 2 עד 3 מדינות להשוואה זו-לצד-זו:';
-            } else {
-                platformsBtn.className = 'flex-1 py-2 rounded-lg text-xs font-semibold border transition cursor-pointer bg-amber-500/15 text-amber-400 border-amber-500/40';
-                countriesBtn.className = 'flex-1 py-2 rounded-lg text-xs font-semibold border transition cursor-pointer bg-slate-800/80 text-slate-300 border-slate-700';
-                hint.textContent = 'בחר 2 עד 3 מדינות כדי להשוות את הפלטפורמות שבשירות בכל אחת מהן (למשל ישראל מול מדינה מתחרה):';
-            }
+            const activeCls = 'flex-1 py-2 rounded-lg text-[11px] sm:text-xs font-semibold border transition cursor-pointer bg-amber-500/15 text-amber-400 border-amber-500/40';
+            const inactiveCls = 'flex-1 py-2 rounded-lg text-[11px] sm:text-xs font-semibold border transition cursor-pointer bg-slate-800/80 text-slate-300 border-slate-700';
+            Object.entries(COMPARE_MODE_BTNS).forEach(([key, cfg]) => {
+                document.getElementById(cfg.id).className = key === mode ? activeCls : inactiveCls;
+            });
+            document.getElementById('comparePickerHint').textContent = COMPARE_MODE_BTNS[mode].hint;
         }
         function openCompareMode() {
             const grid = document.getElementById('compareCheckboxGrid');
@@ -2189,21 +2259,29 @@
         }
         function enforceCompareLimit(changedBox) {
             const checked = document.querySelectorAll('.compare-checkbox:checked');
-            if (checked.length > 3) {
+            const max = compareMode === 'summary' ? 8 : 3;
+            if (checked.length > max) {
                 changedBox.checked = false;
-                showToast('ניתן לבחור עד 3 מדינות להשוואה');
+                showToast(`ניתן לבחור עד ${max} מדינות`);
             }
         }
         function renderComparison() {
             const checked = Array.from(document.querySelectorAll('.compare-checkbox:checked')).map(cb => cb.value);
-            if (checked.length < 2) {
-                showToast('בחר לפחות 2 מדינות להשוואה');
+            const minRequired = compareMode === 'summary' ? 1 : 2;
+            if (checked.length < minRequired) {
+                showToast(minRequired === 1 ? 'בחר לפחות מדינה אחת' : 'בחר לפחות 2 מדינות להשוואה');
                 return;
             }
             document.getElementById('comparePicker').classList.add('hidden');
             document.getElementById('compareResultWrap').classList.remove('hidden');
+            document.getElementById('compareTableWrap').classList.add('hidden');
+            document.getElementById('comparePlatformsWrap').classList.add('hidden');
+            document.getElementById('compareSummaryWrap').classList.add('hidden');
+            document.getElementById('summaryCopyBtn').classList.add('hidden');
             if (compareMode === 'platforms') {
                 renderPlatformComparison(checked);
+            } else if (compareMode === 'summary') {
+                renderExecutiveSummary(checked);
             } else {
                 renderCountryComparison(checked);
             }
@@ -2263,6 +2341,111 @@
                     <div class="space-y-2.5">${platformCards}</div>
                 </div>`;
             }).join('');
+        }
+
+        // ============================================================
+        // EXECUTIVE SUMMARY - a scannable one-pager for a group of
+        // countries, sorted by market-potential score (highest first),
+        // meant to be handed to someone who won't read every full report.
+        // ============================================================
+        function renderExecutiveSummary(checked) {
+            const wrap = document.getElementById('compareSummaryWrap');
+            wrap.classList.remove('hidden');
+            document.getElementById('summaryCopyBtn').classList.remove('hidden');
+
+            const scoreNum = d => {
+                const n = parseInt((d.score || '').toString(), 10);
+                return isNaN(n) ? -1 : n;
+            };
+            const sorted = [...checked].sort((a, b) => scoreNum(presetData[b]) - scoreNum(presetData[a]));
+
+            const cardsHtml = sorted.map((name, i) => {
+                const d = presetData[name];
+                const platforms = (d.uavFleet || []).slice(0, 3).map(u => u.name).filter(Boolean).join(', ') || '-';
+                const gaps = (d.gaps || []).slice(0, 2).map(g => g.title).filter(Boolean);
+                const topCompetitor = (d.competitors && d.competitors[0] && d.competitors[0].company) || '-';
+                const industry = (d.localIndustry && Array.isArray(d.localIndustry) && d.localIndustry[0] && d.localIndustry[0].name) || null;
+                return `
+                <div class="p-4 sm:p-5 bg-slate-900/80 rounded-xl border ${i === 0 ? 'border-amber-500/40' : 'border-slate-800'} space-y-3">
+                    <div class="flex items-center justify-between gap-2 flex-wrap border-b border-slate-800 pb-2.5">
+                        <div class="flex items-center gap-2">
+                            <span class="text-lg font-black text-slate-600">#${i + 1}</span>
+                            <span class="text-xl">${escapeHtml(d.flag || '')}</span>
+                            <h4 class="text-sm sm:text-base font-bold text-white">${escapeHtml(d.title || name)}</h4>
+                        </div>
+                        <span class="px-2 py-0.5 rounded-md text-[11px] font-bold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">ציון: ${escapeHtml(d.score || '-')}</span>
+                    </div>
+
+                    <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">${escapeHtml(d.subtitle || '')}</p>
+                    <p class="text-[11px] sm:text-xs text-slate-400 leading-relaxed">${escapeHtml(d.profileSummary || '')}</p>
+
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[11px]">
+                        <div class="p-2 bg-slate-950/60 rounded-lg"><span class="text-slate-500 block">תקציב ביטחון</span><span class="text-slate-200 font-semibold">${escapeHtml(d.budget || '-')}</span></div>
+                        <div class="p-2 bg-slate-950/60 rounded-lg"><span class="text-slate-500 block">אחוז מהתמ״ג</span><span class="text-slate-200 font-semibold">${escapeHtml(d.defenseGdpPct || '-')}</span></div>
+                        <div class="p-2 bg-slate-950/60 rounded-lg"><span class="text-slate-500 block">סיכון גיאופוליטי</span><span class="text-slate-200 font-semibold">${escapeHtml((d.threat || '-').replace('סיכון גיאופוליטי: ', ''))}</span></div>
+                        <div class="p-2 bg-slate-950/60 rounded-lg"><span class="text-slate-500 block">כדאיות</span><span class="text-slate-200 font-semibold">${escapeHtml(d.recommendationRating || '-')}</span></div>
+                    </div>
+
+                    <div class="space-y-1.5 text-[11px] sm:text-xs">
+                        <div><span class="text-slate-500 font-semibold">פלטפורמות עיקריות בשירות: </span><span class="text-slate-200">${escapeHtml(platforms)}</span></div>
+                        <div><span class="text-slate-500 font-semibold">מתחרה מוביל: </span><span class="text-slate-200">${escapeHtml(topCompetitor)}</span></div>
+                        ${industry ? `<div><span class="text-slate-500 font-semibold">תעשייה מקומית בולטת: </span><span class="text-slate-200">${escapeHtml(industry)}</span></div>` : ''}
+                        ${gaps.length ? `<div><span class="text-slate-500 font-semibold">פערים מרכזיים: </span><span class="text-slate-200">${escapeHtml(gaps.join('; '))}</span></div>` : ''}
+                    </div>
+
+                    <div class="p-3 bg-gradient-to-br from-slate-950/80 to-slate-900/60 rounded-lg border border-amber-500/15 space-y-1.5">
+                        <p class="text-[11px] sm:text-xs text-slate-300 leading-relaxed">${escapeHtml(d.recommendationText || '')}</p>
+                        <div class="flex flex-wrap gap-x-4 gap-y-1 text-[10px] sm:text-[11px] text-slate-400 pt-1">
+                            ${d.recChannel ? `<span><span class="text-slate-500">ערוץ: </span>${escapeHtml(d.recChannel)}</span>` : ''}
+                            ${d.recSegment ? `<span><span class="text-slate-500">סגמנט: </span>${escapeHtml(d.recSegment)}</span>` : ''}
+                            ${d.recWindow ? `<span><span class="text-slate-500">חלון הזדמנויות: </span>${escapeHtml(d.recWindow)}</span>` : ''}
+                        </div>
+                    </div>
+                </div>`;
+            }).join('');
+
+            wrap.innerHTML = `
+                <div class="text-center space-y-1 pb-1">
+                    <h3 class="text-sm sm:text-base font-bold text-white">תקציר מנהלים - סקירת הזדמנויות</h3>
+                    <p class="text-[11px] text-slate-500">${sorted.length === 1 ? 'מדינה אחת' : sorted.length + ' מדינות'}, ${sorted.length > 1 ? 'ממוינות לפי ציון פוטנציאל שוק' : ''}</p>
+                </div>
+                ${cardsHtml}`;
+
+            // stash for the copy button
+            window._lastSummaryCountries = sorted;
+        }
+        function copySummaryText() {
+            const countries = window._lastSummaryCountries || [];
+            if (!countries.length) return;
+            const lines = ['=== תקציר מנהלים - AeroVision BI ===', ''];
+            countries.forEach((name, i) => {
+                const d = presetData[name];
+                const platforms = (d.uavFleet || []).slice(0, 3).map(u => u.name).filter(Boolean).join(', ') || '-';
+                lines.push(`${i + 1}. ${d.flag || ''} ${d.title || name} - ציון ${d.score || '-'}`);
+                lines.push(`   ${d.subtitle || ''}`);
+                lines.push(`   תקציב: ${d.budget || '-'} | אחוז מהתמ״ג: ${d.defenseGdpPct || '-'} | סיכון: ${(d.threat || '-').replace('סיכון גיאופוליטי: ', '')} | כדאיות: ${d.recommendationRating || '-'}`);
+                lines.push(`   פלטפורמות עיקריות: ${platforms}`);
+                if (d.recommendationText) lines.push(`   המלצה: ${d.recommendationText}`);
+                lines.push('');
+            });
+            const text = lines.join('\n');
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('התקציר הועתק בהצלחה ללוח!');
+            }).catch(() => {
+                try {
+                    const textarea = document.createElement('textarea');
+                    textarea.value = text;
+                    textarea.style.position = 'fixed';
+                    textarea.style.opacity = '0';
+                    document.body.appendChild(textarea);
+                    textarea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textarea);
+                    showToast('התקציר הועתק בהצלחה ללוח!');
+                } catch (e2) {
+                    showToast('לא ניתן להעתיק אוטומטית בדפדפן זה');
+                }
+            });
         }
 
         function showToast(msg) {
@@ -2404,6 +2587,7 @@
             document.getElementById('defenseBudget').textContent = data.budget || '';
             renderScoreGauge(data.score);
             updateFavoriteToggleButton();
+            renderStatusSelector();
             loadPersonalNotes();
 
             document.getElementById('capital').textContent = data.capital || '';
@@ -2562,6 +2746,179 @@
                 document.body.removeChild(textarea);
             }
         }
-    </script>
+
+        // ============================================================
+        // QUICK SHARE - generates a real PDF of the entire current
+        // report (all 8 sections) and hands it to the device's native
+        // share sheet, so the user picks where to send it (WhatsApp,
+        // Mail, Files, etc.). Falls back to a direct PDF download if
+        // file-sharing isn't supported, and to a short text share as a
+        // last resort if PDF generation itself fails.
+        // ============================================================
+        // ============================================================
+        // PDF REPORT TEMPLATE - a clean, light, print-style document
+        // (not a screenshot of the dark app UI) built specifically for
+        // sharing with senior stakeholders. Includes the app logo.
+        // ============================================================
+        function buildPrintableReportHtml(data) {
+            const esc = escapeHtml;
+            const gold = '#b45309';
+            const navy = '#0f172a';
+            const gray = '#64748b';
+            const border = '#e2e8f0';
+
+            const logoSvg = `
+                <svg viewBox="0 0 100 100" style="width:52px;height:52px;flex-shrink:0;">
+                    <circle cx="50" cy="50" r="32" fill="none" stroke="${gold}" stroke-width="2.5"/>
+                    <ellipse cx="50" cy="50" rx="32" ry="12" fill="none" stroke="${gold}" stroke-width="1.6" opacity="0.85"/>
+                    <ellipse cx="50" cy="50" rx="14" ry="32" fill="none" stroke="${gold}" stroke-width="1.6" opacity="0.85"/>
+                    <line x1="18" y1="50" x2="82" y2="50" stroke="${gold}" stroke-width="1.6" opacity="0.85"/>
+                    <ellipse cx="50" cy="50" rx="44" ry="18" fill="none" stroke="${gold}" stroke-width="2.5" transform="rotate(-20 50 50)"/>
+                    <circle cx="30" cy="34" r="3" fill="#1d4ed8"/>
+                    <circle cx="68" cy="30" r="3" fill="#dc2626"/>
+                    <circle cx="72" cy="62" r="3" fill="#1d4ed8"/>
+                    <circle cx="26" cy="66" r="3" fill="#dc2626"/>
+                </svg>`;
+
+            const sectionTitle = (num, title) => `<h2 style="font-size:14px;font-weight:800;color:${navy};margin:0 0 8px 0;padding-bottom:6px;border-bottom:2px solid ${gold};">${num}. ${esc(title)}</h2>`;
+            const fieldRow = (label, value) => `
+                <tr>
+                    <td style="padding:6px 10px;color:${gray};font-size:11px;font-weight:600;white-space:nowrap;vertical-align:top;">${esc(label)}</td>
+                    <td style="padding:6px 10px;color:${navy};font-size:12px;">${esc(value || '-')}</td>
+                </tr>`;
+
+            const alliancesHtml = (data.alliances || []).map(a => `<li style="margin-bottom:3px;">${esc(a)}</li>`).join('');
+
+            const platformsHtml = (data.uavFleet || []).map(u => `
+                <div style="margin-bottom:10px;padding:10px;background:#f8fafc;border-radius:6px;border:1px solid ${border};">
+                    <div style="font-weight:700;color:${navy};font-size:12px;">${esc(u.name || '')} <span style="font-weight:400;color:${gray};font-size:10px;">- ${esc(u.manufacturer || '')}</span></div>
+                    <div style="color:${navy};font-size:11px;margin-top:3px;line-height:1.5;">${esc(u.desc || '')}</div>
+                </div>`).join('');
+
+            const industryHtml = (Array.isArray(data.localIndustry) ? data.localIndustry : []).map(co => `
+                <div style="margin-bottom:10px;padding:10px;background:#f8fafc;border-radius:6px;border:1px solid ${border};">
+                    <div style="font-weight:700;color:${navy};font-size:12px;">${esc(co.name || '')}</div>
+                    <div style="color:${navy};font-size:11px;margin-top:3px;line-height:1.5;"><b>חוזקה: </b>${esc(co.specialty || '')}</div>
+                    <div style="color:${navy};font-size:11px;line-height:1.5;"><b>מספקת ל: </b>${esc(co.supplies || '')}</div>
+                    <div style="color:${navy};font-size:11px;line-height:1.5;"><b>מוצרים: </b>${esc(co.products || '')}</div>
+                </div>`).join('');
+
+            const gapsHtml = (data.gaps || []).map(g => `
+                <div style="margin-bottom:8px;">
+                    <div style="font-weight:700;color:${navy};font-size:12px;">• ${esc(g.title || '')}</div>
+                    <div style="color:${navy};font-size:11px;margin-right:12px;line-height:1.5;">${esc(g.desc || '')}</div>
+                </div>`).join('');
+
+            const competitorsHtml = (data.competitors || []).map(c => `
+                <tr>
+                    <td style="padding:5px 10px;color:${navy};font-size:11px;font-weight:600;">${esc(c.company || '')}</td>
+                    <td style="padding:5px 10px;color:${navy};font-size:11px;">${esc(c.role || '')}</td>
+                    <td style="padding:5px 10px;color:${gray};font-size:11px;">${esc(c.share || '-')}</td>
+                </tr>`).join('');
+
+            const verifiedLine = data.verifiedDate
+                ? `<span style="color:#059669;font-weight:700;">✓ נתון מאומת מול מקור (עודכן: ${esc(data.verifiedDate)})</span>`
+                : `<span style="color:#b45309;font-weight:700;">⚠ אומדן ראשוני - טרם אומת מול מקור</span>`;
+
+            return `
+            <div dir="rtl" style="font-family: Arial, 'Segoe UI', sans-serif; background:#ffffff; color:${navy}; padding:28px; width:760px;">
+                <div style="display:flex; align-items:center; gap:14px; padding-bottom:16px; border-bottom:3px solid ${gold}; margin-bottom:18px;">
+                    ${logoSvg}
+                    <div>
+                        <div style="font-size:20px; font-weight:900; color:${navy}; letter-spacing:1px;">AEROVISION BI</div>
+                        <div style="font-size:11px; color:${gray};">מערכת מודיעין שוק כטב"מים וניתוח גיאופוליטי</div>
+                    </div>
+                </div>
+
+                <div style="display:flex; align-items:center; gap:10px; margin-bottom:6px;">
+                    <span style="font-size:26px;">${esc(data.flag || '')}</span>
+                    <span style="font-size:20px; font-weight:800; color:${navy};">${esc(data.title || '')}</span>
+                </div>
+                <div style="font-size:12px; color:${gray}; margin-bottom:6px;">${esc(data.subtitle || '')}</div>
+                <div style="font-size:10px; margin-bottom:18px;">${verifiedLine}</div>
+
+                ${sectionTitle(1, 'פרופיל כללי')}
+                <table style="width:100%; border-collapse:collapse; margin-bottom:16px;">
+                    ${fieldRow('בירה', data.capital)}
+                    ${fieldRow('אוכלוסייה', data.population)}
+                    ${fieldRow('תוצר (GDP)', data.gdp)}
+                    ${fieldRow('תקציב ביטחון', data.budget)}
+                    ${fieldRow('אחוז מהתמ"ג', data.defenseGdpPct)}
+                    ${fieldRow('סיכון גיאופוליטי', data.threat)}
+                    ${fieldRow('ציון פוטנציאל שוק', data.score)}
+                </table>
+                <div style="font-size:11px; line-height:1.6; margin-bottom:18px;">${esc(data.profileSummary || '')}</div>
+
+                ${sectionTitle(2, 'גבולות וקשרים גיאופוליטיים')}
+                <ul style="font-size:11px; line-height:1.6; margin:0 16px 10px 0; padding:0;">${alliancesHtml}</ul>
+                <div style="font-size:11px; line-height:1.6; margin-bottom:18px;">${esc(data.geopoliticalThreats || '')}</div>
+
+                ${sectionTitle(3, 'יכולות ופלטפורמות')}
+                <div style="margin-bottom:18px;">${platformsHtml || '<div style="font-size:11px;color:' + gray + ';">אין נתונים</div>'}</div>
+
+                ${sectionTitle(4, 'תעשיית הכטב"מים המקומית')}
+                <div style="margin-bottom:18px;">${industryHtml || '<div style="font-size:11px;color:' + gray + ';">אין נתונים</div>'}</div>
+
+                ${sectionTitle(5, 'צרכים ופערים')}
+                <div style="margin-bottom:18px;">${gapsHtml}</div>
+
+                ${sectionTitle(6, 'נוף תחרותי')}
+                <table style="width:100%; border-collapse:collapse; margin-bottom:18px;">${competitorsHtml}</table>
+
+                ${sectionTitle(7, 'מגבלות ומדיניות רכש')}
+                <div style="font-size:11px; line-height:1.6; margin-bottom:6px;"><b>Offset: </b>${esc(data.policyOffset || '')}</div>
+                <div style="font-size:11px; line-height:1.6; margin-bottom:18px;"><b>תקנים ובריתות: </b>${esc(data.policyNato || '')}</div>
+
+                ${sectionTitle(8, 'המלצה עסקית מסכמת')}
+                <div style="display:inline-block; padding:4px 12px; border-radius:6px; background:#ecfdf5; color:#059669; font-size:12px; font-weight:800; margin-bottom:8px;">${esc(data.recommendationRating || '')}</div>
+                <div style="font-size:12px; line-height:1.7; margin-bottom:10px;">${esc(data.recommendationText || '')}</div>
+                <table style="width:100%; border-collapse:collapse; margin-bottom:8px;">
+                    ${fieldRow('ערוץ חדירה מומלץ', data.recChannel)}
+                    ${fieldRow('סגמנט מוביל', data.recSegment)}
+                    ${fieldRow('חלון הזדמנויות', data.recWindow)}
+                </table>
+
+                <div style="margin-top:20px; padding-top:12px; border-top:1px solid ${border}; font-size:9px; color:${gray}; line-height:1.5;">
+                    הנתונים העובדתיים (סעיף 1) מאומתים מול מקור כאשר מצוין תאריך עדכון. הערכות אנליטיות (סעיפים 5-8) הן שיפוט מושכל ולא נתון שנמדד או פורסם. נוצר באמצעות AeroVision BI.
+                </div>
+            </div>`;
+        }
+
+        // ============================================================
+        // QUICK SHARE - generates a clean, print-style PDF of the full
+        // report and hands it directly to the device's native share
+        // sheet. Never silently saves the file to the device - if
+        // sharing genuinely isn't available, the PDF opens in a new
+        // tab instead, so sharing stays a deliberate user action.
+        // ============================================================
+        // ============================================================
+        // SHARE / PRINT AS PDF - uses the browser's own native print
+        // dialog rather than generating a PDF in JavaScript. This is
+        // the one mechanism that can't be blocked by a popup blocker
+        // and doesn't depend on Web Share API file support, both of
+        // which proved unreliable in testing. On iOS, the print
+        // preview can be expanded (pinch outward on the thumbnail, or
+        // tap it) into a full PDF view with its own Share button.
+        // ============================================================
+        function printCountryReport() {
+            const data = presetData[currentCountryKey];
+            if (!data) return;
+            document.getElementById('pdfPrintTemplate').innerHTML = buildPrintableReportHtml(data);
+            window.print();
+        }
+        function shareCountryQuick() {
+            const data = presetData[currentCountryKey];
+            if (!data) return;
+            document.getElementById('pdfPrintTemplate').innerHTML = buildPrintableReportHtml(data);
+            showToast('נפתחת תצוגת הדפסה - הגדל/משוך את התצוגה המקדימה לקבלת PDF עם כפתור שיתוף');
+            window.print();
+        }
+
+    </script>    <!-- Dedicated clean print/PDF template - hidden in normal view,
+         shown exclusively when printing (see @media print rule above).
+         This is what both "share as PDF" and "print report" produce,
+         instead of a printout of the dark app UI. -->
+    <div id="pdfPrintTemplate"></div>
+
 </body>
 </html>
