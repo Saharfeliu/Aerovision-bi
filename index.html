@@ -238,6 +238,11 @@
 
         #pdfPrintTemplate { display: none; }
         @media print {
+            /* margin: 0 on @page removes the space Safari/Chrome use to
+               print their own automatic header/footer (URL, date, title) -
+               our content supplies its own padding instead (see
+               buildPrintableReportHtml), so nothing looks cramped. */
+            @page { margin: 0; }
             body > *:not(#pdfPrintTemplate) { display: none !important; }
             #pdfPrintTemplate { display: block !important; }
         }
@@ -2821,7 +2826,7 @@
                 : `<span style="color:#b45309;font-weight:700;">⚠ אומדן ראשוני - טרם אומת מול מקור</span>`;
 
             return `
-            <div dir="rtl" style="font-family: Arial, 'Segoe UI', sans-serif; background:#ffffff; color:${navy}; padding:28px; width:760px;">
+            <div dir="rtl" style="font-family: Arial, 'Segoe UI', sans-serif; background:#ffffff; color:${navy}; padding:22mm 16mm; width:760px; box-sizing:border-box;">
                 <div style="display:flex; align-items:center; gap:14px; padding-bottom:16px; border-bottom:3px solid ${gold}; margin-bottom:18px;">
                     ${logoSvg}
                     <div>
@@ -2910,7 +2915,7 @@
             const data = presetData[currentCountryKey];
             if (!data) return;
             document.getElementById('pdfPrintTemplate').innerHTML = buildPrintableReportHtml(data);
-            showToast('נפתחת תצוגת הדפסה - הגדל/משוך את התצוגה המקדימה לקבלת PDF עם כפתור שיתוף');
+            showToast('נפתחת תצוגת הדפסה - בחר "שמור כ-PDF" או שתף ישירות, בהתאם לאפשרויות במכשיר שלך');
             window.print();
         }
 
