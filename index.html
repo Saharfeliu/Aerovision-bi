@@ -102,6 +102,28 @@
         ::-webkit-scrollbar-thumb:hover { background: #d97706; }
         button:disabled { opacity: 0.55; cursor: not-allowed !important; }
 
+        /* Country-switch transition: brief dissolve+settle instead of an
+           abrupt content swap. No real network delay exists (data is
+           local), so this is purely a polish effect, not a real loading
+           state. */
+        #reportContainer {
+            transition: opacity 200ms ease, transform 200ms ease;
+        }
+        #reportContainer.report-transitioning {
+            opacity: 0.2;
+            transform: scale(0.985) translateY(6px);
+        }
+
+        /* FULLSCREEN MODE - hides chrome (header, sidebar, footer),
+           leaving only the report itself. Exited via the floating
+           button since the header controls are hidden too. */
+        body.fullscreen-mode header,
+        body.fullscreen-mode #countrySidebar,
+        body.fullscreen-mode #sidebarBackdrop,
+        body.fullscreen-mode footer {
+            display: none !important;
+        }
+
         /* iOS safe-area support: in standalone PWA mode (installed via
            "Add to Home Screen") there is no Safari chrome, so fixed/sticky
            elements at the screen edges must avoid the notch / Dynamic
@@ -182,6 +204,9 @@
 </head>
 <body class="min-h-screen flex flex-col font-sans antialiased selection:bg-amber-500 selection:text-black">
 
+    <!-- Slim top loading bar, shown briefly during country switches -->
+    <div id="loadingBar" class="fixed top-0 right-0 left-0 h-[3px] z-[300] pointer-events-none" style="width:0%; opacity:0; background: linear-gradient(90deg, #fef08a, #f59e0b, #b45309); transition: width 200ms ease, opacity 250ms ease;"></div>
+
     <!-- ACCESS GATE (soft gate, not real security - see README) -->
     <div id="accessGate" class="fixed inset-0 z-[200] bg-[#050811] flex items-center justify-center p-4">
         <div class="glass-panel rounded-2xl p-6 sm:p-8 max-w-sm w-full text-center space-y-4 military-glow border-amber-500/20">
@@ -253,16 +278,19 @@
                     </div>
 
                     <div>
-                        <div class="flex items-center gap-2">
-                            <h1 class="text-xl sm:text-2xl font-black tracking-wider gold-gradient-text">AEROVISION BI</h1>
-                            <span class="text-[9px] sm:text-[10px] bg-amber-500/20 text-amber-400 font-bold px-2 py-0.5 rounded border border-amber-500/30">v5.0 PRO</span>
-                        </div>
+                        <h1 class="text-base sm:text-lg font-black tracking-wider gold-gradient-text whitespace-nowrap">AEROVISION BI</h1>
                         <p class="text-[11px] sm:text-xs text-slate-400 font-medium">מערכת מודיעין שוק כטב"מים וניתוח גיאופוליטי</p>
                     </div>
                 </div>
 
                 <!-- Action Buttons on Mobile Header -->
                 <div class="flex sm:hidden items-center gap-2">
+                    <button onclick="event.stopPropagation(); toggleFullscreen()" title="מסך מלא לדוח" class="p-2 rounded-lg bg-slate-800 text-amber-400 hover:bg-slate-700 border border-slate-700">
+                        <i data-lucide="maximize" class="w-4 h-4"></i>
+                    </button>
+                    <button onclick="event.stopPropagation(); openGlossary()" title="מילון מונחים" class="p-2 rounded-lg bg-slate-800 text-amber-400 hover:bg-slate-700 border border-slate-700">
+                        <i data-lucide="book-open" class="w-4 h-4"></i>
+                    </button>
                     <button onclick="event.stopPropagation(); toggleTheme()" title="החלף מצב תצוגה" class="p-2 rounded-lg bg-slate-800 text-amber-400 hover:bg-slate-700 border border-slate-700">
                         <i data-lucide="sun-moon" class="w-4 h-4" id="themeIconMobile"></i>
                     </button>
@@ -278,12 +306,23 @@
                     <i data-lucide="columns-3" class="w-4 h-4 text-amber-500"></i>
                     <span>השווה מדינות</span>
                 </button>
+                <button onclick="toggleFullscreen()" title="מסך מלא לדוח" class="p-2 rounded-lg bg-slate-800 text-amber-400 hover:bg-slate-700 border border-slate-700 cursor-pointer">
+                    <i data-lucide="maximize" class="w-4 h-4"></i>
+                </button>
+                <button onclick="openGlossary()" title="מילון מונחים" class="p-2 rounded-lg bg-slate-800 text-amber-400 hover:bg-slate-700 border border-slate-700 cursor-pointer">
+                    <i data-lucide="book-open" class="w-4 h-4"></i>
+                </button>
                 <button onclick="toggleTheme()" title="החלף מצב תצוגה" class="p-2 rounded-lg bg-slate-800 text-amber-400 hover:bg-slate-700 border border-slate-700 cursor-pointer">
                     <i data-lucide="sun-moon" class="w-4 h-4" id="themeIconDesktop"></i>
                 </button>
             </div>
         </div>
     </header>
+
+    <!-- Floating exit button, shown only in fullscreen mode -->
+    <button id="exitFullscreenBtn" onclick="toggleFullscreen()" class="hidden fixed top-3 left-3 z-[250] p-2.5 rounded-lg bg-slate-900/95 text-amber-400 border border-amber-500/40 shadow-lg cursor-pointer no-print">
+        <i data-lucide="minimize" class="w-5 h-5"></i>
+    </button>
 
     <!-- SIDEBAR BACKDROP (mobile) -->
     <div id="sidebarBackdrop" class="hidden fixed inset-0 z-[80] bg-black/60 no-print" onclick="toggleSidebar()"></div>
@@ -294,7 +333,7 @@
             <div class="p-4 border-b border-slate-800/60 flex items-center justify-between gap-2">
                 <h3 class="text-sm font-bold text-white flex items-center gap-2">
                     <i data-lucide="globe-2" class="w-4 h-4 text-amber-400"></i>
-                    24 מדינות זמינות
+                    <span id="sidebarCountryCount"></span> מדינות זמינות
                 </h3>
                 <button onclick="toggleSidebar()" class="sm:hidden p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-white">
                     <i data-lucide="x" class="w-4 h-4"></i>
@@ -346,10 +385,12 @@
                     <button onclick="loadCountry('אוקראינה')" class="px-2.5 py-1 rounded-full bg-slate-800/80 hover:bg-amber-500/20 hover:text-amber-400 border border-slate-700 hover:border-amber-500/40 text-slate-300 transition cursor-pointer text-xs">🇺🇦 אוקראינה</button>
                     <button onclick="loadCountry('ישראל')" class="px-2.5 py-1 rounded-full bg-slate-800/80 hover:bg-amber-500/20 hover:text-amber-400 border border-slate-700 hover:border-amber-500/40 text-slate-300 transition cursor-pointer text-xs">🇮🇱 ישראל</button>
                     <button onclick="loadCountry('סרביה')" class="px-2.5 py-1 rounded-full bg-slate-800/80 hover:bg-amber-500/20 hover:text-amber-400 border border-slate-700 hover:border-amber-500/40 text-slate-300 transition cursor-pointer text-xs">🇷🇸 סרביה</button>
+                    <button onclick="loadCountry('פינלנד')" class="px-2.5 py-1 rounded-full bg-slate-800/80 hover:bg-amber-500/20 hover:text-amber-400 border border-slate-700 hover:border-amber-500/40 text-slate-300 transition cursor-pointer text-xs">🇫🇮 פינלנד</button>
+                    <button onclick="loadCountry('טורקיה')" class="px-2.5 py-1 rounded-full bg-slate-800/80 hover:bg-amber-500/20 hover:text-amber-400 border border-slate-700 hover:border-amber-500/40 text-slate-300 transition cursor-pointer text-xs">🇹🇷 טורקיה</button>
                     <button onclick="toggleSidebar()" class="px-2.5 py-1 rounded-full bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border border-amber-500/30 transition cursor-pointer text-xs font-semibold flex items-center gap-1 sm:hidden">
-                        <i data-lucide="list" class="w-3 h-3"></i> כל 22 המדינות
+                        <i data-lucide="list" class="w-3 h-3"></i> כל המדינות
                     </button>
-                    <span class="hidden sm:inline text-slate-500 text-[11px]">לרשימה המלאה של 22 המדינות - ראו את התפריט הצדדי</span>
+                    <span class="hidden sm:inline text-slate-500 text-[11px]">לרשימה המלאה של המדינות - ראו את התפריט הצדדי</span>
                 </div>
             </div>
         </section>
@@ -383,6 +424,9 @@
                     <div class="flex flex-wrap items-center gap-2 sm:gap-3">
                         <span id="countryFlag" class="text-3xl sm:text-4xl shadow-md">🇵🇱</span>
                         <h2 id="countryTitle" class="text-2xl sm:text-3xl font-black text-white">פולין (Poland)</h2>
+                        <button id="favoriteToggleBtn" onclick="toggleFavorite(currentCountryKey)" title="הוסף למועדפים" class="p-1.5 rounded-lg text-slate-500 hover:text-amber-400 cursor-pointer">
+                            <i data-lucide="star" class="w-5 h-5"></i>
+                        </button>
                         <span id="threatBadge" class="px-2.5 py-0.5 sm:py-1 rounded-md text-[11px] sm:text-xs font-bold bg-amber-500/10 text-amber-400 border border-amber-500/30">סיכון גיאופוליטי: בינוני-גבוה</span>
                     </div>
                     <p id="countrySubtitle" class="text-xs sm:text-sm text-slate-300">ניתוח עומק של שוק המל"טים, מעמד ביטחוני ואסטרטגיית חדירה</p>
@@ -458,9 +502,7 @@
                         <h3 class="text-base sm:text-lg font-bold text-white">1. פרופיל כללי (תעודת זהות למדינה)</h3>
                         <p class="text-[11px] sm:text-xs text-slate-400">נתוני יסוד כלכליים, דמוגרפיים ותקציבי ביטחון</p>
                     </div>
-                    <span class="px-2 py-1 rounded-md text-[10px] font-bold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 flex items-center gap-1 shrink-0">
-                        <i data-lucide="check-circle-2" class="w-3 h-3"></i> נתון מאומת מול מקור
-                    </span>
+                    <span id="verifiedBadge" class="px-2 py-1 rounded-md text-[10px] font-bold flex items-center gap-1 shrink-0"></span>
                 </div>
 
                 <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
@@ -649,8 +691,20 @@
                 </div>
             </div>
 
+            <!-- PERSONAL NOTES - saved locally per device, never shared -->
+            <div class="glass-panel rounded-2xl p-4 sm:p-6 space-y-2 no-print">
+                <div class="flex items-center gap-2">
+                    <i data-lucide="pencil" class="w-4 h-4 text-amber-400"></i>
+                    <h3 class="text-sm font-bold text-white">הערות אישיות</h3>
+                    <span class="text-[10px] text-slate-500">(נשמר רק בדפדפן שלך, לא משותף)</span>
+                </div>
+                <textarea id="personalNotes" oninput="savePersonalNotes()" rows="3" placeholder="לדוגמה: דיברתי עם X ב-15.9, מחכה לתשובה..."
+                    class="w-full bg-slate-900/80 border border-slate-800 rounded-lg p-2.5 text-xs sm:text-sm text-slate-200 placeholder-slate-600 resize-y focus:outline-none focus:border-amber-500/50"></textarea>
+            </div>
+
             <!-- REPORT ACTIONS (moved to bottom per request) -->
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-2.5 pt-1 no-print">
+            <div class="relative flex flex-col sm:flex-row items-center justify-center gap-2.5 pt-1 no-print">
+                <span class="absolute left-0 top-1 text-[9px] sm:text-[10px] bg-amber-500/20 text-amber-400 font-bold px-2 py-0.5 rounded border border-amber-500/30">v5.0 PRO</span>
                 <button onclick="copyCurrentReport()" class="px-4 py-2 rounded-lg text-xs font-semibold bg-slate-800/90 text-slate-300 hover:bg-slate-700 hover:text-white border border-slate-700 transition flex items-center gap-1.5 cursor-pointer">
                     <i data-lucide="copy" class="w-4 h-4 text-amber-500"></i>
                     <span>העתקת סקירה</span>
@@ -716,6 +770,20 @@
         </div>
     </div>
 
+    <!-- GLOSSARY MODAL -->
+    <div id="glossaryModal" class="hidden fixed inset-0 z-[150] bg-black/75 backdrop-blur-sm p-3 sm:p-6 overflow-y-auto no-print">
+        <div class="glass-panel rounded-2xl max-w-2xl mx-auto my-4 sm:my-8 p-4 sm:p-6 space-y-4 military-glow border-amber-500/20">
+            <div class="sticky top-0 -mt-4 sm:-mt-6 -mx-4 sm:-mx-6 px-4 sm:px-6 pt-4 sm:pt-6 pb-3 z-10 flex items-center justify-between border-b border-slate-800 bg-[var(--panel-bg)] backdrop-blur-xl rounded-t-2xl">
+                <h3 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">
+                    <i data-lucide="book-open" class="w-5 h-5 text-amber-400"></i>
+                    מילון מונחים
+                </h3>
+                <button onclick="closeGlossary()" class="text-slate-400 hover:text-white cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button>
+            </div>
+            <div id="glossaryList" class="space-y-2"></div>
+        </div>
+    </div>
+
     <footer class="glass-panel border-t border-slate-800/80 py-4 px-4 sm:px-6 text-center text-xs text-slate-500 mt-auto no-print">
         <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
             <div class="flex items-center gap-2">
@@ -765,7 +833,12 @@
             list: '<path d="M3 12h.01"/><path d="M3 18h.01"/><path d="M3 6h.01"/><path d="M8 12h13"/><path d="M8 18h13"/><path d="M8 6h13"/>',
             'log-out': '<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/>',
             'sun-moon': '<path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.9 4.9 1.4 1.4"/><path d="M17.5 17.5c-1 1-2.24 1.5-3.5 1.5a5 5 0 0 1 0-10c1.26 0 2.5.5 3.5 1.5"/><path d="M2 12h2"/><path d="M20 12h2"/>',
-            factory: '<path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M17 18h1"/><path d="M12 18h1"/><path d="M7 18h1"/>'
+            factory: '<path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M17 18h1"/><path d="M12 18h1"/><path d="M7 18h1"/>',
+            'book-open': '<path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/>',
+            maximize: '<path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/>',
+            minimize: '<path d="M8 3v3a2 2 0 0 1-2 2H3"/><path d="M21 8h-3a2 2 0 0 1-2-2V3"/><path d="M3 16h3a2 2 0 0 1 2 2v3"/><path d="M16 21v-3a2 2 0 0 1 2-2h3"/>',
+            star: '<path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/>',
+            pencil: '<path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/>'
         };
         function renderIcons(root) {
             (root || document).querySelectorAll('[data-lucide]').forEach(el => {
@@ -897,6 +970,7 @@
                 threat: "סיכון גיאופוליטי: בינוני-גבוה", score: "92/100", budget: "$44.7B",
                 capital: "ורשה", population: "כ-36.5 מיליון", gdp: "$1.13 טריליון",
                 defenseGdpPct: "כ-4.8% (שיאן נאט\"ו באירופה, 2026)",
+                verifiedDate: "13.09.2026",
                 profileSummary: "פולין מהווה כיום את אחת המדינות בעלות קצב ההתחמשות וההתרחבות הביטחונית הגבוה באירופה. בעקבות המלחמה באוקראינה והמתיחות בגבול בלארוס, המדינה הגדילה דרמטית את תקציב הביטחון מ-2% לכ-4.2% מה-GDP, תוך דגש על רכש מערכות אוטונומיות, כטב\"מים טקטיים ומערכות הגנה אווירית.",
                 alliances: ["חברה בנאט\"ו (NATO)", "איחוד אירופי (EU)", "ברית אסטרטגית הדוקה עם ארה\"ב", "שיתוף פעולה ביטחוני וטכנולוגי עם ישראל"],
                 geopoliticalThreats: "גבול משותף מתוח עם בלארוס ומובלעת קלינינגרד (רוסיה). איום ישיר של חדירת כטב\"מים וטילים, לצד צורך דחוף באבטחת מזרח אגף נאט\"ו (מסדרון סובאלקי - Suwalki Gap).",
@@ -931,6 +1005,7 @@
                 subtitle: "מעצמת רכש טכנולוגית, השקעות עתק בבינה מלאכותית ואוטונומיה מתקדמת",
                 threat: "סיכון גיאופוליטי: בינוני", score: "95/100", budget: "$27.8B",
                 capital: "אבו דאבי", population: "כ-9.9 מיליון", gdp: "$500 מיליארד", defenseGdpPct: "כ-4.8%",
+                verifiedDate: "13.09.2026",
                 profileSummary: "איחוד האמירויות היא מעצמת רכש טכנולוגית במפרץ הפרסי. המדינה משקיעה מיליארדי דולרים באוטונומיה, בינה מלאכותית וכטב\"מים מתקדמים, תוך שאיפה לבנות יכולת ייצור ופיתוח עצמאית דרך תאגיד הענק EDGE Group.",
                 alliances: ["הסכמי אברהם (עם ישראל)", "ברית הדוקה עם ארה\"ב", "חברה ב-GCC", "שותפויות טכנולוגיות עם אסיה ואירופה"],
                 geopoliticalThreats: "איום כטב\"מים וטילים מצד החות'ים בתימן והשפעה איראנית במפרץ הפרסי. צורך קריטי בהגנה על מתקני נפט, נמלים ותשתיות קריטיות.",
@@ -964,6 +1039,7 @@
                 subtitle: "מודרניזציה של חיל האוויר, הגנת איים ושוק כטב\"מים בצמיחה בים התיכון",
                 threat: "סיכון גיאופוליטי: בינוני", score: "84/100", budget: "$11.2B",
                 capital: "אתונה", population: "כ-10.4 מיליון", gdp: "$307.5 מיליארד", defenseGdpPct: "כ-3.65% (2026, מהגבוהים בנאט\"ו)",
+                verifiedDate: "13.09.2026",
                 profileSummary: "יוון משקיעה רבות בשדרוג צבאה על רקע המתיחות האזורית בים התיכון. המדינה מתמקדת בהצטיידות במל\"טי מודיעין ימי וניטור גבולות ימיים ואוויריים, תוך ניצול קרנות הגנה אירופיות (EDF).",
                 alliances: ["חברה בנאט\"ו", "איחוד אירופי", "ברית אסטרטגית הדוקה עם ישראל וקפריסין"],
                 geopoliticalThreats: "חיכוך ימי ואווירי מתמשך באגן הים התיכון. צורך בניטור רציף של מאות איים וגבולות מים טריטוריאליים.",
@@ -996,6 +1072,7 @@
                 subtitle: "ענקית רכש ביטחוני, מדיניות Make in India ופערים קריטיים בגבול ההימלאיה",
                 threat: "סיכון גיאופוליטי: גבוה", score: "88/100", budget: "$87.0B",
                 capital: "ניו דלהי", population: "כ-1.43 מיליארד", gdp: "$4.4 טריליון", defenseGdpPct: "כ-2.0% (תקציב 2026-27)",
+                verifiedDate: "13.09.2026",
                 profileSummary: "הודו היא מארבעת תקציבי הביטחון הגדולים בעולם. המדינה עוברת תהליך מודרניזציה מקיף עם מעבר חד לייצור מקומי (Make in India), תוך הצטיידות במאות כטב\"מים מכל הסוגים להגנה על גבולותיה הארוכים.",
                 alliances: ["חברה ב-QUAD (עם ארה\"ב, יפן, אוסטרליה)", "בריתות הגנה עם ישראל וצרפת", "חברה ב-BRICS"],
                 geopoliticalThreats: "עימותים בגבול ההררי עם סין (LAC) ומתיחות מתמשכת בגבול פקיסטן. צורך קריטי בהפעלה בגבהים קיצוניים ותנאי קור קשים.",
@@ -1029,6 +1106,7 @@
                 subtitle: "שדרוג דרמטי של תפיסת ההגנה, השקעות עתק באוטונומיה וכיסוי ימי במזרח אסיה",
                 threat: "סיכון גיאופוליטי: בינוני-גבוה", score: "91/100", budget: "$66.6B",
                 capital: "טוקיו", population: "כ-123 מיליון", gdp: "$4.2 טריליון", defenseGdpPct: "כ-1.9% (יעד רשמי: 2% עד 2027)",
+                verifiedDate: "13.09.2026",
                 profileSummary: "יפן מבצעת כיום את השינוי הביטחוני המשמעותי ביותר מאז מלחמת העולם השנייה. המדינה מכפילה את תקציב הביטחון ל-2% מה-GDP ומתמקדת בהצטיידות במל\"טי מודיעין ימי, כטב\"מי VTOL להגנת איים ומערכות אוטונומיות.",
                 alliances: ["ברית הגנה הדוקה עם ארה\"ב", "חברה ב-QUAD", "שותפות אסטרטגית עם נאט\"ו והאיחוד האירופי"],
                 geopoliticalThreats: "חיכוך ימי מתמיד עם סין סביב איי סנקאקו, ניסויי טילים של צפון קוריאה ומתיחות גיאופוליטית במצר טאיוואן.",
@@ -1061,11 +1139,12 @@
                 subtitle: "Vision 2030 ולוקליזציה ביטחונית אגרסיבית תחת GAMI, בצל איום כטב\"מים חות'י מתמשך",
                 threat: "סיכון גיאופוליטי: גבוה", score: "89/100", budget: "$85.5B",
                 capital: "ריאד", population: "כ-36 מיליון", gdp: "$1.39 טריליון", defenseGdpPct: "כ-6.3%",
+                verifiedDate: "13.09.2026",
                 profileSummary: "ערב הסעודית מנהלת את אחד מתקציבי הביטחון הגדולים בעולם, עם דגש הולך וגובר על לוקליזציה תחת תוכנית Vision 2030 ורגולטור הרכש GAMI. התקפות כטב\"מים וטילי שוטטות חוזרות מתימן הפכו את ה-C-UAV לעדיפות לאומית עליונה.",
                 alliances: ["ברית אסטרטגית הדוקה עם ארה\"ב", "חברה במועצת שיתוף הפעולה המפרצית (GCC)", "שיתופי פעולה ביטחוניים מתרחבים עם סין וצרפת"],
                 geopoliticalThreats: "התקפות כטב\"מים וטילי שוטטות חוזרות ונשנות מצד החות'ים בתימן על מתקני נפט ותשתיות אזרחיות. מתיחות אזורית מתמשכת מול איראן.",
                 uavFleet: [
-                    { name: "CH-4", manufacturer: "CASC (סין)", desc: "כטב\"ם תקיפה ומודיעין בינוני-גבוה (MALE) המשמש למשימות סיור ותקיפה בגבול הדרומי.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Wing_Loong_II_side_view.jpg", websiteUrl: "http://english.spacechina.com/" },
+                    { name: "CH-4", manufacturer: "CASC (סין)", desc: "כטב\"ם תקיפה ומודיעין בינוני-גבוה (MALE) המשמש למשימות סיור ותקיפה בגבול הדרומי.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Wing_Loong_II_side_view.jpg", websiteUrl: "https://www.catic.cn/" },
                     { name: "Wing Loong I / II", manufacturer: "AVIC (סין)", desc: "פלטפורמות תקיפה ומודיעין סיניות נוספות בשירות פעיל, לצד תוכניות לייצור מקומי משותף.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Wing_Loong_II_side_view.jpg", websiteUrl: "https://www.catic.cn/" },
                     { name: "ScanEagle", manufacturer: "Insitu / Boeing (ארה\"ב)", desc: "כטב\"ם טקטי לסיור גבולות ואבטחת מתקני נפט קריטיים לאורך התשתית האנרגטית.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Insitu_ScanEagle_X200_%E2%80%98N202SE%E2%80%99.jpg", websiteUrl: "https://www.insitu.com/products/scaneagle" }
                 ],
@@ -1093,6 +1172,7 @@
                 subtitle: "אגף מזרחי של נאט\"ו מול הים השחור, מודרניזציה מואצת נוכח שאריות כטב\"ם רוסיות שנפלו בשטחה",
                 threat: "סיכון גיאופוליטי: בינוני-גבוה", score: "80/100", budget: "$8.8B",
                 capital: "בוקרשט", population: "כ-19 מיליון", gdp: "$480 מיליארד", defenseGdpPct: "כ-2%",
+                verifiedDate: "13.09.2026",
                 profileSummary: "רומניה, כמדינת החוף המרכזית של נאט\"ו בים השחור, חוותה חדירות חוזרות של שברי כטב\"מים רוסיים לשטחה במהלך התקפות על נמלי אוקראינה הסמוכים. הדבר האיץ דרמטית את ההשקעה במערכות C-UAV ובניטור אווירי לאורך הגבול הצפוני-מזרחי.",
                 alliances: ["חברה בנאט\"ו", "איחוד אירופי", "שותפות ביטחונית מתחזקת עם ארה\"ב וטורקיה"],
                 geopoliticalThreats: "גבול ימי ויבשתי עם אוקראינה בשטח מלחמה פעיל; חדירות חוזרות של שברי כטב\"מים רוסיים; צורך דחוף באבטחת מרחב אווירי בים השחור.",
@@ -1125,6 +1205,7 @@
                 subtitle: "תעשיית הגנה מתקדמת ועצמאית, דגש על כטב\"מי סיור גבול והגנה מפני איום כטב\"מים צפון-קוריאני",
                 threat: "סיכון גיאופוליטי: בינוני-גבוה", score: "83/100", budget: "$50.0B",
                 capital: "סיאול", population: "כ-51.7 מיליון", gdp: "$1.7 טריליון", defenseGdpPct: "כ-2.9% (יעד: 3.5% עד 2035)",
+                verifiedDate: "13.09.2026",
                 profileSummary: "דרום קוריאה מחזיקה בתעשיית הגנה עצמאית ומתקדמת מאוד (Hanwha, KAI), אך עדיין רוכשת רכיבים זרים נבחרים - במיוחד בתחומי C-UAV ואלקטרואופטיקה - לאחר חדירות חוזרות של כטב\"מי סיור צפון-קוריאניים למרחב האווירי שלה ב-2022-2023.",
                 alliances: ["ברית הגנה הדוקה עם ארה\"ב", "חברה ב-QUAD Plus / שיתופי פעולה עם יפן ואוסטרליה"],
                 geopoliticalThreats: "חדירות חוזרות של כטב\"מי סיור צפון-קוריאניים דרך אזור המפורז (DMZ); איום טילים בליסטיים מתמשך; מתיחות אזורית מול סין סביב אזור הזיהוי האווירי (ADIZ).",
@@ -1158,6 +1239,7 @@
                 subtitle: "שוק המלחמה הפעיל הגדול בעולם לכטב\"מים - צריכה וחדשנות בקצב חסר תקדים",
                 threat: "סיכון גיאופוליטי: קיצוני (מלחמה פעילה)", score: "78/100", budget: "$84.0B (כולל סיוע חוץ)",
                 capital: "קייב", population: "כ-33 מיליון (אומדן זמן מלחמה)", gdp: "$225 מיליארד", defenseGdpPct: "כ-31% (כלכלת מלחמה, 2026)",
+                verifiedDate: "13.09.2026",
                 profileSummary: "אוקראינה מהווה כיום את שוק הכטב\"מים הפעיל והאינטנסיבי ביותר בעולם, עם צריכה של עשרות אלפי כלים בחודש וקצב חדשנות מבצעית חסר תקדים. התעשייה המקומית צמחה בצורה עצומה תחת לחץ המלחמה, לצד תלות מתמשכת בסיוע ותרומות ציוד ממדינות המערב.",
                 alliances: ["שותף מועדף של נאט\"ו (לא חבר)", "מועמדת לאיחוד האירופי", "סיוע ביטחוני נרחב מארה\"ב ובריטניה", "יחסים מוגבלים וזהירים עם ישראל"],
                 geopoliticalThreats: "מלחמה קיומית פעילה מול רוסיה על שטחה הריבוני; איום יומיומי של כטב\"מי שוטטות (Shahed) וטילי שיוט על תשתיות אזרחיות וצבאיות.",
@@ -1189,7 +1271,8 @@
                 flag: "🇦🇿", title: "אזרבייג'ן (Azerbaijan)",
                 subtitle: "שותפה אסטרטגית עמוקה של ישראל בתחום הכטב\"מים - שוק מוכח עם קו ייצור משותף קיים",
                 threat: "סיכון גיאופוליטי: בינוני", score: "90/100", budget: "$2.7B",
-                capital: "באקו", population: "כ-10.2 מיליון", gdp: "$78 מיליארד", defenseGdpPct: "כ-3.5%",
+                capital: "באקו", population: "כ-10.2 מיליון", gdp: "$78.4 מיליארד", defenseGdpPct: "כ-3.5%",
+                verifiedDate: "13.09.2026",
                 profileSummary: "אזרבייג'ן היא אחת מלקוחות הביטחון המשמעותיות ביותר של ישראל בתחום הכטב\"מים והתחמושת המשוטטת, עם היסטוריית שיתוף פעולה מוכחת שהוכיחה את עצמה בהצלחה מבצעית במלחמת קרבאך השנייה (2020). קיים כבר מיזם משותף מקומי לייצור תחת רישיון.",
                 alliances: ["שותפות אסטרטגית הדוקה עם טורקיה (\"אומה אחת, שתי מדינות\")", "שותפות ביטחונית עמוקה עם ישראל", "יחסים זהירים עם רוסיה"],
                 geopoliticalThreats: "סכסוך מוקפא/חוזר עם ארמניה סביב נגורנו-קרבאך; צורך באבטחת מסדרון האנרגיה האסטרטגי לאירופה.",
@@ -1220,8 +1303,9 @@
             "מרוקו": {
                 flag: "🇲🇦", title: "מרוקו (Morocco)",
                 subtitle: "שוק פורץ מאז הסכמי אברהם, עם צורך מבצעי פעיל מול חזית הסהרה המערבית",
-                threat: "סיכון גיאופוליטי: בינוני-גבוה", score: "87/100", budget: "$5.4B",
-                capital: "רבאט", population: "כ-37.5 מיליון", gdp: "$140 מיליארד", defenseGdpPct: "כ-3.9%",
+                threat: "סיכון גיאופוליטי: בינוני-גבוה", score: "87/100", budget: "$6.5B",
+                capital: "רבאט", population: "כ-36.8 מיליון", gdp: "$194 מיליארד", defenseGdpPct: "כ-3.6%",
+                verifiedDate: "13.09.2026",
                 profileSummary: "מרוקו הגדילה משמעותית את תקציב הביטחון על רקע המתיחות המחודשת מול אלג'יריה והלחימה המתמשכת מול חזית הפוליסאריו בסהרה המערבית, שבה כטב\"מים ותחמושת משוטטת כבר משחקים תפקיד מבצעי מרכזי. הסכמי אברהם פתחו ערוץ ישיר ומהיר לשיתוף פעולה עם ישראל.",
                 alliances: ["הסכמי אברהם (עם ישראל, מאז 2020)", "מעמד בעל-ברית מרכזי מחוץ לנאט\"ו של ארה\"ב", "שותפות ביטחונית הדוקה עם צרפת"],
                 geopoliticalThreats: "מתיחות גוברת מול אלג'יריה; לחימה מתמשכת מול כוחות הפוליסאריו בסהרה המערבית, כולל שימוש הדדי בכטב\"מים ותחמושת משוטטת.",
@@ -1252,8 +1336,9 @@
             "בחריין": {
                 flag: "🇧🇭", title: "בחריין (Bahrain)",
                 subtitle: "שוק קטן אך אסטרטגי - שער כניסה נוסף למפרץ הפרסי מאז הסכמי אברהם",
-                threat: "סיכון גיאופוליטי: בינוני-גבוה", score: "75/100", budget: "$1.4B",
-                capital: "מנאמה", population: "כ-1.5 מיליון", gdp: "$44 מיליארד", defenseGdpPct: "כ-3.2%",
+                threat: "סיכון גיאופוליטי: בינוני-גבוה", score: "75/100", budget: "$1.5B",
+                capital: "מנאמה", population: "כ-1.6 מיליון", gdp: "$47.4 מיליארד", defenseGdpPct: "כ-3.2%",
+                verifiedDate: "13.09.2026",
                 profileSummary: "בחריין, ביתו של הצי החמישי האמריקאי, היא שוק קטן בהיקפו הכלכלי אך בעל חשיבות אסטרטגית גבוהה כשער נוסף למפרץ הפרסי לאחר הסכמי אברהם. האיום העיקרי הוא ממשלחות איראניות ומיליציות פרוקסי באזור.",
                 alliances: ["הסכמי אברהם (עם ישראל, 2020)", "בעלת ברית מרכזית מחוץ לנאט\"ו של ארה\"ב, מארחת את הצי החמישי", "חברה במועצת שיתוף הפעולה המפרצית (GCC)"],
                 geopoliticalThreats: "איום כטב\"מים וטילים מצד מיליציות בחסות איראן באזור המפרץ; צורך בהגנה על תשתיות אנרגיה ועל בסיס הצי האמריקאי.",
@@ -1282,8 +1367,9 @@
             "וייטנאם": {
                 flag: "🇻🇳", title: "וייטנאם (Vietnam)",
                 subtitle: "מודרניזציה זהירה אך עקבית, עם יחסי ביטחון קיימים ומעמיקים עם ישראל",
-                threat: "סיכון גיאופוליטי: בינוני", score: "81/100", budget: "$8.0B",
-                capital: "האנוי", population: "כ-99 מיליון", gdp: "$450 מיליארד", defenseGdpPct: "כ-1.8%",
+                threat: "סיכון גיאופוליטי: בינוני", score: "81/100", budget: "$10.5B",
+                capital: "האנוי", population: "כ-102.3 מיליון", gdp: "$527 מיליארד", defenseGdpPct: "כ-2.2%",
+                verifiedDate: "13.09.2026",
                 profileSummary: "וייטנאם מבצעת מודרניזציה ביטחונית זהירה אך עקבית על רקע המתיחות בים סין הדרומי, תוך גיוון מקורות הרכש מעבר לתלות ההיסטורית ברוסיה. ישראל היא שותפה ביטחונית מוכרת ומוערכת כבר כיום בתחומי רקטות, רדאר ותחמושת.",
                 alliances: ["מדיניות \"ארבעה לא\" (אי-הצטרפות לבריתות)", "שותפות אסטרטגית מקיפה עם ארה\"ב, הודו ויפן", "יחסי ביטחון מבוססים עם ישראל"],
                 geopoliticalThreats: "סכסוכי ריבונות בים סין הדרומי מול סין (איי ספראטלי ופאראסל); צורך גובר בהגנה על גבולות ימיים ואזור כלכלי בלעדי.",
@@ -1313,8 +1399,9 @@
             "הפיליפינים": {
                 flag: "🇵🇭", title: "הפיליפינים (Philippines)",
                 subtitle: "צורך דחוף ביכולות מודיעין ימי מול לחץ סיני גובר בים סין הדרומי",
-                threat: "סיכון גיאופוליטי: גבוה", score: "79/100", budget: "$6.0B",
-                capital: "מנילה", population: "כ-117 מיליון", gdp: "$440 מיליארד", defenseGdpPct: "כ-1.3%",
+                threat: "סיכון גיאופוליטי: גבוה", score: "79/100", budget: "$6.6B",
+                capital: "מנילה", population: "כ-114 מיליון", gdp: "$500 מיליארד", defenseGdpPct: "כ-1.3%",
+                verifiedDate: "13.09.2026",
                 profileSummary: "הפיליפינים מגדילה בהדרגה את תקציב הביטחון נוכח עימותים חוזרים ונשנים מול סין באזורים שנויים במחלוקת בים סין הדרומי. קיים צורך דחוף במודיעין ימי, אך תקציב מוגבל דורש פתרונות עלות-תועלת.",
                 alliances: ["ברית הגנה הדדית עם ארה\"ב (Mutual Defense Treaty)", "שותפות אסטרטגית מתהדקת עם יפן והודו", "יחסים דיפלומטיים עם ישראל"],
                 geopoliticalThreats: "עימותים חוזרים עם משמר החופים הסיני סביב שרטון סקארבורו ואזורים נוספים; צורך במעקב מתמיד אחר פעילות סינית במים הכלכליים הבלעדיים.",
@@ -1345,7 +1432,8 @@
                 flag: "🇨🇴", title: "קולומביה (Colombia)",
                 subtitle: "שוק ותיק ומוכר עם היסטוריית רכש ישראלי ארוכת שנים, ממוקד במלחמה בטרור וסמים",
                 threat: "סיכון גיאופוליטי: בינוני", score: "76/100", budget: "$10.0B",
-                capital: "בוגוטה", population: "כ-52 מיליון", gdp: "$360 מיליארד", defenseGdpPct: "כ-2.8%",
+                capital: "בוגוטה", population: "כ-52.4 מיליון", gdp: "$539.5 מיליארד", defenseGdpPct: "כ-2.8%",
+                verifiedDate: "13.09.2026",
                 profileSummary: "קולומביה מנהלת מזה עשורים מאבק פנימי מתמשך נגד ארגוני נארקו-טרור, ומהווה לקוחה ותיקה ומוכרת של תעשיית הביטחון הישראלית (החל ממטוסי כפיר בעבר ועד רכש נשק וכטב\"מים כיום). הצורך המרכזי הוא מודיעין ובקרת גבולות ביערות ובאזורים נידחים.",
                 alliances: ["בעלת ברית מרכזית מחוץ לנאט\"ו של ארה\"ב", "יחסי ביטחון היסטוריים ועמוקים עם ישראל"],
                 geopoliticalThreats: "פעילות מתמשכת של ארגוני נארקו-טרור (ELN, שרידי FARC); מתיחות גבולית עם ונצואלה.",
@@ -1377,6 +1465,7 @@
                 subtitle: "תקציב ענק לאחר ה-Zeitenwende, אך רגישות פוליטית גבוהה סביב כטב\"מים חמושים",
                 threat: "סיכון גיאופוליטי: בינוני-גבוה", score: "82/100", budget: "$120.0B",
                 capital: "ברלין", population: "כ-84 מיליון", gdp: "$4.5 טריליון", defenseGdpPct: "כ-2.8% (יעד: 3.5% עד 2029)",
+                verifiedDate: "13.09.2026",
                 profileSummary: "גרמניה מבצעת שינוי היסטורי בתפיסת הביטחון שלה (\"Zeitenwende\") מאז 2022, עם הגדלה דרמטית של תקציב הביטחון. עם זאת, השימוש בכטב\"מים חמושים נותר נושא רגיש פוליטית הדורש אישור פרלמנטרי, מה שמעצב את אופי הרכש.",
                 alliances: ["חברה בנאט\"ו", "איחוד אירופי - כוח מוביל", "ברית אסטרטגית הדוקה עם ארה\"ב וצרפת"],
                 geopoliticalThreats: "שינוי תפיסתי מקיף נוכח האיום הרוסי לאחר הפלישה לאוקראינה; צורך בבנייה מחדש של מלאי צבאי שדולדל.",
@@ -1407,8 +1496,9 @@
             "איטליה": {
                 flag: "🇮🇹", title: "איטליה (Italy)",
                 subtitle: "מפעילת Reaper מהגדולות באירופה, עם תעשייה מקומית חזקה (Leonardo) - שוק שותפות ולא רק מכירה",
-                threat: "סיכון גיאופוליטי: בינוני", score: "77/100", budget: "$32.0B",
-                capital: "רומא", population: "כ-59 מיליון", gdp: "$2.3 טריליון", defenseGdpPct: "כ-1.5%",
+                threat: "סיכון גיאופוליטי: בינוני", score: "77/100", budget: "$41.2B",
+                capital: "רומא", population: "כ-59 מיליון", gdp: "$2.06 טריליון", defenseGdpPct: "כ-2.0%",
+                verifiedDate: "13.09.2026",
                 profileSummary: "איטליה מפעילה את אחד מצי כטב\"מי ה-MQ-9 הגדולים באירופה, לצד תעשייה מקומית חזקה ועצמאית (Leonardo) המפתחת פלטפורמות משלה. השוק האיטלקי מתאים יותר לשיתופי פעולה טכנולוגיים מאשר למכירת פלטפורמות מלאות.",
                 alliances: ["חברה בנאט\"ו", "איחוד אירופי", "שותפות הדוקה עם ארה\"ב וצרפת"],
                 geopoliticalThreats: "חוסר יציבות באגן הים התיכון ובצפון אפריקה; אתגרי הגירה וביטחון גבולות ימי; השלכות חוסר היציבות בלוב.",
@@ -1438,8 +1528,9 @@
             "בריטניה": {
                 flag: "🇬🇧", title: "בריטניה (United Kingdom)",
                 subtitle: "שוק פרימיום עם דריסת רגל ישראלית קיימת (Elbit UK) דרך תוכנית Watchkeeper",
-                threat: "סיכון גיאופוליטי: בינוני", score: "86/100", budget: "$68.0B",
-                capital: "לונדון", population: "כ-68 מיליון", gdp: "$3.3 טריליון", defenseGdpPct: "כ-2.3%",
+                threat: "סיכון גיאופוליטי: בינוני", score: "86/100", budget: "$89.0B",
+                capital: "לונדון", population: "כ-69.3 מיליון", gdp: "$4.26 טריליון", defenseGdpPct: "כ-2.1%",
+                verifiedDate: "13.09.2026",
                 profileSummary: "בריטניה מחזיקה בתקציב ביטחון גדול ותעשייה מקומית מפותחת, לצד קשר תעשייתי ישיר וקיים עם ישראל דרך חברת הבת Elbit UK ותוכנית ה-Watchkeeper (מבוססת על Hermes 450). זהו יתרון תחרותי משמעותי לכניסה להזדמנויות עתידיות.",
                 alliances: ["חברה בנאט\"ו", "שותפות AUKUS (עם ארה\"ב ואוסטרליה)", "Five Eyes", "יחסי ביטחון-תעשייתי הדוקים עם ישראל"],
                 geopoliticalThreats: "איום רוסי לביטחון האירופי; איומי סייבר והיברידיים; מעורבות פוטנציאלית בתרחישי המזרח התיכון.",
@@ -1470,8 +1561,9 @@
             "אוסטרליה": {
                 flag: "🇦🇺", title: "אוסטרליה (Australia)",
                 subtitle: "תקציב גדל תחת AUKUS, אך מחסום מבני של העדפת ספקים מ-Five Eyes",
-                threat: "סיכון גיאופוליטי: בינוני-גבוה", score: "74/100", budget: "$34.0B",
-                capital: "קנברה", population: "כ-26.5 מיליון", gdp: "$1.7 טריליון", defenseGdpPct: "כ-2.0%",
+                threat: "סיכון גיאופוליטי: בינוני-גבוה", score: "74/100", budget: "$37.0B",
+                capital: "קנברה", population: "כ-27.3 מיליון", gdp: "$2.0 טריליון", defenseGdpPct: "כ-2.1%",
+                verifiedDate: "13.09.2026",
                 profileSummary: "אוסטרליה מגדילה משמעותית את תקציב הביטחון במסגרת שותפות AUKUS ונוכח ההתבססות הסינית הגוברת באוקיינוס השקט. עם זאת, קיימת העדפה מבנית חזקה לספקי Five Eyes ולפיתוח יכולת ריבונית מקומית, המקשה על כניסת ספקים חיצוניים לפלטפורמות מרכזיות.",
                 alliances: ["AUKUS (עם ארה\"ב ובריטניה)", "Five Eyes", "Quad (עם ארה\"ב, יפן והודו)"],
                 geopoliticalThreats: "התבססות סינית גוברת באוקיינוס השקט הדרומי; צורך בכיסוי מודיעיני על פני מרחבים ימיים עצומים.",
@@ -1503,6 +1595,7 @@
                 subtitle: "צורך מבצעי קיומי מול סין, לצד רגישות דיפלומטית קיצונית המגבילה מעורבות ישירה",
                 threat: "סיכון גיאופוליטי: קיצוני", score: "68/100", budget: "$31.2B",
                 capital: "טייפה", population: "כ-23.4 מיליון", gdp: "$940 מיליארד", defenseGdpPct: "כ-3.32% (2026, שיא מאז 2009)",
+                verifiedDate: "13.09.2026",
                 profileSummary: "טייוואן מפתחת דוקטרינת הגנה א-סימטרית מבוססת כטב\"מים וכלים בלתי מאוישים זולים בכמות גדולה, נוכח איום פלישה/הסגר סיני מוחשי. הפיתוח מתבצע ברובו המכריע על ידי מכון NCSIST הממשלתי המקומי, ומעורבות ישראלית ישירה מוגבלת מאוד בשל רגישות מדיניות ה\"סין האחת\".",
                 alliances: ["אין ברית פורמלית (עקב מדיניות \"סין אחת\")", "יחסי ביטחון בלתי-רשמיים עמוקים עם ארה\"ב (Taiwan Relations Act)", "אין יחסים דיפלומטיים פורמליים עם ישראל"],
                 geopoliticalThreats: "איום פלישה/הסגר סיני קיומי; חדירות יומיומיות של מטוסי וכטב\"מי צבא השחרור העממי לאזור הזיהוי האווירי; לחימה בשלב \"אפור\" מתמשכת.",
@@ -1532,18 +1625,19 @@
             "סין": {
                 flag: "🇨🇳", title: "סין (China)",
                 subtitle: "לא שוק יעד למכירה - מעצמת ייצור ויצוא כטב\"מים מתחרה, עם מגבלות פיקוח ישראליות-אמריקאיות מוצהרות",
-                threat: "סיכון גיאופוליטי: קיצוני (יריבה אסטרטגית, לא שוק רכש)", score: "15/100", budget: "$230B (רשמי; אומדנים בלתי רשמיים גבוהים משמעותית)",
-                capital: "בייג'ין", population: "כ-1.41 מיליארד", gdp: "$18.5 טריליון", defenseGdpPct: "כ-1.7% (רשמי)",
+                threat: "סיכון גיאופוליטי: קיצוני (יריבה אסטרטגית, לא שוק רכש)", score: "15/100", budget: "$330B (רשמי; אומדנים בלתי רשמיים גבוהים משמעותית)",
+                capital: "בייג'ין", population: "כ-1.41 מיליארד", gdp: "$20.85 טריליון", defenseGdpPct: "כ-1.6% (רשמי)",
+                verifiedDate: "13.09.2026",
                 profileSummary: "סין אינה שוק יעד סביר לרכש כטב\"מים ישראלי. היא מעצמת ייצור ויצוא כטב\"מים עצמאית ומתחרה ישירה של ישראל בשווקים שלישיים (Wing Loong ו-CH-4 מופיעים כבר כמתחרים בפרופילי מרוקו, איחוד האמירויות וערב הסעודית במערכת זו). מעבר לכך, כל שיתוף פעולה ביטחוני-טכנולוגי בין ישראל לסין כפוף לפיקוח הדוק במיוחד מצד ארה\"ב, בעקבות משברים דיפלומטיים משמעותיים בעבר (עסקאות Phalcon ו-Harpy בשנות ה-2000) שהובילו להידוק ניכר של מנגנוני הפיקוח על יצוא ביטחוני ישראלי.",
                 alliances: ["שותפות אסטרטגית הדוקה עם רוסיה (לא ברית פורמלית)", "יחסים דיפלומטיים רשמיים עם ישראל, אך רגישים מאוד בתחום הביטחוני", "יריבה אסטרטגית מוצהרת של ארה\"ב - בעלת הברית המרכזית של ישראל"],
                 geopoliticalThreats: "סין מהווה יריבה אסטרטגית גלובלית של ארה\"ב. כל מהלך ישראלי מול סין בתחום הביטחוני-טכנולוגי נבחן בקפידה רבה על ידי וושינגטון ועלול לפגוע ביחסי ישראל-ארה\"ב עצמם - זהו שיקול מדיני מכריע שגובר על כל פוטנציאל עסקי.",
                 uavFleet: [
                     { name: "Wing Loong I / II", manufacturer: "AVIC (סין - ייצור מקומי)", desc: "כטב\"ם תקיפה ומודיעין מוביל ביצוא הסיני למדינות שלישיות - מתחרה ישיר של מערכות ישראליות בשווקים כמו איחוד האמירויות ומרוקו.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Wing_Loong_II_side_view.jpg", websiteUrl: "https://www.catic.cn/" },
-                    { name: "CH-4", manufacturer: "CASC (סין - ייצור מקומי)", desc: "כטב\"ם תקיפה סיני נוסף בייצוא נרחב, מתחרה נוסף של מערכות ישראליות וטורקיות בשווקים מתפתחים.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Wing_Loong_II_side_view.jpg", websiteUrl: "http://english.spacechina.com/" }
+                    { name: "CH-4", manufacturer: "CASC (סין - ייצור מקומי)", desc: "כטב\"ם תקיפה סיני נוסף בייצוא נרחב, מתחרה נוסף של מערכות ישראליות וטורקיות בשווקים מתפתחים.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Wing_Loong_II_side_view.jpg", websiteUrl: "https://www.catic.cn/" }
                 ],
                 localIndustry: [
                     { name: "AVIC (Chengdu Aircraft Industry Group)", specialty: "פיתוח וייצור עצמאי מלא של משפחת Wing Loong, מהמתקדמות והמיוצאות ביותר בעולם בקטגוריית ה-MALE", supplies: "צבא סין וייצוא נרחב למעל 30 מדינות", products: "Wing Loong I / II / 3", website: "https://www.catic.cn/" },
-                    { name: "CASC", specialty: "כטב\"מי תקיפה ומודיעין בעלות תחרותית מאוד, אסטרטגיית ייצוא אגרסיבית למדינות מתפתחות", supplies: "ייצוא נרחב לאפריקה, המזרח התיכון ואסיה", products: "CH-4, CH-5, CH-92A", website: "http://english.spacechina.com/" }
+                    { name: "CASC", specialty: "כטב\"מי תקיפה ומודיעין בעלות תחרותית מאוד, אסטרטגיית ייצוא אגרסיבית למדינות מתפתחות", supplies: "ייצוא נרחב לאפריקה, המזרח התיכון ואסיה", products: "CH-4, CH-5, CH-92A", website: "https://www.catic.cn/" }
                 ],
                 gaps: [
                     { title: "אין פערי רכש רלוונטיים", desc: "סין מפתחת ומייצרת עצמאית את מלוא היכולות הנדרשות לה בתחום הכטב\"מים." }
@@ -1560,8 +1654,9 @@
             "ארה\"ב": {
                 flag: "🇺🇸", title: "ארה\"ב (United States)",
                 subtitle: "בעלת הברית המרכזית של ישראל, אך יצואנית הכטב\"מים הגדולה בעולם - ההזדמנות ברמת רכיבים ולא פלטפורמות",
-                threat: "סיכון גיאופוליטי: נמוך (עבור ישראל - בעלת ברית אסטרטגית)", score: "70/100", budget: "$850B",
-                capital: "וושינגטון הבירה", population: "כ-335 מיליון", gdp: "$27.7 טריליון", defenseGdpPct: "כ-3.4%",
+                threat: "סיכון גיאופוליטי: נמוך (עבור ישראל - בעלת ברית אסטרטגית)", score: "70/100", budget: "$954B",
+                capital: "וושינגטון הבירה", population: "כ-340 מיליון", gdp: "$28.8 טריליון", defenseGdpPct: "כ-3.3%",
+                verifiedDate: "13.09.2026",
                 profileSummary: "ארה\"ב היא בעלת הברית האסטרטגית המרכזית של ישראל ומחזיקה בתקציב הביטחון הגדול בעולם, אך היא עצמה יצואנית הכטב\"מים הגדולה והמתקדמת ביותר בעולם (General Atomics, Northrop Grumman, AeroVironment, Anduril) - לא שוק יבוא במובן הקלאסי. ההזדמנות האמיתית לישראל אינה במכירת פלטפורמות שלמות, אלא ברמת רכיבים, חיישנים ושיתופי פיתוח, תוך מינוף נוכחות תעשייתית ישראלית קיימת כבר בשוק האמריקאי.",
                 alliances: ["הברית האסטרטגית המרכזית של ישראל", "מובילה את מסגרת נאט\"ו ושותפויות ביטחוניות גלובליות נוספות", "מסגרת סיוע ביטחוני שנתית (FMF) לישראל"],
                 geopoliticalThreats: "תחרות אסטרטגית גלובלית מול סין ורוסיה; ביטחון פנים ותשתיות קריטיות; מדיניות ITAR מגבילה מאוד יצוא טכנולוגיה רגישה גם כלפי בעלות ברית קרובות.",
@@ -1597,6 +1692,7 @@
                 subtitle: "לא שוק יעד - הבית התעשייתי ופרופיל ייחוס להשוואת פלטפורמות מול מדינות אחרות",
                 threat: "סיכון גיאופוליטי: לא רלוונטי (מדינת מוצא, לא שוק יעד)", score: "-", budget: "$34.7B",
                 capital: "ירושלים", population: "כ-9.8 מיליון", gdp: "$530 מיליארד", defenseGdpPct: "כ-7% (תקציב 2026 שאושר)",
+                verifiedDate: "13.09.2026",
                 profileSummary: "ישראל אינה שוק יעד לרכש כטב\"מים - היא מדינת המוצא ואחת מיצואניות הכטב\"מים המובילות בעולם. תעשיית הביטחון הישראלית (IAI, אלביט Systems, רפאל) מפתחת, מייצרת ומפעילה בעצמה חלק ניכר מהפלטפורמות שמופיעות כמתחרות בפרופילי המדינות האחרות במערכת זו. הפרופיל הזה משמש בעיקר כנקודת ייחוס: היכנסו למצב \"השוואת פלטפורמות\" ובחרו ישראל מול כל מדינה אחרת כדי לראות אילו פלטפורמות ישראליות כבר בשירות שם, לעומת אילו פלטפורמות מתחרות תופסות את מקומן.",
                 alliances: ["שותפות ביטחונית אסטרטגית עם ארה\"ב", "הסכמי אברהם (איחוד האמירויות, בחריין, מרוקו)", "שיתופי פעולה ביטחוניים עם הודו, אזרבייג\"ן, יוון ועוד"],
                 geopoliticalThreats: "זירת איומים רב-חזיתית מתמשכת המהווה גם \"וילון ראווה\" מבצעי חי לטכנולוגיות הכטב\"ם הישראליות, יתרון תחרותי מוכר בשוקי הייצוא.",
@@ -1627,13 +1723,14 @@
             "סרביה": {
                 flag: "🇷🇸", title: "סרביה (Serbia)",
                 subtitle: "שחקנית בלקן ניטרלית עם צריכה גוברת של כטב\"מים - זירת תחרות פעילה מול סין, לצד קשר קיים עם ישראל",
-                threat: "סיכון גיאופוליטי: בינוני", score: "73/100", budget: "$1.3B",
-                capital: "בלגרד", population: "כ-6.6 מיליון", gdp: "$80 מיליארד", defenseGdpPct: "כ-2.2%",
+                threat: "סיכון גיאופוליטי: בינוני", score: "73/100", budget: "$2.0B",
+                capital: "בלגרד", population: "כ-6.53 מיליון", gdp: "$112 מיליארד", defenseGdpPct: "כ-1.8%",
+                verifiedDate: "13.09.2026",
                 profileSummary: "סרביה מנהלת מדיניות ביטחון \"צבאית ניטרלית\" רשמית, תוך איזון בין רוסיה, סין והמערב. המדינה הרחיבה משמעותית את צי הכטב\"מים שלה בעשור האחרון - כולל רכש כטב\"מי תקיפה סינים - ומפתחת בו-זמנית יכולת תעשייתית מקומית. יש לה כבר עבר רכש מוכר מול ישראל, מה שמהווה בסיס להרחבה.",
                 alliances: ["מדיניות \"צבאיות ניטרלית\" רשמית - אינה חברה בנאט\"ו", "מועמדת לאיחוד האירופי", "יחסים היסטוריים הדוקים עם רוסיה", "שיתוף פעולה ביטחוני-תעשייתי גובר עם סין"],
                 geopoliticalThreats: "מתיחות מתמשכת מול קוסובו; רגישות אזורית בבלקן; איזון עדין בין לחצי המערב לקשרים המסורתיים עם רוסיה.",
                 uavFleet: [
-                    { name: "CH-92A", manufacturer: "CASC (סין)", desc: "כטב\"ם תקיפה טקטי סיני שנרכש כדי לחזק יכולות תקיפה מדויקת - סימן ברור להתבססות התעשייה הסינית בשוק המקומי.", websiteUrl: "http://english.spacechina.com/" },
+                    { name: "CH-92A", manufacturer: "CASC (סין)", desc: "כטב\"ם תקיפה טקטי סיני שנרכש כדי לחזק יכולות תקיפה מדויקת - סימן ברור להתבססות התעשייה הסינית בשוק המקומי.", websiteUrl: "https://www.catic.cn/" },
                     { name: "Orbiter 2", manufacturer: "Aeronautics (ישראל)", desc: "כטב\"ם סיור טקטי קטן שנרכש מישראל - דוגמה לקשר תעשייתי-ביטחוני קיים ומוכח מול הספק הישראלי.", websiteUrl: "https://aeronautics-sys.com/" },
                     { name: "Pegaz", manufacturer: "Yugoimport SDPR (סרביה - ייצור מקומי)", desc: "כטב\"ם סיור מפותח ומיוצר מקומית, המעיד על שאיפה לבניית יכולת עצמאית מקבילה לרכש הזר.", websiteUrl: "https://www.yugoimport.com/en/products/aerospace/unmanned-aerial-vehicles" }
                 ],
@@ -1655,6 +1752,67 @@
                 recommendationRating: "כדאיות גבוהה-בינונית (7.8/10)",
                 recommendationText: "סרביה מציעה המשך טבעי ליחסי רכש קיימים מול ישראל, בשוק שבו סין כבר מתבססת במקביל. המלצה: מיצוב מהיר סביב C-UAV ותחמושת משוטטת כדי להרחיב את הדריסת רגל הקיימת לפני שהיא נשחקת מול ההתקדמות הסינית.",
                 recChannel: "הרחבת יחסי ביטחון קיימים מול Aeronautics/ישראל", recSegment: "C-UAV & Precision Loitering Munitions", recWindow: "12-18 חודשים"
+            },
+            "פינלנד": {
+                flag: "🇫🇮", title: "פינלנד (Finland)",
+                subtitle: "חברה חדשה בנאט\"ו עם גבול ארוך מול רוסיה - שוק מתעורר לכטב\"מי ISR והגנת גבולות",
+                threat: "סיכון גיאופוליטי: גבוה (גבול ישיר של 1,340 ק\"מ עם רוסיה)", score: "81/100", budget: "$8.1B",
+                capital: "הלסינקי", population: "כ-5.6 מיליון", gdp: "$335.5 מיליארד", defenseGdpPct: "כ-2.8% (במגמת עלייה ליעד 3% עד 2029)",
+                verifiedDate: "13.09.2026",
+                profileSummary: "פינלנד הצטרפה לנאט\"ו ב-2023 בעקבות הפלישה הרוסית לאוקראינה, ומאז מגדילה משמעותית את תקציב הביטחון שלה מתוך גבול יבשתי ארוך במיוחד מול רוסיה. דוקטרינת ה\"הגנה הכוללת\" (Total Defence) הפינית משלבת יכולות צבאיות, ממשלתיות ואזרחיות - ויוצרת ביקוש גובר למערכות סיור גבולות, מודיעין ואיתור פלישות כטב\"ם, גם לנוכח פעילות כטב\"מים חשודים כרוסיים החוזרת ונשנית מעל שטח נאט\"ו.",
+                alliances: ["חברה בנאט\"ו (מאז אפריל 2023)", "הסכם שיתוף פעולה ביטחוני דו-צדדי עם ארה\"ב (DCA)", "NORDEFCO - שיתוף פעולה ביטחוני נורדי", "חברה ב-JEF (Joint Expeditionary Force) בהובלת בריטניה"],
+                geopoliticalThreats: "גבול יבשתי של 1,340 ק\"מ מול רוסיה - הארוך ביותר מבין מדינות נאט\"ו באירופה; אירועי הפרת מרחב אווירי וכטב\"מים חוזרים ונשנים לאורך הגבול; דוקטרינת הגנה כוללת (Total Defence) המשלבת את כלל המגזרים.",
+                uavFleet: [
+                    { name: "מל\"טי סיור טקטיים (מגוון ספקים מערביים)", manufacturer: "ספקים שונים - היקף רכש מוגבל יחסית כיום", desc: "פינלנד עדיין בתהליך הרחבת צי כטב\"מי הסיור והגנת הגבולות שלה, בעיקר דרך רכש נקודתי ולא צי אחיד גדול.", websiteUrl: "https://puolustusvoimat.fi/en/frontpage" }
+                ],
+                localIndustry: [
+                    { name: "Patria", specialty: "כלי רכב משוריינים ומערכות קרקעיות מתקדמות (AMV) - התעשייה הביטחונית הגדולה והמוכרת ביותר בפינלנד, ללא זרוע כטב\"מים עצמאית משמעותית", supplies: "הכוחות המזוינים הפיניים וייצוא נרחב למדינות נאט\"ו ושותפות", products: "כלי רכב AMV 6x6/8x8, מערכות תותחים; אין פלטפורמת כטב\"ם עצמאית משמעותית", website: "https://www.patriagroup.com/" }
+                ],
+                gaps: [
+                    { title: "מערכות סיור וניטור גבולות", desc: "ביקוש גובר לכטב\"מי ISR עמידי קור לניטור הגבול הארוך מול רוסיה, בפרט לנוכח אירועי הפרות מרחב אווירי." },
+                    { title: "מערכות C-UAV להגנה על תשתיות קריטיות", desc: "הגנה מפני כטב\"מי תצפית וחדירה לאורך קו הגבול ותשתיות אזרחיות/צבאיות רגישות." },
+                    { title: "יכולת מקומית מוגבלת בתחום הכטב\"ם הספציפי", desc: "בשונה מתחומי רכב קרקעי ותותחנות שבהם פינלנד עצמאית (Patria), בתחום הכטב\"מים היא נשענת כמעט לגמרי על רכש זר." }
+                ],
+                competitors: [
+                    { company: "ספקים סקנדינביים ומערביים כלליים", role: "ללא ספק דומיננטי יחיד מזוהה כרגע", share: "-" },
+                    { company: "תעשייה מקומית (Patria)", role: "מתמקדת בכלי רכב, לא בכטב\"מים", share: "-" }
+                ],
+                policyOffset: "אין מסגרת Offset נוקשה רשמית, אך קיימת העדפה ברורה לשיתוף עם Patria ולתמיכה בתעשייה הביטחונית הפינית-נורדית.",
+                policyNato: "חברה בנאט\"ו; מחויבת לתקני אינטרופרביליות של הברית; משתתפת במסגרות שיתוף פעולה נורדיות (NORDEFCO) המקלות על רכש משותף.",
+                recommendationRating: "כדאיות גבוהה-בינונית (7.6/10)",
+                recommendationText: "פינלנד מציעה הזדמנות אמיתית לכניסה מוקדמת לשוק לפני שהוא מתגבש - הצטרפות טרייה לנאט\"ו, תקציב גובר, וגבול ארוך מול רוסיה יוצרים צורך ברור במערכות ISR ו-C-UAV, ללא ספק מקומי דומיננטי בתחום הספציפי הזה. המלצה: מיצוב מוקדם סביב יכולות עמידות קור וניטור גבולות, לפני שמתחרים גדולים יותר יזהו את ההזדמנות.",
+                recChannel: "כניסה ישירה או שיתוף פעולה עם Patria", recSegment: "Border ISR & Cold-Weather C-UAV", recWindow: "12-24 חודשים"
+            },
+            "טורקיה": {
+                flag: "🇹🇷", title: "טורקיה (Turkey)",
+                subtitle: "לא שוק יעד קלאסי - יצואנית כטב\"מים מהגדולות והמשפיעות בעולם, ומקור לחלק ניכר מהמתחרים שכבר מופיעים בדוחות המדינות האחרות",
+                threat: "סיכון גיאופוליטי: לא רלוונטי (מדינת מוצא מרכזית, לא שוק יעד)", score: "-", budget: "$27.3B",
+                capital: "אנקרה", population: "כ-86.3 מיליון", gdp: "$1.64 טריליון", defenseGdpPct: "כ-2.33% (תקציב 2026)",
+                verifiedDate: "13.09.2026",
+                profileSummary: "טורקיה אינה שוק יעד קלאסי לרכש כטב\"מים - היא אחת מיצואניות הכטב\"מים המשפיעות ביותר בעולם, כאשר Bayraktar TB2 כבר מופיע כמתחרה מוביל בכמעט כל פרופיל מדינה אחר במערכת זו. תעשיית הביטחון הטורקית (Baykar, TUSAŞ/TAI, Roketsan, Aselsan) משלבת עצמאות טכנולוגית גבוהה עם ייצוא אגרסיבי ליותר מ-30 מדינות. הפרופיל הזה משמש בעיקר כבסיס ייחוס להבנת האסטרטגיה והיכולות של אחד המתחרים המרכזיים.",
+                alliances: ["חברה בנאט\"ו (מאז 1952)", "יחסים מורכבים עם המערב סביב סנקציות CAATSA והרחקה מתוכנית F-35", "שיתופי פעולה ביטחוניים נרחבים עם פקיסטן, אזרבייג'ן, קטאר ומדינות אפריקאיות"],
+                geopoliticalThreats: "מדיניות חוץ אסרטיבית באזורים מרובים (סוריה, לוב, צפון עיראק, מזרח הים התיכון); תעשיית הביטחון עצמה משמשת כלי מדיניות חוץ מרכזי לחיזוק ההשפעה האזורית.",
+                uavFleet: [
+                    { name: "Bayraktar TB2", manufacturer: "Baykar", desc: "כטב\"ם תקיפה וסיור בינוני (MALE) עם יכולת נשיאת חימוש מונחה - הפלטפורמה הטורקית המיוצאת והמוכרת ביותר בעולם, בשירות ביותר מ-30 מדינות.", websiteUrl: "https://baykartech.com/en/uav/bayraktar-tb2/" },
+                    { name: "Bayraktar Akinci", manufacturer: "Baykar", desc: "כטב\"ם אסטרטגי כבד (HALE) בעל טווח ושהייה ארוכים ויכולת נשיאת חימוש משמעותית, מהמתקדמים שטורקיה מייצרת.", websiteUrl: "https://baykartech.com/en/" },
+                    { name: "TAI Anka", manufacturer: "TUSAŞ/TAI", desc: "כטב\"ם MALE עצמאי לחלוטין, פותח ומיוצר על ידי תעשיית התעופה הממשלתית הטורקית ומיוצא כחלופה ל-Bayraktar.", websiteUrl: "https://www.tusas.com.tr/" }
+                ],
+                localIndustry: [
+                    { name: "Baykar", specialty: "פיתוח וייצור עצמאי מלא של כטב\"מי MALE/HALE מוכחים קרבית ובעלות תחרותית קיצונית - אחד ממודלי הייצוא המוצלחים בעולם", supplies: "צבא טורקיה וייצוא ליותר מ-30 מדינות", products: "Bayraktar TB2, TB3, Akinci, Kizilelma (מטוס קרב בלתי מאויש)", website: "https://baykartech.com/en/" },
+                    { name: "TUSAŞ (TAI - Turkish Aerospace Industries)", specialty: "תעשיית תעופה וביטחון ממשלתית עם יכולת פיתוח עצמאית מלאה, כולל מטוס הקרב KAAN", supplies: "צבא טורקיה וייצוא גדל", products: "Anka (כטב\"ם MALE), Aksungur (כטב\"ם כבד דו-מנועי)", website: "https://www.tusas.com.tr/" }
+                ],
+                gaps: [
+                    { title: "לא רלוונטי כשוק רכש", desc: "טורקיה היא מדינת מוצא מרכזית של טכנולוגיית הכטב\"מים - זהו פרופיל ייחוס להבנת מתחרה, לא ניתוח שוק יעד." }
+                ],
+                competitors: [
+                    { company: "Baykar", role: "יצואנית כטב\"מים מהגדולות בעולם", share: "-" },
+                    { company: "TUSAŞ/TAI", role: "פיתוח עצמאי מלא, כולל מטוס קרב מאויש", share: "-" }
+                ],
+                policyOffset: "לא רלוונטי - טורקיה היא מדינה מייצאת ולא רוכשת בהקשר זה.",
+                policyNato: "חברה בנאט\"ו, אך כפופה למגבלות ואמברגו חלקי מצד מדינות מערביות מסוימות (כולל הרחקה מתוכנית F-35) בעקבות רכישת מערכת S-400 הרוסית.",
+                recommendationRating: "לא רלוונטי כשוק יעד - פרופיל מתחרה",
+                recommendationText: "טורקיה אינה שוק BD במובן הרגיל של המערכת הזו - להפך, Baykar ו-TUSAŞ הם בין המתחרים המשמעותיים ביותר שישראל נתקלת בהם בשווקי ייצוא שלישיים (ראו את ה-Bayraktar TB2 כמעט בכל פרופיל מדינה אחר). השימוש העיקרי בפרופיל זה הוא הבנת אסטרטגיית המתחרה במצב \"השוואת פלטפורמות\".",
+                recChannel: "לא רלוונטי", recSegment: "פרופיל מתחרה בלבד", recWindow: "לא רלוונטי"
             }
         };
 
@@ -1671,6 +1829,7 @@
             if (val.toUpperCase() === ACCESS_CODE.toUpperCase()) {
                 sessionStorage.setItem('aerovision_access', 'granted');
                 document.getElementById('accessGate').classList.add('hidden');
+                window.scrollTo(0, 0);
             } else {
                 document.getElementById('accessGateError').classList.remove('hidden');
             }
@@ -1678,6 +1837,7 @@
         if (sessionStorage.getItem('aerovision_access') === 'granted') {
             document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById('accessGate').classList.add('hidden');
+                window.scrollTo(0, 0);
             });
         }
 
@@ -1688,7 +1848,7 @@
             lucide.createIcons();
             initTheme();
             populateSidebar();
-            renderDashboard(presetData["פולין"]);
+            renderDashboard(presetData["פולין"], true);
         });
 
         // ============================================================
@@ -1721,16 +1881,69 @@
         // ============================================================
         // SIDEBAR - full country list, filterable, mobile off-canvas
         // ============================================================
-        function populateSidebar() {
-            const listEl = document.getElementById('sidebarCountryList');
-            listEl.innerHTML = availableCountries.map(name => {
-                const flag = presetData[name].flag || '🌐';
-                return `<button data-country="${escapeHtml(name)}" onclick="selectFromSidebar(this.dataset.country)"
-                    class="sidebar-country-btn w-full text-right px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-slate-800/80 border border-transparent transition flex items-center gap-2 cursor-pointer">
+        // ============================================================
+        // FAVORITES - "המדינות שלי". Persisted per-device in localStorage;
+        // never synced anywhere, purely a personal shortcut list.
+        // ============================================================
+        function getFavorites() {
+            try {
+                return JSON.parse(localStorage.getItem('aerovision_favorites') || '[]');
+            } catch (e) {
+                return [];
+            }
+        }
+        function isFavorite(name) {
+            return getFavorites().includes(name);
+        }
+        function toggleFavorite(name, event) {
+            if (event) event.stopPropagation();
+            let favs = getFavorites();
+            if (favs.includes(name)) {
+                favs = favs.filter(n => n !== name);
+            } else {
+                favs.push(name);
+            }
+            try {
+                localStorage.setItem('aerovision_favorites', JSON.stringify(favs));
+            } catch (e) { /* storage unavailable - fail silently */ }
+            populateSidebar();
+            updateFavoriteToggleButton();
+        }
+        function updateFavoriteToggleButton() {
+            const btn = document.getElementById('favoriteToggleBtn');
+            if (!btn) return;
+            const fav = isFavorite(currentCountryKey);
+            btn.innerHTML = `<i data-lucide="star" class="w-5 h-5${fav ? ' fill-amber-400 text-amber-400' : ''}"></i>`;
+            btn.title = fav ? 'הסר מהמועדפים' : 'הוסף למועדפים';
+            lucide.createIcons();
+        }
+        function sidebarCountryButtonHtml(name) {
+            const flag = presetData[name].flag || '🌐';
+            const fav = isFavorite(name);
+            return `<div class="flex items-center gap-1">
+                <button onclick="toggleFavorite('${escapeHtml(name)}', event)" title="${fav ? 'הסר מהמועדפים' : 'הוסף למועדפים'}" class="p-1.5 rounded-lg text-slate-500 hover:text-amber-400 shrink-0 cursor-pointer">
+                    <i data-lucide="star" class="w-4 h-4${fav ? ' fill-amber-400 text-amber-400' : ''}"></i>
+                </button>
+                <button data-country="${escapeHtml(name)}" onclick="selectFromSidebar(this.dataset.country)"
+                    class="sidebar-country-btn flex-grow text-right px-2 py-2 rounded-lg text-sm text-slate-300 hover:bg-slate-800/80 border border-transparent transition flex items-center gap-2 cursor-pointer">
                     <span>${flag}</span><span>${escapeHtml(name)}</span>
-                </button>`;
-            }).join('');
+                </button>
+            </div>`;
+        }
+        function populateSidebar() {
+            document.getElementById('sidebarCountryCount').textContent = availableCountries.length;
+            const listEl = document.getElementById('sidebarCountryList');
+            const favs = getFavorites().filter(n => availableCountries.includes(n));
+            let html = '';
+            if (favs.length) {
+                html += `<div class="text-[11px] font-bold text-slate-500 px-2 pt-1 pb-1 flex items-center gap-1"><i data-lucide="star" class="w-3 h-3 fill-amber-400 text-amber-400"></i> המדינות שלי</div>`;
+                html += favs.map(sidebarCountryButtonHtml).join('');
+                html += `<div class="border-t border-slate-800/60 my-2"></div>`;
+            }
+            html += availableCountries.map(sidebarCountryButtonHtml).join('');
+            listEl.innerHTML = html;
             updateSidebarActive();
+            lucide.createIcons();
         }
         function selectFromSidebar(name) {
             loadCountry(name);
@@ -1745,7 +1958,8 @@
             const q = document.getElementById('sidebarFilter').value.trim();
             document.querySelectorAll('.sidebar-country-btn').forEach(btn => {
                 const name = btn.getAttribute('data-country');
-                btn.style.display = name.includes(q) ? '' : 'none';
+                const row = btn.closest('div');
+                if (row) row.style.display = name.includes(q) ? '' : 'none';
             });
         }
         function toggleSidebar() {
@@ -1800,6 +2014,84 @@
         }
         function closeCompareMode() {
             document.getElementById('compareModal').classList.add('hidden');
+        }
+
+        // ============================================================
+        // GLOSSARY - quick-reference definitions for acronyms used
+        // throughout the reports, so anyone new to the field isn't lost.
+        // ============================================================
+        const GLOSSARY_TERMS = [
+            { term: "MALE", def: "Medium-Altitude Long-Endurance - כטב\"ם בגובה בינוני ושהייה ארוכה (בדרך כלל מעל 24 שעות)." },
+            { term: "HALE", def: "High-Altitude Long-Endurance - כטב\"ם אסטרטגי בגובה רב ושהייה ארוכה במיוחד, לרוב לסיור ואיסוף מודיעין." },
+            { term: "ISR", def: "Intelligence, Surveillance & Reconnaissance - מודיעין, תצפית וסיור; היכולת לאסוף ולנתח מידע על השטח." },
+            { term: "C-UAV", def: "Counter-UAV - מערכות לזיהוי, שיבוש או יירוט כטב\"מים עוינים." },
+            { term: "Loitering Munition", def: "תחמושת משוטטת - כלי טיס \"קמיקזה\" שמרחף מעל השטח וממתין למטרה לפני שהוא מתרסק עליה כחימוש." },
+            { term: "VTOL", def: "Vertical Take-Off and Landing - המראה ונחיתה אנכית, ללא צורך במסלול המראה." },
+            { term: "Offset", def: "התחייבות של יצואן ביטחוני להשקיע חזרה במדינה הרוכשת (ייצור מקומי, העברת ידע, השקעות תעשייתיות) כתנאי לעסקה." },
+            { term: "ToT", def: "Transfer of Technology - העברת טכנולוגיה וידע ייצור למדינה הרוכשת, לרוב כחלק מהסכם Offset." },
+            { term: "EO/IR", def: "Electro-Optical / Infrared - מצלמות וחיישנים אלקטרו-אופטיים ואינפרא-אדום לזיהוי מטרות ביום ובלילה." },
+            { term: "GCS", def: "Ground Control Station - עמדת השליטה הקרקעית שממנה מפעילים ושולטים בכטב\"ם." },
+            { term: "GNSS", def: "Global Navigation Satellite System - השם הכללי למערכות ניווט לוויניות (GPS האמריקאית היא הדוגמה המוכרת ביותר); עמידות בפני שיבוש GNSS היא יכולת מבצעית קריטית." },
+            { term: "MRO", def: "Maintenance, Repair & Overhaul - תחזוקה, תיקון ושיפוץ של כלי טיס וציוד קיים; יכולת נפוצה יותר מפיתוח עצמאי בתעשיות מתפתחות." },
+            { term: "JV (Joint Venture)", def: "מיזם משותף - שותפות עסקית בין שתי חברות (למשל חברה ישראלית ומקומית) המשלבת משאבים לפיתוח או ייצור משותף." },
+            { term: "FPV", def: "First-Person View - כטב\"ם קטן ומהיר המופעל דרך שידור וידאו חי למפעיל, שהפך נפוץ מאוד כפלטפורמת תקיפה זולה במלחמת אוקראינה." },
+            { term: "AUKUS", def: "ברית ביטחונית תלת-צדדית בין אוסטרליה, בריטניה וארה\"ב (2021), הכוללת גם שיתוף פעולה טכנולוגי מתקדם (עמוד שני - Pillar II)." },
+            { term: "Five Eyes", def: "ברית מודיעינית בין חמש מדינות דוברות אנגלית (ארה\"ב, בריטניה, קנדה, אוסטרליה, ניו זילנד) המעדיפה לעיתים ספקים משותפות ברית על פני ספקים חיצוניים." },
+            { term: "EDF", def: "European Defence Fund - קרן מימון אירופית התומכת במחקר ופיתוח ביטחוני משותף בין מדינות האיחוד האירופי." },
+            { term: "ITAR", def: "International Traffic in Arms Regulations - תקנות הפיקוח על יצוא ביטחוני האמריקאיות; כל רכיב אמריקאי בתוך מוצר, גם אם יוצר במדינה אחרת, עלול לחייב אישור יצוא נפרד מארה\"ב." },
+            { term: "GAMI", def: "General Authority for Military Industries - הרגולטור הסעודי האחראי על לוקליזציה ותעשייה ביטחונית מקומית בממלכה." },
+            { term: "FMS", def: "Foreign Military Sales - התוכנית הממשלתית האמריקאית למכירת ציוד ביטחוני למדינות זרות, המנוהלת ישירות מול ממשלת ארה\"ב ולא מול היצרן." },
+            { term: "Vision 2030", def: "תוכנית הרפורמה הכלכלית-אסטרטגית הלאומית של ערב הסעודית, הכוללת יעד ללוקליזציה של כמחצית מרכש הביטחון עד 2030." },
+            { term: "Zeitenwende", def: "גרמנית: \"נקודת מפנה\" - המונח לתפנית ההיסטורית במדיניות הביטחון הגרמנית מאז 2022, שכללה הגדלה דרמטית של תקציב הביטחון." }
+        ];
+        function openGlossary() {
+            document.getElementById('glossaryList').innerHTML = GLOSSARY_TERMS.map(g => `
+                <div class="p-3 bg-slate-900/80 rounded-lg border border-slate-800">
+                    <span class="text-amber-400 font-bold text-sm">${escapeHtml(g.term)}</span>
+                    <p class="text-xs text-slate-300 leading-relaxed mt-1">${escapeHtml(g.def)}</p>
+                </div>
+            `).join('');
+            document.getElementById('glossaryModal').classList.remove('hidden');
+            lucide.createIcons();
+        }
+        function closeGlossary() {
+            document.getElementById('glossaryModal').classList.add('hidden');
+        }
+
+        // ============================================================
+        // FULLSCREEN MODE - hides header/sidebar/footer for distraction-
+        // free reading. Not the browser Fullscreen API - just a layout
+        // mode, so it works the same on mobile and desktop.
+        // ============================================================
+        function toggleFullscreen() {
+            const active = document.body.classList.toggle('fullscreen-mode');
+            document.getElementById('exitFullscreenBtn').classList.toggle('hidden', !active);
+            if (active) {
+                // close the mobile sidebar drawer if it happened to be open
+                const sidebar = document.getElementById('countrySidebar');
+                sidebar.setAttribute('data-open', 'false');
+                sidebar.style.transform = '';
+                document.getElementById('sidebarBackdrop').classList.add('hidden');
+                window.scrollTo(0, 0);
+            }
+        }
+
+        // ============================================================
+        // PERSONAL NOTES - free-text per country, saved only in this
+        // browser's localStorage. Never sent anywhere, never shared.
+        // ============================================================
+        function savePersonalNotes() {
+            const val = document.getElementById('personalNotes').value;
+            try {
+                localStorage.setItem('aerovision_notes_' + currentCountryKey, val);
+            } catch (e) { /* storage unavailable - fail silently */ }
+        }
+        function loadPersonalNotes() {
+            let val = '';
+            try {
+                val = localStorage.getItem('aerovision_notes_' + currentCountryKey) || '';
+            } catch (e) { /* storage unavailable */ }
+            document.getElementById('personalNotes').value = val;
         }
         function backToPicker() {
             document.getElementById('comparePicker').classList.remove('hidden');
@@ -1890,13 +2182,38 @@
             setTimeout(() => toast.classList.add('hidden'), 3000);
         }
 
+        // ============================================================
+        // COUNTRY-SWITCH TRANSITION - since there's no real loading
+        // delay (all data is local), this is a deliberate, short
+        // dissolve+settle effect plus a slim top progress bar, so
+        // switching countries feels considered rather than abrupt.
+        // ============================================================
+        function transitionToCountry(renderFn) {
+            const container = document.getElementById('reportContainer');
+            const bar = document.getElementById('loadingBar');
+            bar.style.opacity = '1';
+            bar.style.width = '65%';
+            container.classList.add('report-transitioning');
+            setTimeout(() => {
+                renderFn();
+                bar.style.width = '100%';
+                container.classList.remove('report-transitioning');
+                setTimeout(() => {
+                    bar.style.opacity = '0';
+                    setTimeout(() => { bar.style.width = '0%'; }, 260);
+                }, 150);
+            }, 170);
+        }
+
         function loadCountry(countryName) {
             document.getElementById('countryInput').value = countryName;
             if (presetData[countryName]) {
                 document.getElementById('errorState').classList.add('hidden');
                 currentCountryKey = countryName;
-                renderDashboard(presetData[countryName]);
-                updateSidebarActive();
+                transitionToCountry(() => {
+                    renderDashboard(presetData[countryName]);
+                    updateSidebarActive();
+                });
             } else {
                 handleUnsupportedCountry(countryName);
             }
@@ -1909,8 +2226,10 @@
             document.getElementById('errorState').classList.add('hidden');
             if (presetData[countryQuery]) {
                 currentCountryKey = countryQuery;
-                renderDashboard(presetData[countryQuery]);
-                updateSidebarActive();
+                transitionToCountry(() => {
+                    renderDashboard(presetData[countryQuery]);
+                    updateSidebarActive();
+                });
             } else {
                 handleUnsupportedCountry(countryQuery);
             }
@@ -1982,7 +2301,7 @@
                 </div>`;
         }
 
-        function renderDashboard(data) {
+        function renderDashboard(data, skipScroll) {
             document.getElementById('loadingState').classList.add('hidden');
             document.getElementById('errorState').classList.add('hidden');
             document.getElementById('reportContainer').classList.remove('hidden');
@@ -1994,11 +2313,22 @@
             document.getElementById('marketScore').textContent = data.score || '';
             document.getElementById('defenseBudget').textContent = data.budget || '';
             renderScoreGauge(data.score);
+            updateFavoriteToggleButton();
+            loadPersonalNotes();
 
             document.getElementById('capital').textContent = data.capital || '';
             document.getElementById('population').textContent = data.population || '';
             document.getElementById('gdp').textContent = data.gdp || '';
             document.getElementById('defenseGdpPct').textContent = data.defenseGdpPct || '';
+
+            const verifiedBadgeEl = document.getElementById('verifiedBadge');
+            if (data.verifiedDate) {
+                verifiedBadgeEl.className = 'px-2 py-1 rounded-md text-[10px] font-bold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 flex items-center gap-1 shrink-0';
+                verifiedBadgeEl.innerHTML = `<i data-lucide="check-circle-2" class="w-3 h-3"></i> נתון מאומת מול מקור (עודכן: ${escapeHtml(data.verifiedDate)})`;
+            } else {
+                verifiedBadgeEl.className = 'px-2 py-1 rounded-md text-[10px] font-bold bg-amber-500/15 text-amber-400 border border-amber-500/30 flex items-center gap-1 shrink-0';
+                verifiedBadgeEl.innerHTML = `<i data-lucide="alert-triangle" class="w-3 h-3"></i> אומדן ראשוני - טרם אומת מול מקור`;
+            }
             document.getElementById('profileSummary').textContent = data.profileSummary || '';
 
             document.getElementById('geopoliticalThreats').textContent = data.geopoliticalThreats || '';
@@ -2030,7 +2360,7 @@
                         <h5 class="text-sm sm:text-base font-bold text-amber-400">${escapeHtml(u.name || '')}</h5>
                         <p class="text-xs text-slate-300 leading-relaxed">${escapeHtml(u.desc || '')}</p>
                     </div>
-                    <a href="${finalUrl}" target="_blank" rel="noopener noreferrer"
+                    <a href="${finalUrl}" rel="noopener"
                        class="w-full py-2.5 px-3 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow-md hover:shadow-amber-500/20 transition flex items-center justify-center gap-2 mt-auto text-center cursor-pointer">
                         <i data-lucide="external-link" class="w-4 h-4"></i>
                         <span>צפה במפרט הטכני באתר היצרנית</span>
@@ -2043,7 +2373,7 @@
             if (industryEntries.length) {
                 localIndustryEl.innerHTML = industryEntries.map(co => {
                     const websiteBtn = co.website ? `
-                        <a href="${safeUrl(co.website, '')}" target="_blank" rel="noopener noreferrer"
+                        <a href="${safeUrl(co.website, '')}" rel="noopener"
                            class="inline-flex items-center gap-1.5 mt-1 px-2.5 py-1.5 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 text-[11px] font-semibold border border-amber-500/30 transition">
                             <i data-lucide="external-link" class="w-3 h-3"></i> אתר החברה - מוצרים נוספים
                         </a>` : '';
@@ -2095,7 +2425,9 @@
             document.getElementById('recWindow').textContent = data.recWindow || '';
 
             lucide.createIcons();
-            document.getElementById('reportContainer').scrollIntoView({ behavior: 'smooth' });
+            if (!skipScroll) {
+                document.getElementById('reportContainer').scrollIntoView({ behavior: 'smooth' });
+            }
         }
 
         function showError(msg) {
