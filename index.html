@@ -447,14 +447,17 @@
 
             <!-- SECTION 1: Profile ID -->
             <div id="section-1" class="glass-panel rounded-2xl p-4 sm:p-6 space-y-4">
-                <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+                <div class="flex items-center gap-3 border-b border-slate-800 pb-3 flex-wrap">
                     <div class="p-2 sm:p-2.5 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20">
                         <i data-lucide="id-card" class="w-5 h-5"></i>
                     </div>
-                    <div>
+                    <div class="flex-grow">
                         <h3 class="text-base sm:text-lg font-bold text-white">1. פרופיל כללי (תעודת זהות למדינה)</h3>
                         <p class="text-[11px] sm:text-xs text-slate-400">נתוני יסוד כלכליים, דמוגרפיים ותקציבי ביטחון</p>
                     </div>
+                    <span class="px-2 py-1 rounded-md text-[10px] font-bold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 flex items-center gap-1 shrink-0">
+                        <i data-lucide="check-circle-2" class="w-3 h-3"></i> נתון מאומת מול מקור
+                    </span>
                 </div>
 
                 <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
@@ -532,28 +535,34 @@
 
             <!-- SECTION 4: Needs & Gaps -->
             <div id="section-4" class="glass-panel rounded-2xl p-4 sm:p-6 space-y-4">
-                <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+                <div class="flex items-center gap-3 border-b border-slate-800 pb-3 flex-wrap">
                     <div class="p-2 sm:p-2.5 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
                         <i data-lucide="target" class="w-5 h-5"></i>
                     </div>
-                    <div>
+                    <div class="flex-grow">
                         <h3 class="text-base sm:text-lg font-bold text-white">4. צרכים ופערים (הזדמנויות עסקיות בתחום המל״טים)</h3>
                         <p class="text-[11px] sm:text-xs text-slate-400">פערים מבצעיים, נקודות תורפה והזדמנויות מכירה לתעשייה</p>
                     </div>
+                    <span class="px-2 py-1 rounded-md text-[10px] font-bold bg-amber-500/15 text-amber-400 border border-amber-500/30 flex items-center gap-1 shrink-0">
+                        <i data-lucide="alert-triangle" class="w-3 h-3"></i> הערכה אנליטית
+                    </span>
                 </div>
                 <div id="gapsList" class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4"></div>
             </div>
 
             <!-- SECTION 5: Competitive Landscape -->
             <div id="section-5" class="glass-panel rounded-2xl p-4 sm:p-6 space-y-4">
-                <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+                <div class="flex items-center gap-3 border-b border-slate-800 pb-3 flex-wrap">
                     <div class="p-2 sm:p-2.5 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20">
                         <i data-lucide="swords" class="w-5 h-5"></i>
                     </div>
-                    <div>
+                    <div class="flex-grow">
                         <h3 class="text-base sm:text-lg font-bold text-white">5. נוף תחרותי ושחקנים בשוק</h3>
                         <p class="text-[11px] sm:text-xs text-slate-400">ספקים בינלאומיים, חברות דומננטיות וחלוקת נתחי שוק</p>
                     </div>
+                    <span class="px-2 py-1 rounded-md text-[10px] font-bold bg-amber-500/15 text-amber-400 border border-amber-500/30 flex items-center gap-1 shrink-0">
+                        <i data-lucide="alert-triangle" class="w-3 h-3"></i> אחוזי נתח שוק - אומדן, לא נתון רשמי
+                    </span>
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-[auto_1fr] gap-4 sm:gap-6 items-center">
                     <div id="competitorsDonut" class="flex items-center justify-center"></div>
@@ -602,6 +611,10 @@
                         כדאיות גבוהה מאוד (9.2/10)
                     </span>
                 </div>
+                <p class="text-[11px] text-amber-400 flex items-center gap-1.5 -mt-2">
+                    <i data-lucide="alert-triangle" class="w-3.5 h-3.5 shrink-0"></i>
+                    זו הערכה אנליטית סינתטית (לא ציון שנמדד/פורסם על ידי גורם חיצוני) - נועדה כנקודת פתיחה למחשבה, לא כמסקנה סופית.
+                </p>
 
                 <div class="p-4 sm:p-5 bg-gradient-to-br from-slate-900 to-slate-900/90 rounded-xl border border-amber-500/20 space-y-4">
                     <p id="recommendationText" class="text-xs sm:text-sm text-slate-200 leading-relaxed font-medium"></p>
@@ -867,9 +880,9 @@
             "פולין": {
                 flag: "🇵🇱", title: "פולין (Poland)",
                 subtitle: "שוק צומח במהירות, הגדלה דרמטית של תקציב הביטחון והתחמשות בקו המזרחי",
-                threat: "סיכון גיאופוליטי: בינוני-גבוה", score: "92/100", budget: "$35.0B",
-                capital: "ורשה", population: "כ-37.5 מיליון", gdp: "$810 מיליארד",
-                defenseGdpPct: "כ-4.2% (שיאן נאט\"ו באירופה)",
+                threat: "סיכון גיאופוליטי: בינוני-גבוה", score: "92/100", budget: "$44.7B",
+                capital: "ורשה", population: "כ-36.5 מיליון", gdp: "$1.13 טריליון",
+                defenseGdpPct: "כ-4.8% (שיאן נאט\"ו באירופה, 2026)",
                 profileSummary: "פולין מהווה כיום את אחת המדינות בעלות קצב ההתחמשות וההתרחבות הביטחונית הגבוה באירופה. בעקבות המלחמה באוקראינה והמתיחות בגבול בלארוס, המדינה הגדילה דרמטית את תקציב הביטחון מ-2% לכ-4.2% מה-GDP, תוך דגש על רכש מערכות אוטונומיות, כטב\"מים טקטיים ומערכות הגנה אווירית.",
                 alliances: ["חברה בנאט\"ו (NATO)", "איחוד אירופי (EU)", "ברית אסטרטגית הדוקה עם ארה\"ב", "שיתוף פעולה ביטחוני וטכנולוגי עם ישראל"],
                 geopoliticalThreats: "גבול משותף מתוח עם בלארוס ומובלעת קלינינגרד (רוסיה). איום ישיר של חדירת כטב\"מים וטילים, לצד צורך דחוף באבטחת מזרח אגף נאט\"ו (מסדרון סובאלקי - Suwalki Gap).",
@@ -899,8 +912,8 @@
             "איחוד האמירויות": {
                 flag: "🇦🇪", title: "איחוד האמירויות (UAE)",
                 subtitle: "מעצמת רכש טכנולוגית, השקעות עתק בבינה מלאכותית ואוטונומיה מתקדמת",
-                threat: "סיכון גיאופוליטי: בינוני", score: "95/100", budget: "$25.5B",
-                capital: "אבו דאבי", population: "כ-9.9 מיליון", gdp: "$500 מיליארד", defenseGdpPct: "כ-5.1%",
+                threat: "סיכון גיאופוליטי: בינוני", score: "95/100", budget: "$27.8B",
+                capital: "אבו דאבי", population: "כ-9.9 מיליון", gdp: "$500 מיליארד", defenseGdpPct: "כ-4.8%",
                 profileSummary: "איחוד האמירויות היא מעצמת רכש טכנולוגית במפרץ הפרסי. המדינה משקיעה מיליארדי דולרים באוטונומיה, בינה מלאכותית וכטב\"מים מתקדמים, תוך שאיפה לבנות יכולת ייצור ופיתוח עצמאית דרך תאגיד הענק EDGE Group.",
                 alliances: ["הסכמי אברהם (עם ישראל)", "ברית הדוקה עם ארה\"ב", "חברה ב-GCC", "שותפויות טכנולוגיות עם אסיה ואירופה"],
                 geopoliticalThreats: "איום כטב\"מים וטילים מצד החות'ים בתימן והשפעה איראנית במפרץ הפרסי. צורך קריטי בהגנה על מתקני נפט, נמלים ותשתיות קריטיות.",
@@ -930,8 +943,8 @@
             "יוון": {
                 flag: "🇬🇷", title: "יוון (Greece)",
                 subtitle: "מודרניזציה של חיל האוויר, הגנת איים ושוק כטב\"מים בצמיחה בים התיכון",
-                threat: "סיכון גיאופוליטי: בינוני", score: "84/100", budget: "$9.5B",
-                capital: "אתונה", population: "כ-10.4 מיליון", gdp: "$240 מיליארד", defenseGdpPct: "כ-3.7%",
+                threat: "סיכון גיאופוליטי: בינוני", score: "84/100", budget: "$11.2B",
+                capital: "אתונה", population: "כ-10.4 מיליון", gdp: "$307.5 מיליארד", defenseGdpPct: "כ-3.65% (2026, מהגבוהים בנאט\"ו)",
                 profileSummary: "יוון משקיעה רבות בשדרוג צבאה על רקע המתיחות האזורית בים התיכון. המדינה מתמקדת בהצטיידות במל\"טי מודיעין ימי וניטור גבולות ימיים ואוויריים, תוך ניצול קרנות הגנה אירופיות (EDF).",
                 alliances: ["חברה בנאט\"ו", "איחוד אירופי", "ברית אסטרטגית הדוקה עם ישראל וקפריסין"],
                 geopoliticalThreats: "חיכוך ימי ואווירי מתמשך באגן הים התיכון. צורך בניטור רציף של מאות איים וגבולות מים טריטוריאליים.",
@@ -960,8 +973,8 @@
             "הודו": {
                 flag: "🇮🇳", title: "הודו (India)",
                 subtitle: "ענקית רכש ביטחוני, מדיניות Make in India ופערים קריטיים בגבול ההימלאיה",
-                threat: "סיכון גיאופוליטי: גבוה", score: "88/100", budget: "$74.0B",
-                capital: "ניו דלהי", population: "כ-1.43 מיליארד", gdp: "$3.7 טריליון", defenseGdpPct: "כ-2.4%",
+                threat: "סיכון גיאופוליטי: גבוה", score: "88/100", budget: "$87.0B",
+                capital: "ניו דלהי", population: "כ-1.43 מיליארד", gdp: "$4.4 טריליון", defenseGdpPct: "כ-2.0% (תקציב 2026-27)",
                 profileSummary: "הודו היא מארבעת תקציבי הביטחון הגדולים בעולם. המדינה עוברת תהליך מודרניזציה מקיף עם מעבר חד לייצור מקומי (Make in India), תוך הצטיידות במאות כטב\"מים מכל הסוגים להגנה על גבולותיה הארוכים.",
                 alliances: ["חברה ב-QUAD (עם ארה\"ב, יפן, אוסטרליה)", "בריתות הגנה עם ישראל וצרפת", "חברה ב-BRICS"],
                 geopoliticalThreats: "עימותים בגבול ההררי עם סין (LAC) ומתיחות מתמשכת בגבול פקיסטן. צורך קריטי בהפעלה בגבהים קיצוניים ותנאי קור קשים.",
@@ -990,8 +1003,8 @@
             "יפן": {
                 flag: "🇯🇵", title: "יפן (Japan)",
                 subtitle: "שדרוג דרמטי של תפיסת ההגנה, השקעות עתק באוטונומיה וכיסוי ימי במזרח אסיה",
-                threat: "סיכון גיאופוליטי: בינוני-גבוה", score: "91/100", budget: "$55.0B",
-                capital: "טוקיו", population: "כ-124.5 מיליון", gdp: "$4.2 טריליון", defenseGdpPct: "כ-2.0% (הכפלת התקציב)",
+                threat: "סיכון גיאופוליטי: בינוני-גבוה", score: "91/100", budget: "$66.6B",
+                capital: "טוקיו", population: "כ-123 מיליון", gdp: "$4.2 טריליון", defenseGdpPct: "כ-1.9% (יעד רשמי: 2% עד 2027)",
                 profileSummary: "יפן מבצעת כיום את השינוי הביטחוני המשמעותי ביותר מאז מלחמת העולם השנייה. המדינה מכפילה את תקציב הביטחון ל-2% מה-GDP ומתמקדת בהצטיידות במל\"טי מודיעין ימי, כטב\"מי VTOL להגנת איים ומערכות אוטונומיות.",
                 alliances: ["ברית הגנה הדוקה עם ארה\"ב", "חברה ב-QUAD", "שותפות אסטרטגית עם נאט\"ו והאיחוד האירופי"],
                 geopoliticalThreats: "חיכוך ימי מתמיד עם סין סביב איי סנקאקו, ניסויי טילים של צפון קוריאה ומתיחות גיאופוליטית במצר טאיוואן.",
@@ -1020,8 +1033,8 @@
             "ערב הסעודית": {
                 flag: "🇸🇦", title: "ערב הסעודית (Saudi Arabia)",
                 subtitle: "Vision 2030 ולוקליזציה ביטחונית אגרסיבית תחת GAMI, בצל איום כטב\"מים חות'י מתמשך",
-                threat: "סיכון גיאופוליטי: גבוה", score: "89/100", budget: "$78.0B",
-                capital: "ריאד", population: "כ-36 מיליון", gdp: "$1.1 טריליון", defenseGdpPct: "כ-7.1%",
+                threat: "סיכון גיאופוליטי: גבוה", score: "89/100", budget: "$85.5B",
+                capital: "ריאד", population: "כ-36 מיליון", gdp: "$1.39 טריליון", defenseGdpPct: "כ-6.3%",
                 profileSummary: "ערב הסעודית מנהלת את אחד מתקציבי הביטחון הגדולים בעולם, עם דגש הולך וגובר על לוקליזציה תחת תוכנית Vision 2030 ורגולטור הרכש GAMI. התקפות כטב\"מים וטילי שוטטות חוזרות מתימן הפכו את ה-C-UAV לעדיפות לאומית עליונה.",
                 alliances: ["ברית אסטרטגית הדוקה עם ארה\"ב", "חברה במועצת שיתוף הפעולה המפרצית (GCC)", "שיתופי פעולה ביטחוניים מתרחבים עם סין וצרפת"],
                 geopoliticalThreats: "התקפות כטב\"מים וטילי שוטטות חוזרות ונשנות מצד החות'ים בתימן על מתקני נפט ותשתיות אזרחיות. מתיחות אזורית מתמשכת מול איראן.",
@@ -1050,8 +1063,8 @@
             "רומניה": {
                 flag: "🇷🇴", title: "רומניה (Romania)",
                 subtitle: "אגף מזרחי של נאט\"ו מול הים השחור, מודרניזציה מואצת נוכח שאריות כטב\"ם רוסיות שנפלו בשטחה",
-                threat: "סיכון גיאופוליטי: בינוני-גבוה", score: "80/100", budget: "$7.5B",
-                capital: "בוקרשט", population: "כ-19 מיליון", gdp: "$350 מיליארד", defenseGdpPct: "כ-2.5%",
+                threat: "סיכון גיאופוליטי: בינוני-גבוה", score: "80/100", budget: "$8.8B",
+                capital: "בוקרשט", population: "כ-19 מיליון", gdp: "$480 מיליארד", defenseGdpPct: "כ-2%",
                 profileSummary: "רומניה, כמדינת החוף המרכזית של נאט\"ו בים השחור, חוותה חדירות חוזרות של שברי כטב\"מים רוסיים לשטחה במהלך התקפות על נמלי אוקראינה הסמוכים. הדבר האיץ דרמטית את ההשקעה במערכות C-UAV ובניטור אווירי לאורך הגבול הצפוני-מזרחי.",
                 alliances: ["חברה בנאט\"ו", "איחוד אירופי", "שותפות ביטחונית מתחזקת עם ארה\"ב וטורקיה"],
                 geopoliticalThreats: "גבול ימי ויבשתי עם אוקראינה בשטח מלחמה פעיל; חדירות חוזרות של שברי כטב\"מים רוסיים; צורך דחוף באבטחת מרחב אווירי בים השחור.",
@@ -1080,8 +1093,8 @@
             "דרום קוריאה": {
                 flag: "🇰🇷", title: "דרום קוריאה (South Korea)",
                 subtitle: "תעשיית הגנה מתקדמת ועצמאית, דגש על כטב\"מי סיור גבול והגנה מפני איום כטב\"מים צפון-קוריאני",
-                threat: "סיכון גיאופוליטי: בינוני-גבוה", score: "83/100", budget: "$47.0B",
-                capital: "סיאול", population: "כ-51.7 מיליון", gdp: "$1.8 טריליון", defenseGdpPct: "כ-2.6%",
+                threat: "סיכון גיאופוליטי: בינוני-גבוה", score: "83/100", budget: "$50.0B",
+                capital: "סיאול", population: "כ-51.7 מיליון", gdp: "$1.7 טריליון", defenseGdpPct: "כ-2.9% (יעד: 3.5% עד 2035)",
                 profileSummary: "דרום קוריאה מחזיקה בתעשיית הגנה עצמאית ומתקדמת מאוד (Hanwha, KAI), אך עדיין רוכשת רכיבים זרים נבחרים - במיוחד בתחומי C-UAV ואלקטרואופטיקה - לאחר חדירות חוזרות של כטב\"מי סיור צפון-קוריאניים למרחב האווירי שלה ב-2022-2023.",
                 alliances: ["ברית הגנה הדוקה עם ארה\"ב", "חברה ב-QUAD Plus / שיתופי פעולה עם יפן ואוסטרליה"],
                 geopoliticalThreats: "חדירות חוזרות של כטב\"מי סיור צפון-קוריאניים דרך אזור המפורז (DMZ); איום טילים בליסטיים מתמשך; מתיחות אזורית מול סין סביב אזור הזיהוי האווירי (ADIZ).",
@@ -1110,8 +1123,8 @@
             "אוקראינה": {
                 flag: "🇺🇦", title: "אוקראינה (Ukraine)",
                 subtitle: "שוק המלחמה הפעיל הגדול בעולם לכטב\"מים - צריכה וחדשנות בקצב חסר תקדים",
-                threat: "סיכון גיאופוליטי: קיצוני (מלחמה פעילה)", score: "78/100", budget: "$65.0B (כולל סיוע חוץ)",
-                capital: "קייב", population: "כ-36 מיליון (אומדן זמן מלחמה)", gdp: "$180 מיליארד", defenseGdpPct: "מעל 30% (כלכלת מלחמה)",
+                threat: "סיכון גיאופוליטי: קיצוני (מלחמה פעילה)", score: "78/100", budget: "$84.0B (כולל סיוע חוץ)",
+                capital: "קייב", population: "כ-33 מיליון (אומדן זמן מלחמה)", gdp: "$225 מיליארד", defenseGdpPct: "כ-31% (כלכלת מלחמה, 2026)",
                 profileSummary: "אוקראינה מהווה כיום את שוק הכטב\"מים הפעיל והאינטנסיבי ביותר בעולם, עם צריכה של עשרות אלפי כלים בחודש וקצב חדשנות מבצעית חסר תקדים. התעשייה המקומית צמחה בצורה עצומה תחת לחץ המלחמה, לצד תלות מתמשכת בסיוע ותרומות ציוד ממדינות המערב.",
                 alliances: ["שותף מועדף של נאט\"ו (לא חבר)", "מועמדת לאיחוד האירופי", "סיוע ביטחוני נרחב מארה\"ב ובריטניה", "יחסים מוגבלים וזהירים עם ישראל"],
                 geopoliticalThreats: "מלחמה קיומית פעילה מול רוסיה על שטחה הריבוני; איום יומיומי של כטב\"מי שוטטות (Shahed) וטילי שיוט על תשתיות אזרחיות וצבאיות.",
@@ -1315,8 +1328,8 @@
             "גרמניה": {
                 flag: "🇩🇪", title: "גרמניה (Germany)",
                 subtitle: "תקציב ענק לאחר ה-Zeitenwende, אך רגישות פוליטית גבוהה סביב כטב\"מים חמושים",
-                threat: "סיכון גיאופוליטי: בינוני-גבוה", score: "82/100", budget: "$90.0B",
-                capital: "ברלין", population: "כ-84 מיליון", gdp: "$4.5 טריליון", defenseGdpPct: "כ-2.1%",
+                threat: "סיכון גיאופוליטי: בינוני-גבוה", score: "82/100", budget: "$120.0B",
+                capital: "ברלין", population: "כ-84 מיליון", gdp: "$4.5 טריליון", defenseGdpPct: "כ-2.8% (יעד: 3.5% עד 2029)",
                 profileSummary: "גרמניה מבצעת שינוי היסטורי בתפיסת הביטחון שלה (\"Zeitenwende\") מאז 2022, עם הגדלה דרמטית של תקציב הביטחון. עם זאת, השימוש בכטב\"מים חמושים נותר נושא רגיש פוליטית הדורש אישור פרלמנטרי, מה שמעצב את אופי הרכש.",
                 alliances: ["חברה בנאט\"ו", "איחוד אירופי - כוח מוביל", "ברית אסטרטגית הדוקה עם ארה\"ב וצרפת"],
                 geopoliticalThreats: "שינוי תפיסתי מקיף נוכח האיום הרוסי לאחר הפלישה לאוקראינה; צורך בבנייה מחדש של מלאי צבאי שדולדל.",
@@ -1431,8 +1444,8 @@
             "טייוואן": {
                 flag: "🇹🇼", title: "טייוואן (Taiwan)",
                 subtitle: "צורך מבצעי קיומי מול סין, לצד רגישות דיפלומטית קיצונית המגבילה מעורבות ישירה",
-                threat: "סיכון גיאופוליטי: קיצוני", score: "68/100", budget: "$19.7B",
-                capital: "טייפה", population: "כ-23.4 מיליון", gdp: "$790 מיליארד", defenseGdpPct: "כ-2.5%",
+                threat: "סיכון גיאופוליטי: קיצוני", score: "68/100", budget: "$31.2B",
+                capital: "טייפה", population: "כ-23.4 מיליון", gdp: "$940 מיליארד", defenseGdpPct: "כ-3.32% (2026, שיא מאז 2009)",
                 profileSummary: "טייוואן מפתחת דוקטרינת הגנה א-סימטרית מבוססת כטב\"מים וכלים בלתי מאוישים זולים בכמות גדולה, נוכח איום פלישה/הסגר סיני מוחשי. הפיתוח מתבצע ברובו המכריע על ידי מכון NCSIST הממשלתי המקומי, ומעורבות ישראלית ישירה מוגבלת מאוד בשל רגישות מדיניות ה\"סין האחת\".",
                 alliances: ["אין ברית פורמלית (עקב מדיניות \"סין אחת\")", "יחסי ביטחון בלתי-רשמיים עמוקים עם ארה\"ב (Taiwan Relations Act)", "אין יחסים דיפלומטיים פורמליים עם ישראל"],
                 geopoliticalThreats: "איום פלישה/הסגר סיני קיומי; חדירות יומיומיות של מטוסי וכטב\"מי צבא השחרור העממי לאזור הזיהוי האווירי; לחימה בשלב \"אפור\" מתמשכת.",
@@ -1516,8 +1529,8 @@
             "ישראל": {
                 flag: "🇮🇱", title: "ישראל (Israel)",
                 subtitle: "לא שוק יעד - הבית התעשייתי ופרופיל ייחוס להשוואת פלטפורמות מול מדינות אחרות",
-                threat: "סיכון גיאופוליטי: לא רלוונטי (מדינת מוצא, לא שוק יעד)", score: "-", budget: "$24.0B",
-                capital: "ירושלים", population: "כ-9.8 מיליון", gdp: "$530 מיליארד", defenseGdpPct: "כ-4.5%",
+                threat: "סיכון גיאופוליטי: לא רלוונטי (מדינת מוצא, לא שוק יעד)", score: "-", budget: "$34.7B",
+                capital: "ירושלים", population: "כ-9.8 מיליון", gdp: "$530 מיליארד", defenseGdpPct: "כ-7% (תקציב 2026 שאושר)",
                 profileSummary: "ישראל אינה שוק יעד לרכש כטב\"מים - היא מדינת המוצא ואחת מיצואניות הכטב\"מים המובילות בעולם. תעשיית הביטחון הישראלית (IAI, אלביט Systems, רפאל) מפתחת, מייצרת ומפעילה בעצמה חלק ניכר מהפלטפורמות שמופיעות כמתחרות בפרופילי המדינות האחרות במערכת זו. הפרופיל הזה משמש בעיקר כנקודת ייחוס: היכנסו למצב \"השוואת פלטפורמות\" ובחרו ישראל מול כל מדינה אחרת כדי לראות אילו פלטפורמות ישראליות כבר בשירות שם, לעומת אילו פלטפורמות מתחרות תופסות את מקומן.",
                 alliances: ["שותפות ביטחונית אסטרטגית עם ארה\"ב", "הסכמי אברהם (איחוד האמירויות, בחריין, מרוקו)", "שיתופי פעולה ביטחוניים עם הודו, אזרבייג\"ן, יוון ועוד"],
                 geopoliticalThreats: "זירת איומים רב-חזיתית מתמשכת המהווה גם \"וילון ראווה\" מבצעי חי לטכנולוגיות הכטב\"ם הישראליות, יתרון תחרותי מוכר בשוקי הייצוא.",
@@ -1583,7 +1596,7 @@
         const ACCESS_CODE = 'AEROVISION2026'; // TODO: change this before sharing with your department
         function checkAccessCode() {
             const val = document.getElementById('accessCodeInput').value.trim();
-            if (val === ACCESS_CODE) {
+            if (val.toUpperCase() === ACCESS_CODE.toUpperCase()) {
                 sessionStorage.setItem('aerovision_access', 'granted');
                 document.getElementById('accessGate').classList.add('hidden');
             } else {
