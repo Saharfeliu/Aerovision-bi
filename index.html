@@ -124,6 +124,47 @@
             display: none !important;
         }
 
+        /* SPLASH SCREEN */
+        #splashScreen {
+            transition: opacity 550ms ease;
+        }
+        #splashScreen.splash-hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .splash-logo-wrap svg {
+            animation: splashPulse 2.2s ease-in-out infinite;
+        }
+        .splash-orbit-spin {
+            animation: splashOrbit 3.5s linear infinite;
+        }
+        @keyframes splashPulse {
+            0%, 100% { filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.3)); }
+            50% { filter: drop-shadow(0 0 20px rgba(245, 158, 11, 0.65)); }
+        }
+        @keyframes splashOrbit {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        #splashProgress {
+            animation: splashFill 1.9s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        @keyframes splashFill {
+            0% { width: 0%; }
+            70% { width: 78%; }
+            100% { width: 100%; }
+        }
+        .splash-logo-wrap, #splashScreen h1, #splashScreen p, #splashScreen > div:last-child {
+            animation: splashFadeIn 700ms ease both;
+        }
+        #splashScreen h1 { animation-delay: 150ms; }
+        #splashScreen p { animation-delay: 250ms; }
+        #splashScreen > div:last-child { animation-delay: 350ms; }
+        @keyframes splashFadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         /* iOS safe-area support: in standalone PWA mode (installed via
            "Add to Home Screen") there is no Safari chrome, so fixed/sticky
            elements at the screen edges must avoid the notch / Dynamic
@@ -206,6 +247,45 @@
 
     <!-- Slim top loading bar, shown briefly during country switches -->
     <div id="loadingBar" class="fixed top-0 right-0 left-0 h-[3px] z-[300] pointer-events-none" style="width:0%; opacity:0; background: linear-gradient(90deg, #fef08a, #f59e0b, #b45309); transition: width 200ms ease, opacity 250ms ease;"></div>
+
+    <!-- SPLASH SCREEN - brief elegant intro shown once per visit -->
+    <div id="splashScreen" class="fixed inset-0 z-[500] bg-[#050811] flex flex-col items-center justify-center gap-6">
+        <div class="splash-logo-wrap">
+            <svg viewBox="0 0 100 100" class="w-24 h-24 sm:w-28 sm:h-28">
+                <defs>
+                    <linearGradient id="splashGold" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#fef08a" />
+                        <stop offset="50%" stop-color="#f59e0b" />
+                        <stop offset="100%" stop-color="#b45309" />
+                    </linearGradient>
+                    <radialGradient id="splashGlow" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0.35"/>
+                        <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0"/>
+                    </radialGradient>
+                </defs>
+                <circle cx="50" cy="50" r="46" fill="url(#splashGlow)"/>
+                <circle cx="50" cy="50" r="32" fill="none" stroke="url(#splashGold)" stroke-width="2"/>
+                <ellipse cx="50" cy="50" rx="32" ry="12" fill="none" stroke="url(#splashGold)" stroke-width="1.4" opacity="0.85"/>
+                <ellipse cx="50" cy="50" rx="14" ry="32" fill="none" stroke="url(#splashGold)" stroke-width="1.4" opacity="0.85"/>
+                <line x1="18" y1="50" x2="82" y2="50" stroke="url(#splashGold)" stroke-width="1.4" opacity="0.85"/>
+                <g class="splash-orbit-spin" style="transform-origin: 50px 50px;">
+                    <ellipse cx="50" cy="50" rx="44" ry="18" fill="none" stroke="url(#splashGold)" stroke-width="2" transform="rotate(-20 50 50)"/>
+                    <circle cx="90" cy="42" r="3.5" fill="url(#splashGold)" transform="rotate(-20 50 50)"/>
+                </g>
+                <circle cx="30" cy="34" r="3" fill="#1d4ed8" stroke="url(#splashGold)" stroke-width="1"/>
+                <circle cx="68" cy="30" r="3" fill="#dc2626" stroke="url(#splashGold)" stroke-width="1"/>
+                <circle cx="72" cy="62" r="3" fill="#1d4ed8" stroke="url(#splashGold)" stroke-width="1"/>
+                <circle cx="26" cy="66" r="3" fill="#dc2626" stroke="url(#splashGold)" stroke-width="1"/>
+            </svg>
+        </div>
+        <div class="text-center space-y-1">
+            <h1 class="text-2xl sm:text-3xl font-black tracking-wider gold-gradient-text">AEROVISION BI</h1>
+            <p class="text-xs text-slate-500">מערכת מודיעין שוק כטב"מים</p>
+        </div>
+        <div class="w-40 sm:w-48 h-[3px] rounded-full bg-slate-800 overflow-hidden">
+            <div id="splashProgress" class="h-full rounded-full" style="width:0%; background: linear-gradient(90deg, #fef08a, #f59e0b, #b45309);"></div>
+        </div>
+    </div>
 
     <!-- ACCESS GATE (soft gate, not real security - see README) -->
     <div id="accessGate" class="fixed inset-0 z-[200] bg-[#050811] flex items-center justify-center p-4">
@@ -1849,6 +1929,16 @@
             initTheme();
             populateSidebar();
             renderDashboard(presetData["פולין"], true);
+
+            // Hide the splash after a brief, deliberate moment - not tied
+            // to any real loading (all data is local), just a polish beat.
+            setTimeout(() => {
+                const splash = document.getElementById('splashScreen');
+                if (splash) {
+                    splash.classList.add('splash-hidden');
+                    setTimeout(() => splash.remove(), 600);
+                }
+            }, 2000);
         });
 
         // ============================================================
