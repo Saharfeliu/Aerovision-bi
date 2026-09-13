@@ -2827,12 +2827,15 @@
 
             return `
             <div dir="rtl" style="font-family: Arial, 'Segoe UI', sans-serif; background:#ffffff; color:${navy}; padding:22mm 16mm; width:760px; box-sizing:border-box;">
-                <div style="display:flex; align-items:center; gap:14px; padding-bottom:16px; border-bottom:3px solid ${gold}; margin-bottom:18px;">
-                    ${logoSvg}
-                    <div>
-                        <div style="font-size:20px; font-weight:900; color:${navy}; letter-spacing:1px;">AEROVISION BI</div>
-                        <div style="font-size:11px; color:${gray};">מערכת מודיעין שוק כטב"מים וניתוח גיאופוליטי</div>
+                <div style="display:flex; align-items:center; justify-content:space-between; gap:14px; padding-bottom:16px; border-bottom:3px solid ${gold}; margin-bottom:18px;">
+                    <div style="display:flex; align-items:center; gap:14px;">
+                        ${logoSvg}
+                        <div>
+                            <div style="font-size:20px; font-weight:900; color:${navy}; letter-spacing:1px;">AEROVISION BI</div>
+                            <div style="font-size:11px; color:${gray};">מערכת מודיעין שוק כטב"מים וניתוח גיאופוליטי</div>
+                        </div>
                     </div>
+                    <div style="font-size:10px; color:${gray}; text-align:left; white-space:nowrap;">נוצר בתאריך<br><span style="font-weight:700; color:${navy};">${esc(new Date().toLocaleDateString('he-IL'))}</span></div>
                 </div>
 
                 <div style="display:flex; align-items:center; gap:10px; margin-bottom:6px;">
