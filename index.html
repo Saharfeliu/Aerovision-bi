@@ -102,6 +102,28 @@
         ::-webkit-scrollbar-thumb:hover { background: #d97706; }
         button:disabled { opacity: 0.55; cursor: not-allowed !important; }
 
+        /* iOS safe-area support: in standalone PWA mode (installed via
+           "Add to Home Screen") there is no Safari chrome, so fixed/sticky
+           elements at the screen edges must avoid the notch / Dynamic
+           Island / home indicator themselves. viewport-fit=cover (in the
+           <head> meta tag) is required for these env() values to be non-zero. */
+        header.sticky {
+            padding-top: max(0.625rem, env(safe-area-inset-top));
+        }
+        #accessGate {
+            padding-top: env(safe-area-inset-top);
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+        #countrySidebar {
+            padding-top: env(safe-area-inset-top);
+        }
+        #compareModal {
+            padding-top: max(0.75rem, env(safe-area-inset-top));
+        }
+        #toast {
+            bottom: max(1.25rem, env(safe-area-inset-bottom));
+        }
+
         /* Light theme: blanket overrides for the Tailwind slate utility classes
            used throughout the report cards, so we don't have to touch every
            element individually. */
@@ -823,22 +845,22 @@
             "MQ-9 Reaper": "https://www.ga-asi.com/remotely-piloted-aircraft/mq-9a",
             "MQ-9B SkyGuardian": "https://www.ga-asi.com/remotely-piloted-aircraft/mq-9b-skyguardian",
             "MQ-9B SeaGuardian": "https://www.ga-asi.com/remotely-piloted-aircraft/mq-9b-seaguardian",
-            "FlyEye & Warmate": "https://www.wbgroup.pl/en/produkt/warmate-loitering-munitions/",
-            "FlyEye": "https://www.wbgroup.pl/en/produkt/flyeye-unmanned-aerial-system/",
-            "Warmate": "https://www.wbgroup.pl/en/produkt/warmate-loitering-munitions/",
-            "Wing Loong I / II": "https://www.avic.com/en/",
-            "Hermes 900": "https://elbitsystems.com/landing-page/hermes-900/",
-            "Heron 1": "https://www.iai.co.il/p/heron-1",
+            "FlyEye & Warmate": "https://www.wbgroup.pl/en/",
+            "FlyEye": "https://www.wbgroup.pl/en/",
+            "Warmate": "https://www.wbgroup.pl/en/",
+            "Wing Loong I / II": "https://www.catic.cn/",
+            "Hermes 900": "https://www.elbitsystems.com/autonomous/aerial/male-unmanned-aircraft-systems/hermes-900",
+            "Heron 1": "https://www.iai.co.il/p/heron",
             "Heron TP": "https://www.iai.co.il/p/heron-tp",
             "Garmoosha & Shadow": "https://edgegroup.ae/",
             "ScanEagle": "https://www.insitu.com/products/scaneagle",
-            "RQ-4B Global Hawk": "https://www.northropgrumman.com/air/global-hawk",
+            "RQ-4B Global Hawk": "https://www.northropgrumman.com/what-we-do/aircraft/global-hawk",
             "Archytas / Sperwer": "https://www.haicorp.com/",
             "TAPAS & Rustom": "https://www.drdo.gov.in/",
             "Harop": "https://www.iai.co.il/p/harop",
-            "Watchkeeper": "https://uk.elbitsystems.com/",
-            "Switchblade 300": "https://www.avinc.com/tms/switchblade-300",
-            "MQ-4C Triton": "https://www.northropgrumman.com/what-we-do/air/triton-unmanned-aircraft-system"
+            "Watchkeeper": "https://www.elbitsystems-uk.com/",
+            "Switchblade 300": "https://www.avinc.com/uas/switchblade",
+            "MQ-4C Triton": "https://www.northropgrumman.com/what-we-do/aircraft/triton"
         };
 
         const presetData = {
@@ -854,7 +876,7 @@
                 uavFleet: [
                     { name: "Bayraktar TB2", manufacturer: "Baykar Tech (טורקיה)", desc: "כטב\"ם תקיפה וסיור בינוני (MALE) עם יכולת נשיאת חימוש מדויק - 24 יחידות בשירות מבצעי מלא בחיל האוויר הפולני.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/d/d4/Bayraktar_TB2_%22Vanagas%22_03.jpg", websiteUrl: "https://baykartech.com/en/uav/bayraktar-tb2/" },
                     { name: "MQ-9A Reaper", manufacturer: "General Atomics (ארה\"ב)", desc: "חכירה ורכש של כטב\"מי איסוף מודיעין, תקיפה וסיור ארוך טווח בשהייה ממושכת בגובה רב.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/a/a4/MQ-9_Reaper_in_flight_%282007%29.jpg", websiteUrl: "https://www.ga-asi.com/remotely-piloted-aircraft/mq-9a" },
-                    { name: "Warmate", manufacturer: "WB Group (פולין)", desc: "מערכת חימוש משוטט טקטי (Loitering Munition) מתוצרת מקומית לתקיפה מדויקת של מטרות איכות.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/2/23/MSPO23_Warmate.jpg", websiteUrl: "https://www.wbgroup.pl/en/produkt/warmate-loitering-munitions/" }
+                    { name: "Warmate", manufacturer: "WB Group (פולין)", desc: "מערכת חימוש משוטט טקטי (Loitering Munition) מתוצרת מקומית לתקיפה מדויקת של מטרות איכות.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/2/23/MSPO23_Warmate.jpg", websiteUrl: "https://www.wbgroup.pl/en/" }
                 ],
                 localIndustry: "קבוצת WB Group הפולנית ותאגיד PGZ נחשבים למובילים בייצור חימוש משוטט וכטב\"מים טקטיים. עם זאת, קיים חסר בתעשייה מקומית של כטב\"מי MALE/HALE כבדים ובמערכות לוחמה אלקטרונית מתקדמות לעקיפת חסימות GPS וסייבר.",
                 gaps: [
@@ -883,9 +905,9 @@
                 alliances: ["הסכמי אברהם (עם ישראל)", "ברית הדוקה עם ארה\"ב", "חברה ב-GCC", "שותפויות טכנולוגיות עם אסיה ואירופה"],
                 geopoliticalThreats: "איום כטב\"מים וטילים מצד החות'ים בתימן והשפעה איראנית במפרץ הפרסי. צורך קריטי בהגנה על מתקני נפט, נמלים ותשתיות קריטיות.",
                 uavFleet: [
-                    { name: "Wing Loong I / II", manufacturer: "AVIC (סין)", desc: "כטב\"מי תקיפה ומודיעין ארוכי טווח הפועלים בשירות פעיל בחיל האוויר האמירתי.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Wing_Loong_II_side_view.jpg", websiteUrl: "https://www.avic.com/en/" },
+                    { name: "Wing Loong I / II", manufacturer: "AVIC (סין)", desc: "כטב\"מי תקיפה ומודיעין ארוכי טווח הפועלים בשירות פעיל בחיל האוויר האמירתי.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Wing_Loong_II_side_view.jpg", websiteUrl: "https://www.catic.cn/" },
                     { name: "Garmoosha", manufacturer: "EDGE Group (איחוד האמירויות)", desc: "כטב\"ם מסוק (VTOL) טקטי בפיתוח וייצור מקומי מתקדם למשימות סיור ימי ויבשתי.", imageUrl: "https://edgegroup.ae/sites/default/files/styles/16_9_1920x1080/public/2021-02/GARMOOSHA.jpg?itok=3zK7sZ_O", websiteUrl: "https://edgegroup.ae/" },
-                    { name: "Hermes 900", manufacturer: "אלביט Systems (ישראל)", desc: "שילוב סנסורים, מכלולי מודיעין ואלקטרואופטיקה מתקדמת בפלטפורמות אסטרטגיות.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/9/96/Hermes_900_%28Kochav%29_UAV_is_airborne_again_and_joins_the_ranks_of_the_UAV_Division%2C_November_2015._II.jpg", websiteUrl: "https://elbitsystems.com/landing-page/hermes-900/" }
+                    { name: "Hermes 900", manufacturer: "אלביט Systems (ישראל)", desc: "שילוב סנסורים, מכלולי מודיעין ואלקטרואופטיקה מתקדמת בפלטפורמות אסטרטגיות.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/9/96/Hermes_900_%28Kochav%29_UAV_is_airborne_again_and_joins_the_ranks_of_the_UAV_Division%2C_November_2015._II.jpg", websiteUrl: "https://www.elbitsystems.com/autonomous/aerial/male-unmanned-aircraft-systems/hermes-900" }
                 ],
                 localIndustry: "תאגיד הביטחון הענקי EDGE Group מוביל את הייצור המקומי ורוכש טכנולוגיות בינלאומיות בקצב מהיר. שותפויות זרות חייבות לעבור דרך שילוב בתעשייה המקומית.",
                 gaps: [
@@ -914,7 +936,7 @@
                 alliances: ["חברה בנאט\"ו", "איחוד אירופי", "ברית אסטרטגית הדוקה עם ישראל וקפריסין"],
                 geopoliticalThreats: "חיכוך ימי ואווירי מתמשך באגן הים התיכון. צורך בניטור רציף של מאות איים וגבולות מים טריטוריאליים.",
                 uavFleet: [
-                    { name: "Heron 1", manufacturer: "תעשייה אווירית - IAI (ישראל)", desc: "חכירה ורכש של מל\"טי סיור ימי ואיסוף מודיעין ארוך טווח.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/b/b5/IAI_Heron-1_Maritime_patrol_UAV_Shoval_Yam.jpg", websiteUrl: "https://www.iai.co.il/p/heron-1" },
+                    { name: "Heron 1", manufacturer: "תעשייה אווירית - IAI (ישראל)", desc: "חכירה ורכש של מל\"טי סיור ימי ואיסוף מודיעין ארוך טווח.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/b/b5/IAI_Heron-1_Maritime_patrol_UAV_Shoval_Yam.jpg", websiteUrl: "https://www.iai.co.il/p/heron" },
                     { name: "MQ-9B SeaGuardian", manufacturer: "General Atomics (ארה\"ב)", desc: "תהליכי רכש למל\"טי סיור ימי מתקדמים לניטור מים כלכליים.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/a/a4/MQ-9_Reaper_in_flight_%282007%29.jpg", websiteUrl: "https://www.ga-asi.com/remotely-piloted-aircraft/mq-9b-seaguardian" },
                     { name: "ScanEagle", manufacturer: "Insitu / Boeing (ארה\"ב)", desc: "כטב\"ם טקטי הפועל מספינות חיל הים היווני לניטור מיצרים ואיים.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Insitu_ScanEagle_X200_%E2%80%98N202SE%E2%80%99.jpg", websiteUrl: "https://www.insitu.com/products/scaneagle" }
                 ],
@@ -975,7 +997,7 @@
                 geopoliticalThreats: "חיכוך ימי מתמיד עם סין סביב איי סנקאקו, ניסויי טילים של צפון קוריאה ומתיחות גיאופוליטית במצר טאיוואן.",
                 uavFleet: [
                     { name: "MQ-9B SeaGuardian", manufacturer: "General Atomics (ארה\"ב)", desc: "פלטפורמת הסיור הימי המרכזית של משמר החופים וחיל האוויר היפני לכיסוי מים טריטוריאליים.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/a/a4/MQ-9_Reaper_in_flight_%282007%29.jpg", websiteUrl: "https://www.ga-asi.com/remotely-piloted-aircraft/mq-9b-seaguardian" },
-                    { name: "RQ-4B Global Hawk", manufacturer: "Northrop Grumman (ארה\"ב)", desc: "מל\"ט HALE אסטרטגי בגובה רב לניטור מודיעיני ארוך טווח באוקיינוס השקט.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/4/4d/RQ-4A_%E2%80%9CGlobal_Hawk%E2%80%9D_%2849871332301%29.jpg", websiteUrl: "https://www.northropgrumman.com/air/global-hawk" },
+                    { name: "RQ-4B Global Hawk", manufacturer: "Northrop Grumman (ארה\"ב)", desc: "מל\"ט HALE אסטרטגי בגובה רב לניטור מודיעיני ארוך טווח באוקיינוס השקט.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/4/4d/RQ-4A_%E2%80%9CGlobal_Hawk%E2%80%9D_%2849871332301%29.jpg", websiteUrl: "https://www.northropgrumman.com/what-we-do/aircraft/global-hawk" },
                     { name: "ScanEagle", manufacturer: "Insitu / Boeing (ארה\"ב)", desc: "כטב\"ם טקטי קטן הפועל מספינות מלחמה ומוצבי חיל היבשה היפני (JGSDF).", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Insitu_ScanEagle_X200_%E2%80%98N202SE%E2%80%99.jpg", websiteUrl: "https://www.insitu.com/products/scaneagle" }
                 ],
                 localIndustry: "תעשיות כבדות (Mitsubishi Heavy Industries, Kawasaki) נכנסות בצעדי ענק לפיתוח כטב\"מים עצמאיים ושילוב AI מתקדם.",
@@ -1004,8 +1026,8 @@
                 alliances: ["ברית אסטרטגית הדוקה עם ארה\"ב", "חברה במועצת שיתוף הפעולה המפרצית (GCC)", "שיתופי פעולה ביטחוניים מתרחבים עם סין וצרפת"],
                 geopoliticalThreats: "התקפות כטב\"מים וטילי שוטטות חוזרות ונשנות מצד החות'ים בתימן על מתקני נפט ותשתיות אזרחיות. מתיחות אזורית מתמשכת מול איראן.",
                 uavFleet: [
-                    { name: "CH-4", manufacturer: "CASC (סין)", desc: "כטב\"ם תקיפה ומודיעין בינוני-גבוה (MALE) המשמש למשימות סיור ותקיפה בגבול הדרומי.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Wing_Loong_II_side_view.jpg", websiteUrl: "https://www.casc.cn/" },
-                    { name: "Wing Loong I / II", manufacturer: "AVIC (סין)", desc: "פלטפורמות תקיפה ומודיעין סיניות נוספות בשירות פעיל, לצד תוכניות לייצור מקומי משותף.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Wing_Loong_II_side_view.jpg", websiteUrl: "https://www.avic.com/en/" },
+                    { name: "CH-4", manufacturer: "CASC (סין)", desc: "כטב\"ם תקיפה ומודיעין בינוני-גבוה (MALE) המשמש למשימות סיור ותקיפה בגבול הדרומי.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Wing_Loong_II_side_view.jpg", websiteUrl: "http://english.spacechina.com/" },
+                    { name: "Wing Loong I / II", manufacturer: "AVIC (סין)", desc: "פלטפורמות תקיפה ומודיעין סיניות נוספות בשירות פעיל, לצד תוכניות לייצור מקומי משותף.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Wing_Loong_II_side_view.jpg", websiteUrl: "https://www.catic.cn/" },
                     { name: "ScanEagle", manufacturer: "Insitu / Boeing (ארה\"ב)", desc: "כטב\"ם טקטי לסיור גבולות ואבטחת מתקני נפט קריטיים לאורך התשתית האנרגטית.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Insitu_ScanEagle_X200_%E2%80%98N202SE%E2%80%99.jpg", websiteUrl: "https://www.insitu.com/products/scaneagle" }
                 ],
                 localIndustry: "תאגיד SAMI (Saudi Arabian Military Industries) מוביל את מאמץ הלוקליזציה בחסות ממשלתית ישירה, עם יעד להגיע לכ-50% מרכש הביטחון מתוצרת מקומית עד 2030.",
@@ -1034,7 +1056,7 @@
                 alliances: ["חברה בנאט\"ו", "איחוד אירופי", "שותפות ביטחונית מתחזקת עם ארה\"ב וטורקיה"],
                 geopoliticalThreats: "גבול ימי ויבשתי עם אוקראינה בשטח מלחמה פעיל; חדירות חוזרות של שברי כטב\"מים רוסיים; צורך דחוף באבטחת מרחב אווירי בים השחור.",
                 uavFleet: [
-                    { name: "Hermes 900", manufacturer: "אלביט Systems (ישראל)", desc: "כטב\"ם סיור ומודיעין ארוך טווח, מרכיב מרכזי בתוכנית המודרניזציה של חיל האוויר הרומני.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/9/96/Hermes_900_%28Kochav%29_UAV_is_airborne_again_and_joins_the_ranks_of_the_UAV_Division%2C_November_2015._II.jpg", websiteUrl: "https://elbitsystems.com/landing-page/hermes-900/" },
+                    { name: "Hermes 900", manufacturer: "אלביט Systems (ישראל)", desc: "כטב\"ם סיור ומודיעין ארוך טווח, מרכיב מרכזי בתוכנית המודרניזציה של חיל האוויר הרומני.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/9/96/Hermes_900_%28Kochav%29_UAV_is_airborne_again_and_joins_the_ranks_of_the_UAV_Division%2C_November_2015._II.jpg", websiteUrl: "https://www.elbitsystems.com/autonomous/aerial/male-unmanned-aircraft-systems/hermes-900" },
                     { name: "ScanEagle", manufacturer: "Insitu / Boeing (ארה\"ב)", desc: "כטב\"ם טקטי לניטור ימי לאורך חופי הים השחור ונמל קונסטנצה.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Insitu_ScanEagle_X200_%E2%80%98N202SE%E2%80%99.jpg", websiteUrl: "https://www.insitu.com/products/scaneagle" },
                     { name: "Bayraktar TB2", manufacturer: "Baykar Tech (טורקיה)", desc: "בבחינה/רכש מוקדם לצורך חיזוק יכולות תקיפה וסיור טקטיות לאורך הגבול המזרחי.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/d/d4/Bayraktar_TB2_%22Vanagas%22_03.jpg", websiteUrl: "https://baykartech.com/en/uav/bayraktar-tb2/" }
                 ],
@@ -1064,8 +1086,8 @@
                 alliances: ["ברית הגנה הדוקה עם ארה\"ב", "חברה ב-QUAD Plus / שיתופי פעולה עם יפן ואוסטרליה"],
                 geopoliticalThreats: "חדירות חוזרות של כטב\"מי סיור צפון-קוריאניים דרך אזור המפורז (DMZ); איום טילים בליסטיים מתמשך; מתיחות אזורית מול סין סביב אזור הזיהוי האווירי (ADIZ).",
                 uavFleet: [
-                    { name: "RQ-4B Global Hawk", manufacturer: "Northrop Grumman (ארה\"ב)", desc: "מל\"ט HALE אסטרטגי לאיסוף מודיעין ארוך טווח מול צפון קוריאה.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/4/4d/RQ-4A_%E2%80%9CGlobal_Hawk%E2%80%9D_%2849871332301%29.jpg", websiteUrl: "https://www.northropgrumman.com/air/global-hawk" },
-                    { name: "Heron 1", manufacturer: "IAI (ישראל)", desc: "כטב\"ם סיור בינוני המשמש להשלמת יכולות מודיעין וגבול לצד פיתוחים מקומיים.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/b/b5/IAI_Heron-1_Maritime_patrol_UAV_Shoval_Yam.jpg", websiteUrl: "https://www.iai.co.il/p/heron-1" },
+                    { name: "RQ-4B Global Hawk", manufacturer: "Northrop Grumman (ארה\"ב)", desc: "מל\"ט HALE אסטרטגי לאיסוף מודיעין ארוך טווח מול צפון קוריאה.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/4/4d/RQ-4A_%E2%80%9CGlobal_Hawk%E2%80%9D_%2849871332301%29.jpg", websiteUrl: "https://www.northropgrumman.com/what-we-do/aircraft/global-hawk" },
+                    { name: "Heron 1", manufacturer: "IAI (ישראל)", desc: "כטב\"ם סיור בינוני המשמש להשלמת יכולות מודיעין וגבול לצד פיתוחים מקומיים.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/b/b5/IAI_Heron-1_Maritime_patrol_UAV_Shoval_Yam.jpg", websiteUrl: "https://www.iai.co.il/p/heron" },
                     { name: "ScanEagle", manufacturer: "Insitu / Boeing (ארה\"ב)", desc: "כטב\"ם טקטי לסיור ימי ואבטחת האזור הימי השנוי במחלוקת (NLL).", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Insitu_ScanEagle_X200_%E2%80%98N202SE%E2%80%99.jpg", websiteUrl: "https://www.insitu.com/products/scaneagle" }
                 ],
                 localIndustry: "Hanwha Systems ו-KAI (Korea Aerospace Industries) מובילות פיתוח כטב\"מי סיור, תקיפה ו-VTOL עצמאיים ברמה גבוהה, עם ייצוא הולך וגדל לשווקים שלישיים.",
@@ -1095,7 +1117,7 @@
                 geopoliticalThreats: "מלחמה קיומית פעילה מול רוסיה על שטחה הריבוני; איום יומיומי של כטב\"מי שוטטות (Shahed) וטילי שיוט על תשתיות אזרחיות וצבאיות.",
                 uavFleet: [
                     { name: "Bayraktar TB2", manufacturer: "Baykar Tech (טורקיה)", desc: "כטב\"ם תקיפה שהפך לסמל בשלב הראשון של המלחמה, עדיין בשימוש מבצעי לצד פלטפורמות חדשות.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/d/d4/Bayraktar_TB2_%22Vanagas%22_03.jpg", websiteUrl: "https://baykartech.com/en/uav/bayraktar-tb2/" },
-                    { name: "Switchblade 300", manufacturer: "AeroVironment (ארה\"ב)", desc: "תחמושת משוטטת טקטית קלה, חלק מחבילות הסיוע האמריקאיות למטרות דיוק בטווח קצר-בינוני.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/a/a4/MQ-9_Reaper_in_flight_%282007%29.jpg", websiteUrl: "https://www.avinc.com/tms/switchblade-300" },
+                    { name: "Switchblade 300", manufacturer: "AeroVironment (ארה\"ב)", desc: "תחמושת משוטטת טקטית קלה, חלק מחבילות הסיוע האמריקאיות למטרות דיוק בטווח קצר-בינוני.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/a/a4/MQ-9_Reaper_in_flight_%282007%29.jpg", websiteUrl: "https://www.avinc.com/uas/switchblade" },
                     { name: "ScanEagle", manufacturer: "Insitu / Boeing (ארה\"ב)", desc: "כטב\"ם טקטי לסיור ואיתור מטרות לצורך כיוונון אש ארטילרית מדויקת.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Insitu_ScanEagle_X200_%E2%80%98N202SE%E2%80%99.jpg", websiteUrl: "https://www.insitu.com/products/scaneagle" }
                 ],
                 localIndustry: "תעשייה מקומית ענפה שצמחה במהירות עצומה תחת לחץ המלחמה - מאות חברות קטנות ובינוניות מייצרות כטב\"מי FPV, תחמושת משוטטת (כדוגמת Leleka-100, Punisher) בקצב המוני, לרוב בעלות נמוכה במיוחד.",
@@ -1155,7 +1177,7 @@
                 geopoliticalThreats: "מתיחות גוברת מול אלג'יריה; לחימה מתמשכת מול כוחות הפוליסאריו בסהרה המערבית, כולל שימוש הדדי בכטב\"מים ותחמושת משוטטת.",
                 uavFleet: [
                     { name: "Bayraktar TB2", manufacturer: "Baykar Tech (טורקיה)", desc: "כטב\"ם תקיפה בשימוש מבצעי פעיל לאורך קו החזית בסהרה המערבית.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/d/d4/Bayraktar_TB2_%22Vanagas%22_03.jpg", websiteUrl: "https://baykartech.com/en/uav/bayraktar-tb2/" },
-                    { name: "Wing Loong I / II", manufacturer: "AVIC (סין)", desc: "כטב\"מי תקיפה ומודיעין סיניים המשלימים את הצי הטורקי.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Wing_Loong_II_side_view.jpg", websiteUrl: "https://www.avic.com/en/" },
+                    { name: "Wing Loong I / II", manufacturer: "AVIC (סין)", desc: "כטב\"מי תקיפה ומודיעין סיניים המשלימים את הצי הטורקי.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Wing_Loong_II_side_view.jpg", websiteUrl: "https://www.catic.cn/" },
                     { name: "Harop", manufacturer: "IAI (ישראל)", desc: "עסקת תחמושת משוטטת ישראלית משמעותית שדווחה לאחר הסכמי אברהם, לחיזוק יכולת התקיפה המדויקת.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/a/a4/MQ-9_Reaper_in_flight_%282007%29.jpg", websiteUrl: "https://www.iai.co.il/p/harop" }
                 ],
                 localIndustry: "תעשייה מקומית מוגבלת ומבוססת בעיקר על יבוא; קיים עניין גובר בפיתוח יכולת תחזוקה (MRO) מקומית ובשיתופי הרכבה מוגבלים.",
@@ -1212,7 +1234,7 @@
                 alliances: ["מדיניות \"ארבעה לא\" (אי-הצטרפות לבריתות)", "שותפות אסטרטגית מקיפה עם ארה\"ב, הודו ויפן", "יחסי ביטחון מבוססים עם ישראל"],
                 geopoliticalThreats: "סכסוכי ריבונות בים סין הדרומי מול סין (איי ספראטלי ופאראסל); צורך גובר בהגנה על גבולות ימיים ואזור כלכלי בלעדי.",
                 uavFleet: [
-                    { name: "Heron 1", manufacturer: "IAI (ישראל)", desc: "כטב\"ם סיור ימי בבחינה/רכש מוקדם להשלמת יכולות המודיעין הימי הקיימות.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/b/b5/IAI_Heron-1_Maritime_patrol_UAV_Shoval_Yam.jpg", websiteUrl: "https://www.iai.co.il/p/heron-1" },
+                    { name: "Heron 1", manufacturer: "IAI (ישראל)", desc: "כטב\"ם סיור ימי בבחינה/רכש מוקדם להשלמת יכולות המודיעין הימי הקיימות.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/b/b5/IAI_Heron-1_Maritime_patrol_UAV_Shoval_Yam.jpg", websiteUrl: "https://www.iai.co.il/p/heron" },
                     { name: "ScanEagle", manufacturer: "Insitu / Boeing (ארה\"ב)", desc: "כטב\"ם טקטי לסיור גבולות ימיים, חלק ממאמצי גיוון הרכש מעבר לציוד רוסי.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Insitu_ScanEagle_X200_%E2%80%98N202SE%E2%80%99.jpg", websiteUrl: "https://www.insitu.com/products/scaneagle" }
                 ],
                 localIndustry: "תעשייה מקומית בראשית דרכה עם עניין ברור בפיתוח יכולת עצמאית ובקבלת ידע טכנולוגי מספקים זרים, בפרט מישראל.",
@@ -1242,7 +1264,7 @@
                 geopoliticalThreats: "עימותים חוזרים עם משמר החופים הסיני סביב שרטון סקארבורו ואזורים נוספים; צורך במעקב מתמיד אחר פעילות סינית במים הכלכליים הבלעדיים.",
                 uavFleet: [
                     { name: "ScanEagle", manufacturer: "Insitu / Boeing (ארה\"ב)", desc: "כטב\"ם טקטי מרכזי לסיור ימי, מסופק לרוב במסגרת סיוע ביטחוני אמריקאי.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Insitu_ScanEagle_X200_%E2%80%98N202SE%E2%80%99.jpg", websiteUrl: "https://www.insitu.com/products/scaneagle" },
-                    { name: "Hermes 900", manufacturer: "אלביט Systems (ישראל)", desc: "בבחינה מוקדמת להרחבת יכולת מודיעין ימי ארוך טווח מעבר לפלטפורמות הטקטיות הקיימות.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/9/96/Hermes_900_%28Kochav%29_UAV_is_airborne_again_and_joins_the_ranks_of_the_UAV_Division%2C_November_2015._II.jpg", websiteUrl: "https://elbitsystems.com/landing-page/hermes-900/" }
+                    { name: "Hermes 900", manufacturer: "אלביט Systems (ישראל)", desc: "בבחינה מוקדמת להרחבת יכולת מודיעין ימי ארוך טווח מעבר לפלטפורמות הטקטיות הקיימות.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/9/96/Hermes_900_%28Kochav%29_UAV_is_airborne_again_and_joins_the_ranks_of_the_UAV_Division%2C_November_2015._II.jpg", websiteUrl: "https://www.elbitsystems.com/autonomous/aerial/male-unmanned-aircraft-systems/hermes-900" }
                 ],
                 localIndustry: "תעשייה מקומית מינימלית; תלות כמעט מוחלטת ברכש חיצוני ובסיוע ביטחוני זר.",
                 gaps: [
@@ -1270,8 +1292,8 @@
                 alliances: ["בעלת ברית מרכזית מחוץ לנאט\"ו של ארה\"ב", "יחסי ביטחון היסטוריים ועמוקים עם ישראל"],
                 geopoliticalThreats: "פעילות מתמשכת של ארגוני נארקו-טרור (ELN, שרידי FARC); מתיחות גבולית עם ונצואלה.",
                 uavFleet: [
-                    { name: "Hermes 900", manufacturer: "אלביט Systems (ישראל)", desc: "כטב\"ם סיור ומודיעין בשירות פעיל למעקב אחר תנועות ארגוני סמים ולביקורת גבולות.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/9/96/Hermes_900_%28Kochav%29_UAV_is_airborne_again_and_joins_the_ranks_of_the_UAV_Division%2C_November_2015._II.jpg", websiteUrl: "https://elbitsystems.com/landing-page/hermes-900/" },
-                    { name: "Heron 1", manufacturer: "IAI (ישראל)", desc: "מל\"ט מודיעין נוסף בשירות פעיל למשימות סיור ארוכות טווח מעל שטחי ג'ונגל נרחבים.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/b/b5/IAI_Heron-1_Maritime_patrol_UAV_Shoval_Yam.jpg", websiteUrl: "https://www.iai.co.il/p/heron-1" }
+                    { name: "Hermes 900", manufacturer: "אלביט Systems (ישראל)", desc: "כטב\"ם סיור ומודיעין בשירות פעיל למעקב אחר תנועות ארגוני סמים ולביקורת גבולות.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/9/96/Hermes_900_%28Kochav%29_UAV_is_airborne_again_and_joins_the_ranks_of_the_UAV_Division%2C_November_2015._II.jpg", websiteUrl: "https://www.elbitsystems.com/autonomous/aerial/male-unmanned-aircraft-systems/hermes-900" },
+                    { name: "Heron 1", manufacturer: "IAI (ישראל)", desc: "מל\"ט מודיעין נוסף בשירות פעיל למשימות סיור ארוכות טווח מעל שטחי ג'ונגל נרחבים.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/b/b5/IAI_Heron-1_Maritime_patrol_UAV_Shoval_Yam.jpg", websiteUrl: "https://www.iai.co.il/p/heron" }
                 ],
                 localIndustry: "תעשייה מקומית מוגבלת (CIAC - תאגיד התעשייה האווירית הקולומביאני) עם עניין הולך וגובר בהרכבה ותחזוקה מקומית.",
                 gaps: [
@@ -1329,7 +1351,7 @@
                 geopoliticalThreats: "חוסר יציבות באגן הים התיכון ובצפון אפריקה; אתגרי הגירה וביטחון גבולות ימי; השלכות חוסר היציבות בלוב.",
                 uavFleet: [
                     { name: "MQ-9A Reaper", manufacturer: "General Atomics (ארה\"ב)", desc: "צי מל\"טים מרכזי ומהגדולים באירופה למודיעין ותקיפה.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/a/a4/MQ-9_Reaper_in_flight_%282007%29.jpg", websiteUrl: "https://www.ga-asi.com/remotely-piloted-aircraft/mq-9a" },
-                    { name: "Heron 1", manufacturer: "IAI (ישראל)", desc: "מל\"ט סיור נוסף בשירות פעיל, לצד הפלטפורמות האמריקאיות.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/b/b5/IAI_Heron-1_Maritime_patrol_UAV_Shoval_Yam.jpg", websiteUrl: "https://www.iai.co.il/p/heron-1" }
+                    { name: "Heron 1", manufacturer: "IAI (ישראל)", desc: "מל\"ט סיור נוסף בשירות פעיל, לצד הפלטפורמות האמריקאיות.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/b/b5/IAI_Heron-1_Maritime_patrol_UAV_Shoval_Yam.jpg", websiteUrl: "https://www.iai.co.il/p/heron" }
                 ],
                 localIndustry: "Leonardo היא אחת מתעשיות הביטחון הגדולות באירופה ומפתחת משפחת כטב\"מים עצמאית (Falco), מה שהופך את איטליה לשותפה פוטנציאלית לפיתוח משותף ולא רק ללקוחה.",
                 gaps: [
@@ -1358,7 +1380,7 @@
                 geopoliticalThreats: "איום רוסי לביטחון האירופי; איומי סייבר והיברידיים; מעורבות פוטנציאלית בתרחישי המזרח התיכון.",
                 uavFleet: [
                     { name: "MQ-9B SkyGuardian", manufacturer: "General Atomics (ארה\"ב)", desc: "כטב\"ם חמוש מתקדם (בשם המקומי Protector) בתהליך הטמעה מבצעית.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/a/a4/MQ-9_Reaper_in_flight_%282007%29.jpg", websiteUrl: "https://www.ga-asi.com/remotely-piloted-aircraft/mq-9b-skyguardian" },
-                    { name: "Watchkeeper", manufacturer: "Elbit UK / Thales (מבוסס Hermes 450 ישראלי)", desc: "תוכנית כטב\"ם סיור מקומית המבוססת על טכנולוגיית אלביט הישראלית - דריסת רגל תעשייתית קיימת ומוכחת.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/9/96/Hermes_900_%28Kochav%29_UAV_is_airborne_again_and_joins_the_ranks_of_the_UAV_Division%2C_November_2015._II.jpg", websiteUrl: "https://uk.elbitsystems.com/" }
+                    { name: "Watchkeeper", manufacturer: "Elbit UK / Thales (מבוסס Hermes 450 ישראלי)", desc: "תוכנית כטב\"ם סיור מקומית המבוססת על טכנולוגיית אלביט הישראלית - דריסת רגל תעשייתית קיימת ומוכחת.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/9/96/Hermes_900_%28Kochav%29_UAV_is_airborne_again_and_joins_the_ranks_of_the_UAV_Division%2C_November_2015._II.jpg", websiteUrl: "https://www.elbitsystems-uk.com/" }
                 ],
                 localIndustry: "תעשייה מקומית משמעותית (BAE Systems, Leonardo UK, QinetiQ) לצד נוכחות ישראלית מבוססת כבר היום דרך Elbit UK - יתרון תחרותי מובנה להרחבת שיתוף הפעולה.",
                 gaps: [
@@ -1386,7 +1408,7 @@
                 alliances: ["AUKUS (עם ארה\"ב ובריטניה)", "Five Eyes", "Quad (עם ארה\"ב, יפן והודו)"],
                 geopoliticalThreats: "התבססות סינית גוברת באוקיינוס השקט הדרומי; צורך בכיסוי מודיעיני על פני מרחבים ימיים עצומים.",
                 uavFleet: [
-                    { name: "MQ-4C Triton", manufacturer: "Northrop Grumman (ארה\"ב)", desc: "מל\"ט HALE לסיור ימי אסטרטגי מעל שטחי אוקיינוס נרחבים.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/4/4d/RQ-4A_%E2%80%9CGlobal_Hawk%E2%80%9D_%2849871332301%29.jpg", websiteUrl: "https://www.northropgrumman.com/what-we-do/air/triton-unmanned-aircraft-system" },
+                    { name: "MQ-4C Triton", manufacturer: "Northrop Grumman (ארה\"ב)", desc: "מל\"ט HALE לסיור ימי אסטרטגי מעל שטחי אוקיינוס נרחבים.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/4/4d/RQ-4A_%E2%80%9CGlobal_Hawk%E2%80%9D_%2849871332301%29.jpg", websiteUrl: "https://www.northropgrumman.com/what-we-do/aircraft/triton" },
                     { name: "MQ-9B SkyGuardian", manufacturer: "General Atomics (ארה\"ב)", desc: "כטב\"ם חמוש בתהליכי הטמעה מתקדמים בחיל האוויר האוסטרלי.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/a/a4/MQ-9_Reaper_in_flight_%282007%29.jpg", websiteUrl: "https://www.ga-asi.com/remotely-piloted-aircraft/mq-9b-skyguardian" }
                 ],
                 localIndustry: "דחיפה חזקה ליכולת ריבונית תחת עמוד ה-AUKUS השני, כולל תוכנית \"Loyal Wingman\" (MQ-28 Ghost Bat) של בואינג אוסטרליה.",
@@ -1444,8 +1466,8 @@
                 alliances: ["שותפות אסטרטגית הדוקה עם רוסיה (לא ברית פורמלית)", "יחסים דיפלומטיים רשמיים עם ישראל, אך רגישים מאוד בתחום הביטחוני", "יריבה אסטרטגית מוצהרת של ארה\"ב - בעלת הברית המרכזית של ישראל"],
                 geopoliticalThreats: "סין מהווה יריבה אסטרטגית גלובלית של ארה\"ב. כל מהלך ישראלי מול סין בתחום הביטחוני-טכנולוגי נבחן בקפידה רבה על ידי וושינגטון ועלול לפגוע ביחסי ישראל-ארה\"ב עצמם - זהו שיקול מדיני מכריע שגובר על כל פוטנציאל עסקי.",
                 uavFleet: [
-                    { name: "Wing Loong I / II", manufacturer: "AVIC (סין - ייצור מקומי)", desc: "כטב\"ם תקיפה ומודיעין מוביל ביצוא הסיני למדינות שלישיות - מתחרה ישיר של מערכות ישראליות בשווקים כמו איחוד האמירויות ומרוקו.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Wing_Loong_II_side_view.jpg", websiteUrl: "https://www.avic.com/en/" },
-                    { name: "CH-4", manufacturer: "CASC (סין - ייצור מקומי)", desc: "כטב\"ם תקיפה סיני נוסף בייצוא נרחב, מתחרה נוסף של מערכות ישראליות וטורקיות בשווקים מתפתחים.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Wing_Loong_II_side_view.jpg", websiteUrl: "https://www.casc.cn/" }
+                    { name: "Wing Loong I / II", manufacturer: "AVIC (סין - ייצור מקומי)", desc: "כטב\"ם תקיפה ומודיעין מוביל ביצוא הסיני למדינות שלישיות - מתחרה ישיר של מערכות ישראליות בשווקים כמו איחוד האמירויות ומרוקו.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Wing_Loong_II_side_view.jpg", websiteUrl: "https://www.catic.cn/" },
+                    { name: "CH-4", manufacturer: "CASC (סין - ייצור מקומי)", desc: "כטב\"ם תקיפה סיני נוסף בייצוא נרחב, מתחרה נוסף של מערכות ישראליות וטורקיות בשווקים מתפתחים.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Wing_Loong_II_side_view.jpg", websiteUrl: "http://english.spacechina.com/" }
                 ],
                 localIndustry: "תעשיית כטב\"מים סינית ענקית ועצמאית לחלוטין (AVIC, CASC, Norinco) המייצאת בהיקף נרחב למדינות שלישיות ומהווה יריבה תחרותית ישירה של התעשייה הביטחונית הישראלית - לא שוק יבוא בשום צורה.",
                 gaps: [
@@ -1470,7 +1492,7 @@
                 geopoliticalThreats: "תחרות אסטרטגית גלובלית מול סין ורוסיה; ביטחון פנים ותשתיות קריטיות; מדיניות ITAR מגבילה מאוד יצוא טכנולוגיה רגישה גם כלפי בעלות ברית קרובות.",
                 uavFleet: [
                     { name: "MQ-9A Reaper", manufacturer: "General Atomics (ארה\"ב - ייצור מקומי)", desc: "כטב\"ם התקיפה והמודיעין המוביל של ארה\"ב, בשירות נרחב בכל זרועות הצבא.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/a/a4/MQ-9_Reaper_in_flight_%282007%29.jpg", websiteUrl: "https://www.ga-asi.com/remotely-piloted-aircraft/mq-9a" },
-                    { name: "RQ-4B Global Hawk", manufacturer: "Northrop Grumman (ארה\"ב - ייצור מקומי)", desc: "מל\"ט HALE אסטרטגי לאיסוף מודיעין ברמה הלאומית.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/4/4d/RQ-4A_%E2%80%9CGlobal_Hawk%E2%80%9D_%2849871332301%29.jpg", websiteUrl: "https://www.northropgrumman.com/air/global-hawk" },
+                    { name: "RQ-4B Global Hawk", manufacturer: "Northrop Grumman (ארה\"ב - ייצור מקומי)", desc: "מל\"ט HALE אסטרטגי לאיסוף מודיעין ברמה הלאומית.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/4/4d/RQ-4A_%E2%80%9CGlobal_Hawk%E2%80%9D_%2849871332301%29.jpg", websiteUrl: "https://www.northropgrumman.com/what-we-do/aircraft/global-hawk" },
                     { name: "Hermes 900", manufacturer: "אלביט Systems (ישראל, דרך Elbit Systems of America)", desc: "דוגמה לנוכחות ישראלית קיימת בשוק האמריקאי - פלטפורמות ומערכות אלביט מיוצרות ונתמכות מקומית דרך חברת הבת האמריקאית.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/9/96/Hermes_900_%28Kochav%29_UAV_is_airborne_again_and_joins_the_ranks_of_the_UAV_Division%2C_November_2015._II.jpg", websiteUrl: "https://www.elbitamerica.com/" }
                 ],
                 localIndustry: "תעשיית הביטחון האמריקאית היא הגדולה והמתקדמת בעולם ומייצאת בעצמה בהיקף עצום. לישראל יש כבר דריסת רגל תעשייתית מבוססת בשוק האמריקאי, בעיקר דרך חברות בת מקומיות (Elbit Systems of America, IAI North America) - יתרון משמעותי לכל הרחבה עתידית.",
@@ -1500,7 +1522,7 @@
                 alliances: ["שותפות ביטחונית אסטרטגית עם ארה\"ב", "הסכמי אברהם (איחוד האמירויות, בחריין, מרוקו)", "שיתופי פעולה ביטחוניים עם הודו, אזרבייג\"ן, יוון ועוד"],
                 geopoliticalThreats: "זירת איומים רב-חזיתית מתמשכת המהווה גם \"וילון ראווה\" מבצעי חי לטכנולוגיות הכטב\"ם הישראליות, יתרון תחרותי מוכר בשוקי הייצוא.",
                 uavFleet: [
-                    { name: "Hermes 900", manufacturer: "אלביט Systems", desc: "כטב\"ם תקיפה וסיור בינוני (MALE) - עמוד השדרה המבצעי של חיל האוויר, ומיוצא כבר לעשרות מדינות ברחבי העולם.", websiteUrl: "https://elbitsystems.com/landing-page/hermes-900/" },
+                    { name: "Hermes 900", manufacturer: "אלביט Systems", desc: "כטב\"ם תקיפה וסיור בינוני (MALE) - עמוד השדרה המבצעי של חיל האוויר, ומיוצא כבר לעשרות מדינות ברחבי העולם.", websiteUrl: "https://www.elbitsystems.com/autonomous/aerial/male-unmanned-aircraft-systems/hermes-900" },
                     { name: "Heron TP", manufacturer: "IAI", desc: "כטב\"ם אסטרטגי כבד (HALE) בעל טווח ושהייה ארוכים, מהמתקדמים בעולם בקטגוריה זו.", websiteUrl: "https://www.iai.co.il/p/heron-tp" },
                     { name: "Harop", manufacturer: "IAI", desc: "תחמושת משוטטת (Loitering Munition) שהוכיחה את עצמה מבצעית במספר זירות, ומיוצאת למדינות כמו אזרבייג\"ן.", websiteUrl: "https://www.iai.co.il/p/harop" }
                 ],
@@ -1528,9 +1550,9 @@
                 alliances: ["מדיניות \"צבאיות ניטרלית\" רשמית - אינה חברה בנאט\"ו", "מועמדת לאיחוד האירופי", "יחסים היסטוריים הדוקים עם רוסיה", "שיתוף פעולה ביטחוני-תעשייתי גובר עם סין"],
                 geopoliticalThreats: "מתיחות מתמשכת מול קוסובו; רגישות אזורית בבלקן; איזון עדין בין לחצי המערב לקשרים המסורתיים עם רוסיה.",
                 uavFleet: [
-                    { name: "CH-92A", manufacturer: "CASC (סין)", desc: "כטב\"ם תקיפה טקטי סיני שנרכש כדי לחזק יכולות תקיפה מדויקת - סימן ברור להתבססות התעשייה הסינית בשוק המקומי.", websiteUrl: "https://www.casc.cn/" },
+                    { name: "CH-92A", manufacturer: "CASC (סין)", desc: "כטב\"ם תקיפה טקטי סיני שנרכש כדי לחזק יכולות תקיפה מדויקת - סימן ברור להתבססות התעשייה הסינית בשוק המקומי.", websiteUrl: "http://english.spacechina.com/" },
                     { name: "Orbiter 2", manufacturer: "Aeronautics (ישראל)", desc: "כטב\"ם סיור טקטי קטן שנרכש מישראל - דוגמה לקשר תעשייתי-ביטחוני קיים ומוכח מול הספק הישראלי.", websiteUrl: "https://aeronautics-sys.com/" },
-                    { name: "Pegaz", manufacturer: "Yugoimport SDPR (סרביה - ייצור מקומי)", desc: "כטב\"ם סיור מפותח ומיוצר מקומית, המעיד על שאיפה לבניית יכולת עצמאית מקבילה לרכש הזר.", websiteUrl: "https://www.yugoimport.com/" }
+                    { name: "Pegaz", manufacturer: "Yugoimport SDPR (סרביה - ייצור מקומי)", desc: "כטב\"ם סיור מפותח ומיוצר מקומית, המעיד על שאיפה לבניית יכולת עצמאית מקבילה לרכש הזר.", websiteUrl: "https://www.yugoimport.com/en/products/aerospace/unmanned-aerial-vehicles" }
                 ],
                 localIndustry: "Yugoimport SDPR מובילה תעשייה מקומית מתפתחת (כטב\"ם Pegaz, פיתוח תחמושת משוטטת Kobac) - סרביה שואפת להפחית תלות ברכש זר לאורך זמן, אך עדיין תלויה משמעותית בייבוא.",
                 gaps: [
