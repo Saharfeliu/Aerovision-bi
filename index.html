@@ -1,0 +1,2016 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>AeroVision BI - מערכת מודיעין כטב"מים וניתוח מדינות</title>
+
+    <!-- PWA: installable on iPhone (Safari "Add to Home Screen") and Android/Samsung (Chrome "Install app") -->
+    <link rel="manifest" href="data:application/manifest+json;base64,eyJuYW1lIjogIkFlcm9WaXNpb24gQkkgLSDXntei16jXm9eqINee15XXk9eZ16LXmdefINeb15jXkVwi157XmdedIiwgInNob3J0X25hbWUiOiAiQWVyb1Zpc2lvbiBCSSIsICJzdGFydF91cmwiOiAiLiIsICJkaXNwbGF5IjogInN0YW5kYWxvbmUiLCAiYmFja2dyb3VuZF9jb2xvciI6ICIjMDUwODExIiwgInRoZW1lX2NvbG9yIjogIiMwNTA4MTEiLCAib3JpZW50YXRpb24iOiAicG9ydHJhaXQtcHJpbWFyeSIsICJpY29ucyI6IFt7InNyYyI6ICJkYXRhOmltYWdlL3BuZztiYXNlNjQsaVZCT1J3MEtHZ29BQUFBTlNVaEVVZ0FBQU1BQUFBREFDQVlBQUFCUzNHd0hBQUFKNzBsRVFWUjQydTJkUFhMY1JoQ0ZzVk13YldkMFpwWXVvSHd2b3ZJeGVBSXFjam1TVHNCanVIUVI1YnJBbHBScE0wdFVZQWYweWpTNFdBd3dQVFA5ODcwcUIxNHRGNFBCZTkydkIvT3pHNVRoaDU5KytYc0Fidkh0eStlZHB2YnNJRHVJTElvZHBBZVJ4YkNEK0NDeUVIWVFIMFFXd2c3aWc4aEMyRUY4RUZrSUNmSURTNURtMkE3aWc4alpJRUYrRURrYkpNZ1BJb3NnUVg0UVdRUUo4b1BJSWtpUUgwUVdRWUw4SUxJSUV1UUhrVVdRSUQrSUxJSUUrVUZrRVNTNkNVUkdJdnFEeUZrZ1FYNFFXUVJZSUlBRkl2cURxRm1BREFESUFFUi9FRFVMa0FFQUdZRG9ENkptQVRJQUlBTVEvVUhVTEVBR0FHUUFBRUlMQVBzRG90b2dNZ0FJalpFdXFJL2ovY09tdjd1K3ZhTHpLbU9IQmVwUGRJVFJCOSsrZk40aEFDT2tSd3lWQkFENTI1SitpYkExZnh1Y3NVQUlvSnp3VStMTmZUK1hvTGwvdjdaZEFBRlVJLzJsdjl0S3hEVy9oUmdRUUZYeTV4QklrdndhMjRJQWdrYjkzb1NURkFGQ1FBRFoxcUhFczB1VHJPUWFFdmZvRlFueXl4T2pCcWxxdGFmM01DNFp3SmpWV2ZxOTJoRlY0bHBZbzhBQ2tMWXJMY2t2ZlUwSzVVQUNxQkgxZXBDL2hRZ2lDU0ZGSmYvMTdWVVY0bWlyWlhMcWczUDlFS1UyU0ZISjM0dHdHa1V3MXljUlJKQWdmemw2MklWVzkrRmRCTWtyOFQyVHY0Y0l2QXJCWFJGY20vZzlDOSthYlpJa3VLVUNlb1Q4OWgveTllM1ZJb0ZiUm5CTEkwc2o1TGRkL0ZwcW8wWmhqSkRmZm9vdklmM0h0eStlZlhaemQ4aGFleUMxdU9mMHZSNzlhcjRHYUVWK1RkNC9oMWc1NUR4SGZta1IxR28vR2NCQkFTWk5tTnIyUitvYU9jT3RyYktDNlF3dzdiUmFuZFZyc3RzV29lZTBkU242WDhvQ0xmcTlwYVVkdlpEZiszMW96bXpIK3dmUjlwMSs2Mm5mMU1vSW94ZlNXTEUrbXZ5dnBCV1NGc0VsSVVoZVo0eE0vbFlXYW9uNEZ1dVdWaUtZRXdKRnNNQW94TXQzN3llZjc4VUpxVEZiUFpMM3NIb1VxRWZoZmFsUEpmclJWQkVzRWJHUDl3L1BpRC9GaDFmN3MxR25kTnhiMDRLWkxjT2dHak5wNmJXU1ZmSnJhOXVTeGRGbWM2NXZyNGFidTBNeCtWcy9xMmxmbGw3THJBV3FGZjFQMXVoNHY5OFU4UzM1K1pNVktyMkhYbFpJb3ZZd1lZR2swbDZ1QUU0MmFNMUQxanc5b29mMXNtS0ZPQ0NqTUsxcnREY1JJTlhuS2VxTmwzcFFpTi8vMlVqVUF1b0ZJSm5LcjIrdm5sbWJIUHRqTWRKTEZvb1dydXN5QTJqcFFDSzkvV2M0aDNCbmhEMFdzNDhSZmxvUTUyUUhvUEY1YmhlWjJsR2dGaU1LbDRZeE5hNzk3V2tmTlQ0L2lmc01lVXFreGVXVDJMREFGcWpuUHZ0YTlzclpNb3UwNXd1cTNpL0hURnNnNmRTOWx2aGU5OERwa1VWYTJMQ1N5WEd1TFZBdThTM3RpVlBTMXBhK1hGTm1OQ3VBbW9mTHJlMDRMV1NST0JXbVpYVFdib1ZHTDRxK05GV2haR3MvcTFGeTdTS1NWZ01EMnZyVDdiNUFPZisyOWNoUmJ6WEEzUDFhR2dyZTJyN1JLL0c5UmZSVzVGa1NnNmIra3doVXFrYUJKRmRmYlgxWUhsNkFTZCtUaEQyUzZOZXZuMTQvKyt5dlAvK0lrd0U4YkNIaXBaNW9uUkhPa1g4WWh1SG4zMzcvTG9JdGNMVWtraW5LOVlWd2JqU3RkczAwUi82bklqQXZnRXNwTW1leE9jVFhMWVN0MDZTWHlMLzJlK1lzRUtlYzI3UkdFczluTGFtL2ZubzkvUGpyR3o4V2lHV0lkalBDMmtqZkMwa3I4VG5OM0c1R2FGMGp1Qk1BbHNlWENEUm5neEhpZ3hhMUFSbUFRcGRzc0RJanJDMW8xMzYvdXdEV0RKMEJmeUxJUWU1THJpM2s3eW9BTFJ2SkFyMGlPSEZrU1FSYnlhKzJDSWI4aUdBYUlPZEVVRUwrYmtXdzErbkdvTEtBYnQrSS8yNkMvRUFiV2k3ZFRDMXZLbWRhcmJXbGg5YnNSODhBbE5PbnJkdlhaRDNBRXZISkN0UUZPVHd4bVFHc0h5SUIrbG5qRmp3WklUL1FSdnlXUEdrNkNwUjdVejFGd3BMSWRtVFhFQ0JUcTVzbDhnT05nUysxSUQ4QVdyTitha0grMHJlQXdLL1g3NDJramZ5SUlCNzVlOXJqcEpIOGlDQUcrVFVzYmExV0JLKzVzWWhibFVOK0hZTWlZMi95citsSVJwTHcreW96Z1BRNGM3Uk5heUcvWVFIVXVtSExXMjFBZm4xZXY0b0FXcERSNGxZYkVZbHZkUnVic1RaWnBYKzM1d2F0WUYwQXRQQmNraGJ5NTA2UDdyVkJLMWpYMzVlbU9tc1N4aWloL2g0M3BHSExiaUsrM2NoZnhRTDFBRUxRUVh5cmZiMTVSVml0REZEak5KTzFEOHJUbE9pMTkxTGoyQ25OL1ZtY0FiVGQwTksyZkI3bis5ZU04Qy9mdmYvZi8zOTR0WGZWZjZOMGgya1RRcTRZc0RLWGlULzkvS2tRd2dtZ05uR2xpVm55UXMxcVBWRnlFSGpObDVzdWFvRGFOcUsxVFpGODRMWGJXN3V0eC91SDJlZy94WWRYZTlQK3Z6Z0RlUEhRYTg4a3Myb1BtWFVySUlCVzB4OU8xem5lUHpRWDJ0UHJXNXFQZEttdFBTWVlXaGh3TVBFZW9JY0lMbDI3eHc1bjBrUENjd3VZcE5wdEphT1lmeEUyMStHOUk0N1dpTGUwY3U5UkJQdkZPaURILzdzVVFJMVJtcHpyekdXQjAzYyt2bjB4K2Z6Z3FrNnBUWHpQd2FoYUJ1aHBUVTdYbnhML2hOUG54L3NESWxoSi9GTVdHSWI1RjJGZStuVFUvcUNZNWRrbjR2LzNSbjFmRk0yMUMwWGxlNENjNjEySy9sUGMzQjJLaTBnckVhLzNkb1BXK216VGVvQ2VXNXVURVo3M3g5UC90SW5QcFFBZ3BSN2lXN1FkMUFDRnRVQXJ3ZlYrSWJmVjR2U3dJVlkzUXg2bFNOa0ROM2VIeFRwZ3EvL1g2dWMxa3N5eUF5aXlRTk5hb0daSFJFcnJPUWVJYSs0UFM4OUs1SXl3bHVsdmpoalRUSEJ6Si9jaXJKV2xrTjVadThkTVdtdUJhcFJVZks5VStHakhEdVllaElXOU03MFBmb3cxTzZiR1F6eFhlMmdwVUNVSXcvc0d3d0tZRzYyUjdoZ0xJdkM0aFlnMzhsZkpBSzIyS2RFMlRjSXo0VDNmVS9XRHNtdS9yR2xWaEUyTFM0MTJwa1VCN08zd3c3RlZkR2gxUkdZTEt4VDFEYXpITi83Vk00QkVSNjVaZUwyRmpGc2ZyRGJDMXh4ODhIcm9lUmNCZUlnb1dzbGZvMjFleWQvRUFtMGhrUVpoV0QybEJ2SWJFa0JQOGttY1lPbDlMbzUzOG5lM1FGYUxWRTJMUG1xMEpWS1Jud2FIYUhtK1dFOUwxT3ArdEUrK1F3QXJiSTRYRWJRa3YyZTRGa0F0RVdna2hVUk5FNDM4SVFSd1NRUWxRdEJFanBLMnpQVkRsUFVYTG92Z2xwR3U5L0pEcWJaSEkzNVlBVnl5UUZzZmZrc1JTRnlMeGZUQkJaQlRDNVJNcGRBNEVjMzY0aHRxZ01iZVdkc1pBYlhhRTMwTGxkQVpRTklhMVBUVFczOGJxNE1BdWhPdTEvQWtCUzRDcUdvNTFzeFhraXhXdDg2VGd2d0lvSmtZU3ExSDd0OURlZ1NnVWhBbHBQVHljczZNQUlaaEdCQkJIekZJQU5Kdng3Y3ZuM2NJd0tBWUlEMENDQ0VNaUk0QUFLZ3FnRVEzZ01oSUp5WFFGU0JhOVA4dUFBQkNad0FBd2dzQUd3U2kyUjh5QUNBRHpDa0RBTy9Sbnd3QXlBQkxDZ0hBYS9RbkF3QXlRSzVTQVBBVy9ja0FnQXl3VmpFQWVJbitpeGtBRVFEUDVNY0NBU3hRcVlJQXNCcjlzek1BSWdBZXliL0tBaUVDNEkzOHEyc0FSQUE4a1g5VEVZd0lnQmZ5YnhJQUlnQmV5TDlaQUlnQWVDQi9rUUFRQWJCTy9tSUJJQUpnbWZ6RDhPL2VvRkpnZ3kxZ2hmaGlHWUJzQUt5U1h6d0RrQTJBRmVKWEZ3QkNBQlpjUlRQTGdoQ0FSanZkM0xNakJLQ3BqdXhhdENJRzBJUDBhZ1NBS0NCN2Ivd0RISklEM3hSazFsc0FBQUFBU1VWT1JLNUNZSUk9IiwgInNpemVzIjogIjE5MngxOTIiLCAidHlwZSI6ICJpbWFnZS9wbmcifSwgeyJzcmMiOiAiZGF0YTppbWFnZS9wbmc7YmFzZTY0LGlWQk9SdzBLR2dvQUFBQU5TVWhFVWdBQUFnQUFBQUlBQ0FZQUFBRDBlTlQ2QUFBYzUwbEVRVlI0MnUzZFM1Smt4YlUyME15d29pN3FGYjByWXdMcU14Rk13NmdSaUphTWxoZ0J3OEEwRWZXWmdBeDYwT1BWUUIxQ1NwS015SWh6L0xqdngxcG1zdiszQzFSbGVManYvZm1PUno0K0VOSUhIMzcwcTFVQUt2amx4KzhlclVJOG5oUU5Ia0JBRUFEUTdBR0VBZ0VBRFI5QUlCQUEwUEFCQkFJQlFOTUhRQmdRQURSOUFJUUJBVURUQjBBWUVBQTBmZ0FFQVFGQTB3ZEFHQkFBTkg0QUJBRUJRT01IUUJBUUFEUitBQVFCQVVEakIwQVFFQUEwZmdBRWdYdWROSDhBNk5jN0hqMTVBTkJ2R2xEdVFXbjhBQWdDcnl2MUVvRG1ENEFlMDJnQ29QRURZQnJRYkFLZytRT2c5elFMQUpvL0FIclFObzhXSFFEMnlmaVNRTG9KZ09ZUGdON1VMQUJvL2dEb1VXTThXbFFBR0N2RFN3TGhKd0NhUHdDbUFjMENnT1lQZ0JEUUxBQm8vZ0FJQWMwQ2dPWVBnQkRRTEFCby9nQUlBYzBDZ09ZUGdCRFFMQUJvL2dBSUFjMENnT1lQZ0JEUUxBQm8vZ0FJQWMwQ2dPWVBnQkRRTEFCby9nQUlBZXQ2NGFuYkF3WUFJV0JCQU5EOEFXQjlienhWZjRBQUlBUXNEQUNhUHdERTZaV25hZzhJQUlTQVFCTUFBQ0NPd3dPQTJ6OEF4T3VkcCt3UEFBQ0VnRUFCUVBNSGdMaTkxSHNBQUtDaFF3S0EyejhBeE82cHB5dy9LQUFJQVVFRGdPWVBBRGxDZ1BjQUFFQkR3d0tBMno4QTVKa0NuS0w5UUFEQThUM1hTd0FBME5EdUFPRDJEd0Q1cGdBbUFBQmdBdUQyRHdBZHBnQ25WWDh4QUxBdUJIZ0pBQUFhMmhRQTNQNEJJUGNVd0FRQUFFd0EzUDRCb01NVXdBUUFBRXdBM1A0Qm9NTVV3QVFBQUV3QTNQNEJvTU1Vd0FRQUFFd0EzUDRCb01NVXdBUUFBRXdBQUFBQjRNSDRId0N5dWFWM213QUFnQW1BMno4QWRKZ0NtQUFBZ0FrQUFOQTZBQmovQTBCdTEzcTVDUUFBbUFBQUFHMERnUEUvQU5Sd3FhZWJBQUNBQ1FBQTBESUFHUDhEUUMwdjlYWVRBQUF3QVFBQUJBQUFvSDRBOFBvL0FOVDB2TWViQUFCQTl3a0FBTkRERzBzQTlYei81YzlELzd4Mzc5OWFWQ2ptOGZ6Lzhmby85RzN3QWdMMDhjdVAzejBLQUtDNUN3a2dBQWdBb0xrTENTQUFBQnErUUFBQ0FLRGhDd1JRTEFCby9xRHBDd1BRS3dRSUFLRHhDd0lnQUFBYXZqQUFBZ0JRb3ZIZjJ4ZzdQbVlRQUlEMFRYQjA4N01XSUFDQWhuOWdZOXI3TXh6ZDdJNzQrU0tzT3dnQW9QRXZheng3Zm83WlRlM0luelhLOHdFQ0FHajhVeHJNbHA5bmRST2I4VE5IZTU2Z1RBRFEvTkh3MXphVGUzK3VxQTFyeHVPSStoeENSZ0lBR3YvQ3BwSHgxaC9oc1FnQ0lBREFzaWF4dDBGVWF2NHJINU9YQ0VBQWdNTWJ3cWhtVUxINVIzaHNHWjU3RUFDZ1llUGYrck5tYXo2ckg1OGdBQUlBQWtDb1FsKzk4VWQ4dkJuMkJRZ0FzTGpBSDFuYzcvazVxeldaS0k4OXkxNEJBUUFtRmZSSTM2Qlh0YkZFV29Ncyt3WUVBSGhTdU4rOWY1dXFnR3YrY2RkaTVENDY3MDBRQUNCZ29aN2RhTHU5NXA5MVBieFBBQUVBTkg2My84WnJJZ2dnQUlERzcvYmZlRjBFQVRvNFdRS2lOWWNSeGZkY2NOKzlmNXVpK0hacUVGbWVqNmQ3S01xK0JoTUEzQTZETnhlai81cHJWR1YvZ2drQW1yL0dsbUlTRU9YMkhQMzNGb0FKQUJxLzVtOFNZTitDQ1FCMW0zL1dtNi9pYnoxTUF6QUJRT012Y29PNjlURnAvclhXcitKZXhnUUFRaGJNekRkR2hiN2Uyb3pZajZZQm1BQ2crU2R0RUxjOExzMi94MXBXM2VNSUFLQW9ibnhzaW51djlSUUVFQUJRMERjVXdrd0YwTzNmbW5ZL0ErVGtQUUFjV3ZRMGY2ejl0ajN0MndNeEFhQk5ZYzU0NDNIN3Q3Yk9Cd0lBTkNwdVh2ZTN6czRKMlhrSkFFVU5KdHU2NTcwa2dBa0FKWnAvMXNidjltKzluUjFNQUVBQmcrblRBSk1BQkFEU05mL3MzL3V1OEhwdWpnb0I5NTRMZXhFQkFBVzN5SzBPYStrTUlnQlFzdkJrTCtTS3JlY29ZdGl4TDlucWpTVkE4M2RqemJDbUd0MzZFR0J2Q3dBb05Jb0dOTHlsdi9ZNG5QVmNmQXdRelgvZ1kxY0FlejBQcGhJbUNTWUFLTHdPT1c3cWJGaG5kVUlBUVBOM3ErR21OUjdWcERYN21QWEZPUklBMFB6ZEN0bjFuSjMzb2VkUElFQUFRUFBIL2tVZzREZmVCSWptUDJBZEZDWE5uZm1jT3hNQU5QK2xCVWd6MHV3eEhUQUJRUE52dWhZS2owWS8rMFliN2F4R2UvNmNTUUVBemYvdzlWQm9lamY4STZaQXQrNnBUR2QyOWZQdG5Bb0FhUDV1L3hyKzhpYmNOUVJFMkEvT3F3Q0E1dS8ycitIdmZnNXZlWXpmZlBIeGkvLzNQLy90MysxRHdNcTk0dXdLQUlxMDV1LzIzNmpoajM2K0xqM21TMDMva2t0aElQTjdBckxzcGM1bldBQlFzQjBXdC8veXQvekl6VjhJV0x2UEJBQVViZ2ZGN2I5WXd6L3lPUnZkL0lXQTlmdXc0M2tXQURSL2g4UHRQMFhEdjdibXM1KzNsLzYrdmMzL1dnaTQ5K2Z1ZE1aSDd0RnVJY0FYQWVGUUZMbmRWbHFEby9iYzA5OFJVUDNNZHRuUFQ1L1B2WS81L045M3FYa21BQXE4NXQvNDlsK3A0Yzk2L282OC9ZK2NBblErNzZQMmRmWDZad0tBNWk4RTJsc21BU1ZyMTRpSlFPVzlhZ0tnOEN2UVRXNy9LeHZCckhXYjhUeG1tZ0E0KytQMmZzVjFNUUhRNE56T1BPOXUrQ1lCcFcrOVR5Y0NXNmNpRmRmbDVHaG9BZ3AzbmJYNS9zdWZmL2UvMmV0ei9wL25LUGYrcmZxeXdYa050dTZUYXV0aUFvRGk2Wlp2djVnRXRLMTM5NjVIcFU4S0NBQ2FRL3RpbnEwZ2F2aGoxckRybnI4MUJIVDZ5T1RXSUpCOWZid0pVR05yZjVPTHZrNGFmcnpuTS9vWEFha1A4ODVhNXZVeEFXZ3V5K1o5N1dBZS9UaG1yNVBmam5iOERkZlp0MDRqcGdHWkp3SGVCQ2pKaG44Y3Q0NHJ0NzZ6TitQakhWbndWcjl4cjhvWnVlWFgrODc0TTlRU1lmaFdYZ0pvWE5naWIvSzlSV2YwNzFFL2NxMVd2RnZmR2RpL0ZoRi9HMkRYZWhHbEZtVmJJd0ZBNFN0NzQ3amxNZDd5ZDgzNk5iSWEvL3g5ZE1UWEFtOEpBYXVhdnhEUWUzMjhCNENTemYvOFowVTZrRjdYNytOcFE3OFVCaUtPKzdsOGppcCtjc0lFb0dIampMcEJYM3NNZi9ubnYxNzh2My85NlNlYkh1L0tYeDZqNGRlNXRSMzEvRVorNDZsSlFJMjFNUUZvbUdTekhheExqZi81UDc4VUJGYWs4bGxOWDhQUGN6dU0vcno2Vk1DNHM1L2xYSm9BdU9tRS9mbGZhL3lYWEFvQ3p4Ly9FV24rNkFLcTRjZStzYzE2ODZwNlluMUc4REZBUXRyYS9QZit0M3VLd3BHajRLNGYxY3M0RFJEdVBNY3pMZ01qZUFtZ1NScjE4LzkrTkRmcTc2M3krbS8zTXpSeXZaLytXYXUvd0NyVHVtVUxBUlZlTGhFQXBOWlN0LytuZjhacmJ3N2NzMllhdjBKZDlmbjBYb0ErSWNsTEFHN1ByWDcrUFgvbmtiOW0xNGdmWjdqbXBTcnlHZ2tBTm1xNTIvK29QK3Rwd3ovNjlYMVFNNFFBQVFESnU4SGFhZnoyaExVVGxnUUFiTTVHejRYRzd3eFlOMEVwQ204Q0JJVVVhTWdFb0hDUzFIaGkzUGh4UTZzZVhyME1rSE9kVEFEQVRSOW95RmNCRjd5bFpHbEVvNzhDK0xtOTN3T2c2VHM3V0wvS2ErUWxBTnlZTi83c21nV1FtUUNRS0ZsMlNlQWpidTVIM2Y0MWZqYzRnWDEvbmJMSEJBQkkwMHcxZnFEYUJVd0FLSlFZS3pXb1BUZjRrYmQvalY5eDV2NDFOQVhJd2FjQUNGRlVYaW9ZNTBaKzY1c0NSelYralFMb3dBU2d5TzIvOHMzaTYwOC91ZHJjWC92bm1qK29YZGJHQktCbEE4MCtDUmg5d3dlT082ZVlBQ0JCcHdzeWJ2LzJGMnBZcHowbUFOaHdIZzgwYjFyT3FBa0FpbENJeDYwQWcxcUdBRUNUSkg1VTQvY3hQbEI3ZUprM0FWTHlkcUE0alZ0YmF3a0NBTUVLZCtiQ3JQR3ZXWjlWUDRzUVVYY0tjTXYrK1A3TG4rMEJBUURoWm43am45MU12ZWFaUDBSb1dBZ0FoRTdlMXVEdGtqOUxnNDhaSW01OURuMk9mYzBVQUFHQXBzMWw1T002TXZ3b1pMWDNtT0M4OXZteC9nSUF6VzcvR2Q2TXB2RUxDWmdDZE9OamdJclRvWTluMUd1L1c1dS9vb1R6YUUweEFhREJqVitCNGNpOWJJU05BTUF5VVF2UStmVzlGZS8yMXZSWkVRaUVnVCtlVzJkUkFHRGhyWG5sejczM01keFNVQldZZUdHdzg5ZFdtdzVzdnl3Z0FOQTRzSnh2RE0rTFFZZUdVcWtBam5nc0ZaN3pVUjlUUkcwVUFBaFpRRWEvdm4vK2Y3TTFBTVU4MW5wbTJEOGRYajd3TW9BSkFNV0wxNGhDbitFeGEvSTFBa1RFdmRiOTVZUHVMd05FZWV3Q2dBMHpyZkZILzFXL0duNlBzeE05RUdUZmg2WUFKZ0FVdXYxWGZweWFmdTlBWURwZ0N0QzVuZ3NBdEE0bWtPa3NDcXdJQUkxdkxKci83ZXNreEZCdFgyVUpBMTRHaUZQUEJRQzM3TEtOMzQySWxYdE9HTmovR0txYzRZejFVd0RBRy9QZ29QMDU2Mno1VWlJRWdJWUZwbHJ6Vjdpb2ZINW5CNEtWNThuTEFQSHJtd0RROU5ZZDZXQ3VPaFRDQnJPYjFPeVhEeUlFZ1Z0K3h1eG5NV3ZRRVFBYXBzWFZtM1hHWVhmeklIcURtamtkV0JVRVRBRUVBSUkwcDVVSDBXMGIxazhIb2s0RW9rOEJmdnIyczZ2Ly9JZXZQazlaQXdVQW9VUFRoMlpod0hjTDdHLzZULzNwcjMrL0t3d0lBRXhwbnJNYnYySUMrY0xBa2VjMjI4c0E5elQrYTJFZ1F4QVFBTno2Tlgxb0hnWXl2Rmt3US9OL0hnVE9JU0RxdXA0Y3FYcE5lZFl2M1huMy9xM21Ed3ZEd09qemQ2NGJLMjdzcTZjRUk1di84MmxBVkFKQThKUWY4UkJwL0ZBM0NCeFJRNkxYaXlPYWY0WVFJQUFVbWl3YzNmd3JOWDRCaG1wNzRZZ2cwT0VqZkVjMi81bC9od0RRdVBsci9QUFdBMmVzNDBTZzRybWEyWmdqaGdCdkFreGNSSTQ2a0c3SFVHTWlNS3BlUEE4QlIzNUoyYXo2czZJaC8vVHRady8vOS8vL0VBRFkxM3hITjM5TkgvclVscjMxWTBzUThLMkE4UWdBemFjSUdqLzBEUU5kRy9MS2NYeWtLWUQzQURSdC90N0pEK3l0QTI3MEpnQWthL3dBb3lZQ3ZrUW9MeE1BelI5Z2Q0M0lNZzJJOEc3OEtKOElFQUFhTkgvamZtQkd2ZkNTZ0FrQUd3L0cwekdjZzNUOE9zTTllOEtadlAwTVhsb3I2eHlMOXdBVXZmVnJkTUNJK3JHMUpubHZnQWtBQzVxL2tUOHdNZ2o0cElBSkFBblNPc0RSTmViZXBqN3pHLzR3QWREOEFRTFZISk1BQVFETkh4QUNFQURZYy9nMGYwQWR1aytFcitIMVZjQUFnQURBZmFrYlFFMUNBQWpPWi9zQklXQk56WHpKeWhGOGxQRy9BS0Q1QTZoUkpnQ01idnlhUHlBRXhMVGlKaDdwOWk4QUpMajFhLzZBRUpDL0lVZHIvZ0tBNWcvUU9nVDg4TlhuTFp1L0FLRDVBN1FOQWVlYWZXUUlpTnI4QlFETkg2QmxDSGhlczQ4SUFaR2J2d0NnK1FPMEN3R1hhdmJJRUJDOStUODgrRzJBb1JvL0FQK3JyMGNFaDlmcTlqa0UvT212ZnkvYitBV0FvTTNmN1Irb09nVllmV202NSsvLzRhdlAvMXVQZi9yMnN6Sk5Yd0J3OHdkUXR3dmU2dS9oUFFDQm1yL2JQMUI5Q3BDbGJuZW94d0tBbXorQXV0M3dNaVlBMkVRQTZuYkR1aTBBQk5sRXdnTFF3YXhhcC9rTEFEWVJnTHF0YmdzQU5oSGc3S3JibnZ1SGg0ZUh4dzgrL09oWFcrYTRUZVNOZ3dCelFwbm1id0lnUVFLbzIrcTJBR0FUQWFqYjZyWUFZQk1CcU5zSUFEWVJnTG90QU5oRU5oR0F1aTBBMkVRMkVZQzZMUURZUkRZUmdMb3RBTmhFQUtqYldiMnhpV0pzSXB0MDNuTnJyYkYzOHRWZ3pkOEVRSUlFVUxmVmJRR2d6aWJ5bGNHQU9xejVDd0FTSklDd29HNExBRFlSQU9xMkFGQzIrWHNaQUZDUE5YOEJRSUlFUU4wV0FHYWt6UWlieUJRQVVJODFmd0dnUVBPM09RR09xYTNxcXdCUTR1WnZDZ0M0a0xsWUNRQ1RVMlNIQXdPZytWTTZBTnl6MmFKdkpDRUEwUHcxZndHZ3ljMWZDQUEwZjgxZkFOQXNoUUJBODlmOEJZQlJHeTdqWmhJQ2dHNjF5anY5QlFCSlVnZ0FHalovQklCaG0yN1ZoaHI1OXdvQmdPYVBBSkNnK1pzRUFKby9Bc0FpMGlRQS9ONGJxVFAzWXhkdUFEV1lWaE9BaXFQL0xUK3JBd2hvL3JRS0FOV2F2eEFBYVA3TTlNYkdpeGtDN24yY1QvOTlMd3NBYWk5dEp3RFptK0Nlbi8vN0wzOTJXSUZoalg5VVBYRTVNUUU0UElGVzJXVG54N0gxOEhtaklCRGx4cThPbVFDMGRjdm12M1RnZkIzbW5IVkdzOVBBamptVDkxeG1yTE1Bb0dnUFBCaGVFZ0JXMUF2TlhBQkkwU1E3UEQ0aEFKaFZJelQvK041MDI1U1ZRc0NXZGZHK0FFRGpwOXdFb052Rzgwa0JZRy9qMS94TkFOeitteWQvQnhmYytEVitBY0R0Zi9IQnZPZXg3UDJvNEVzRndXRUdUWDkwN1hXWkV3QmEzLzYzZk1QZmxpQ3c5Kzk1L3Q4S0JLRGh6N2gwcVRWemxYZ1BnRTN6eDdVWXVTYlozaTlnUDlCNVQ4MDRyODZZQ1lEYmY1S2lOV290SzcxZjRONlhXbkJUOWpnMGZoTUF5VHpsUWU0OEVZRHFBU1o2ODFjdkJBQVdCWllqWGhZUUJLQlA0NTlSdDB3WDVuc1RkV1BiTU1jZXNwR0Z3eWNJSUZadDFKUkpHd0E0L2pYcW96NlJJQXhBN3FZLyt1eWFFZ29Ba21ud05SUUdvSGZUZDFZRmdOWWJmK1lCaS9ZNGozaHBRQmlBUExWdjVibFVFd1FBWGlnSXN3L0cwVUhncFQvN3FDOFVNWG9rY25PS3REODdQRWFLQklBS2FURjZnNW9SQkZaUEIzd1hBTFBQWU5USm4zb3VBTFE3aktZQXNZTEFyT2tBcUduSG55MzFYQUNnaU9mRllsVWdjSHRBZzNmanBta0FxTFI1TTc5T2ZmUW5DTFlVWUlVTlRUOVg3WFJtQllEVWgyclcya1ErS0JIREFOaFg2eHF0c3lnQTBGQ1VNQUFWL2VXZi83cjR6NzcrOUpPMGx3aldlUHpndzQ5K3paS3lxMjdnTG84OWVpQlFJTjNvTXpiK1c0UEE3RS9ZT0c4Q2dBMHpzQ0JWZXZ3WmlyQUNaYS9OM0d1WGZzNTdtbitFRU9CM3VRZ0FOb3dBVlBwV3BualpQeVAzejhqbXZ6b0V1UDNuNFQwQXlZcGMxWU9UN2IwRGUzOUdCVEIzQXgvVjlFZmYvSi8vOTlmZUYrQjU1RTNXdzBPZlFsbXh3SXg0SEZIT2hLSi8zL1B4ZEwyc0hRSUF2cnQrUjVIdHVtNzJTNjVMU1pUbks4cTNpeUlBa096d1JpL0VtaUxSbXRlV1BibDMvUC8wejVuMU1vQ3pKd0JBcUFLdEtMSHF0bXJ2RWQzSkV0UW9ObGhUWXV5ZDc3LzhXZk4zSGdVQWpxRzRIRk9ZRkNmUDg5NXo2ZjBvWk9JbGdJQUZ5bUdLZlVQeC9MaGQyZzl1L3dJQVN4TzNBN1ZtUFYvNzl6U0UyQTFreFBQak9iWVdBZ0FrYVJ3emk5U0lSbFd0cUdZTHE1ZCszbG5QeTllZmZqTGtrd0N6dndnSUFZQkpEY3NVd0cxM1JvaXd4NDVyL09lMXpSWlE3MTBYZTBnQW9GREJjNkRkdXAwRHp3MENBSXNMMUlwRWYvNzNGREkwL21NYS85NlhBWTRlLzN2dFB6OGZBM1I3Kys5aDNuS2dmZVlaYmp2UDE4NzBwWCsydFltdi9IWEFFZjVPQkFDM2xZbEpQbm9JVUlTSTJQaVBDQUV6bXIvUUx3Q2thbkttQU1ldmEvYm5TRkVUbGxjMC9sdWIrbXRCNEpaL1IvRG1LZThCS0ZUWVJ2OTJzbSsrK1BqRi8vdWYvL2J2b1Q4SENPei8rek91bmN1dERkN3RuN0FUQUExai90cGNPOFRmZlBIeHhlWi95ejlYSU9oMCt4OTkyeDk5NWxmVlYzWGRCSUJFaGZCYVU3LzI3NzgwRVRBSm9ITFRQN3JCamZoK0FPZVBGQk1BeGh6a1BjWGkzdVkvNnIvdDFEQ1krenhtdWZFZjBjUlhUQTZGRHhPQXd3KzFqWldud1htK2NPTWYrL2RlZTN6T0d2ZDYvT0REajM3TmRIaTdiL0s5YS9UU2Z6L3FCdi9TU3dIUm5pOTdUT1BQMFBRcjFoNU1BR2h5K3pjRlFPTUhFNERoaDlrVVlOczZIWG43enpJRnNNYzBmYys3TTRNSkFOQzg0VU5ub1Q0Rk1PUGQ3aFZZSnplOExvMC82Ni9KZGZ2SEJBREFqUjlNQUNSSnhkUzZjZTIyYjkyZEFSb0hBSnRUVUxKMi9ScS9QZUU4SVFEY3RhRWsxUDFoNmRvdjlyblh5RDhMalg5UC9YajZQMXl3U0RZQkVBTEdKKzhWeFZBQlprYmoxL0RkL2lrVUFHeXVYRk9BaXJkL3Q2QThqZDl6YU45VExBRFlzTG1uQUpFRG5IQTVyK212YVB6MmdqTkVnUURncFlBNTl0emd2ZmJQaktZL3V2RkRkNkcrQ25oRWcrOWFITzVkbjJ2Ly9xMWZEM3l0OFdkNEh1eXBlV3U0NHJicCtYVW11QzdORndHOWUvL1dMWC9RQVQvZm9pNnQ1N214WHdvQ3I5MzRGUWNOWWxYVEo4ZHppd21BZEJwOEV0Q2hhUHNWcC9HYXdxajE5dHlxclZ5WDZrMkEzZzhRKzVhbE9OUnBCaXUrb01mcisyQUNNS3k1ZXovQTdldXp0OWhuWFdzM24zWEIrY2cxOWJ4YUt3b0dBRUhnMkVOOWJ4UEl2cmJkaTErbHB1OTV0VTdjNTAyWFRkNXRBMjk5MCtTdDd3Mm9zcDRkMzF5YStYWDk2ajlUMURPQ0NVQ0pRdFpwTTB2MzFtbFZ3MSs1WHZhOWRhTEJCR0RMN2EzVE5PRFc5ZWs0SVZIWTNSVHRFYytwQ1VEaUNjRGVndGRsY3p2c1k5WW82dnBvK0hXZVMvVUFFNENOaFdqTE5NQkdOd2x3d3hlWTdSMU1BQnB2OFBPNDNMdTlmV29pNHRwbyttNjNhZ0FDd0tSaVdmRUFLQUI1R3NmS20xcm01MTRBY1BacEhnQUVBWVVnVy9PSU1KcjFuUTdxb09iZlMrbnZBUmp4R2UvTzd4UHdub0NhTjN3RjN6NkQ4aE9BSXc1Q2hZTFo3ZHYrSXR5VU5IeTNYT2NjRTRERmhXL1VSS0JiSWVud1dFZDlLMkNrVzVlaXJ2bEQrd25BMFllajZydWx1eFhQN0lYVHU5dXRqN09OQUxDNDJHYzRVQXBGL2hDZ2NIdnpuek9OQUJDODBGZjZGcm5LQlNORDgxZXczZjZkWlFTQXhFVS8wc0hyV2ppeTNQUVZhYmQvWnhnQm9HaERpSEFRS3hlUWJLL3JLOHh1Lzg0dUFrRFRocEhwNjJaWEZwSXE3M1JXak4zK05YOEVBSUZnK1FHT1VGQ3FmNFJKQVhiNzEvd1JBSVFCTkhvMm5zTmJ2cmRCODdjZnVleU5KZGgzaUFRQ0ZGZGhYUFBIQkVCQnNnaENBRUhPV2ZmZjZHbGZZZ0pnT3NETzU5UHppT2FQQU1EbXc2ZUo1TDI1ai9vZEFjUjVUalYvRUFDV0ZpUk5wVlpqOE91VFl6WkN6UjhFQUJNQ0RSMDBmL2lOTndHNkFXbnNnOWRlQWJiK21qOG1BRXh2akpFRGd1SUVtajhDQU1tYnJKY3NycStOWW15L2FmNUVkN0lFekFvYTJZdTRJdXM1MHZ3UkFFRGhjV08xbHM0Z0FnQUswRDNGUEhOQlYzQTlOMGVGbkh2UGhiMklBRURLd3V0V0I5dlBndWJQQ0Q0R3lOSkNscldZK1VpZ2RYWmVNQUdBbllYSk5BREJSdlBIQkFERnJkeGpWYlN0cmVhUEFJQUNYcXpRZVNuQXVqb1BaT1VsQUE3ejd2M2I4bThRVkp5dC9WRjdldXY1QVJNQVN0eCtNaFI2VXdEcjJXM1BJd0NBb25qSDQxTFVlNnlseG84QUFBY1V5TWhGVWdqb3ZZWlY5elYxZVE4QTArMHRkSm0vVGRCSEh1dXR6WWo5cVBsakFvQ2luN3g0bWdMMFdidHFleGNUQUVnMURlaDZZN1FlOWo2WUFHQWFFS3lnM3ZNNHVqZUJqR3RsM0k4SkFBUzdFVVc1UmQ3ek9EcFBBalIvRUFCZ2FJRStGK21WelZVSXFOSDhuKzRsTDl0UWpaY0FTTjhnb2pZUnY5ODk3N3BVMkg4Z0FDQUlMQ3pFM2crUWEwMDBmZ1FBRUFSTUFScXRoOFpQUjk0RFFBcFBmekhLaU9JNjZ6VmRqU0QyMm8zYUIwLzNwdWNjRXdCSWRITTd1bWg3S1NEV0dtVFpOeUFBd0lSaWZuUkI3eHdDb2p6MkxIc0ZCQUJZVk55UEt2RGQzaE1RNGZGNmZSOEVBQVNBTUVXL2VoQlkvZmd5N1FVUUFLQlI4ZC95TTJacFBDc2ZtOFlQQWdBYy9pNy9GVjlkSEwwSnJYaE0wWjluRUFDZ2FCRFkweVFxaFlDWmo4VkhPRUVBZ1BSTm84cjdBV1k4RG8wZkJnYUFoNGVIQnlFQWdXQjlJOGs0RFpqeE14dnh3M2kvL1BqZG93Q0FJRERwdDd5OTFtajIvQnladmpQL3lIWFErRUVBZ0xCQjRGb0Rpdjc3NW8vNCtTS3NPd2dBd0xMR0ZMbkpXUXNRQUVBUWFOQUVPejVtRUFDQXNrMnhPazBmQkFBUUNEUjlRQUFBUVVEakIvNFFBSVFBRUFZMGZlalQvQjhlZnZzaUlBRUFCQUlOSHdRQVFDRFE4RUVBQUlRRXpSMEVBRUJJME55aFRnQVFBa0JBME9DaFIvTVhBQUNnYVFBNFdRNEE2RWNBQUlEdUFlRHBhQUFBcU9ONWp6Y0JBSUR1RXdBQVFBQUFBTG9FQU84REFJQmFYdXJ0SmdBQVlBSUFBTFFOQUY0R0FJQWFMdlYwRXdBQU1BRUFBRm9IQUM4REFFQnUxM3E1Q1FBQW1BQUFBTzBEZ0pjQkFDQ24xM3E0Q1FBQW1BQ1lBZ0JBOWR1L0NRQUFtQUFBQUFMQUUxNEdBSUFjYnUzWkpnQUFZQUpnQ2dBQTFXLy9KZ0FBWUFKZ0NnQUFIVzcvSmdBQVlBSmdDZ0FBSFc3L0pnQUFZQUpnQ2dBQUhXNy9KZ0FBWUFKZ0NnQUFIVzcvdXljQVFnQUE1R3YrdXdNQUFKRFQ3Z0JnQ2dBQXVXNy9KZ0FBWUFKZ0NnQUFIVzcvUXljQVFnQUE1R2orUXdNQUFKREgwQUJnQ2dBQThXLy9oMHdBaEFBQWlOOWJUMWwrVUFEUS9JTUhBQUFndHNNQ2dDa0FBTVR0cGFlc1B6Z0FhUDVCQTRBUUFBQXhlNmYzQUFCQVExTUNnQ2tBQU1UcW1hZHFEd2dBTlA5QUFVQUlBSUE0UGZKVS9RRUNnT1lmSUFBSUFRQ3d2aWVldWoxZ0FPamUvSmNHQUNFQUFNMS9uVlAzQlFDQWpyM3ZaQ0VBb0YvUE8xa1FBT2pYNjA0V0JnRDY5YmlUQlFLQWZyM3RaS0VBb0Y5UE8xa3dBT2pYeTA0V0RnRDY5YkNUQlFTQWZyMHJWWFA5NE1PUGZyV3RBTkQ0RzB3QVRBTUEwS09hQndBaEFBQzlhWXpVemRSTEFnQm8vRTBtQUtZQkFPaEJ6UU9BRUFDQTNyTk5xZWJwSlFFQU5QNG1Fd0RUQUFEMG1PWVRBTk1BQURUKzVnRkFFQUJBNDcvczVBa0VnSDY5bzFWek5BMEF3S1d4WVFBUUJBRG8zdmhiQndCQkFJQ3VqVjhBRUFRQU5QN0dCQUJCQUVEakZ3QVFCZ0EwZlFFQVFRQkE0eGNBaEFGaEFFRFRGd0NFQVFBMGZRRkFHQUJBMHhjQUJBSUFOSHdCUUNBQVFNTVhBSVFDb1FCQXN4Y0FFQkFBRFo2Wi9nUFkrS25wMk9TczVRQUFBQUJKUlU1RXJrSmdnZz09IiwgInNpemVzIjogIjUxMng1MTIiLCAidHlwZSI6ICJpbWFnZS9wbmcifV19">
+    <meta name="theme-color" content="#050811">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="AeroVision BI">
+    <link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAA9zQYyAAAI90lEQVR42u2dMZLcNhBFOSh6bWfrzFu6gHJdxOVj7AnWkcuRdQIdw6WLKPcFtqRMyixLgR3Io1rvckgC6G50N9+PVKPZIQE8fn6AAHiaHOib7374Z0Lh9fnj+9PoczgBMMoE+AmIUSa4T0CMMsF9AmSUCewCzCjTYMAJkFEmty7AjDK59QmQUSa3LsCMMrl1AWaUCeoCzCgT1AWYUSaoCzCjTFAXYEaZoC7AjDJBXagmlEkFd0aZXLoAM8oENZED5Y8cuDOK6tIFmFEmqIkcKG/kwJ1RdJfGoVH+TiFC4YEmbqAMsQOHRkQOhFwDTdxAWWIHDo1SaaYK5PTh1aemv7u+vaLyhHQictjCC+R6+vzx/ekEzH4gBm4BhwZoXYgfwyj9ewiguyB+CNSl7+2Fbs/f7z0XBNBNEEvB3PI7wA3QzVFiDZClv+0FqvY3e84foA8Cc2tUkIKn9Xel7hYAnQTmmobXglni9zXuHACdIB+PglkL6iPBXYA5l3pyNw6dPF6s/Z72xSB1rKPFkALM/mB+fIweZ60d/gNohyBrupKlu2me86V6AugArqwxRuypL7AX6iO4dckOs0fHHHnM7FDPwOzfnR+eS0u59pShtpxeO5YzMPtvwOvbq03grC88r08nZ2CO4c5R4oH1aFAaoC3HV0c0jBS4b18+e/LZzd395rBg7zySpf+zqMeQD1YsYLZ2mhaAt54KLsGsAXVteTTrMxzQVs58Po7VfI3aEYkemK2g3lNO6fqdgdkmp7YCLD3iUdv57D3O1hI06XKE7hR6npMgDbCnERVvF03IyDFi6qb0mK/G2PilWNISOSzrW2vYb44Is8fIkn1Wm3Q0uHQn6D2Oe4eWAuXDq0/T89dvnnz+508vFjtGW8cYPc966zxrRzk89Vl6jhFuLockzNM0Tc9fv/laoXsfEa/dLq1dee1cbu7um2G2vMNI7l0SyqGlYX7s1LWVPDJS7K0XifO2GpOXcOo5M8xauT1SNpY414d5V2O4UFIlAsye4GBDF722kajbAszbAHsEefT5WEDdcowQnULrxovmxBYGEKU+SnaYr2+vnnT4tjqEKC7U7oDW6AiuQb01uhEFMKuYNuKYNTrEKynOFY8T59ecHeI9t829TsMO/gA9JG5Ib8gY6eK0usC8jkuncujahr80OSZqebUXJeDQg2HW3E7L0wUrfYeKLDdzOVrihrSbRm30Ue9H1Jqa0PO7YXdO0toaK7pqyuV9f7t0k5OkQD5ipqwZzfGUvXsvsNkbpL0bdjPE1Q55LdgSox1/v/vlyWd//fFb7k4hIOtD3gN2i5ZAPuv7n3/98o/b36t/t0SHmSmdetlbK2OvwdzyPVcOvRQ3cGSfjr1U794esrienIQj+xst6XXsWtet/X6JBrNlhylyZ0+7I+l1uK8cudEyvmNEo0w1UwdGaz4iyEgmW3uEeqhD8wL2fPFmq02//bFuKK72+yVqxSHaxg3QW50KYM4N9d4ngbXuPCRDEzNyQV2boc/fP0P99algJ8hDgAZmoJaEd2jkyPx+adTGgIaBFYtC7FlBgTvnztNWhqa6YkVzWRSKA7jlkrAyCmZ0zJihzcEMzMiyz6TNgckoR80KiFGVHv2C87SX9khDK9qFw5mRJQNFE2brv0d+osUoQyuaBZN+zx8CZvPIIVEYoI4N88hVRcUbzEAd35lHqkgXsAbm3rm1iJghDrTkcFG09WtHAzlCOxTNq1UyrlgeK7KOvvayeCyk1hL6rPFmZL14M4Xi2RmIIL4jhsc73Dwa5q2ddy7NzmO3eh+O7G36wNxbaMtCjNpYEJDj9DlCvpICsAHZNdCtG/5tbSyYeTTDqvO4d79uL3U894Lo1bG3GjI75Hvgff76zZPPzi8njVo/s8VV7gXsKOWwcOElmM+fR37jbvWaQs3bjNVvR70TSZThw6tPF2F+7NTR4kbYTqEUlN5fiSx9AR5h/L5MB9bSE8lI2XHp3I8MszuH9vJ6A29QeJtb7nktZtjIMWLkwrt773nKl92p56gwv335bOHze8acNy7EL1C/WO0YbnUIydCNlb/kJpdgnqZpevvyWffDg0gOtmcZ1BKY17dXF4fmoo5uhHHoh1l6Deb/Q31cp657C+yLqr+PcLGHeZOsRT6O4s5SuxLVfD9K3ZQeB9Aq5Gh39dZ457nJazu5WteZ1ztg8dr4dO78Lmbw3DauI8fjcekjgbwFkWV9RNoDcO4FzSrjnnVzd7/aMby5i9ch9PwCpWhG0hw5RjrGzd29Cswjdu1c6+DtOR/Nc454V+zawd9qD+C9FSu9Y5MWLL1POSOcY8gMfWmoSzqCLB0nUqzI8E7GKOcp9o4ViyvaCupeB9RcpzfCnQ+5pnDJRbU7iyNn5FkBTCdwkEPvrZDehrXKdmuryEcCrLm6PcPaS/PXuklUlHbFS6+O9hKFssOsDnQLIHsrsacBJG6rIxpby50zrYo3ATpDTvP0gEP7bhR52sE8Gg4vcEdZiwfMDoEeBVJvbh/V2NrrArPA7AJoKfi0GsjTPGkp4DLvJJVmGwOLDdJHgG1RhkxTdVPty6G1QbqHBpcYvz/CHn/pNprRfp3FqHnIGq6ccRFF2p2TpKG2HpmRGqY72s6rQ8ahvWTQ3o6n18lBGWb34dANDZhxWdeRYT6EQ0vfgrVduuf3eXvBAYFec7HWuSBa48O9c1OOuHL+kEDviRu1UcV6WmzEdwgCtOPsKeWKNb9z9HwM0MpwS0eXmmMAMUCrRJMtSW/3AMQA7QZuIDYAepqmCaj9wQ3E9fr88f0JoB1ADrwAjdAi0IVqQJlUzmRTFSi6O38FGqFUDo1QOqCJHSh63MChEZEDoTBAEztQ5LiBQ6P8kQOXRlHd+aJDAzWKCDORA+WPHLg0iurOmw4N1CgSzEQOdJzIgUujaO6826GBGkWAuSpyADXyDnN1hgZq5Bnmpk4hUCOvMDcBDdTIK8zNQAM18gjzNP230Uyv2AYBjQa526Fxa+QNZjGHxq2RFzMs3k8QAfNQh8at0UjTM3NT4AZii+MMiQfADcSpgAZwANbSv1GxYY9Orq8ZAAAAAElFTkSuQmCC">
+    <link rel="icon" type="image/png" sizes="192x192" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAAAJ70lEQVR42u2dPXLcRhCFsVMwbWd0ZpYuoHwvovIxeAIqcjmSTsBjuHQR5brAlpRpM0tUYAf0yjS4WAwwPTP9870qB14tF4PBe92vB/OzG5Thh59++XsAbvHty+edpvbsIDuILIodpAeRxbCD+CCyEHYQH0QWwg7ig8hC2EF8EFkICfIDS5Dm2A7ig8jZIEF+EDkbJMgPIosgQX4QWQQJ8oPIIkiQH0QWQYL8ILIIEuQHkUWQID+ILIIE+UFkESS6CURGIvqDyFkgQX4QWQRYIIAFIvqDqFmADADIAER/EDULkAEAGYDoD6JmATIAIAMQ/UHULEAGAGQAAEILAPsDotogMgAIjZEuqI/j/cOmv7u+vaLzKmOHBepPdITRB9++fN4hACOkRwyVBAD525J+ibA1fxucsUAIoJzwU+LNfT+XoLl/v7ZdAAFUI/2lv9tKxDW/hRgQQFXy5xBIkvwa24IAgkb93oSTFAFCQADZ1qHEs0uTrOQaEvfoFQnyyxOjBqlqtaf3MC4ZwJjVWfq92hFV4lpYo8ACkLYrLckvfU0K5UACqBH1epC/hQgiCSFFJf/17VUV4mirZXLqg3P9EKU2SFHJ34twGkUw1ycRRJAgfzl62IVW9+FdBMkr8T2Tv4cIvArBXRFcm/g9C9+abZIkuKUCeoT89h/y9e3VIoFbRnBLI0sj5Ldd/Fpqo0ZhjJDffoovIf3Hty+efXZzd8haeyC1uOf0vR79ar4GaEV+Td4/h1g55DxHfmkR1Go/GcBBASZNmNr2R+oaOcOtrbKC6Qww7bRandVrstsWoee0dSn6X8oCLfq9paUdvZDf+31ozmzH+wfR9p1+62nf1MoIoxfSWLE+mvyvpBWSFsElIUheZ4xM/lYWaon4FuuWViKYEwJFsMAoxMt37yef78UJqTFbPZL3sHoUqEfhfalPJfrRVBEsEbGP9w/PiD/Fh1f7s1GndNxb04KZLcOgGjNp6bWSVfJra9uSxdFmc65vr4abu0Mx+Vs/q2lfll7LrAWqFf1P1uh4v98U8S35+ZMVKr2HXlZIovYwYYGk0l6uAE42aM1D1jw9oof1smKFOCCjMK1rtDcRINXnKeqNl3pQiN//2UjUAuoFIJnKr2+vnlmbHPtjMdJLFooWrusyA2jpQCK9/Wc4h3BnhD0Ws48RfloQ52QHoPF5bheZ2lGgFiMKl4YxNa797WkfNT4/ifsMeUqkxeWT2LDAFqjnPvta9srZMou05wuq3i/HTFsg6dS9lvhe98DpkUVa2LCSyXGuLVAu8S3tiVPS1pa+XFNmNCuAmofLre04LWSROBWmZXTWboVGL4q+NFWhZGs/q1Fy7SKSVgMD2vrT7b5AOf+29chRbzXA3P1aGgre2r7RK/G9RfRW5FkSg6b+kwhUqkaBJFdfbX1YHl6ASd+ThD2S6Nevn14/++yvP/+IkwE8bCHipZ5onRHOkX8YhuHn337/LoItcLUkkinK9YVwbjStds00R/6nIjAvgEspMmexOcTXLYSt06SXyL/2e+YsEKec27RGEs9nLam/fno9/PjrGz8WiGWIdjPC2kjfC0kr8TnN3G5GaF0juBMAlseXCDRngxHigxa1ARmAQpdssDIjrC1o136/uwDWDJ0BfyLIQe5Lri3k7yoALRvJAr0iOHFkSQRbya+2CIb8iGAaIOdEUEL+bkWw1+nGoLKAbt+I/26C/EAbWi7dTC1vKmdarbWlh9bsR88AlNOnrdvXZD3AEvHJCtQFOTwxmQGsHyIB+lnjFjwZIT/QRvyWPGk6CpR7Uz1FwpLIdmTXECBTq5sl8gONgS+1ID8AWrN+akH+0reAwK/X742kjfyIIB75e9rjpJH8iCAG+TUsba1WBK+5sYhblUN+HYMiY2/yr+lIRpLw+yozgPQ4c7RNayG/YQHUumHLW21Afn1ev4oAWpDR4lYbEYlvdRubsTZZpX+35watYF0AtPBckhby506P7rVBK1jX35emOmsSxiih/h43pGHLbiK+3chfxQL1AELQQXyrfb15RVitDFDjNJO1D8rTlOi191Lj2CnN/VmcAbTd0NK2fB7n+9eM8C/fvf/f/394tXfVf6N0h2kTQq4YsDKXiT/9/KkQwgmgNnGliVnyQs1qPVFyEHjNl5suaoDaNqK1TZF84LXbW7utx/uH2eg/xYdXe9P+vzgDePHQa88ks2oPmXUrIIBW0x9O1znePzQX2tPrW5qPdKmtPSYYWhhwMPEeoIcILl27xw5n0kPCcwuYpNptJaOYfxE21+G9I47WiLe0cu9RBPvFOiDH/7sUQI1RmpzrzGWB03c+vn0x+fzgqk6pTXzPwahaBuhpTU7XnxL/hNPnx/sDIlhJ/FMWGIb5F2Fe+nTU/qCY5dkn4v/3Rn1fFM21C0Xle4Cc612K/lPc3B2Ki0grEa/3doPW+mzTeoCeW5uTEZ73x9P/tInPpQAgpR7iW7Qd1ACFtUArwfV+IbfV4vSwIVY3Qx6lSNkDN3eHxTpgq//X6uc1ksyyAyiyQNNaoGZHRErrOQeIa+4PS89K5IywlulvjhjTTHBzJ/cirJWlkN5Zu8dMWmuBapRUfK9U+GjHDuYehIW9M70Pfow1O6bGQzxXe2gpUCUIw/sGwwKYG62R7hgLIvC4hYg38lfJAK22KdE2TcIz4T3fU/WDsmu/rGlVhE2LS412pkUB7O3ww7FVdGh1RGYLKxT1DazHN/7VM4BER65ZeL2FjFsfrDbC1xx88HroeRcBeIgoWslfo21eyd/EAm0hkQZhWD2lBvIbEkBP8kmcYOl9Lo538ne3QFaLVE2LPmq0JVKRnwaHaHm+WE9L1Op+tE++QwArbI4XEbQkv2e4FkAtEWgkhURNE438IQRwSQQlQtBEjpK2zPVDlPUXLovglpGu9/JDqbZHI35YAVyyQFsffksRSFyLxfTBBZBTC5RMpdA4Ec364htqgMbeWdsZAbXaE30LldAZQNIa1PTTW38bq4MAuhOu1/AkBS4CqGo51sxXkixWt86TgvwIoJkYSq1H7t9DegSgUhAlpPTycs6MAIZhGBBBHzFIANJvx7cvn3cIwKAYID0CCCEMiI4AAKgqgEQ3gMhIJyXQFSBa9P8uAABCZwAAwgsAGwSi2R8yACADzCkDAO/RnwwAyABLCgHAa/QnAwAyQK5SAPAW/ckAgAywVjEAeIn+ixkAEQDP5McCASxQqYIAsBr9szMAIgAeyb/KAiEC4I38q2sARAA8kX9TEYwIgBfybxIAIgBeyL9ZAIgAeCB/kQAQAbBO/mIBIAJgmfzD8O/eoFJggy1ghfhiGYBsAKySXzwDkA2AFeJXFwBCABZcRTPLghCARjvd3LMjBKCpjuxatCIG0IP0agSAKCB7b/wDHJID3xRk1lsAAAAASUVORK5CYII=">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Heebo', 'sans-serif'],
+                    },
+                    colors: {
+                        tactical: {
+                            900: '#060911',
+                            800: '#0f172a',
+                            700: '#1e293b',
+                            gold: '#d97706',
+                            goldlight: '#f59e0b',
+                            accentred: '#dc2626',
+                            accentblue: '#1d4ed8',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --bg: #050811;
+            --panel-bg: rgba(15, 23, 42, 0.88);
+            --panel-border: rgba(255, 255, 255, 0.08);
+            --text-primary: #f1f5f9;
+            --text-body: #e2e8f0;
+            --text-muted: #94a3b8;
+            --card-bg: rgba(15, 23, 42, 0.8);
+            --card-border: rgba(30, 41, 59, 0.8);
+            --scrollbar-track: #050811;
+            --scrollbar-thumb: #1e293b;
+        }
+        [data-theme="light"] {
+            --bg: #f4f6fb;
+            --panel-bg: rgba(255, 255, 255, 0.92);
+            --panel-border: rgba(15, 23, 42, 0.08);
+            --text-primary: #0f172a;
+            --text-body: #1e293b;
+            --text-muted: #64748b;
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --card-border: rgba(15, 23, 42, 0.08);
+            --scrollbar-track: #e2e8f0;
+            --scrollbar-thumb: #cbd5e1;
+        }
+        body {
+            background-color: var(--bg);
+            color: var(--text-body);
+            background-image: radial-gradient(circle at 50% 0%, rgba(29, 78, 216, 0.15), transparent 70%),
+                              radial-gradient(circle at 80% 80%, rgba(217, 119, 6, 0.1), transparent 50%);
+            -webkit-tap-highlight-color: transparent;
+            transition: background-color 0.25s ease, color 0.25s ease;
+        }
+        [data-theme="light"] body {
+            background-image: radial-gradient(circle at 50% 0%, rgba(29, 78, 216, 0.06), transparent 70%),
+                              radial-gradient(circle at 80% 80%, rgba(217, 119, 6, 0.05), transparent 50%);
+        }
+        .glass-panel {
+            background: var(--panel-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--panel-border);
+            transition: background 0.25s ease, border-color 0.2s ease;
+        }
+        .glass-panel:hover {
+            border-color: rgba(217, 119, 6, 0.4);
+        }
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #fef08a 0%, #f59e0b 50%, #d97706 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .military-glow {
+            box-shadow: 0 0 35px -5px rgba(217, 119, 6, 0.25);
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: var(--scrollbar-track); }
+        ::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #d97706; }
+        button:disabled { opacity: 0.55; cursor: not-allowed !important; }
+
+        /* Light theme: blanket overrides for the Tailwind slate utility classes
+           used throughout the report cards, so we don't have to touch every
+           element individually. */
+        [data-theme="light"] .text-white,
+        [data-theme="light"] .text-slate-100 { color: var(--text-primary) !important; }
+        [data-theme="light"] .text-slate-200,
+        [data-theme="light"] .text-slate-300 { color: var(--text-body) !important; }
+        [data-theme="light"] .text-slate-400 { color: var(--text-muted) !important; }
+        [data-theme="light"] .text-slate-500 { color: #94a3b8 !important; }
+        [data-theme="light"] .bg-slate-900,
+        [data-theme="light"] .bg-slate-900\/70,
+        [data-theme="light"] .bg-slate-900\/80,
+        [data-theme="light"] .bg-slate-900\/90,
+        [data-theme="light"] .bg-slate-950\/90,
+        [data-theme="light"] .bg-slate-950 { background-color: #f8fafc !important; }
+        [data-theme="light"] .bg-slate-800,
+        [data-theme="light"] .bg-slate-800\/80,
+        [data-theme="light"] .bg-slate-800\/90,
+        [data-theme="light"] .bg-slate-800\/70 { background-color: #eef2f7 !important; }
+        [data-theme="light"] .border-slate-700,
+        [data-theme="light"] .border-slate-700\/60,
+        [data-theme="light"] .border-slate-800,
+        [data-theme="light"] .border-slate-800\/60,
+        [data-theme="light"] .border-slate-800\/80 { border-color: #e2e8f0 !important; }
+        [data-theme="light"] .hover\:bg-slate-700:hover { background-color: #e2e8f0 !important; }
+        [data-theme="light"] .hover\:text-white:hover { color: var(--text-primary) !important; }
+
+        /* Sidebar */
+        #countrySidebar {
+            background: var(--panel-bg);
+            border-left: 1px solid var(--panel-border);
+        }
+        [dir="rtl"] #countrySidebar { border-left: none; border-right: 1px solid var(--panel-border); }
+        .sidebar-country-btn.active {
+            background: rgba(217, 119, 6, 0.15);
+            border-color: rgba(217, 119, 6, 0.5);
+            color: #f59e0b;
+        }
+
+        /* Circular market-score gauge */
+        .gauge-ring-bg { stroke: rgba(148, 163, 184, 0.2); }
+        .gauge-ring-fill { stroke: url(#gaugeGradient); transition: stroke-dashoffset 0.6s ease; }
+
+        /* Compare mode checkboxes */
+        .compare-checkbox:checked + .compare-check-visual {
+            background: #d97706;
+            border-color: #d97706;
+        }
+
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white; color: black; }
+            .glass-panel { background: white; border: 1px solid #ccc; color: black; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col font-sans antialiased selection:bg-amber-500 selection:text-black">
+
+    <!-- ACCESS GATE (soft gate, not real security - see README) -->
+    <div id="accessGate" class="fixed inset-0 z-[200] bg-[#050811] flex items-center justify-center p-4">
+        <div class="glass-panel rounded-2xl p-6 sm:p-8 max-w-sm w-full text-center space-y-4 military-glow border-amber-500/20">
+            <div class="w-16 h-16 mx-auto flex items-center justify-center">
+                <svg viewBox="0 0 100 100" class="w-full h-full">
+                    <defs>
+                        <linearGradient id="gateLogoGold" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#fef08a" />
+                            <stop offset="50%" stop-color="#f59e0b" />
+                            <stop offset="100%" stop-color="#b45309" />
+                        </linearGradient>
+                    </defs>
+                    <circle cx="50" cy="50" r="32" fill="none" stroke="url(#gateLogoGold)" stroke-width="2"/>
+                    <ellipse cx="50" cy="50" rx="32" ry="12" fill="none" stroke="url(#gateLogoGold)" stroke-width="1.4" opacity="0.85"/>
+                    <ellipse cx="50" cy="50" rx="14" ry="32" fill="none" stroke="url(#gateLogoGold)" stroke-width="1.4" opacity="0.85"/>
+                    <line x1="18" y1="50" x2="82" y2="50" stroke="url(#gateLogoGold)" stroke-width="1.4" opacity="0.85"/>
+                    <ellipse cx="50" cy="50" rx="44" ry="18" fill="none" stroke="url(#gateLogoGold)" stroke-width="2" transform="rotate(-20 50 50)"/>
+                    <circle cx="30" cy="34" r="3" fill="#1d4ed8" stroke="url(#gateLogoGold)" stroke-width="1"/>
+                    <circle cx="68" cy="30" r="3" fill="#dc2626" stroke="url(#gateLogoGold)" stroke-width="1"/>
+                    <circle cx="72" cy="62" r="3" fill="#1d4ed8" stroke="url(#gateLogoGold)" stroke-width="1"/>
+                    <circle cx="26" cy="66" r="3" fill="#dc2626" stroke="url(#gateLogoGold)" stroke-width="1"/>
+                    <circle cx="90" cy="42" r="3.5" fill="url(#gateLogoGold)"/>
+                </svg>
+            </div>
+            <div>
+                <h2 class="text-lg font-black text-white gold-gradient-text">AEROVISION BI</h2>
+                <p class="text-xs text-slate-400 mt-1">כלי מחלקתי - הזן קוד גישה להמשך</p>
+            </div>
+            <input type="password" id="accessCodeInput" placeholder="קוד גישה"
+                class="w-full px-3.5 py-2.5 rounded-lg bg-slate-900/90 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 text-sm text-center tracking-widest"
+                onkeydown="if(event.key==='Enter') checkAccessCode()">
+            <button onclick="checkAccessCode()" class="w-full py-2.5 rounded-lg bg-gradient-to-r from-amber-600 to-amber-500 text-slate-950 font-bold text-sm cursor-pointer">כניסה</button>
+            <p id="accessGateError" class="hidden text-xs text-red-400">קוד שגוי, נסה שוב</p>
+        </div>
+    </div>
+
+    <!-- HEADER BAR -->
+    <header class="sticky top-0 z-50 glass-panel border-b border-slate-800/80 px-4 lg:px-8 py-2.5 no-print">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+
+            <!-- Brand & Emblem -->
+            <div class="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-start cursor-pointer" onclick="resetToHome()">
+                <div class="flex items-center gap-3">
+                    <div class="relative w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center filter drop-shadow-[0_0_12px_rgba(217,119,6,0.6)] hover:scale-105 transition-transform">
+                        <svg viewBox="0 0 100 100" class="w-full h-full">
+                            <defs>
+                                <linearGradient id="brandLogoGold" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#fef08a" />
+                                    <stop offset="50%" stop-color="#f59e0b" />
+                                    <stop offset="100%" stop-color="#b45309" />
+                                </linearGradient>
+                                <radialGradient id="brandLogoGlow" cx="50%" cy="50%" r="50%">
+                                    <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0.35"/>
+                                    <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0"/>
+                                </radialGradient>
+                            </defs>
+                            <circle cx="50" cy="50" r="46" fill="url(#brandLogoGlow)"/>
+                            <circle cx="50" cy="50" r="32" fill="none" stroke="url(#brandLogoGold)" stroke-width="2"/>
+                            <ellipse cx="50" cy="50" rx="32" ry="12" fill="none" stroke="url(#brandLogoGold)" stroke-width="1.4" opacity="0.85"/>
+                            <ellipse cx="50" cy="50" rx="14" ry="32" fill="none" stroke="url(#brandLogoGold)" stroke-width="1.4" opacity="0.85"/>
+                            <line x1="18" y1="50" x2="82" y2="50" stroke="url(#brandLogoGold)" stroke-width="1.4" opacity="0.85"/>
+                            <ellipse cx="50" cy="50" rx="44" ry="18" fill="none" stroke="url(#brandLogoGold)" stroke-width="2" transform="rotate(-20 50 50)"/>
+                            <circle cx="30" cy="34" r="3" fill="#1d4ed8" stroke="url(#brandLogoGold)" stroke-width="1"/>
+                            <circle cx="68" cy="30" r="3" fill="#dc2626" stroke="url(#brandLogoGold)" stroke-width="1"/>
+                            <circle cx="72" cy="62" r="3" fill="#1d4ed8" stroke="url(#brandLogoGold)" stroke-width="1"/>
+                            <circle cx="26" cy="66" r="3" fill="#dc2626" stroke="url(#brandLogoGold)" stroke-width="1"/>
+                            <circle cx="90" cy="42" r="3.5" fill="url(#brandLogoGold)"/>
+                        </svg>
+                    </div>
+
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h1 class="text-xl sm:text-2xl font-black tracking-wider gold-gradient-text">AEROVISION BI</h1>
+                            <span class="text-[9px] sm:text-[10px] bg-amber-500/20 text-amber-400 font-bold px-2 py-0.5 rounded border border-amber-500/30">v5.0 PRO</span>
+                        </div>
+                        <p class="text-[11px] sm:text-xs text-slate-400 font-medium">מערכת מודיעין שוק כטב"מים וניתוח גיאופוליטי</p>
+                    </div>
+                </div>
+
+                <!-- Action Buttons on Mobile Header -->
+                <div class="flex sm:hidden items-center gap-2">
+                    <button onclick="event.stopPropagation(); toggleTheme()" title="החלף מצב תצוגה" class="p-2 rounded-lg bg-slate-800 text-amber-400 hover:bg-slate-700 border border-slate-700">
+                        <i data-lucide="sun-moon" class="w-4 h-4" id="themeIconMobile"></i>
+                    </button>
+                    <button onclick="event.stopPropagation(); toggleSidebar()" title="רשימת מדינות" class="p-2 rounded-lg bg-slate-800 text-amber-400 hover:bg-slate-700 border border-slate-700">
+                        <i data-lucide="menu" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Action Buttons Desktop -->
+            <div class="hidden sm:flex items-center gap-3">
+                <button onclick="openCompareMode()" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white border border-slate-700 transition flex items-center gap-1.5 cursor-pointer">
+                    <i data-lucide="columns-3" class="w-4 h-4 text-amber-500"></i>
+                    <span>השווה מדינות</span>
+                </button>
+                <button onclick="toggleTheme()" title="החלף מצב תצוגה" class="p-2 rounded-lg bg-slate-800 text-amber-400 hover:bg-slate-700 border border-slate-700 cursor-pointer">
+                    <i data-lucide="sun-moon" class="w-4 h-4" id="themeIconDesktop"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- SIDEBAR BACKDROP (mobile) -->
+    <div id="sidebarBackdrop" class="hidden fixed inset-0 z-[80] bg-black/60 no-print" onclick="toggleSidebar()"></div>
+
+    <div class="flex-grow flex w-full max-w-[1600px] mx-auto">
+        <!-- COUNTRY SIDEBAR -->
+        <aside id="countrySidebar" class="fixed sm:sticky top-0 sm:top-[65px] h-screen sm:h-[calc(100vh-65px)] w-72 shrink-0 translate-x-full sm:translate-x-0 transition-transform duration-300 z-[90] no-print flex flex-col" style="right: 0;">
+            <div class="p-4 border-b border-slate-800/60 flex items-center justify-between gap-2">
+                <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                    <i data-lucide="globe-2" class="w-4 h-4 text-amber-400"></i>
+                    24 מדינות זמינות
+                </h3>
+                <button onclick="toggleSidebar()" class="sm:hidden p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-white">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            </div>
+            <div class="p-3">
+                <div class="relative">
+                    <i data-lucide="search" class="absolute right-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-500"></i>
+                    <input type="text" id="sidebarFilter" oninput="filterSidebar()" placeholder="סנן רשימה..."
+                        class="w-full pr-9 pl-3 py-2 rounded-lg bg-slate-900/90 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 text-xs">
+                </div>
+            </div>
+            <div id="sidebarCountryList" class="flex-grow overflow-y-auto px-3 pb-4 space-y-1"></div>
+        </aside>
+
+        <main class="flex-grow min-w-0 max-w-5xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6 space-y-4 sm:space-y-6">
+
+        <!-- SEARCH HERO SECTION -->
+        <section class="glass-panel rounded-2xl p-4 sm:p-6 relative overflow-hidden military-glow border-amber-500/20 no-print">
+            <div class="absolute -left-10 -bottom-10 w-48 h-48 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -right-10 -top-10 w-48 h-48 bg-blue-600/10 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="max-w-3xl mx-auto text-center space-y-3 sm:space-y-4 relative z-10">
+                <h2 class="text-xl sm:text-3xl font-extrabold text-white">
+                    מחקר שוק כטב"מים ומודיעין גיאופוליטי
+                </h2>
+                <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                    בחר מדינה מרשימת הדוחות הזמינים לקבלת דוח מודיעיני מקיף ב-7 צירים אסטרטגיים, כולל מפרט פלטפורמות, תמונות אמיתיות וקישורים ישירים לאתרי היצרניות.
+                </p>
+
+                <form onsubmit="handleSearch(event)" class="flex flex-col sm:flex-row gap-2 pt-1 sm:pt-2">
+                    <div class="relative flex-grow">
+                        <i data-lucide="search" class="absolute right-3.5 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-slate-400"></i>
+                        <input type="text" id="countryInput" placeholder="הכנס שם מדינה (למשל: פולין, איחוד האמירויות, יוון, הודו, יפן)..."
+                            class="w-full pr-10 sm:pr-12 pl-4 py-3 sm:py-3.5 rounded-xl bg-slate-900/90 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 text-xs sm:text-sm font-medium transition shadow-inner">
+                    </div>
+                    <button type="submit" id="searchBtn" class="px-6 py-3 sm:py-3.5 rounded-xl bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-slate-950 font-black text-xs sm:text-sm tracking-wide shadow-lg transition transform active:scale-95 flex items-center justify-center gap-2 cursor-pointer">
+                        <span id="searchBtnLabel">הפק דוח מודיעיני</span>
+                        <i data-lucide="sparkles" class="w-4 h-4" id="searchBtnIcon"></i>
+                    </button>
+                </form>
+
+                <!-- Featured Country Chips -->
+                <div class="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 pt-1 text-xs">
+                    <span class="text-slate-400 font-semibold text-[11px] sm:text-xs w-full sm:w-auto mb-1 sm:mb-0">דוגמאות מהירות:</span>
+                    <button onclick="loadCountry('פולין')" class="px-2.5 py-1 rounded-full bg-slate-800/80 hover:bg-amber-500/20 hover:text-amber-400 border border-slate-700 hover:border-amber-500/40 text-slate-300 transition cursor-pointer text-xs">🇵🇱 פולין</button>
+                    <button onclick="loadCountry('איחוד האמירויות')" class="px-2.5 py-1 rounded-full bg-slate-800/80 hover:bg-amber-500/20 hover:text-amber-400 border border-slate-700 hover:border-amber-500/40 text-slate-300 transition cursor-pointer text-xs">🇦🇪 איחוד האמירויות</button>
+                    <button onclick="loadCountry('אזרבייג\'ן')" class="px-2.5 py-1 rounded-full bg-slate-800/80 hover:bg-amber-500/20 hover:text-amber-400 border border-slate-700 hover:border-amber-500/40 text-slate-300 transition cursor-pointer text-xs">🇦🇿 אזרבייג'ן</button>
+                    <button onclick="loadCountry('אוקראינה')" class="px-2.5 py-1 rounded-full bg-slate-800/80 hover:bg-amber-500/20 hover:text-amber-400 border border-slate-700 hover:border-amber-500/40 text-slate-300 transition cursor-pointer text-xs">🇺🇦 אוקראינה</button>
+                    <button onclick="loadCountry('ישראל')" class="px-2.5 py-1 rounded-full bg-slate-800/80 hover:bg-amber-500/20 hover:text-amber-400 border border-slate-700 hover:border-amber-500/40 text-slate-300 transition cursor-pointer text-xs">🇮🇱 ישראל</button>
+                    <button onclick="loadCountry('סרביה')" class="px-2.5 py-1 rounded-full bg-slate-800/80 hover:bg-amber-500/20 hover:text-amber-400 border border-slate-700 hover:border-amber-500/40 text-slate-300 transition cursor-pointer text-xs">🇷🇸 סרביה</button>
+                    <button onclick="toggleSidebar()" class="px-2.5 py-1 rounded-full bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border border-amber-500/30 transition cursor-pointer text-xs font-semibold flex items-center gap-1 sm:hidden">
+                        <i data-lucide="list" class="w-3 h-3"></i> כל 22 המדינות
+                    </button>
+                    <span class="hidden sm:inline text-slate-500 text-[11px]">לרשימה המלאה של 22 המדינות - ראו את התפריט הצדדי</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Loading State Indicator -->
+        <div id="loadingState" class="hidden glass-panel rounded-2xl p-8 sm:p-12 text-center space-y-4 no-print">
+            <div class="relative w-14 h-14 sm:w-16 sm:h-16 mx-auto">
+                <div class="absolute inset-0 border-4 border-amber-500/20 rounded-full"></div>
+                <div class="absolute inset-0 border-4 border-amber-500 border-t-transparent rounded-full animate-spin"></div>
+                <i data-lucide="radar" class="absolute inset-0 m-auto w-6 h-6 text-amber-400"></i>
+            </div>
+            <div>
+                <h3 id="loadingTitle" class="text-base sm:text-lg font-bold text-white">מפיק דוח מודיעיני מקיף...</h3>
+                <p id="loadingSub" class="text-xs text-slate-400 mt-1">סורק מאגרי מידע ביטחוניים, תקציבי ביטחון, פלטפורמות כטב"ם וקישורי יצרניות...</p>
+            </div>
+        </div>
+
+        <!-- ERROR / EMPTY STATE -->
+        <div id="errorState" class="hidden glass-panel rounded-2xl p-6 sm:p-8 text-center space-y-3 border-red-500/30 no-print">
+            <i data-lucide="alert-triangle" class="w-8 h-8 text-red-400 mx-auto"></i>
+            <h3 class="text-sm sm:text-base font-bold text-white">לא ניתן היה להפיק דוח</h3>
+            <p id="errorMessage" class="text-xs text-slate-400"></p>
+        </div>
+
+        <!-- REPORT CONTAINER -->
+        <div id="reportContainer" class="space-y-4 sm:space-y-6">
+
+            <!-- COUNTRY HEADER BANNER -->
+            <div class="glass-panel rounded-2xl p-4 sm:p-6 border-r-4 border-r-amber-500 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 sm:gap-6">
+                <div class="space-y-2">
+                    <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+                        <span id="countryFlag" class="text-3xl sm:text-4xl shadow-md">🇵🇱</span>
+                        <h2 id="countryTitle" class="text-2xl sm:text-3xl font-black text-white">פולין (Poland)</h2>
+                        <span id="threatBadge" class="px-2.5 py-0.5 sm:py-1 rounded-md text-[11px] sm:text-xs font-bold bg-amber-500/10 text-amber-400 border border-amber-500/30">סיכון גיאופוליטי: בינוני-גבוה</span>
+                    </div>
+                    <p id="countrySubtitle" class="text-xs sm:text-sm text-slate-300">ניתוח עומק של שוק המל"טים, מעמד ביטחוני ואסטרטגיית חדירה</p>
+                </div>
+
+                <div class="flex items-center gap-3 sm:gap-4 w-full md:w-auto justify-between md:justify-end border-t md:border-t-0 border-slate-800 pt-3 md:pt-0">
+                    <div class="flex items-center gap-2.5 px-3 sm:px-4 py-2 bg-slate-900/90 rounded-xl border border-slate-800 flex-1 md:flex-initial">
+                        <svg id="marketScoreGauge" viewBox="0 0 80 80" class="w-11 h-11 sm:w-12 sm:h-12 shrink-0">
+                            <defs>
+                                <linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#fef08a" />
+                                    <stop offset="100%" stop-color="#d97706" />
+                                </linearGradient>
+                            </defs>
+                            <circle cx="40" cy="40" r="32" fill="none" stroke-width="8" class="gauge-ring-bg"></circle>
+                            <circle id="gaugeRingFill" cx="40" cy="40" r="32" fill="none" stroke-width="8" stroke-linecap="round"
+                                class="gauge-ring-fill" transform="rotate(-90 40 40)"
+                                stroke-dasharray="201.06" stroke-dashoffset="201.06"></circle>
+                            <text id="gaugeScoreText" x="40" y="45" text-anchor="middle" font-size="20" font-weight="900" fill="#f59e0b" font-family="Heebo, sans-serif">92</text>
+                        </svg>
+                        <div>
+                            <div class="text-[10px] sm:text-xs text-slate-400 font-semibold">ציון פוטנציאל שוק</div>
+                            <div id="marketScore" class="text-sm sm:text-base font-black text-amber-400">92/100</div>
+                        </div>
+                    </div>
+                    <div class="text-center px-3 sm:px-4 py-2 bg-slate-900/90 rounded-xl border border-slate-800 flex-1 md:flex-initial">
+                        <div class="text-[10px] sm:text-xs text-slate-400 font-semibold">תקציב ביטחון מוערך</div>
+                        <div id="defenseBudget" class="text-lg sm:text-xl font-black text-blue-400">$35.0B</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- COMPARE MODE BUTTON (mobile fallback) -->
+            <button onclick="openCompareMode()" class="sm:hidden w-full py-2.5 rounded-xl bg-slate-800/90 text-amber-400 border border-slate-700 text-xs font-semibold flex items-center justify-center gap-2 no-print">
+                <i data-lucide="columns-3" class="w-4 h-4"></i> השווה מדינות
+            </button>
+
+            <!-- Quick Navigation Jump Links -->
+            <div class="flex items-center gap-2 overflow-x-auto pb-2 hide-scrollbar no-print text-xs font-medium -mx-1 px-1">
+                <button onclick="scrollToSection('section-1')" class="px-3 py-2 rounded-lg bg-slate-800/90 hover:bg-amber-500/20 hover:text-amber-400 text-slate-300 whitespace-nowrap flex items-center gap-1.5 border border-slate-700/60 transition cursor-pointer">
+                    <i data-lucide="id-card" class="w-3.5 h-3.5 text-amber-400"></i> 1. תעודת זהות
+                </button>
+                <button onclick="scrollToSection('section-2')" class="px-3 py-2 rounded-lg bg-slate-800/90 hover:bg-amber-500/20 hover:text-amber-400 text-slate-300 whitespace-nowrap flex items-center gap-1.5 border border-slate-700/60 transition cursor-pointer">
+                    <i data-lucide="globe" class="w-3.5 h-3.5 text-amber-400"></i> 2. גיאופוליטיקה
+                </button>
+                <button onclick="scrollToSection('section-3')" class="px-3 py-2 rounded-lg bg-slate-800/90 hover:bg-amber-500/20 hover:text-amber-400 text-slate-300 whitespace-nowrap flex items-center gap-1.5 border border-slate-700/60 transition cursor-pointer">
+                    <i data-lucide="plane" class="w-3.5 h-3.5 text-amber-400"></i> 3. צי פלטפורמות ותמונות
+                </button>
+                <button onclick="scrollToSection('section-4')" class="px-3 py-2 rounded-lg bg-slate-800/90 hover:bg-amber-500/20 hover:text-amber-400 text-slate-300 whitespace-nowrap flex items-center gap-1.5 border border-slate-700/60 transition cursor-pointer">
+                    <i data-lucide="target" class="w-3.5 h-3.5 text-amber-400"></i> 4. צרכים ופערים
+                </button>
+                <button onclick="scrollToSection('section-5')" class="px-3 py-2 rounded-lg bg-slate-800/90 hover:bg-amber-500/20 hover:text-amber-400 text-slate-300 whitespace-nowrap flex items-center gap-1.5 border border-slate-700/60 transition cursor-pointer">
+                    <i data-lucide="swords" class="w-3.5 h-3.5 text-amber-400"></i> 5. נוף תחרותי
+                </button>
+                <button onclick="scrollToSection('section-6')" class="px-3 py-2 rounded-lg bg-slate-800/90 hover:bg-amber-500/20 hover:text-amber-400 text-slate-300 whitespace-nowrap flex items-center gap-1.5 border border-slate-700/60 transition cursor-pointer">
+                    <i data-lucide="shield-alert" class="w-3.5 h-3.5 text-amber-400"></i> 6. מגבלות ומדיניות
+                </button>
+                <button onclick="scrollToSection('section-7')" class="px-3 py-2 rounded-lg bg-slate-800/90 hover:bg-amber-500/20 hover:text-amber-400 text-slate-300 whitespace-nowrap flex items-center gap-1.5 border border-slate-700/60 transition cursor-pointer">
+                    <i data-lucide="award" class="w-3.5 h-3.5 text-amber-400"></i> 7. המלצה עסקית
+                </button>
+            </div>
+
+            <!-- SECTION 1: Profile ID -->
+            <div id="section-1" class="glass-panel rounded-2xl p-4 sm:p-6 space-y-4">
+                <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+                    <div class="p-2 sm:p-2.5 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                        <i data-lucide="id-card" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-base sm:text-lg font-bold text-white">1. פרופיל כללי (תעודת זהות למדינה)</h3>
+                        <p class="text-[11px] sm:text-xs text-slate-400">נתוני יסוד כלכליים, דמוגרפיים ותקציבי ביטחון</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+                    <div class="p-3.5 sm:p-4 bg-slate-900/80 rounded-xl border border-slate-800/80">
+                        <span class="text-[11px] sm:text-xs text-slate-400 block">עיר בירה:</span>
+                        <div id="capital" class="text-sm sm:text-base font-bold text-slate-100 mt-0.5">ורשה</div>
+                    </div>
+                    <div class="p-3.5 sm:p-4 bg-slate-900/80 rounded-xl border border-slate-800/80">
+                        <span class="text-[11px] sm:text-xs text-slate-400 block">אוכלוסייה:</span>
+                        <div id="population" class="text-sm sm:text-base font-bold text-slate-100 mt-0.5">כ-37.5 מיליון</div>
+                    </div>
+                    <div class="p-3.5 sm:p-4 bg-slate-900/80 rounded-xl border border-slate-800/80">
+                        <span class="text-[11px] sm:text-xs text-slate-400 block">תוצר מקומי גולמי (GDP):</span>
+                        <div id="gdp" class="text-sm sm:text-base font-bold text-slate-100 mt-0.5">$810 מיליארד</div>
+                    </div>
+                    <div class="p-3.5 sm:p-4 bg-slate-900/80 rounded-xl border border-slate-800/80">
+                        <span class="text-[11px] sm:text-xs text-slate-400 block">תקציב ביטחון מה-GDP:</span>
+                        <div id="defenseGdpPct" class="text-sm sm:text-base font-bold text-amber-400 mt-0.5">כ-4.2% (שיאן נאט"ו)</div>
+                    </div>
+                </div>
+
+                <div class="p-3.5 sm:p-4 bg-slate-900/70 rounded-xl border border-slate-800/80 space-y-2">
+                    <h4 class="text-xs font-bold text-amber-400 uppercase tracking-wider">תמצית פרופיל ואסטרטגיית רכש</h4>
+                    <p id="profileSummary" class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                        פולין מהווה כיום את אחת המדינות בעלות קצב ההתחמשות וההתרחבות הביטחונית הגבוה באירופה.
+                    </p>
+                </div>
+            </div>
+
+            <!-- SECTION 2: Geopolitics -->
+            <div id="section-2" class="glass-panel rounded-2xl p-4 sm:p-6 space-y-4">
+                <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+                    <div class="p-2 sm:p-2.5 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20">
+                        <i data-lucide="globe" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-base sm:text-lg font-bold text-white">2. גבולות וקשרים גיאופוליטיים</h3>
+                        <p class="text-[11px] sm:text-xs text-slate-400">בריתות אסטרטגיות, איומים אזוריים ומוקדי חיכוך בגבולות</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+                    <div class="p-3.5 sm:p-4 bg-slate-900/80 rounded-xl border border-slate-800/80 space-y-2">
+                        <h4 class="text-xs font-bold text-slate-400">בריתות ושותפויות מרכזיות</h4>
+                        <div id="alliances" class="flex flex-wrap gap-1.5 sm:gap-2 pt-1"></div>
+                    </div>
+                    <div class="p-3.5 sm:p-4 bg-slate-900/80 rounded-xl border border-slate-800/80 space-y-2">
+                        <h4 class="text-xs font-bold text-red-400">איומים גיאופוליטיים וגבולות רגישים</h4>
+                        <p id="geopoliticalThreats" class="text-xs sm:text-sm text-slate-300 leading-relaxed"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 3: UAV Fleet, Images & Spec Links -->
+            <div id="section-3" class="glass-panel rounded-2xl p-4 sm:p-6 space-y-4">
+                <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+                    <div class="p-2 sm:p-2.5 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                        <i data-lucide="plane" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-base sm:text-lg font-bold text-white">3. יכולות ופלטפורמות קיימות (מיפוי צי כטב"מים)</h3>
+                        <p class="text-[11px] sm:text-xs text-slate-400">צי המל"טים בשירות, תמונות אמיתיות של הפלטפורמות וקישורים ישירים לאתרי היצרניות לצפייה במפרט טכני</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">פלטפורמות פעילות בשירות הביטחון</h4>
+                    <div id="uavFleetGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+                    <div class="p-3.5 sm:p-4 bg-slate-900/80 rounded-xl border border-slate-800 space-y-2 mt-4">
+                        <h4 class="text-xs font-bold text-amber-400">תעשייה מקומית ויכולות R&D</h4>
+                        <p id="localIndustry" class="text-xs sm:text-sm text-slate-300 leading-relaxed"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 4: Needs & Gaps -->
+            <div id="section-4" class="glass-panel rounded-2xl p-4 sm:p-6 space-y-4">
+                <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+                    <div class="p-2 sm:p-2.5 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                        <i data-lucide="target" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-base sm:text-lg font-bold text-white">4. צרכים ופערים (הזדמנויות עסקיות בתחום המל״טים)</h3>
+                        <p class="text-[11px] sm:text-xs text-slate-400">פערים מבצעיים, נקודות תורפה והזדמנויות מכירה לתעשייה</p>
+                    </div>
+                </div>
+                <div id="gapsList" class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4"></div>
+            </div>
+
+            <!-- SECTION 5: Competitive Landscape -->
+            <div id="section-5" class="glass-panel rounded-2xl p-4 sm:p-6 space-y-4">
+                <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+                    <div class="p-2 sm:p-2.5 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20">
+                        <i data-lucide="swords" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-base sm:text-lg font-bold text-white">5. נוף תחרותי ושחקנים בשוק</h3>
+                        <p class="text-[11px] sm:text-xs text-slate-400">ספקים בינלאומיים, חברות דומננטיות וחלוקת נתחי שוק</p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-[auto_1fr] gap-4 sm:gap-6 items-center">
+                    <div id="competitorsDonut" class="flex items-center justify-center"></div>
+                    <div class="p-3.5 sm:p-4 bg-slate-900/80 rounded-xl border border-slate-800 space-y-3">
+                        <div id="competitors" class="space-y-3"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 6: Policy & Regulations -->
+            <div id="section-6" class="glass-panel rounded-2xl p-4 sm:p-6 space-y-4">
+                <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+                    <div class="p-2 sm:p-2.5 rounded-xl bg-rose-500/10 text-rose-400 border border-rose-500/20">
+                        <i data-lucide="shield-alert" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-base sm:text-lg font-bold text-white">6. מגבלות ומדיניות רכש</h3>
+                        <p class="text-[11px] sm:text-xs text-slate-400">רגולציה, היסט שיתוף פעולה תעשייתי (Offset) ותקני יצוא</p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+                    <div class="p-3.5 sm:p-4 bg-slate-900/80 rounded-xl border border-slate-800 space-y-1">
+                        <h4 class="text-xs font-bold text-amber-400">דרישת Offset וייצור מקומי</h4>
+                        <p id="policyOffset" class="text-xs text-slate-300 leading-relaxed"></p>
+                    </div>
+                    <div class="p-3.5 sm:p-4 bg-slate-900/80 rounded-xl border border-slate-800 space-y-1">
+                        <h4 class="text-xs font-bold text-amber-400">תקנים, בריתות ואפכ"א</h4>
+                        <p id="policyNato" class="text-xs text-slate-300 leading-relaxed"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 7: Executive Summary & Go-To-Market -->
+            <div id="section-7" class="glass-panel rounded-2xl p-4 sm:p-6 space-y-4 border-2 border-amber-500/30">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-3">
+                    <div class="flex items-center gap-3">
+                        <div class="p-2 sm:p-2.5 rounded-xl bg-amber-500/20 text-amber-400 border border-amber-500/40">
+                            <i data-lucide="award" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-base sm:text-lg font-bold text-white">7. המלצה עסקית מסכמת (Go-To-Market Strategy)</h3>
+                            <p class="text-[11px] sm:text-xs text-slate-400">אסטרטגיית חדירה מומלצת, מודל עסקי והתאמת מוצר</p>
+                        </div>
+                    </div>
+                    <span id="recommendationRating" class="px-3 py-1 rounded-full text-xs font-black bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 text-center self-start sm:self-auto">
+                        כדאיות גבוהה מאוד (9.2/10)
+                    </span>
+                </div>
+
+                <div class="p-4 sm:p-5 bg-gradient-to-br from-slate-900 to-slate-900/90 rounded-xl border border-amber-500/20 space-y-4">
+                    <p id="recommendationText" class="text-xs sm:text-sm text-slate-200 leading-relaxed font-medium"></p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3 pt-2 text-xs">
+                        <div class="p-3 bg-slate-950/90 rounded-lg border border-slate-800 space-y-0.5">
+                            <span class="text-slate-400 block text-[11px]">ערוץ חדירה מומלץ:</span>
+                            <span id="recChannel" class="font-bold text-amber-400"></span>
+                        </div>
+                        <div class="p-3 bg-slate-950/90 rounded-lg border border-slate-800 space-y-0.5">
+                            <span class="text-slate-400 block text-[11px]">סגמנט מוביל:</span>
+                            <span id="recSegment" class="font-bold text-amber-400"></span>
+                        </div>
+                        <div class="p-3 bg-slate-950/90 rounded-lg border border-slate-800 space-y-0.5">
+                            <span class="text-slate-400 block text-[11px]">חלון הזדמנויות:</span>
+                            <span id="recWindow" class="font-bold text-emerald-400"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- REPORT ACTIONS (moved to bottom per request) -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-2.5 pt-1 no-print">
+                <button onclick="copyCurrentReport()" class="px-4 py-2 rounded-lg text-xs font-semibold bg-slate-800/90 text-slate-300 hover:bg-slate-700 hover:text-white border border-slate-700 transition flex items-center gap-1.5 cursor-pointer">
+                    <i data-lucide="copy" class="w-4 h-4 text-amber-500"></i>
+                    <span>העתקת סקירה</span>
+                </button>
+                <button onclick="window.print()" class="px-4 py-2 rounded-lg text-xs font-semibold bg-slate-800/90 text-slate-300 hover:bg-slate-700 hover:text-white border border-slate-700 transition flex items-center gap-1.5 cursor-pointer">
+                    <i data-lucide="printer" class="w-4 h-4 text-amber-500"></i>
+                    <span>הדפסת דוח</span>
+                </button>
+            </div>
+
+        </div>
+
+    </main>
+    </div>
+
+    <div id="toast" class="hidden fixed bottom-5 right-5 z-50 bg-amber-500 text-slate-950 font-bold px-4 py-2.5 rounded-xl shadow-xl text-xs flex items-center gap-2 transition-all duration-300 border border-amber-300">
+        <i data-lucide="check-circle" class="w-4 h-4"></i>
+        <span id="toastMessage">הדוח הועתק בהצלחה!</span>
+    </div>
+
+    <!-- COMPARE MODE MODAL -->
+    <div id="compareModal" class="hidden fixed inset-0 z-[150] bg-black/75 backdrop-blur-sm p-3 sm:p-6 overflow-y-auto no-print">
+        <div class="glass-panel rounded-2xl max-w-5xl mx-auto my-4 sm:my-8 p-4 sm:p-6 space-y-4 military-glow border-amber-500/20">
+            <div class="sticky top-0 -mt-4 sm:-mt-6 -mx-4 sm:-mx-6 px-4 sm:px-6 pt-4 sm:pt-6 pb-3 z-10 flex items-center justify-between border-b border-slate-800 bg-[var(--panel-bg)] backdrop-blur-xl rounded-t-2xl">
+                <h3 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">
+                    <i data-lucide="columns-3" class="w-5 h-5 text-amber-400"></i>
+                    השוואת מדינות
+                </h3>
+                <button onclick="closeCompareMode()" class="p-1.5 rounded-lg bg-slate-800/80 text-slate-300 hover:text-white hover:bg-slate-700 cursor-pointer flex items-center gap-1.5 text-xs font-semibold">
+                    <span class="hidden sm:inline">סגור וחזור לדף הראשי</span>
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            </div>
+
+            <div id="comparePicker" class="space-y-3">
+                <div class="flex gap-2">
+                    <button id="modeCountriesBtn" onclick="setCompareMode('countries')" class="flex-1 py-2 rounded-lg text-xs font-semibold border transition cursor-pointer bg-amber-500/15 text-amber-400 border-amber-500/40">
+                        השוואת מדינות
+                    </button>
+                    <button id="modePlatformsBtn" onclick="setCompareMode('platforms')" class="flex-1 py-2 rounded-lg text-xs font-semibold border transition cursor-pointer bg-slate-800/80 text-slate-300 border-slate-700">
+                        השוואת פלטפורמות
+                    </button>
+                </div>
+                <p id="comparePickerHint" class="text-xs sm:text-sm text-slate-400">בחר 2 עד 3 מדינות להשוואה זו-לצד-זו:</p>
+                <div id="compareCheckboxGrid" class="grid grid-cols-2 sm:grid-cols-3 gap-2"></div>
+                <button onclick="renderComparison()" class="w-full py-2.5 rounded-lg bg-gradient-to-r from-amber-600 to-amber-500 text-slate-950 font-bold text-sm cursor-pointer">השווה</button>
+            </div>
+
+            <div id="compareResultWrap" class="hidden space-y-3">
+                <div class="flex items-center justify-between flex-wrap gap-2">
+                    <button onclick="backToPicker()" class="text-xs text-amber-400 hover:text-amber-300 flex items-center gap-1 cursor-pointer">
+                        <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i> בחר מדינות אחרות
+                    </button>
+                    <button onclick="closeCompareMode()" class="text-xs text-slate-400 hover:text-white flex items-center gap-1 cursor-pointer">
+                        <i data-lucide="log-out" class="w-3.5 h-3.5"></i> סגור וחזור לדף הראשי
+                    </button>
+                </div>
+                <div id="compareTableWrap" class="overflow-x-auto">
+                    <table id="compareTable" class="w-full text-xs sm:text-sm border-collapse"></table>
+                </div>
+                <div id="comparePlatformsWrap" class="hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="glass-panel border-t border-slate-800/80 py-4 px-4 sm:px-6 text-center text-xs text-slate-500 mt-auto no-print">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+            <div class="flex items-center gap-2">
+                <span class="gold-gradient-text font-black">AEROVISION BI</span>
+                <span>• מערכת מודיעין שוק כטב"מים ואסטרטגיה גלובלית</span>
+            </div>
+            <div>
+                © 2026 כל הזכויות שמורות - פרויקט ניתוח BI מדינות
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ============================================================
+        // ICONS - self-contained replacement for the Lucide CDN script.
+        // Previously this page loaded lucide from unpkg.com, but external
+        // scripts can silently fail or break (a floating @latest version
+        // once shipped a breaking change, and some preview/sandboxed
+        // environments block cross-origin scripts entirely). Every icon
+        // used in this page is now built in, so icons always render
+        // regardless of network conditions or where this file is opened.
+        // The API (`lucide.createIcons()` + `data-lucide="name"`) is kept
+        // identical so nothing else in this file needed to change.
+        // ============================================================
+        const ICONS = {
+            x: '<path d="M18 6 6 18"/><path d="m6 6 12 12"/>',
+            menu: '<path d="M4 12h16"/><path d="M4 6h16"/><path d="M4 18h16"/>',
+            search: '<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>',
+            printer: '<path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 9V3h12v6"/><rect x="6" y="14" width="12" height="8"/>',
+            copy: '<rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>',
+            'external-link': '<path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>',
+            'check-circle': '<path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/>',
+            'check-circle-2': '<circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/>',
+            'alert-triangle': '<path d="m21.73 18-8-14a2 2 0 0 0-3.46 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/>',
+            'arrow-right': '<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>',
+            award: '<circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/>',
+            globe: '<circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/>',
+            'globe-2': '<path d="M21 12a9 9 0 1 1-9-9c1.5 0 3 .5 4 1.5"/><path d="M12 3a9 9 0 0 0 0 18"/><path d="M2 12h20"/>',
+            'id-card': '<rect width="20" height="16" x="2" y="4" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M15 8h2"/><path d="M15 12h2"/><path d="M7 16h10"/>',
+            plane: '<path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-1 .1-1.3.5l-.4.5c-.4.5-.2 1.2.3 1.5L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.5 1 .7 1.5.3l.5-.4c.4-.3.6-.8.5-1.3Z"/>',
+            radar: '<path d="M19.07 4.93A10 10 0 0 0 6.99 3.34"/><path d="M4 6h.01"/><path d="M2.29 9.62A10 10 0 1 0 21.31 8.35"/><path d="M16.24 7.76A6 6 0 1 0 8.23 16.67"/><path d="M12 18h.01"/><circle cx="12" cy="12" r="2"/><path d="m13.41 10.59 5.66-5.66"/>',
+            'shield-alert': '<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="M12 8v4"/><path d="M12 16h.01"/>',
+            sparkles: '<path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/>',
+            swords: '<path d="M14.5 17.5 3 6V3h3l11.5 11.5"/><path d="M13 19l6-6"/><path d="M16 16l4 4"/><path d="M19 21l2-2"/><path d="M9.5 6.5 21 18v3h-3L6.5 9.5"/><path d="M8 3H5l1.5 1.5"/>',
+            target: '<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>',
+            'columns-3': '<rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 3v18"/><path d="M15 3v18"/>',
+            list: '<path d="M3 12h.01"/><path d="M3 18h.01"/><path d="M3 6h.01"/><path d="M8 12h13"/><path d="M8 18h13"/><path d="M8 6h13"/>',
+            'log-out': '<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/>',
+            'sun-moon': '<path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.9 4.9 1.4 1.4"/><path d="M17.5 17.5c-1 1-2.24 1.5-3.5 1.5a5 5 0 0 1 0-10c1.26 0 2.5.5 3.5 1.5"/><path d="M2 12h2"/><path d="M20 12h2"/>'
+        };
+        function renderIcons(root) {
+            (root || document).querySelectorAll('[data-lucide]').forEach(el => {
+                const inner = ICONS[el.getAttribute('data-lucide')];
+                if (!inner) return;
+                const cls = el.getAttribute('class') || '';
+                const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                svg.setAttribute('viewBox', '0 0 24 24');
+                svg.setAttribute('fill', 'none');
+                svg.setAttribute('stroke', 'currentColor');
+                svg.setAttribute('stroke-width', '2');
+                svg.setAttribute('stroke-linecap', 'round');
+                svg.setAttribute('stroke-linejoin', 'round');
+                if (cls) svg.setAttribute('class', cls);
+                svg.innerHTML = inner;
+                el.replaceWith(svg);
+            });
+        }
+        window.lucide = { createIcons: () => renderIcons() };
+
+        // ============================================================
+        // SECURITY: HTML escaping for any data injected via innerHTML.
+        // Every field that comes from an external source (preset data
+        // OR a live AI response) must be escaped before being placed
+        // into innerHTML, otherwise a crafted country name / prompt
+        // injection could execute arbitrary HTML/JS in the page.
+        // ============================================================
+        function escapeHtml(str) {
+            if (str === null || str === undefined) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        // Also sanitize URLs before using them in href/src — only allow http(s).
+        function safeUrl(url, fallback) {
+            try {
+                const u = new URL(url.startsWith('http') ? url : 'https://' + url);
+                if (u.protocol === 'http:' || u.protocol === 'https:') return u.href;
+            } catch (e) { /* fall through */ }
+            return fallback;
+        }
+
+        // ============================================================
+        // PLATFORM ICONS - inline vector icons instead of hotlinked
+        // photos. Remote images are unreliable across hosting/preview
+        // environments (blocked, moved, or renamed on the source site),
+        // so platforms are shown as clean category icons instead. The
+        // "view spec" button still links out to the real manufacturer
+        // page/photo.
+        // ============================================================
+        function getPlatformCategory(name) {
+            const n = (name || '').toLowerCase();
+            const loiter = ['warmate', 'harop', 'switchblade', 'skystriker', 'loitering'];
+            const vtol = ['garmoosha', 'vtol'];
+            if (loiter.some(k => n.includes(k))) return 'loiter';
+            if (vtol.some(k => n.includes(k))) return 'vtol';
+            return 'fixedwing';
+        }
+        function platformIconSVG(category) {
+            if (category === 'loiter') {
+                return `<svg viewBox="0 0 200 100" class="w-16 h-16 sm:w-20 sm:h-20">
+                    <defs><linearGradient id="iconGoldLoiter" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#fef08a"/><stop offset="100%" stop-color="#b45309"/>
+                    </linearGradient></defs>
+                    <line x1="20" y1="50" x2="180" y2="50" stroke="url(#iconGoldLoiter)" stroke-width="3" stroke-linecap="round"/>
+                    <polygon points="180,50 158,38 158,62" fill="url(#iconGoldLoiter)"/>
+                    <polygon points="80,50 100,20 120,50" fill="none" stroke="url(#iconGoldLoiter)" stroke-width="2.5"/>
+                    <polygon points="80,50 100,80 120,50" fill="none" stroke="url(#iconGoldLoiter)" stroke-width="2.5"/>
+                    <polygon points="30,50 45,42 45,58" fill="none" stroke="url(#iconGoldLoiter)" stroke-width="2"/>
+                </svg>`;
+            }
+            if (category === 'vtol') {
+                return `<svg viewBox="0 0 200 100" class="w-16 h-16 sm:w-20 sm:h-20">
+                    <defs><linearGradient id="iconGoldVtol" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#fef08a"/><stop offset="100%" stop-color="#b45309"/>
+                    </linearGradient></defs>
+                    <ellipse cx="100" cy="60" rx="48" ry="10" fill="none" stroke="url(#iconGoldVtol)" stroke-width="2.5"/>
+                    <line x1="55" y1="25" x2="145" y2="25" stroke="url(#iconGoldVtol)" stroke-width="3" stroke-linecap="round"/>
+                    <circle cx="60" cy="25" r="4" fill="url(#iconGoldVtol)"/>
+                    <circle cx="140" cy="25" r="4" fill="url(#iconGoldVtol)"/>
+                    <line x1="68" y1="55" x2="68" y2="28" stroke="url(#iconGoldVtol)" stroke-width="1.5"/>
+                    <line x1="132" y1="55" x2="132" y2="28" stroke="url(#iconGoldVtol)" stroke-width="1.5"/>
+                </svg>`;
+            }
+            return `<svg viewBox="0 0 200 100" class="w-20 h-20 sm:w-24 sm:h-24">
+                <defs><linearGradient id="iconGoldFixed" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#fef08a"/><stop offset="100%" stop-color="#b45309"/>
+                </linearGradient></defs>
+                <path d="M20,55 Q40,45 100,48 Q160,45 180,55 Q160,58 100,52 Q40,58 20,55 Z" fill="url(#iconGoldFixed)" opacity="0.9"/>
+                <line x1="60" y1="50" x2="60" y2="20" stroke="url(#iconGoldFixed)" stroke-width="3"/>
+                <line x1="20" y1="20" x2="100" y2="20" stroke="url(#iconGoldFixed)" stroke-width="3" stroke-linecap="round"/>
+                <line x1="150" y1="45" x2="180" y2="30" stroke="url(#iconGoldFixed)" stroke-width="2.5" stroke-linecap="round"/>
+                <line x1="150" y1="45" x2="180" y2="60" stroke="url(#iconGoldFixed)" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>`;
+        }
+
+        const uavUrlMap = {
+            "Bayraktar TB2": "https://baykartech.com/en/uav/bayraktar-tb2/",
+            "MQ-9A Reaper": "https://www.ga-asi.com/remotely-piloted-aircraft/mq-9a",
+            "MQ-9 Reaper": "https://www.ga-asi.com/remotely-piloted-aircraft/mq-9a",
+            "MQ-9B SkyGuardian": "https://www.ga-asi.com/remotely-piloted-aircraft/mq-9b-skyguardian",
+            "MQ-9B SeaGuardian": "https://www.ga-asi.com/remotely-piloted-aircraft/mq-9b-seaguardian",
+            "FlyEye & Warmate": "https://www.wbgroup.pl/en/produkt/warmate-loitering-munitions/",
+            "FlyEye": "https://www.wbgroup.pl/en/produkt/flyeye-unmanned-aerial-system/",
+            "Warmate": "https://www.wbgroup.pl/en/produkt/warmate-loitering-munitions/",
+            "Wing Loong I / II": "https://www.avic.com/en/",
+            "Hermes 900": "https://elbitsystems.com/landing-page/hermes-900/",
+            "Heron 1": "https://www.iai.co.il/p/heron-1",
+            "Heron TP": "https://www.iai.co.il/p/heron-tp",
+            "Garmoosha & Shadow": "https://edgegroup.ae/",
+            "ScanEagle": "https://www.insitu.com/products/scaneagle",
+            "RQ-4B Global Hawk": "https://www.northropgrumman.com/air/global-hawk",
+            "Archytas / Sperwer": "https://www.haicorp.com/",
+            "TAPAS & Rustom": "https://www.drdo.gov.in/",
+            "Harop": "https://www.iai.co.il/p/harop",
+            "Watchkeeper": "https://uk.elbitsystems.com/",
+            "Switchblade 300": "https://www.avinc.com/tms/switchblade-300",
+            "MQ-4C Triton": "https://www.northropgrumman.com/what-we-do/air/triton-unmanned-aircraft-system"
+        };
+
+        const presetData = {
+            "פולין": {
+                flag: "🇵🇱", title: "פולין (Poland)",
+                subtitle: "שוק צומח במהירות, הגדלה דרמטית של תקציב הביטחון והתחמשות בקו המזרחי",
+                threat: "סיכון גיאופוליטי: בינוני-גבוה", score: "92/100", budget: "$35.0B",
+                capital: "ורשה", population: "כ-37.5 מיליון", gdp: "$810 מיליארד",
+                defenseGdpPct: "כ-4.2% (שיאן נאט\"ו באירופה)",
+                profileSummary: "פולין מהווה כיום את אחת המדינות בעלות קצב ההתחמשות וההתרחבות הביטחונית הגבוה באירופה. בעקבות המלחמה באוקראינה והמתיחות בגבול בלארוס, המדינה הגדילה דרמטית את תקציב הביטחון מ-2% לכ-4.2% מה-GDP, תוך דגש על רכש מערכות אוטונומיות, כטב\"מים טקטיים ומערכות הגנה אווירית.",
+                alliances: ["חברה בנאט\"ו (NATO)", "איחוד אירופי (EU)", "ברית אסטרטגית הדוקה עם ארה\"ב", "שיתוף פעולה ביטחוני וטכנולוגי עם ישראל"],
+                geopoliticalThreats: "גבול משותף מתוח עם בלארוס ומובלעת קלינינגרד (רוסיה). איום ישיר של חדירת כטב\"מים וטילים, לצד צורך דחוף באבטחת מזרח אגף נאט\"ו (מסדרון סובאלקי - Suwalki Gap).",
+                uavFleet: [
+                    { name: "Bayraktar TB2", manufacturer: "Baykar Tech (טורקיה)", desc: "כטב\"ם תקיפה וסיור בינוני (MALE) עם יכולת נשיאת חימוש מדויק - 24 יחידות בשירות מבצעי מלא בחיל האוויר הפולני.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/d/d4/Bayraktar_TB2_%22Vanagas%22_03.jpg", websiteUrl: "https://baykartech.com/en/uav/bayraktar-tb2/" },
+                    { name: "MQ-9A Reaper", manufacturer: "General Atomics (ארה\"ב)", desc: "חכירה ורכש של כטב\"מי איסוף מודיעין, תקיפה וסיור ארוך טווח בשהייה ממושכת בגובה רב.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/a/a4/MQ-9_Reaper_in_flight_%282007%29.jpg", websiteUrl: "https://www.ga-asi.com/remotely-piloted-aircraft/mq-9a" },
+                    { name: "Warmate", manufacturer: "WB Group (פולין)", desc: "מערכת חימוש משוטט טקטי (Loitering Munition) מתוצרת מקומית לתקיפה מדויקת של מטרות איכות.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/2/23/MSPO23_Warmate.jpg", websiteUrl: "https://www.wbgroup.pl/en/produkt/warmate-loitering-munitions/" }
+                ],
+                localIndustry: "קבוצת WB Group הפולנית ותאגיד PGZ נחשבים למובילים בייצור חימוש משוטט וכטב\"מים טקטיים. עם זאת, קיים חסר בתעשייה מקומית של כטב\"מי MALE/HALE כבדים ובמערכות לוחמה אלקטרונית מתקדמות לעקיפת חסימות GPS וסייבר.",
+                gaps: [
+                    { title: "מערכות C-UAV / Anti-Drone", desc: "צורך דחוף במערכות יירוט רכות (Jamming) וקשות (Hard-Kill) נגד להקות כטב\"מים בגבול המזרחי." },
+                    { title: "ניווט עמיד חסימות (GNSS-Denied)", desc: "הצטיידות ברכיבי ניווט אופטי (VIO) ומערכות EW להתמודדות עם שיבושי תקשורת מזרחיים." },
+                    { title: "חימוש משוטט טקטי ארוך טווח", desc: "דרישה למערכות תקיפה מדויקות לטווח של 50-100 ק\"מ לשילוב בכוחות היבשה." },
+                    { title: "כטב\"מי סיור ימי", desc: "הגנה על צינורות גז (Baltic Pipe), נמלים אסטרטגיים וכבלי תקשורת בים הבלטי." }
+                ],
+                competitors: [
+                    { company: "ארה\"ב (General Atomics, AeroVironment)", role: "דומיננטיות במל\"טים אסטרטגיים וחימוש זעיר", share: "40%" },
+                    { company: "טורקיה (Baykar Tech)", role: "רכש משמעותי של Bayraktar TB2", share: "25%" },
+                    { company: "ישראל (אלביט Systems, IAI, רפאל)", role: "אספקת מכלולי מודיעין, אלקטרואופטיקה וחימוש", share: "20%" }
+                ],
+                policyOffset: "משרד הביטחון הפולני מחייב מעורבות תעשייתית מקומית (Polski Grupa Zbrojeniowa - PGZ) בכל עסקת רכש ביטחונית גדולה, כולל העברת טכנולוגיה (ToT).",
+                policyNato: "תאימות מלאה לפרוטוקולי תקשורת Stanag של נאט\"ו, ועמידה ברגולציות יצוא ביטחוני קפדניות (חובת היתרי אפכ\"א / ITAR במקרים רלוונטיים).",
+                recommendationRating: "כדאיות גבוהה מאוד (9.2/10)",
+                recommendationText: "השוק הפולני מציע הזדמנות צמיחה יוצאת דופן עקב גידול דרמטי בתקציבי הביטחון. האסטרטגיה המומלצת: הגשת הצעה משותפת (Joint Venture) עם חברות מקומיות כדוגמת WB Group או PGZ, תוך התמקדות באספקת רכיבי ליבה עמידי חסימות לטילים וכטב\"מים, מערכות יירוט רכות (Anti-Drone) ותחנות שליטה וקרקע (GCS).",
+                recChannel: "שותפות תעשייתית (JV / Offset)", recSegment: "C-UAV & Navigation Payload", recWindow: "מיידי (12-24 חודשים)"
+            },
+            "איחוד האמירויות": {
+                flag: "🇦🇪", title: "איחוד האמירויות (UAE)",
+                subtitle: "מעצמת רכש טכנולוגית, השקעות עתק בבינה מלאכותית ואוטונומיה מתקדמת",
+                threat: "סיכון גיאופוליטי: בינוני", score: "95/100", budget: "$25.5B",
+                capital: "אבו דאבי", population: "כ-9.9 מיליון", gdp: "$500 מיליארד", defenseGdpPct: "כ-5.1%",
+                profileSummary: "איחוד האמירויות היא מעצמת רכש טכנולוגית במפרץ הפרסי. המדינה משקיעה מיליארדי דולרים באוטונומיה, בינה מלאכותית וכטב\"מים מתקדמים, תוך שאיפה לבנות יכולת ייצור ופיתוח עצמאית דרך תאגיד הענק EDGE Group.",
+                alliances: ["הסכמי אברהם (עם ישראל)", "ברית הדוקה עם ארה\"ב", "חברה ב-GCC", "שותפויות טכנולוגיות עם אסיה ואירופה"],
+                geopoliticalThreats: "איום כטב\"מים וטילים מצד החות'ים בתימן והשפעה איראנית במפרץ הפרסי. צורך קריטי בהגנה על מתקני נפט, נמלים ותשתיות קריטיות.",
+                uavFleet: [
+                    { name: "Wing Loong I / II", manufacturer: "AVIC (סין)", desc: "כטב\"מי תקיפה ומודיעין ארוכי טווח הפועלים בשירות פעיל בחיל האוויר האמירתי.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Wing_Loong_II_side_view.jpg", websiteUrl: "https://www.avic.com/en/" },
+                    { name: "Garmoosha", manufacturer: "EDGE Group (איחוד האמירויות)", desc: "כטב\"ם מסוק (VTOL) טקטי בפיתוח וייצור מקומי מתקדם למשימות סיור ימי ויבשתי.", imageUrl: "https://edgegroup.ae/sites/default/files/styles/16_9_1920x1080/public/2021-02/GARMOOSHA.jpg?itok=3zK7sZ_O", websiteUrl: "https://edgegroup.ae/" },
+                    { name: "Hermes 900", manufacturer: "אלביט Systems (ישראל)", desc: "שילוב סנסורים, מכלולי מודיעין ואלקטרואופטיקה מתקדמת בפלטפורמות אסטרטגיות.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/9/96/Hermes_900_%28Kochav%29_UAV_is_airborne_again_and_joins_the_ranks_of_the_UAV_Division%2C_November_2015._II.jpg", websiteUrl: "https://elbitsystems.com/landing-page/hermes-900/" }
+                ],
+                localIndustry: "תאגיד הביטחון הענקי EDGE Group מוביל את הייצור המקומי ורוכש טכנולוגיות בינלאומיות בקצב מהיר. שותפויות זרות חייבות לעבור דרך שילוב בתעשייה המקומית.",
+                gaps: [
+                    { title: "מערכות הגנה היברידיות C-UAV", desc: "הגנה היקפית על מתקני אנרגיה ואוכלוסייה מנחילי כטב\"מים." },
+                    { title: "אוטונומיה ובינה מלאכותית להסתגלות בלחימה", desc: "מערכות תכנון משימה אוטונומיות ללא מפעיל אנושי צמוד." },
+                    { title: "כטב\"מי מבוססי VTOL", desc: "מערכות ממריאות אנכית למשימות סיור ימי ואבטחת אסדות נפט." },
+                    { title: "מערכות תקשורת מוצפנות עמידות EW", desc: "הגנה מפני שיבושי תדרים ולוחמת סייבר." }
+                ],
+                competitors: [
+                    { company: "EDGE Group (תעשייה מקומית)", role: "שחקן מפתח בייצור ורכש מקומי", share: "45%" },
+                    { company: "סין (AVIC / CASC)", role: "ספקית היסטורית של כטב\"מי תקיפה", share: "25%" },
+                    { company: "ישראל וארה\"ב", role: "טכנולוגיות אלקטרואופטיקה, סנסורים ורכיבי פרימיום", share: "30%" }
+                ],
+                policyOffset: "חובת השקעה חוזרת (Offset) קפדנית דרך מועצת Tawazun. נדרשת שותפות מקומית (JV) עם חברות אמירתיות.",
+                policyNato: "מערכת רכש עצמאית אך דורשת תקני אבטחה גבוהים ומניעת זליגת טכנולוגיה.",
+                recommendationRating: "כדאיות גבוהה מאוד (9.5/10)",
+                recommendationText: "שוק ראשון במעלה למוצרים טכנולוגיים מתקדמים (Sensors, AI, C-UAV). אסטרטגיה: הקמת מיזם משותף עם תאגיד EDGE או Tawazun לשילוב טכנולוגיות ישראליות/בינלאומיות בפלטפורמות מקומיות.",
+                recChannel: "מיזם משותף (JV with EDGE Group)", recSegment: "C-UAV & AI Autonomy Payloads", recWindow: "מיידי (6-12 חודשים)"
+            },
+            "יוון": {
+                flag: "🇬🇷", title: "יוון (Greece)",
+                subtitle: "מודרניזציה של חיל האוויר, הגנת איים ושוק כטב\"מים בצמיחה בים התיכון",
+                threat: "סיכון גיאופוליטי: בינוני", score: "84/100", budget: "$9.5B",
+                capital: "אתונה", population: "כ-10.4 מיליון", gdp: "$240 מיליארד", defenseGdpPct: "כ-3.7%",
+                profileSummary: "יוון משקיעה רבות בשדרוג צבאה על רקע המתיחות האזורית בים התיכון. המדינה מתמקדת בהצטיידות במל\"טי מודיעין ימי וניטור גבולות ימיים ואוויריים, תוך ניצול קרנות הגנה אירופיות (EDF).",
+                alliances: ["חברה בנאט\"ו", "איחוד אירופי", "ברית אסטרטגית הדוקה עם ישראל וקפריסין"],
+                geopoliticalThreats: "חיכוך ימי ואווירי מתמשך באגן הים התיכון. צורך בניטור רציף של מאות איים וגבולות מים טריטוריאליים.",
+                uavFleet: [
+                    { name: "Heron 1", manufacturer: "תעשייה אווירית - IAI (ישראל)", desc: "חכירה ורכש של מל\"טי סיור ימי ואיסוף מודיעין ארוך טווח.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/b/b5/IAI_Heron-1_Maritime_patrol_UAV_Shoval_Yam.jpg", websiteUrl: "https://www.iai.co.il/p/heron-1" },
+                    { name: "MQ-9B SeaGuardian", manufacturer: "General Atomics (ארה\"ב)", desc: "תהליכי רכש למל\"טי סיור ימי מתקדמים לניטור מים כלכליים.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/a/a4/MQ-9_Reaper_in_flight_%282007%29.jpg", websiteUrl: "https://www.ga-asi.com/remotely-piloted-aircraft/mq-9b-seaguardian" },
+                    { name: "ScanEagle", manufacturer: "Insitu / Boeing (ארה\"ב)", desc: "כטב\"ם טקטי הפועל מספינות חיל הים היווני לניטור מיצרים ואיים.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Insitu_ScanEagle_X200_%E2%80%98N202SE%E2%80%99.jpg", websiteUrl: "https://www.insitu.com/products/scaneagle" }
+                ],
+                localIndustry: "תעשייה אווירונאוטית מקומית בתהליכי התאוששות (HAI), עם פרויקטים לאומיים לפיתוח כטב\"מי VTOL מקומיים (Archytas).",
+                gaps: [
+                    { title: "סיור ימי ואבטחת איים", desc: "מערכות כטב\"ם בעלות שהייה ממושכת באוויר לכיסוי הים האגאי." },
+                    { title: "מערכות גילוי ויירוט כטב\"מים איטיים", desc: "הגנה על מוצבים מבודדים באיים." },
+                    { title: "מערכות תקשורת לטווחים ארוכים", desc: "תקשורת לוויינית עמידה (SATCOM) לפלטפורמות קטנות." }
+                ],
+                competitors: [
+                    { company: "ישראל (תעשייה אווירית, אלביט)", role: "ספקית מרכזית של מל\"טי סיור ימי ואימונים", share: "45%" },
+                    { company: "ארה\"ב (General Atomics)", role: "רכש מערכות כבדות מתקדמות", share: "35%" },
+                    { company: "צרפת והאיחוד האירופי", role: "שותפויות אירופיות ומימון EU Defense", share: "20%" }
+                ],
+                policyOffset: "העדפה ברורה למיזמים המשתפים את התעשייה ההלנית (HAI) ומנצלים קרנות הגנה אירופיות (EDF).",
+                policyNato: "תואם נאט\"ו מלא.",
+                recommendationRating: "כדאיות גבוהה (8.5/10)",
+                recommendationText: "יוון מהווה שותף אסטרטגי טבעי. המלצה: הצעת פתרונות משולבים של סיור ימי ומערכות Anti-Drone להגנת איים, תוך ניצול הקשרים הביטחוניים ההדוקים והסכמים בין-ממשלתיים (G2G).",
+                recChannel: "הסכם G2G / שותפות עם HAI", recSegment: "Maritime Reconnaissance & Anti-Drone", recWindow: "12-18 חודשים"
+            },
+            "הודו": {
+                flag: "🇮🇳", title: "הודו (India)",
+                subtitle: "ענקית רכש ביטחוני, מדיניות Make in India ופערים קריטיים בגבול ההימלאיה",
+                threat: "סיכון גיאופוליטי: גבוה", score: "88/100", budget: "$74.0B",
+                capital: "ניו דלהי", population: "כ-1.43 מיליארד", gdp: "$3.7 טריליון", defenseGdpPct: "כ-2.4%",
+                profileSummary: "הודו היא מארבעת תקציבי הביטחון הגדולים בעולם. המדינה עוברת תהליך מודרניזציה מקיף עם מעבר חד לייצור מקומי (Make in India), תוך הצטיידות במאות כטב\"מים מכל הסוגים להגנה על גבולותיה הארוכים.",
+                alliances: ["חברה ב-QUAD (עם ארה\"ב, יפן, אוסטרליה)", "בריתות הגנה עם ישראל וצרפת", "חברה ב-BRICS"],
+                geopoliticalThreats: "עימותים בגבול ההררי עם סין (LAC) ומתיחות מתמשכת בגבול פקיסטן. צורך קריטי בהפעלה בגבהים קיצוניים ותנאי קור קשים.",
+                uavFleet: [
+                    { name: "Heron TP", manufacturer: "IAI (ישראל)", desc: "עמוד השדרה של צי המל\"טים ההודי מזה עשורים לאיסוף מודיעין וסיור גבולות בגובה רב.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/b/b5/IAI_Heron-1_Maritime_patrol_UAV_Shoval_Yam.jpg", websiteUrl: "https://www.iai.co.il/p/heron-tp" },
+                    { name: "MQ-9B SkyGuardian", manufacturer: "General Atomics (ארה\"ב)", desc: "עסקת ענק לרכש 31 מל\"טי תקיפה ומודיעין עבור שלושת זרועות הצבא ההודי.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/a/a4/MQ-9_Reaper_in_flight_%282007%29.jpg", websiteUrl: "https://www.ga-asi.com/remotely-piloted-aircraft/mq-9b-skyguardian" },
+                    { name: "Searcher Mk II", manufacturer: "IAI (ישראל)", desc: "כטב\"ם טקטי מוכח הפועל בכוחות היבשה והאוויר ההודיים למשימות סיור וטיווח.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/b/b5/IAI_Heron-1_Maritime_patrol_UAV_Shoval_Yam.jpg", websiteUrl: "https://www.iai.co.il/" }
+                ],
+                localIndustry: "מדיניות Make in India קשוחה. חברות פרטיות הודיות (כגון Tata Advanced Systems, Adani Defence, IdeaForge) צומחות במהירות בשותפות עם חברות זרות.",
+                gaps: [
+                    { title: "כטב\"מים לפעילות בגובה רב (High Altitude)", desc: "פלטפורמות המסוגלות לפעול בתנאי קור וגובה קיצוניים בהימלאיה." },
+                    { title: "להקות כטב\"מים (Swarm Drones)", desc: "צורך במערכות תקיפה אוטונומיות מרובות פלטפורמות." },
+                    { title: "שדרוג צי מל\"טים קיים", desc: "אווירוניקה, סנסורים ותקשורת לווינית עמידה." }
+                ],
+                competitors: [
+                    { company: "ישראל (IAI, אלביט)", role: "ספקית היסטורית מובילה של מל\"טים וסנסורים", share: "40%" },
+                    { company: "תעשייה מקומית הודית (DRDO, Adani, Tata)", role: "צמיחה מהירה בחסות הממשלה", share: "35%" },
+                    { company: "ארה\"ב (General Atomics)", role: "עסקאות ענק חדשות", share: "25%" }
+                ],
+                policyOffset: "חובה קפדנית של ייצור מקומי (Make in India) מעל 50-60% מערך העסקה. חובה להקים Joint Venture מקומי.",
+                policyNato: "מדיניות רכש עצמאית ולא-מיושרת, הדורשת גמישות רבה.",
+                recommendationRating: "כדאיות גבוהה עם מורכבות (8.8/10)",
+                recommendationText: "השוק ההודי ענקי אך דורש סבלנות ושותף מקומי חזק. המלצה: הקמת JV עם חברה הודית מובילה (Adani/Tata/Alpha Design) להעברת טכנולוגיה וייצור מקומי של רכיבי מל\"ט עמידים לתנאי קצה.",
+                recChannel: "Make in India Joint Venture", recSegment: "High-Altitude UAV & Swarm Tech", recWindow: "18-36 חודשים"
+            },
+            "יפן": {
+                flag: "🇯🇵", title: "יפן (Japan)",
+                subtitle: "שדרוג דרמטי של תפיסת ההגנה, השקעות עתק באוטונומיה וכיסוי ימי במזרח אסיה",
+                threat: "סיכון גיאופוליטי: בינוני-גבוה", score: "91/100", budget: "$55.0B",
+                capital: "טוקיו", population: "כ-124.5 מיליון", gdp: "$4.2 טריליון", defenseGdpPct: "כ-2.0% (הכפלת התקציב)",
+                profileSummary: "יפן מבצעת כיום את השינוי הביטחוני המשמעותי ביותר מאז מלחמת העולם השנייה. המדינה מכפילה את תקציב הביטחון ל-2% מה-GDP ומתמקדת בהצטיידות במל\"טי מודיעין ימי, כטב\"מי VTOL להגנת איים ומערכות אוטונומיות.",
+                alliances: ["ברית הגנה הדוקה עם ארה\"ב", "חברה ב-QUAD", "שותפות אסטרטגית עם נאט\"ו והאיחוד האירופי"],
+                geopoliticalThreats: "חיכוך ימי מתמיד עם סין סביב איי סנקאקו, ניסויי טילים של צפון קוריאה ומתיחות גיאופוליטית במצר טאיוואן.",
+                uavFleet: [
+                    { name: "MQ-9B SeaGuardian", manufacturer: "General Atomics (ארה\"ב)", desc: "פלטפורמת הסיור הימי המרכזית של משמר החופים וחיל האוויר היפני לכיסוי מים טריטוריאליים.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/a/a4/MQ-9_Reaper_in_flight_%282007%29.jpg", websiteUrl: "https://www.ga-asi.com/remotely-piloted-aircraft/mq-9b-seaguardian" },
+                    { name: "RQ-4B Global Hawk", manufacturer: "Northrop Grumman (ארה\"ב)", desc: "מל\"ט HALE אסטרטגי בגובה רב לניטור מודיעיני ארוך טווח באוקיינוס השקט.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/4/4d/RQ-4A_%E2%80%9CGlobal_Hawk%E2%80%9D_%2849871332301%29.jpg", websiteUrl: "https://www.northropgrumman.com/air/global-hawk" },
+                    { name: "ScanEagle", manufacturer: "Insitu / Boeing (ארה\"ב)", desc: "כטב\"ם טקטי קטן הפועל מספינות מלחמה ומוצבי חיל היבשה היפני (JGSDF).", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Insitu_ScanEagle_X200_%E2%80%98N202SE%E2%80%99.jpg", websiteUrl: "https://www.insitu.com/products/scaneagle" }
+                ],
+                localIndustry: "תעשיות כבדות (Mitsubishi Heavy Industries, Kawasaki) נכנסות בצעדי ענק לפיתוח כטב\"מים עצמאיים ושילוב AI מתקדם.",
+                gaps: [
+                    { title: "כטב\"מי VTOL להגנת איים", desc: "הפעלה מספינות קטנות ואזורים ללא מסלולי המראה באיים מרוחקים." },
+                    { title: "מערכות C-UAV ימיות", desc: "הגנה על צי כלי השיט מפני נחילי כטב\"מים תוקפים." },
+                    { title: "תקשורת וסנסורים עמידי EW", desc: "התמודדות עם חסימות אלקטרומגנטיות חזקות במזרח אסיה." }
+                ],
+                competitors: [
+                    { company: "ארה\"ב (General Atomics, Northrop Grumman, Boeing)", role: "דומיננטיות כמעט מוחלטת הודות לברית הביטחונית", share: "70%" },
+                    { company: "תעשייה מקומית יפנית (MHI, Kawasaki)", role: "פיתוחים חדשים של פלטפורמות דור 5", share: "20%" },
+                    { company: "ישראל ואירופה", role: "טכנולוגיות סנסורים, C-UAV ואלקטרואופטיקה", share: "10%" }
+                ],
+                policyOffset: "חובת שיתוף פעולה הדוק עם חברות יפניות (MHI/Kawasaki/Subaru). העדפה גבוהה לרכיבים בעלי אמינות קצה.",
+                policyNato: "תאימות מלאה לצי ארה\"ב ונאט\"ו.",
+                recommendationRating: "כדאיות גבוהה (9.0/10)",
+                recommendationText: "יפן מציעה תקציבים אדירים למערכות פרימיום. המלצה: שיתוף פעולה עם יצרן אמריקאי או תאגיד יפני (Tier-1) לאספקת מכלולי סנסורים, ניווט אופטי ומערכות C-UAV.",
+                recChannel: "שותפות עם OEM אמריקאי/יפני", recSegment: "Maritime Reconnaissance & C-UAV", recWindow: "12-24 חודשים"
+            },
+            "ערב הסעודית": {
+                flag: "🇸🇦", title: "ערב הסעודית (Saudi Arabia)",
+                subtitle: "Vision 2030 ולוקליזציה ביטחונית אגרסיבית תחת GAMI, בצל איום כטב\"מים חות'י מתמשך",
+                threat: "סיכון גיאופוליטי: גבוה", score: "89/100", budget: "$78.0B",
+                capital: "ריאד", population: "כ-36 מיליון", gdp: "$1.1 טריליון", defenseGdpPct: "כ-7.1%",
+                profileSummary: "ערב הסעודית מנהלת את אחד מתקציבי הביטחון הגדולים בעולם, עם דגש הולך וגובר על לוקליזציה תחת תוכנית Vision 2030 ורגולטור הרכש GAMI. התקפות כטב\"מים וטילי שוטטות חוזרות מתימן הפכו את ה-C-UAV לעדיפות לאומית עליונה.",
+                alliances: ["ברית אסטרטגית הדוקה עם ארה\"ב", "חברה במועצת שיתוף הפעולה המפרצית (GCC)", "שיתופי פעולה ביטחוניים מתרחבים עם סין וצרפת"],
+                geopoliticalThreats: "התקפות כטב\"מים וטילי שוטטות חוזרות ונשנות מצד החות'ים בתימן על מתקני נפט ותשתיות אזרחיות. מתיחות אזורית מתמשכת מול איראן.",
+                uavFleet: [
+                    { name: "CH-4", manufacturer: "CASC (סין)", desc: "כטב\"ם תקיפה ומודיעין בינוני-גבוה (MALE) המשמש למשימות סיור ותקיפה בגבול הדרומי.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Wing_Loong_II_side_view.jpg", websiteUrl: "https://www.casc.cn/" },
+                    { name: "Wing Loong I / II", manufacturer: "AVIC (סין)", desc: "פלטפורמות תקיפה ומודיעין סיניות נוספות בשירות פעיל, לצד תוכניות לייצור מקומי משותף.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Wing_Loong_II_side_view.jpg", websiteUrl: "https://www.avic.com/en/" },
+                    { name: "ScanEagle", manufacturer: "Insitu / Boeing (ארה\"ב)", desc: "כטב\"ם טקטי לסיור גבולות ואבטחת מתקני נפט קריטיים לאורך התשתית האנרגטית.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Insitu_ScanEagle_X200_%E2%80%98N202SE%E2%80%99.jpg", websiteUrl: "https://www.insitu.com/products/scaneagle" }
+                ],
+                localIndustry: "תאגיד SAMI (Saudi Arabian Military Industries) מוביל את מאמץ הלוקליזציה בחסות ממשלתית ישירה, עם יעד להגיע לכ-50% מרכש הביטחון מתוצרת מקומית עד 2030.",
+                gaps: [
+                    { title: "מערכות C-UAV שכבתיות", desc: "הגנה על מתקני נפט (כדוגמת אבקייק), שדות תעופה ובירות מפני נחילי כטב\"מים וטילי שוטטות." },
+                    { title: "לוקליזציה של ייצור כטב\"מים", desc: "הקמת קווי ייצור מקומיים בשותפות עם SAMI תחת דרישות GAMI." },
+                    { title: "מערכות לוחמה אלקטרונית ניידות", desc: "הגנה על שיירות וכוחות בשטח מפני חימוש משוטט אזורי." }
+                ],
+                competitors: [
+                    { company: "סין (CASC, AVIC)", role: "ספקית מרכזית של כטב\"מי תקיפה ומודיעין", share: "35%" },
+                    { company: "ארה\"ב (General Atomics, Boeing)", role: "מערכות פרימיום ותשתיות ביטחוניות מבוססות", share: "35%" },
+                    { company: "SAMI (תעשייה מקומית)", role: "לוקליזציה מואצת בחסות ממשלתית", share: "20%" }
+                ],
+                policyOffset: "דרישת לוקליזציה קפדנית תחת רגולטור GAMI - שותפות מקומית עם SAMI והעברת ידע טכנולוגי הן תנאי סף כמעט בכל עסקה משמעותית.",
+                policyNato: "לא חברה בנאט\"ו; פועלת תחת מסגרת רכש עצמאית עם דרישות אבטחת מידע והיתרי ייצוא אמריקאים (ITAR) במקרים רבים.",
+                recommendationRating: "כדאיות גבוהה (8.7/10)",
+                recommendationText: "השוק הסעודי מציע תקציבים עצומים לצד דרישת לוקליזציה נוקשה. המלצה: הקמת שותפות עם SAMI להעברת טכנולוגיית C-UAV והגנה על תשתיות אנרגיה, כערוץ כניסה שעוקף חלק ניכר מהחיכוך הפוליטי.",
+                recChannel: "שותפות עם SAMI תחת GAMI", recSegment: "C-UAV & Critical Infrastructure Protection", recWindow: "12-24 חודשים"
+            },
+            "רומניה": {
+                flag: "🇷🇴", title: "רומניה (Romania)",
+                subtitle: "אגף מזרחי של נאט\"ו מול הים השחור, מודרניזציה מואצת נוכח שאריות כטב\"ם רוסיות שנפלו בשטחה",
+                threat: "סיכון גיאופוליטי: בינוני-גבוה", score: "80/100", budget: "$7.5B",
+                capital: "בוקרשט", population: "כ-19 מיליון", gdp: "$350 מיליארד", defenseGdpPct: "כ-2.5%",
+                profileSummary: "רומניה, כמדינת החוף המרכזית של נאט\"ו בים השחור, חוותה חדירות חוזרות של שברי כטב\"מים רוסיים לשטחה במהלך התקפות על נמלי אוקראינה הסמוכים. הדבר האיץ דרמטית את ההשקעה במערכות C-UAV ובניטור אווירי לאורך הגבול הצפוני-מזרחי.",
+                alliances: ["חברה בנאט\"ו", "איחוד אירופי", "שותפות ביטחונית מתחזקת עם ארה\"ב וטורקיה"],
+                geopoliticalThreats: "גבול ימי ויבשתי עם אוקראינה בשטח מלחמה פעיל; חדירות חוזרות של שברי כטב\"מים רוסיים; צורך דחוף באבטחת מרחב אווירי בים השחור.",
+                uavFleet: [
+                    { name: "Hermes 900", manufacturer: "אלביט Systems (ישראל)", desc: "כטב\"ם סיור ומודיעין ארוך טווח, מרכיב מרכזי בתוכנית המודרניזציה של חיל האוויר הרומני.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/9/96/Hermes_900_%28Kochav%29_UAV_is_airborne_again_and_joins_the_ranks_of_the_UAV_Division%2C_November_2015._II.jpg", websiteUrl: "https://elbitsystems.com/landing-page/hermes-900/" },
+                    { name: "ScanEagle", manufacturer: "Insitu / Boeing (ארה\"ב)", desc: "כטב\"ם טקטי לניטור ימי לאורך חופי הים השחור ונמל קונסטנצה.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Insitu_ScanEagle_X200_%E2%80%98N202SE%E2%80%99.jpg", websiteUrl: "https://www.insitu.com/products/scaneagle" },
+                    { name: "Bayraktar TB2", manufacturer: "Baykar Tech (טורקיה)", desc: "בבחינה/רכש מוקדם לצורך חיזוק יכולות תקיפה וסיור טקטיות לאורך הגבול המזרחי.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/d/d4/Bayraktar_TB2_%22Vanagas%22_03.jpg", websiteUrl: "https://baykartech.com/en/uav/bayraktar-tb2/" }
+                ],
+                localIndustry: "התעשייה המקומית (כדוגמת ROMARM) מוגבלת בתחום הכטב\"מים המתקדמים; רומניה נשענת ברובה על רכש ושיתופי פעולה זרים, עם קרנות מימון אירופיות (EDF) כמנוף מרכזי.",
+                gaps: [
+                    { title: "מערכות C-UAV לגבול הים השחור", desc: "גילוי ויירוט שברי כטב\"מים וכטב\"מי תקיפה החודרים משטח לחימה סמוך." },
+                    { title: "רשת חיישנים וראדארים ניידת", desc: "כיסוי מוקדם לאורך הגבול עם אוקראינה ומולדובה." },
+                    { title: "כטב\"מי סיור ימי", desc: "הגנה על נמל קונסטנצה, נתיבי סחר ותשתיות ים שחור קריטיות." }
+                ],
+                competitors: [
+                    { company: "ישראל (אלביט, IAI)", role: "ספקית מרכזית של פלטפורמות סיור ומודיעין", share: "35%" },
+                    { company: "ארה\"ב (Boeing/Insitu, General Atomics)", role: "מערכות טקטיות וימיות במסגרת סיוע ביטחוני אמריקאי", share: "30%" },
+                    { company: "טורקיה (Baykar Tech)", role: "התרחבות אזורית בים השחור", share: "20%" }
+                ],
+                policyOffset: "העדפה לפרויקטים משותפים עם קרנות ביטחון אירופיות (EDF) ושיתוף מוגבל עם ROMARM; אין דרישת Offset נוקשה כמו בשווקי המפרץ.",
+                policyNato: "תאימות מלאה לתקני Stanag של נאט\"ו; חברה פעילה במטריית ההגנה האווירית המשולבת של האגף המזרחי.",
+                recommendationRating: "כדאיות בינונית-גבוהה (7.8/10)",
+                recommendationText: "רומניה מהווה נקודת כניסה אסטרטגית לאגף המזרחי של נאט\"ו, עם צורך דחוף במיוחד במערכות C-UAV בשל האיום הישיר משטח הלחימה הסמוך. המלצה: מיצוב כפתרון מהיר לגילוי ויירוט שברי כטב\"מים, תוך שימוש במימון EDF ובקשרים הביטחוניים הקיימים באזור.",
+                recChannel: "מימון EDF + שותפות מקומית מוגבלת", recSegment: "Border C-UAV & Detection Networks", recWindow: "6-18 חודשים"
+            },
+            "דרום קוריאה": {
+                flag: "🇰🇷", title: "דרום קוריאה (South Korea)",
+                subtitle: "תעשיית הגנה מתקדמת ועצמאית, דגש על כטב\"מי סיור גבול והגנה מפני איום כטב\"מים צפון-קוריאני",
+                threat: "סיכון גיאופוליטי: בינוני-גבוה", score: "83/100", budget: "$47.0B",
+                capital: "סיאול", population: "כ-51.7 מיליון", gdp: "$1.8 טריליון", defenseGdpPct: "כ-2.6%",
+                profileSummary: "דרום קוריאה מחזיקה בתעשיית הגנה עצמאית ומתקדמת מאוד (Hanwha, KAI), אך עדיין רוכשת רכיבים זרים נבחרים - במיוחד בתחומי C-UAV ואלקטרואופטיקה - לאחר חדירות חוזרות של כטב\"מי סיור צפון-קוריאניים למרחב האווירי שלה ב-2022-2023.",
+                alliances: ["ברית הגנה הדוקה עם ארה\"ב", "חברה ב-QUAD Plus / שיתופי פעולה עם יפן ואוסטרליה"],
+                geopoliticalThreats: "חדירות חוזרות של כטב\"מי סיור צפון-קוריאניים דרך אזור המפורז (DMZ); איום טילים בליסטיים מתמשך; מתיחות אזורית מול סין סביב אזור הזיהוי האווירי (ADIZ).",
+                uavFleet: [
+                    { name: "RQ-4B Global Hawk", manufacturer: "Northrop Grumman (ארה\"ב)", desc: "מל\"ט HALE אסטרטגי לאיסוף מודיעין ארוך טווח מול צפון קוריאה.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/4/4d/RQ-4A_%E2%80%9CGlobal_Hawk%E2%80%9D_%2849871332301%29.jpg", websiteUrl: "https://www.northropgrumman.com/air/global-hawk" },
+                    { name: "Heron 1", manufacturer: "IAI (ישראל)", desc: "כטב\"ם סיור בינוני המשמש להשלמת יכולות מודיעין וגבול לצד פיתוחים מקומיים.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/b/b5/IAI_Heron-1_Maritime_patrol_UAV_Shoval_Yam.jpg", websiteUrl: "https://www.iai.co.il/p/heron-1" },
+                    { name: "ScanEagle", manufacturer: "Insitu / Boeing (ארה\"ב)", desc: "כטב\"ם טקטי לסיור ימי ואבטחת האזור הימי השנוי במחלוקת (NLL).", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Insitu_ScanEagle_X200_%E2%80%98N202SE%E2%80%99.jpg", websiteUrl: "https://www.insitu.com/products/scaneagle" }
+                ],
+                localIndustry: "Hanwha Systems ו-KAI (Korea Aerospace Industries) מובילות פיתוח כטב\"מי סיור, תקיפה ו-VTOL עצמאיים ברמה גבוהה, עם ייצוא הולך וגדל לשווקים שלישיים.",
+                gaps: [
+                    { title: "מערכות C-UAV נגד כטב\"מי סיור קטנים", desc: "לאחר החדירות מצפון קוריאה, קיים צורך דחוף בזיהוי ויירוט כטב\"מים קטנים וזולים." },
+                    { title: "אלקטרואופטיקה וחיישני Payload מתקדמים", desc: "שדרוג יכולות זיהוי ומעקב בטווחים ארוכים ותנאי ראות ירודים." },
+                    { title: "מערכות נגד להקות כטב\"מים (Swarm Defense)", desc: "הגנה מפני תרחיש של מתקפת נחיל כטב\"מים מצפון קוריאה." }
+                ],
+                competitors: [
+                    { company: "תעשייה מקומית (Hanwha, KAI)", role: "דומיננטיות גוברת בפיתוח וייצור עצמאי", share: "50%" },
+                    { company: "ארה\"ב (Northrop Grumman, General Atomics)", role: "פלטפורמות אסטרטגיות במסגרת הברית הביטחונית", share: "35%" },
+                    { company: "ישראל", role: "רכיבי חיישנים, אלקטרואופטיקה ופלטפורמות סיור משלימות", share: "15%" }
+                ],
+                policyOffset: "דרישת Offset מובנית עם העדפה חזקה לשילוב טכנולוגי עם Hanwha/KAI; יבוא רכיבים נקודתיים בעיקר בתחומי C-UAV וחיישנים שבהם קיים פער מקומי.",
+                policyNato: "אינה חברה בנאט\"ו; פועלת תחת מסגרת שיתוף פעולה ביטחוני הדוקה עם ארה\"ב, כולל תיאום ITAR.",
+                recommendationRating: "כדאיות גבוהה (8.6/10)",
+                recommendationText: "השוק הקוריאני מפותח מאוד ותחרותי, אך הפער הספציפי ב-C-UAV נגד כטב\"מים קטנים שנחשף ב-2022-2023 פותח חלון הזדמנות ממוקד. המלצה: שיתוף פעולה טכנולוגי ממוקד עם Hanwha או KAI סביב חיישנים וזיהוי, ולא ניסיון להתחרות בפלטפורמות המלאות.",
+                recChannel: "שת\"פ טכנולוגי עם Hanwha / KAI", recSegment: "C-UAV Sensors & Small-Drone Detection", recWindow: "12-24 חודשים"
+            },
+            "אוקראינה": {
+                flag: "🇺🇦", title: "אוקראינה (Ukraine)",
+                subtitle: "שוק המלחמה הפעיל הגדול בעולם לכטב\"מים - צריכה וחדשנות בקצב חסר תקדים",
+                threat: "סיכון גיאופוליטי: קיצוני (מלחמה פעילה)", score: "78/100", budget: "$65.0B (כולל סיוע חוץ)",
+                capital: "קייב", population: "כ-36 מיליון (אומדן זמן מלחמה)", gdp: "$180 מיליארד", defenseGdpPct: "מעל 30% (כלכלת מלחמה)",
+                profileSummary: "אוקראינה מהווה כיום את שוק הכטב\"מים הפעיל והאינטנסיבי ביותר בעולם, עם צריכה של עשרות אלפי כלים בחודש וקצב חדשנות מבצעית חסר תקדים. התעשייה המקומית צמחה בצורה עצומה תחת לחץ המלחמה, לצד תלות מתמשכת בסיוע ותרומות ציוד ממדינות המערב.",
+                alliances: ["שותף מועדף של נאט\"ו (לא חבר)", "מועמדת לאיחוד האירופי", "סיוע ביטחוני נרחב מארה\"ב ובריטניה", "יחסים מוגבלים וזהירים עם ישראל"],
+                geopoliticalThreats: "מלחמה קיומית פעילה מול רוסיה על שטחה הריבוני; איום יומיומי של כטב\"מי שוטטות (Shahed) וטילי שיוט על תשתיות אזרחיות וצבאיות.",
+                uavFleet: [
+                    { name: "Bayraktar TB2", manufacturer: "Baykar Tech (טורקיה)", desc: "כטב\"ם תקיפה שהפך לסמל בשלב הראשון של המלחמה, עדיין בשימוש מבצעי לצד פלטפורמות חדשות.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/d/d4/Bayraktar_TB2_%22Vanagas%22_03.jpg", websiteUrl: "https://baykartech.com/en/uav/bayraktar-tb2/" },
+                    { name: "Switchblade 300", manufacturer: "AeroVironment (ארה\"ב)", desc: "תחמושת משוטטת טקטית קלה, חלק מחבילות הסיוע האמריקאיות למטרות דיוק בטווח קצר-בינוני.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/a/a4/MQ-9_Reaper_in_flight_%282007%29.jpg", websiteUrl: "https://www.avinc.com/tms/switchblade-300" },
+                    { name: "ScanEagle", manufacturer: "Insitu / Boeing (ארה\"ב)", desc: "כטב\"ם טקטי לסיור ואיתור מטרות לצורך כיוונון אש ארטילרית מדויקת.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Insitu_ScanEagle_X200_%E2%80%98N202SE%E2%80%99.jpg", websiteUrl: "https://www.insitu.com/products/scaneagle" }
+                ],
+                localIndustry: "תעשייה מקומית ענפה שצמחה במהירות עצומה תחת לחץ המלחמה - מאות חברות קטנות ובינוניות מייצרות כטב\"מי FPV, תחמושת משוטטת (כדוגמת Leleka-100, Punisher) בקצב המוני, לרוב בעלות נמוכה במיוחד.",
+                gaps: [
+                    { title: "ניווט עמיד ללוחמה אלקטרונית", desc: "צורך דחוף במערכות ניווט חלופיות (אופטי/אינרציאלי) מול שיבושי GPS מסיביים של רוסיה." },
+                    { title: "תחמושת משוטטת ארוכת טווח", desc: "דרישה גוברת למערכות תקיפה עמוקה בטריטוריה העורפית." },
+                    { title: "מערכות C-UAV נגד כטב\"מי שוטטות המוניים", desc: "הגנה על תשתיות אנרגיה וערים מפני מתקפות כטב\"מים רוויה." }
+                ],
+                competitors: [
+                    { company: "ארה\"ב ובריטניה (סיוע ביטחוני ממשלתי)", role: "אספקת פלטפורמות עיקריות במסגרת חבילות סיוע", share: "45%" },
+                    { company: "טורקיה (Baykar Tech)", role: "ספקית מרכזית ושותפה בהקמת קו ייצור מקומי", share: "20%" },
+                    { company: "תעשייה מקומית אוקראינית", role: "ייצור המוני של כטב\"מי FPV ותחמושת משוטטת זולה", share: "35%" }
+                ],
+                policyOffset: "רכש מזורז ללא דרישות Offset מסורתיות בשל מצב המלחמה; דגש חזק על העברת טכנולוגיה והקמת קווי ייצור משותפים בשטח אוקראינה.",
+                policyNato: "תיאום הדוק עם תקני נאט\"ו לצורך אינטגרציה עם ציוד מערבי; רגולציית יצוא מערבית (ITAR ואחרות) משפיעה משמעותית על זמינות טכנולוגיה.",
+                recommendationRating: "כדאיות בינונית עם רגישות גבוהה (6.5/10)",
+                recommendationText: "השוק האוקראיני מציג צורך עצום וקצב חדשנות ייחודי, אך מעורבות ישירה דורשת בחינה זהירה של השלכות מדיניות החוץ והיחסים עם רוסיה. המלצה: מיקוד ברכיבים לא-קטלניים (חיישנים, אלקטרואופטיקה, מערכות ניווט עמידות) דרך ערוצים עקיפים, תוך תיאום צמוד עם משרד הביטחון.",
+                recChannel: "רכיבים עקיפים / שיתוף פעולה עם ספקים מערביים", recSegment: "GPS-Denied Navigation & Sensors", recWindow: "תלוי התפתחויות מדיניות"
+            },
+            "אזרבייג'ן": {
+                flag: "🇦🇿", title: "אזרבייג'ן (Azerbaijan)",
+                subtitle: "שותפה אסטרטגית עמוקה של ישראל בתחום הכטב\"מים - שוק מוכח עם קו ייצור משותף קיים",
+                threat: "סיכון גיאופוליטי: בינוני", score: "90/100", budget: "$2.7B",
+                capital: "באקו", population: "כ-10.2 מיליון", gdp: "$78 מיליארד", defenseGdpPct: "כ-3.5%",
+                profileSummary: "אזרבייג'ן היא אחת מלקוחות הביטחון המשמעותיות ביותר של ישראל בתחום הכטב\"מים והתחמושת המשוטטת, עם היסטוריית שיתוף פעולה מוכחת שהוכיחה את עצמה בהצלחה מבצעית במלחמת קרבאך השנייה (2020). קיים כבר מיזם משותף מקומי לייצור תחת רישיון.",
+                alliances: ["שותפות אסטרטגית הדוקה עם טורקיה (\"אומה אחת, שתי מדינות\")", "שותפות ביטחונית עמוקה עם ישראל", "יחסים זהירים עם רוסיה"],
+                geopoliticalThreats: "סכסוך מוקפא/חוזר עם ארמניה סביב נגורנו-קרבאך; צורך באבטחת מסדרון האנרגיה האסטרטגי לאירופה.",
+                uavFleet: [
+                    { name: "Harop", manufacturer: "IAI (ישראל)", desc: "תחמושת משוטטת שהוכיחה יכולת מכרעת במלחמת קרבאך השנייה נגד מערכות שריון וארטילריה ארמניות.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/a/a4/MQ-9_Reaper_in_flight_%282007%29.jpg", websiteUrl: "https://www.iai.co.il/p/harop" },
+                    { name: "Bayraktar TB2", manufacturer: "Baykar Tech (טורקיה)", desc: "כטב\"ם תקיפה טורקי המשלים את היכולות הישראליות בצי הפלטפורמות.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/d/d4/Bayraktar_TB2_%22Vanagas%22_03.jpg", websiteUrl: "https://baykartech.com/en/uav/bayraktar-tb2/" },
+                    { name: "ScanEagle", manufacturer: "Insitu / Boeing (ארה\"ב)", desc: "כטב\"ם טקטי משלים לסיור וכיוונון אש לאורך קו החזית.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Insitu_ScanEagle_X200_%E2%80%98N202SE%E2%80%99.jpg", websiteUrl: "https://www.insitu.com/products/scaneagle" }
+                ],
+                localIndustry: "קיים מיזם משותף ישראלי-אזרבייג'ני פעיל (Azad Systems) המייצר תחת רישיון פלטפורמות מדגם Orbiter ו-Aerostar - תשתית מוכחת להרחבת שיתוף פעולה עתידי.",
+                gaps: [
+                    { title: "הרחבת קווי הייצור המשותפים הקיימים", desc: "הגדלת קיבולת הייצור המקומי במסגרת המיזם הקיים." },
+                    { title: "מערכות C-UAV ולוחמה אלקטרונית", desc: "הגנה על תשתיות אנרגיה קריטיות לאורך מסדרון הייצוא." },
+                    { title: "תחמושת משוטטת דור הבא", desc: "שדרוג יכולות מעבר לדגמי ה-Harop הקיימים." }
+                ],
+                competitors: [
+                    { company: "ישראל (IAI, Azad Systems)", role: "ספקית מרכזית עם קשר תעשייתי ישיר ומוכח", share: "50%" },
+                    { company: "טורקיה (Baykar Tech)", role: "שותפה אסטרטגית משלימה", share: "40%" },
+                    { company: "שחקנים נוספים", role: "נוכחות שולית", share: "10%" }
+                ],
+                policyOffset: "מסגרת שיתוף פעולה תעשייתי קיימת ומוכחת עם ישראל (Azad Systems) - בסיס איתן להרחבת ToT נוספת ללא צורך במשא ומתן מאפס.",
+                policyNato: "אינה חברה בנאט\"ו; מדיניות רכש עצמאית עם העדפה ברורה לספקים אסטרטגיים (ישראל, טורקיה).",
+                recommendationRating: "כדאיות גבוהה מאוד (9.3/10)",
+                recommendationText: "אזרבייג'ן היא שוק מוכח עם יחסי תעשייה קיימים ותוצאות מבצעיות מוצלחות. המלצה: הרחבת שיתוף הפעולה הקיים במסגרת Azad Systems לדורות טכנולוגיה חדשים, תוך ניצול האמון התעשייתי שכבר נבנה.",
+                recChannel: "הרחבת מיזם משותף קיים (Azad Systems)", recSegment: "Loitering Munitions & Next-Gen Systems", recWindow: "מיידי (0-12 חודשים)"
+            },
+            "מרוקו": {
+                flag: "🇲🇦", title: "מרוקו (Morocco)",
+                subtitle: "שוק פורץ מאז הסכמי אברהם, עם צורך מבצעי פעיל מול חזית הסהרה המערבית",
+                threat: "סיכון גיאופוליטי: בינוני-גבוה", score: "87/100", budget: "$5.4B",
+                capital: "רבאט", population: "כ-37.5 מיליון", gdp: "$140 מיליארד", defenseGdpPct: "כ-3.9%",
+                profileSummary: "מרוקו הגדילה משמעותית את תקציב הביטחון על רקע המתיחות המחודשת מול אלג'יריה והלחימה המתמשכת מול חזית הפוליסאריו בסהרה המערבית, שבה כטב\"מים ותחמושת משוטטת כבר משחקים תפקיד מבצעי מרכזי. הסכמי אברהם פתחו ערוץ ישיר ומהיר לשיתוף פעולה עם ישראל.",
+                alliances: ["הסכמי אברהם (עם ישראל, מאז 2020)", "מעמד בעל-ברית מרכזי מחוץ לנאט\"ו של ארה\"ב", "שותפות ביטחונית הדוקה עם צרפת"],
+                geopoliticalThreats: "מתיחות גוברת מול אלג'יריה; לחימה מתמשכת מול כוחות הפוליסאריו בסהרה המערבית, כולל שימוש הדדי בכטב\"מים ותחמושת משוטטת.",
+                uavFleet: [
+                    { name: "Bayraktar TB2", manufacturer: "Baykar Tech (טורקיה)", desc: "כטב\"ם תקיפה בשימוש מבצעי פעיל לאורך קו החזית בסהרה המערבית.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/d/d4/Bayraktar_TB2_%22Vanagas%22_03.jpg", websiteUrl: "https://baykartech.com/en/uav/bayraktar-tb2/" },
+                    { name: "Wing Loong I / II", manufacturer: "AVIC (סין)", desc: "כטב\"מי תקיפה ומודיעין סיניים המשלימים את הצי הטורקי.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Wing_Loong_II_side_view.jpg", websiteUrl: "https://www.avic.com/en/" },
+                    { name: "Harop", manufacturer: "IAI (ישראל)", desc: "עסקת תחמושת משוטטת ישראלית משמעותית שדווחה לאחר הסכמי אברהם, לחיזוק יכולת התקיפה המדויקת.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/a/a4/MQ-9_Reaper_in_flight_%282007%29.jpg", websiteUrl: "https://www.iai.co.il/p/harop" }
+                ],
+                localIndustry: "תעשייה מקומית מוגבלת ומבוססת בעיקר על יבוא; קיים עניין גובר בפיתוח יכולת תחזוקה (MRO) מקומית ובשיתופי הרכבה מוגבלים.",
+                gaps: [
+                    { title: "מערכות C-UAV מול איום כטב\"מי הפוליסאריו", desc: "הגנה על עמדות וכוחות משוטטים לאורך התוואי החוצה את הסהרה המערבית." },
+                    { title: "יכולת MRO ותחזוקה מקומית", desc: "צמצום תלות בתחזוקה חיצונית לפלטפורמות הקיימות." },
+                    { title: "הדרכה ואינטגרציה תפעולית", desc: "בניית יכולת הפעלה עצמאית מתקדמת של מערכות תחמושת משוטטת." }
+                ],
+                competitors: [
+                    { company: "טורקיה (Baykar Tech)", role: "ספקית עיקרית של פלטפורמות תקיפה", share: "40%" },
+                    { company: "סין (AVIC)", role: "אספקת מל\"טים משלימים", share: "25%" },
+                    { company: "ישראל", role: "צמיחה מהירה מאז הסכמי אברהם", share: "25%" }
+                ],
+                policyOffset: "אין דרישת Offset נוקשה עדיין, אך קיימת מגמה גוברת לדרישת מעורבות תעשייתית מקומית ותחזוקה.",
+                policyNato: "אינה חברה בנאט\"ו; בעלת מעמד Major Non-NATO Ally מול ארה\"ב; רגישות יצוא הדדית מול מדיניות ישראל-אלג'יריה.",
+                recommendationRating: "כדאיות גבוהה מאוד (9.0/10)",
+                recommendationText: "מרוקו מציעה שילוב נדיר של צורך מבצעי פעיל ופתח דיפלומטי ישיר דרך הסכמי אברהם. המלצה: מיצוב מהיר כספקית משלימה למערכות תחמושת משוטטת ו-C-UAV, תוך ניצול חלון ההזדמנות הדיפלומטי הנוכחי.",
+                recChannel: "ערוץ דו-צדדי ישיר (הסכמי אברהם)", recSegment: "Loitering Munitions & C-UAV", recWindow: "מיידי (6-12 חודשים)"
+            },
+            "בחריין": {
+                flag: "🇧🇭", title: "בחריין (Bahrain)",
+                subtitle: "שוק קטן אך אסטרטגי - שער כניסה נוסף למפרץ הפרסי מאז הסכמי אברהם",
+                threat: "סיכון גיאופוליטי: בינוני-גבוה", score: "75/100", budget: "$1.4B",
+                capital: "מנאמה", population: "כ-1.5 מיליון", gdp: "$44 מיליארד", defenseGdpPct: "כ-3.2%",
+                profileSummary: "בחריין, ביתו של הצי החמישי האמריקאי, היא שוק קטן בהיקפו הכלכלי אך בעל חשיבות אסטרטגית גבוהה כשער נוסף למפרץ הפרסי לאחר הסכמי אברהם. האיום העיקרי הוא ממשלחות איראניות ומיליציות פרוקסי באזור.",
+                alliances: ["הסכמי אברהם (עם ישראל, 2020)", "בעלת ברית מרכזית מחוץ לנאט\"ו של ארה\"ב, מארחת את הצי החמישי", "חברה במועצת שיתוף הפעולה המפרצית (GCC)"],
+                geopoliticalThreats: "איום כטב\"מים וטילים מצד מיליציות בחסות איראן באזור המפרץ; צורך בהגנה על תשתיות אנרגיה ועל בסיס הצי האמריקאי.",
+                uavFleet: [
+                    { name: "ScanEagle", manufacturer: "Insitu / Boeing (ארה\"ב)", desc: "כטב\"ם טקטי לסיור ימי בשיתוף עם כוחות הצי החמישי האמריקאי.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Insitu_ScanEagle_X200_%E2%80%98N202SE%E2%80%99.jpg", websiteUrl: "https://www.insitu.com/products/scaneagle" },
+                    { name: "MQ-9A Reaper", manufacturer: "General Atomics (ארה\"ב)", desc: "נוכחות אמריקאית מבצעית באזור התומכת גם בצרכי המודיעין המקומיים.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/a/a4/MQ-9_Reaper_in_flight_%282007%29.jpg", websiteUrl: "https://www.ga-asi.com/remotely-piloted-aircraft/mq-9a" }
+                ],
+                localIndustry: "תעשייה מקומית כמעט לא קיימת; המדינה תלויה לחלוטין ברכש חיצוני, בעיקר במסגרת שיתוף הפעולה עם ארה\"ב.",
+                gaps: [
+                    { title: "מערכות C-UAV להגנת תשתיות ובסיסים", desc: "הגנה על מתקני נפט, נמלים ובסיס הצי החמישי האמריקאי." },
+                    { title: "סיור ימי לאורך המפרץ הפרסי", desc: "ניטור תנועה ימית ואיתור איומים מוקדם." }
+                ],
+                competitors: [
+                    { company: "ארה\"ב", role: "דומיננטית לחלוטין בשל הבסיס הצבאי המקומי", share: "70%" },
+                    { company: "ישראל", role: "נוכחות מתפתחת מאז הסכמי אברהם", share: "20%" },
+                    { company: "אחרים", role: "נוכחות שולית", share: "10%" }
+                ],
+                policyOffset: "רכש מבוצע לרוב דרך ערוצי FMS אמריקאיים; אין מסגרת Offset עצמאית משמעותית.",
+                policyNato: "אינה חברה בנאט\"ו; פועלת בתיאום הדוק עם דוקטרינת הביטחון האמריקאית באזור.",
+                recommendationRating: "כדאיות בינונית-גבוהה (7.5/10)",
+                recommendationText: "שוק קטן בהיקפו אך בעל ערך אסטרטגי כמצג יכולת בשער הכניסה למפרץ. המלצה: מיצוב כספקית משלימה למערכות C-UAV והגנת תשתיות, תוך עבודה בתיאום עם המסגרת האמריקאית הקיימת באזור.",
+                recChannel: "שיתוף פעולה משלים למסגרת FMS אמריקאית", recSegment: "Critical Infrastructure C-UAV", recWindow: "12-24 חודשים"
+            },
+            "וייטנאם": {
+                flag: "🇻🇳", title: "וייטנאם (Vietnam)",
+                subtitle: "מודרניזציה זהירה אך עקבית, עם יחסי ביטחון קיימים ומעמיקים עם ישראל",
+                threat: "סיכון גיאופוליטי: בינוני", score: "81/100", budget: "$8.0B",
+                capital: "האנוי", population: "כ-99 מיליון", gdp: "$450 מיליארד", defenseGdpPct: "כ-1.8%",
+                profileSummary: "וייטנאם מבצעת מודרניזציה ביטחונית זהירה אך עקבית על רקע המתיחות בים סין הדרומי, תוך גיוון מקורות הרכש מעבר לתלות ההיסטורית ברוסיה. ישראל היא שותפה ביטחונית מוכרת ומוערכת כבר כיום בתחומי רקטות, רדאר ותחמושת.",
+                alliances: ["מדיניות \"ארבעה לא\" (אי-הצטרפות לבריתות)", "שותפות אסטרטגית מקיפה עם ארה\"ב, הודו ויפן", "יחסי ביטחון מבוססים עם ישראל"],
+                geopoliticalThreats: "סכסוכי ריבונות בים סין הדרומי מול סין (איי ספראטלי ופאראסל); צורך גובר בהגנה על גבולות ימיים ואזור כלכלי בלעדי.",
+                uavFleet: [
+                    { name: "Heron 1", manufacturer: "IAI (ישראל)", desc: "כטב\"ם סיור ימי בבחינה/רכש מוקדם להשלמת יכולות המודיעין הימי הקיימות.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/b/b5/IAI_Heron-1_Maritime_patrol_UAV_Shoval_Yam.jpg", websiteUrl: "https://www.iai.co.il/p/heron-1" },
+                    { name: "ScanEagle", manufacturer: "Insitu / Boeing (ארה\"ב)", desc: "כטב\"ם טקטי לסיור גבולות ימיים, חלק ממאמצי גיוון הרכש מעבר לציוד רוסי.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Insitu_ScanEagle_X200_%E2%80%98N202SE%E2%80%99.jpg", websiteUrl: "https://www.insitu.com/products/scaneagle" }
+                ],
+                localIndustry: "תעשייה מקומית בראשית דרכה עם עניין ברור בפיתוח יכולת עצמאית ובקבלת ידע טכנולוגי מספקים זרים, בפרט מישראל.",
+                gaps: [
+                    { title: "סיור ימי ארוך טווח", desc: "כיסוי האזור הכלכלי הבלעדי הנרחב מול איומי חדירה סיניים." },
+                    { title: "מערכות תקשורת ולוחמה אלקטרונית עמידות", desc: "הגנה על פלטפורמות מפני שיבושים אזוריים." },
+                    { title: "פיתוח תעשייתי משותף", desc: "בניית יכולת ייצור/הרכבה מקומית בשיתוף עם ספק אסטרטגי." }
+                ],
+                competitors: [
+                    { company: "ישראל", role: "ספקית מבוססת בתחומי רקטות, רדאר וכעת כטב\"מים", share: "35%" },
+                    { company: "רוסיה (ציוד לגאסי)", role: "ספקית היסטורית מתכווצת", share: "30%" },
+                    { company: "ארה\"ב והודו", role: "שותפויות מתפתחות במסגרת גיוון רכש", share: "35%" }
+                ],
+                policyOffset: "אין חובת Offset רשמית, אך העדפה ברורה וחזקה להעברת טכנולוגיה ולשותפויות פיתוח משותפות.",
+                policyNato: "אינה חברה בנאט\"ו; מדיניות אי-הצטרפות פורמלית עם גמישות רכש רב-כיוונית.",
+                recommendationRating: "כדאיות גבוהה (8.4/10)",
+                recommendationText: "וייטנאם מציעה המשך טבעי ליחסי הביטחון הקיימים עם ישראל, עם דגש הולך וגובר על יכולות ימיות. המלצה: הרחבת הקשר הקיים לתחום הכטב\"מים תוך הצעת מסלול להעברת טכנולוגיה הדרגתית.",
+                recChannel: "הרחבת יחסי ביטחון קיימים", recSegment: "Maritime Surveillance UAV", recWindow: "12-24 חודשים"
+            },
+            "הפיליפינים": {
+                flag: "🇵🇭", title: "הפיליפינים (Philippines)",
+                subtitle: "צורך דחוף ביכולות מודיעין ימי מול לחץ סיני גובר בים סין הדרומי",
+                threat: "סיכון גיאופוליטי: גבוה", score: "79/100", budget: "$6.0B",
+                capital: "מנילה", population: "כ-117 מיליון", gdp: "$440 מיליארד", defenseGdpPct: "כ-1.3%",
+                profileSummary: "הפיליפינים מגדילה בהדרגה את תקציב הביטחון נוכח עימותים חוזרים ונשנים מול סין באזורים שנויים במחלוקת בים סין הדרומי. קיים צורך דחוף במודיעין ימי, אך תקציב מוגבל דורש פתרונות עלות-תועלת.",
+                alliances: ["ברית הגנה הדדית עם ארה\"ב (Mutual Defense Treaty)", "שותפות אסטרטגית מתהדקת עם יפן והודו", "יחסים דיפלומטיים עם ישראל"],
+                geopoliticalThreats: "עימותים חוזרים עם משמר החופים הסיני סביב שרטון סקארבורו ואזורים נוספים; צורך במעקב מתמיד אחר פעילות סינית במים הכלכליים הבלעדיים.",
+                uavFleet: [
+                    { name: "ScanEagle", manufacturer: "Insitu / Boeing (ארה\"ב)", desc: "כטב\"ם טקטי מרכזי לסיור ימי, מסופק לרוב במסגרת סיוע ביטחוני אמריקאי.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Insitu_ScanEagle_X200_%E2%80%98N202SE%E2%80%99.jpg", websiteUrl: "https://www.insitu.com/products/scaneagle" },
+                    { name: "Hermes 900", manufacturer: "אלביט Systems (ישראל)", desc: "בבחינה מוקדמת להרחבת יכולת מודיעין ימי ארוך טווח מעבר לפלטפורמות הטקטיות הקיימות.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/9/96/Hermes_900_%28Kochav%29_UAV_is_airborne_again_and_joins_the_ranks_of_the_UAV_Division%2C_November_2015._II.jpg", websiteUrl: "https://elbitsystems.com/landing-page/hermes-900/" }
+                ],
+                localIndustry: "תעשייה מקומית מינימלית; תלות כמעט מוחלטת ברכש חיצוני ובסיוע ביטחוני זר.",
+                gaps: [
+                    { title: "מודיעין ימי ארוך טווח בעלות סבירה", desc: "כיסוי מתמשך של האזור הכלכלי הבלעדי מול תקציב מוגבל." },
+                    { title: "מערכות תקשורת ושיתוף מודיעין בזמן אמת", desc: "חיבור תמונת מצב ימית לכוחות הצי והחוף." },
+                    { title: "יכולת C-UAV בסיסית", desc: "הגנה על מתקנים צבאיים מפני איום כטב\"מים מתפתח באזור." }
+                ],
+                competitors: [
+                    { company: "ארה\"ב", role: "ספקית דומיננטית במסגרת ברית ההגנה ההדדית", share: "55%" },
+                    { company: "יפן והודו", role: "שותפויות אזוריות מתחזקות", share: "25%" },
+                    { company: "ישראל וספקים נוספים", role: "נוכחות מתפתחת בעלת פוטנציאל צמיחה", share: "20%" }
+                ],
+                policyOffset: "מגבלות תקציב משמעותיות מחייבות פתרונות עלות-תועלת גבוהה; אין מסגרת Offset נוקשה קיימת.",
+                policyNato: "אינה חברה בנאט\"ו; רכש מבוצע במסגרת ברית ההגנה ההדדית עם ארה\"ב ושיתופי פעולה אזוריים.",
+                recommendationRating: "כדאיות גבוהה עם רגישות תקציבית (8.0/10)",
+                recommendationText: "הפיליפינים מציעה צורך מבצעי דחוף לצד מגבלת תקציב ממשית. המלצה: הצעת פתרונות מודיעין ימי בעלות נמוכה יחסית, עם דגש על יכולת שדרוג הדרגתי ולא רכש חד-פעמי יקר.",
+                recChannel: "רכש הדרגתי / סיוע ביטחוני משלים", recSegment: "Cost-Effective Maritime ISR", recWindow: "12-24 חודשים"
+            },
+            "קולומביה": {
+                flag: "🇨🇴", title: "קולומביה (Colombia)",
+                subtitle: "שוק ותיק ומוכר עם היסטוריית רכש ישראלי ארוכת שנים, ממוקד במלחמה בטרור וסמים",
+                threat: "סיכון גיאופוליטי: בינוני", score: "76/100", budget: "$10.0B",
+                capital: "בוגוטה", population: "כ-52 מיליון", gdp: "$360 מיליארד", defenseGdpPct: "כ-2.8%",
+                profileSummary: "קולומביה מנהלת מזה עשורים מאבק פנימי מתמשך נגד ארגוני נארקו-טרור, ומהווה לקוחה ותיקה ומוכרת של תעשיית הביטחון הישראלית (החל ממטוסי כפיר בעבר ועד רכש נשק וכטב\"מים כיום). הצורך המרכזי הוא מודיעין ובקרת גבולות ביערות ובאזורים נידחים.",
+                alliances: ["בעלת ברית מרכזית מחוץ לנאט\"ו של ארה\"ב", "יחסי ביטחון היסטוריים ועמוקים עם ישראל"],
+                geopoliticalThreats: "פעילות מתמשכת של ארגוני נארקו-טרור (ELN, שרידי FARC); מתיחות גבולית עם ונצואלה.",
+                uavFleet: [
+                    { name: "Hermes 900", manufacturer: "אלביט Systems (ישראל)", desc: "כטב\"ם סיור ומודיעין בשירות פעיל למעקב אחר תנועות ארגוני סמים ולביקורת גבולות.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/9/96/Hermes_900_%28Kochav%29_UAV_is_airborne_again_and_joins_the_ranks_of_the_UAV_Division%2C_November_2015._II.jpg", websiteUrl: "https://elbitsystems.com/landing-page/hermes-900/" },
+                    { name: "Heron 1", manufacturer: "IAI (ישראל)", desc: "מל\"ט מודיעין נוסף בשירות פעיל למשימות סיור ארוכות טווח מעל שטחי ג'ונגל נרחבים.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/b/b5/IAI_Heron-1_Maritime_patrol_UAV_Shoval_Yam.jpg", websiteUrl: "https://www.iai.co.il/p/heron-1" }
+                ],
+                localIndustry: "תעשייה מקומית מוגבלת (CIAC - תאגיד התעשייה האווירית הקולומביאני) עם עניין הולך וגובר בהרכבה ותחזוקה מקומית.",
+                gaps: [
+                    { title: "סיור וגילוי בשטחי ג'ונגל צפופים", desc: "איתור מעבדות סמים ותשתיות ארגוני טרור באזורים בלתי נגישים." },
+                    { title: "תחמושת משוטטת מדויקת", desc: "תקיפת מטרות איכות בשטח מוגן צפוף ללא סיכון כוחות קרקע." },
+                    { title: "ביקורת גבולות עם ונצואלה", desc: "ניטור רציף של אזור הגבול המתוח." }
+                ],
+                competitors: [
+                    { company: "ישראל (אלביט, IAI)", role: "ספקית מרכזית עם היסטוריה ארוכת שנים", share: "45%" },
+                    { company: "ארה\"ב", role: "סיוע ביטחוני משמעותי במסגרת המאבק בסמים", share: "40%" },
+                    { company: "אחרים", role: "נוכחות שולית", share: "15%" }
+                ],
+                policyOffset: "אין דרישת Offset נוקשה; יתרון ברור לספקים בעלי יחסי אמון היסטוריים כמו ישראל.",
+                policyNato: "אינה חברה בנאט\"ו; רכש רכיבים אמריקאיים כפוף לעיתים לשיקולי ITAR.",
+                recommendationRating: "כדאיות גבוהה (8.3/10)",
+                recommendationText: "קולומביה מהווה המשך טבעי ליחסי ביטחון קיימים ומוצלחים עם ישראל. המלצה: הרחבת הצי הקיים והצעת תחמושת משוטטת מדויקת למאבק בארגוני נארקו-טרור, תוך ניצול האמון התעשייתי הקיים.",
+                recChannel: "הרחבת יחסי ביטחון קיימים", recSegment: "Jungle ISR & Precision Loitering Munitions", recWindow: "12-18 חודשים"
+            },
+            "גרמניה": {
+                flag: "🇩🇪", title: "גרמניה (Germany)",
+                subtitle: "תקציב ענק לאחר ה-Zeitenwende, אך רגישות פוליטית גבוהה סביב כטב\"מים חמושים",
+                threat: "סיכון גיאופוליטי: בינוני-גבוה", score: "82/100", budget: "$90.0B",
+                capital: "ברלין", population: "כ-84 מיליון", gdp: "$4.5 טריליון", defenseGdpPct: "כ-2.1%",
+                profileSummary: "גרמניה מבצעת שינוי היסטורי בתפיסת הביטחון שלה (\"Zeitenwende\") מאז 2022, עם הגדלה דרמטית של תקציב הביטחון. עם זאת, השימוש בכטב\"מים חמושים נותר נושא רגיש פוליטית הדורש אישור פרלמנטרי, מה שמעצב את אופי הרכש.",
+                alliances: ["חברה בנאט\"ו", "איחוד אירופי - כוח מוביל", "ברית אסטרטגית הדוקה עם ארה\"ב וצרפת"],
+                geopoliticalThreats: "שינוי תפיסתי מקיף נוכח האיום הרוסי לאחר הפלישה לאוקראינה; צורך בבנייה מחדש של מלאי צבאי שדולדל.",
+                uavFleet: [
+                    { name: "Heron TP", manufacturer: "IAI (ישראל)", desc: "מל\"ט חכור בשירות חיל האוויר הגרמני (תחת השם Luna NG/Heron TP) עם אפשרות שדרוג ליכולת חמושה.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/b/b5/IAI_Heron-1_Maritime_patrol_UAV_Shoval_Yam.jpg", websiteUrl: "https://www.iai.co.il/p/heron-tp" },
+                    { name: "MQ-9B SkyGuardian", manufacturer: "General Atomics (ארה\"ב)", desc: "בבחינה כחלק מתהליך גיוון והרחבת יכולות המל\"טים האסטרטגיים.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/a/a4/MQ-9_Reaper_in_flight_%282007%29.jpg", websiteUrl: "https://www.ga-asi.com/remotely-piloted-aircraft/mq-9b-skyguardian" }
+                ],
+                localIndustry: "תעשייה מקומית חזקה ומתעצמת (Rheinmetall, Hensoldt, Airbus Defence) עם דחיפה פוליטית ברורה לעבר עצמאות תעשייתית אירופית (\"Buy European\").",
+                gaps: [
+                    { title: "יכולת MALE חמושה עצמאית", desc: "פער פוליטי-היסטורי בפיתוח/רכש יכולת תקיפה עצמאית מבוססת כטב\"ם." },
+                    { title: "מערכות C-UAV להגנת תשתיות קריטיות", desc: "הגנה על מתקני אנרגיה ותשתיות לאומיות." },
+                    { title: "רכיבי חיישנים ואלקטרואופטיקה מתקדמים", desc: "שילוב ברכיבי Payload עבור פלטפורמות קיימות וחדשות." }
+                ],
+                competitors: [
+                    { company: "ארה\"ב (General Atomics)", role: "מתחרה מרכזית ליכולות MALE חמושות", share: "35%" },
+                    { company: "ישראל (IAI)", role: "ספקית ותיקה ומוכרת דרך תוכנית Heron TP", share: "30%" },
+                    { company: "תעשייה מקומית (Rheinmetall, Airbus)", role: "דחיפה גוברת לעצמאות תעשייתית אירופית", share: "35%" }
+                ],
+                policyOffset: "העדפה חזקה ומתגברת לרכיבים ולייצור אירופיים; רגולציית יצוא וסיום שימוש קפדנית, ואישור פרלמנטרי (Bundestag) נדרש לשימוש בכטב\"מים חמושים.",
+                policyNato: "תאימות מלאה לנאט\"ו; חברה מובילה בעיצוב מדיניות ההגנה האירופית המשותפת.",
+                recommendationRating: "כדאיות בינונית-גבוהה עם מורכבות פוליטית (7.6/10)",
+                recommendationText: "גרמניה מציעה תקציב עצום אך עם רגישות פוליטית משמעותית סביב כטב\"מים חמושים והעדפה ל-\"Buy European\". המלצה: התמקדות ברכיבי משנה, חיישנים ומערכות C-UAV במקום פלטפורמות מלאות, תוך שיתוף פעולה אפשרי עם תעשיות אירופיות מקומיות.",
+                recChannel: "רכיבי משנה / שת\"פ עם תעשייה אירופית", recSegment: "Sensors, Payloads & C-UAV", recWindow: "18-36 חודשים"
+            },
+            "איטליה": {
+                flag: "🇮🇹", title: "איטליה (Italy)",
+                subtitle: "מפעילת Reaper מהגדולות באירופה, עם תעשייה מקומית חזקה (Leonardo) - שוק שותפות ולא רק מכירה",
+                threat: "סיכון גיאופוליטי: בינוני", score: "77/100", budget: "$32.0B",
+                capital: "רומא", population: "כ-59 מיליון", gdp: "$2.3 טריליון", defenseGdpPct: "כ-1.5%",
+                profileSummary: "איטליה מפעילה את אחד מצי כטב\"מי ה-MQ-9 הגדולים באירופה, לצד תעשייה מקומית חזקה ועצמאית (Leonardo) המפתחת פלטפורמות משלה. השוק האיטלקי מתאים יותר לשיתופי פעולה טכנולוגיים מאשר למכירת פלטפורמות מלאות.",
+                alliances: ["חברה בנאט\"ו", "איחוד אירופי", "שותפות הדוקה עם ארה\"ב וצרפת"],
+                geopoliticalThreats: "חוסר יציבות באגן הים התיכון ובצפון אפריקה; אתגרי הגירה וביטחון גבולות ימי; השלכות חוסר היציבות בלוב.",
+                uavFleet: [
+                    { name: "MQ-9A Reaper", manufacturer: "General Atomics (ארה\"ב)", desc: "צי מל\"טים מרכזי ומהגדולים באירופה למודיעין ותקיפה.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/a/a4/MQ-9_Reaper_in_flight_%282007%29.jpg", websiteUrl: "https://www.ga-asi.com/remotely-piloted-aircraft/mq-9a" },
+                    { name: "Heron 1", manufacturer: "IAI (ישראל)", desc: "מל\"ט סיור נוסף בשירות פעיל, לצד הפלטפורמות האמריקאיות.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/b/b5/IAI_Heron-1_Maritime_patrol_UAV_Shoval_Yam.jpg", websiteUrl: "https://www.iai.co.il/p/heron-1" }
+                ],
+                localIndustry: "Leonardo היא אחת מתעשיות הביטחון הגדולות באירופה ומפתחת משפחת כטב\"מים עצמאית (Falco), מה שהופך את איטליה לשותפה פוטנציאלית לפיתוח משותף ולא רק ללקוחה.",
+                gaps: [
+                    { title: "מערכות C-UAV לגבולות ימיים ותשתיות", desc: "הגנה על נתיבי הגירה ותשתיות אנרגיה ימיות." },
+                    { title: "לוחמה אלקטרונית ורכיבי Payload מתקדמים", desc: "שדרוג יכולות איסוף וזיהוי לפלטפורמות קיימות." },
+                    { title: "טכנולוגיית נחילי כטב\"מים", desc: "תחום מתפתח בו לישראל יתרון טכנולוגי ניתן להצעה." }
+                ],
+                competitors: [
+                    { company: "ארה\"ב (General Atomics)", role: "ספקית דומיננטית לפלטפורמות MALE חמושות", share: "45%" },
+                    { company: "תעשייה מקומית (Leonardo)", role: "מתחרה ושותפה פוטנציאלית בו-זמנית", share: "35%" },
+                    { company: "ישראל (IAI)", role: "נוכחות מבוססת בתחום הסיור", share: "20%" }
+                ],
+                policyOffset: "העדפה ברורה לשיתופי פעולה עם Leonardo ולתעשייה אירופית; פתיחות לפיתוח משותף של רכיבים ייעודיים.",
+                policyNato: "תאימות מלאה לנאט\"ו ולמסגרות רכש אירופיות משותפות.",
+                recommendationRating: "כדאיות בינונית (7.2/10)",
+                recommendationText: "איטליה מציעה הזדמנות המבוססת יותר על שיתוף פעולה טכנולוגי מאשר מכירת פלטפורמות, בשל התחרות הישירה עם Leonardo המקומית. המלצה: הצעת רכיבי חיישנים, EW או שיתוף פיתוח משותף במקום תחרות ישירה על פלטפורמות שלמות.",
+                recChannel: "שיתוף פיתוח עם Leonardo", recSegment: "Sensors & EW Payloads", recWindow: "24-36 חודשים"
+            },
+            "בריטניה": {
+                flag: "🇬🇧", title: "בריטניה (United Kingdom)",
+                subtitle: "שוק פרימיום עם דריסת רגל ישראלית קיימת (Elbit UK) דרך תוכנית Watchkeeper",
+                threat: "סיכון גיאופוליטי: בינוני", score: "86/100", budget: "$68.0B",
+                capital: "לונדון", population: "כ-68 מיליון", gdp: "$3.3 טריליון", defenseGdpPct: "כ-2.3%",
+                profileSummary: "בריטניה מחזיקה בתקציב ביטחון גדול ותעשייה מקומית מפותחת, לצד קשר תעשייתי ישיר וקיים עם ישראל דרך חברת הבת Elbit UK ותוכנית ה-Watchkeeper (מבוססת על Hermes 450). זהו יתרון תחרותי משמעותי לכניסה להזדמנויות עתידיות.",
+                alliances: ["חברה בנאט\"ו", "שותפות AUKUS (עם ארה\"ב ואוסטרליה)", "Five Eyes", "יחסי ביטחון-תעשייתי הדוקים עם ישראל"],
+                geopoliticalThreats: "איום רוסי לביטחון האירופי; איומי סייבר והיברידיים; מעורבות פוטנציאלית בתרחישי המזרח התיכון.",
+                uavFleet: [
+                    { name: "MQ-9B SkyGuardian", manufacturer: "General Atomics (ארה\"ב)", desc: "כטב\"ם חמוש מתקדם (בשם המקומי Protector) בתהליך הטמעה מבצעית.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/a/a4/MQ-9_Reaper_in_flight_%282007%29.jpg", websiteUrl: "https://www.ga-asi.com/remotely-piloted-aircraft/mq-9b-skyguardian" },
+                    { name: "Watchkeeper", manufacturer: "Elbit UK / Thales (מבוסס Hermes 450 ישראלי)", desc: "תוכנית כטב\"ם סיור מקומית המבוססת על טכנולוגיית אלביט הישראלית - דריסת רגל תעשייתית קיימת ומוכחת.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/9/96/Hermes_900_%28Kochav%29_UAV_is_airborne_again_and_joins_the_ranks_of_the_UAV_Division%2C_November_2015._II.jpg", websiteUrl: "https://uk.elbitsystems.com/" }
+                ],
+                localIndustry: "תעשייה מקומית משמעותית (BAE Systems, Leonardo UK, QinetiQ) לצד נוכחות ישראלית מבוססת כבר היום דרך Elbit UK - יתרון תחרותי מובנה להרחבת שיתוף הפעולה.",
+                gaps: [
+                    { title: "יכולות נחילי כטב\"מים ואוטונומיה משותפת", desc: "פיתוח דור הבא של מערכות תקיפה משולבות (Loyal Wingman)." },
+                    { title: "מערכות C-UAV מתקדמות", desc: "הגנה על תשתיות קריטיות ובסיסים צבאיים." },
+                    { title: "שדרוג/החלפת תוכנית Watchkeeper הקיימת", desc: "הזדמנות טבעית להרחבת שיתוף הפעולה הקיים עם אלביט." }
+                ],
+                competitors: [
+                    { company: "ארה\"ב (General Atomics)", role: "ספקית מרכזית לפלטפורמות MALE חמושות", share: "40%" },
+                    { company: "ישראל (Elbit UK)", role: "דריסת רגל תעשייתית קיימת ומוכחת", share: "30%" },
+                    { company: "תעשייה מקומית (BAE, Leonardo UK)", role: "שחקן מרכזי ופוטנציאל שותפות", share: "30%" }
+                ],
+                policyOffset: "העדפה חזקה ל\"Prosperity\" (השקעה חוזרת בכלכלה הבריטית) - נוכחות Elbit UK הקיימת כבר עומדת בדרישה זו.",
+                policyNato: "תאימות מלאה לנאט\"ו ולסטנדרטים של Five Eyes.",
+                recommendationRating: "כדאיות גבוהה (8.7/10)",
+                recommendationText: "בריטניה מציעה בסיס תעשייתי קיים דרך Elbit UK - יתרון משמעותי על פני מתחרים ללא דריסת רגל מקומית. המלצה: מינוף תוכנית ה-Watchkeeper הקיימת כקרש קפיצה לתוכניות דור הבא, כולל נחילי כטב\"מים ו-C-UAV.",
+                recChannel: "הרחבת נוכחות Elbit UK הקיימת", recSegment: "Next-Gen Autonomy & C-UAV", recWindow: "18-30 חודשים"
+            },
+            "אוסטרליה": {
+                flag: "🇦🇺", title: "אוסטרליה (Australia)",
+                subtitle: "תקציב גדל תחת AUKUS, אך מחסום מבני של העדפת ספקים מ-Five Eyes",
+                threat: "סיכון גיאופוליטי: בינוני-גבוה", score: "74/100", budget: "$34.0B",
+                capital: "קנברה", population: "כ-26.5 מיליון", gdp: "$1.7 טריליון", defenseGdpPct: "כ-2.0%",
+                profileSummary: "אוסטרליה מגדילה משמעותית את תקציב הביטחון במסגרת שותפות AUKUS ונוכח ההתבססות הסינית הגוברת באוקיינוס השקט. עם זאת, קיימת העדפה מבנית חזקה לספקי Five Eyes ולפיתוח יכולת ריבונית מקומית, המקשה על כניסת ספקים חיצוניים לפלטפורמות מרכזיות.",
+                alliances: ["AUKUS (עם ארה\"ב ובריטניה)", "Five Eyes", "Quad (עם ארה\"ב, יפן והודו)"],
+                geopoliticalThreats: "התבססות סינית גוברת באוקיינוס השקט הדרומי; צורך בכיסוי מודיעיני על פני מרחבים ימיים עצומים.",
+                uavFleet: [
+                    { name: "MQ-4C Triton", manufacturer: "Northrop Grumman (ארה\"ב)", desc: "מל\"ט HALE לסיור ימי אסטרטגי מעל שטחי אוקיינוס נרחבים.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/4/4d/RQ-4A_%E2%80%9CGlobal_Hawk%E2%80%9D_%2849871332301%29.jpg", websiteUrl: "https://www.northropgrumman.com/what-we-do/air/triton-unmanned-aircraft-system" },
+                    { name: "MQ-9B SkyGuardian", manufacturer: "General Atomics (ארה\"ב)", desc: "כטב\"ם חמוש בתהליכי הטמעה מתקדמים בחיל האוויר האוסטרלי.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/a/a4/MQ-9_Reaper_in_flight_%282007%29.jpg", websiteUrl: "https://www.ga-asi.com/remotely-piloted-aircraft/mq-9b-skyguardian" }
+                ],
+                localIndustry: "דחיפה חזקה ליכולת ריבונית תחת עמוד ה-AUKUS השני, כולל תוכנית \"Loyal Wingman\" (MQ-28 Ghost Bat) של בואינג אוסטרליה.",
+                gaps: [
+                    { title: "כיסוי מודיעיני ימי לאורך גבולות צפוניים נרחבים", desc: "ניטור מתמשך של אזורי גישה עצומים לאוקיינוס השקט." },
+                    { title: "מערכות C-UAV", desc: "הגנה על בסיסים ותשתיות מול איום כטב\"מים מתפתח באזור." },
+                    { title: "רכיבי חיישנים לתוכנית Loyal Wingman המקומית", desc: "פתח אפשרי לשיתוף פעולה ולא תחרות ישירה על גוף הפלטפורמה." }
+                ],
+                competitors: [
+                    { company: "ארה\"ב", role: "דומיננטית לחלוטין בשל מסגרת AUKUS ו-Five Eyes", share: "60%" },
+                    { company: "תעשייה מקומית (Boeing Australia)", role: "פיתוח ריבוני עצמאי (Ghost Bat)", share: "30%" },
+                    { company: "אחרים (כולל ישראל)", role: "נוכחות מוגבלת בשל מחסום מבני", share: "10%" }
+                ],
+                policyOffset: "העדפה חזקה ליכולת ריבונית מקומית ולספקי Five Eyes בלבד עבור מערכות קו-ראשון - מגבלה מבנית משמעותית לספקים חיצוניים.",
+                policyNato: "אינה חברה בנאט\"ו; פועלת תחת מסגרת AUKUS ותאימות הדוקה לתקני ארה\"ב-בריטניה.",
+                recommendationRating: "כדאיות בינונית (6.8/10)",
+                recommendationText: "אוסטרליה מציעה תקציב מרשים אך מגבלה מבנית אמיתית של העדפת Five Eyes לפלטפורמות קו-ראשון. המלצה: מיקוד בנישות משלימות - חיישנים, מטענים ייעודיים ומערכות C-UAV - ולא בתחרות ישירה על פלטפורמות מובילות.",
+                recChannel: "רכיבים משלימים / נישות טכנולוגיות", recSegment: "Sensors & Niche C-UAV Systems", recWindow: "24-36 חודשים"
+            },
+            "טייוואן": {
+                flag: "🇹🇼", title: "טייוואן (Taiwan)",
+                subtitle: "צורך מבצעי קיומי מול סין, לצד רגישות דיפלומטית קיצונית המגבילה מעורבות ישירה",
+                threat: "סיכון גיאופוליטי: קיצוני", score: "68/100", budget: "$19.7B",
+                capital: "טייפה", population: "כ-23.4 מיליון", gdp: "$790 מיליארד", defenseGdpPct: "כ-2.5%",
+                profileSummary: "טייוואן מפתחת דוקטרינת הגנה א-סימטרית מבוססת כטב\"מים וכלים בלתי מאוישים זולים בכמות גדולה, נוכח איום פלישה/הסגר סיני מוחשי. הפיתוח מתבצע ברובו המכריע על ידי מכון NCSIST הממשלתי המקומי, ומעורבות ישראלית ישירה מוגבלת מאוד בשל רגישות מדיניות ה\"סין האחת\".",
+                alliances: ["אין ברית פורמלית (עקב מדיניות \"סין אחת\")", "יחסי ביטחון בלתי-רשמיים עמוקים עם ארה\"ב (Taiwan Relations Act)", "אין יחסים דיפלומטיים פורמליים עם ישראל"],
+                geopoliticalThreats: "איום פלישה/הסגר סיני קיומי; חדירות יומיומיות של מטוסי וכטב\"מי צבא השחרור העממי לאזור הזיהוי האווירי; לחימה בשלב \"אפור\" מתמשכת.",
+                uavFleet: [
+                    { name: "Teng Yun", manufacturer: "NCSIST (טייוואן - פיתוח מקומי)", desc: "כטב\"ם סיור ומודיעין אסטרטגי מפותח באופן מקומי כחלק ממדיניות עצמאות טכנולוגית.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Wing_Loong_II_side_view.jpg", websiteUrl: "https://www.ncsist.org.tw/" },
+                    { name: "MQ-9B SkyGuardian", manufacturer: "General Atomics (ארה\"ב)", desc: "רכש מוגבל שאושר על ידי ארה\"ב במסגרת מכירות נשק תמיכה מוגבלות.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/a/a4/MQ-9_Reaper_in_flight_%282007%29.jpg", websiteUrl: "https://www.ga-asi.com/remotely-piloted-aircraft/mq-9b-skyguardian" }
+                ],
+                localIndustry: "מכון NCSIST הממשלתי מוביל תוכנית לאומית עדיפות עליונה לייצור המוני של תחמושת משוטטת זולה (אלפי יחידות מתוכננות) כחלק מדוקטרינת הגנה א-סימטרית.",
+                gaps: [
+                    { title: "תחמושת משוטטת זולה לייצור המוני", desc: "התאמה לדוקטרינת ההגנה הא-סימטרית המבוססת על כמות ולא רק איכות." },
+                    { title: "ניווט עמיד ללוחמה אלקטרונית סינית", desc: "התמודדות עם שיבושי GPS/תקשורת אינטנסיביים ממקורות סיניים." },
+                    { title: "תיאום נחילים ואוטונומיה מבוזרת", desc: "טכנולוגיה קריטית לתרחיש הגנה מול כוח פולש גדול בהרבה." }
+                ],
+                competitors: [
+                    { company: "NCSIST (תעשייה ממשלתית מקומית)", role: "עדיפות לאומית עליונה, קשה מאוד לחדירה זרה", share: "60%" },
+                    { company: "ארה\"ב", role: "מכירות מוגבלות ורגישות פוליטית מול סין", share: "35%" },
+                    { company: "ישראל", role: "נוכחות עקיפה/מוגבלת ביותר בשל היעדר יחסים דיפלומטיים", share: "5%" }
+                ],
+                policyOffset: "רכש ממשלתי מרוכז סביב NCSIST כעדיפות ריבונית; כל עסקה זרה כפופה לרגישות דיפלומטית קיצונית מול מדיניות \"סין אחת\".",
+                policyNato: "אינה חברה בנאט\"ו ואין לה יחסים דיפלומטיים פורמליים עם רוב מדינות המערב, כולל ישראל.",
+                recommendationRating: "כדאיות נמוכה-בינונית עם רגישות מדינית קיצונית (4.5/10)",
+                recommendationText: "קיים צורך מבצעי אמיתי ודחוף, אך כל מעורבות ישירה או פומבית עם טייוואן טומנת בחובה סיכון דיפלומטי משמעותי מול סין ומדיניות \"סין אחת\" הרשמית. המלצה: להימנע ממעורבות ישירה או פומבית; ערוצי טכנולוגיה כפולת-שימוש או שיתופי מסחר עקיפים בלבד, ובכל מקרה בתיאום מלא ומוקדם עם משרד הביטחון וגורמי המדיניות הרלוונטיים.",
+                recChannel: "אין ערוץ מומלץ ישיר - נדרש תיאום מדיני מוקדם", recSegment: "לא רלוונטי ללא אישור מדיני", recWindow: "לא רלוונטי כרגע"
+            },
+            "סין": {
+                flag: "🇨🇳", title: "סין (China)",
+                subtitle: "לא שוק יעד למכירה - מעצמת ייצור ויצוא כטב\"מים מתחרה, עם מגבלות פיקוח ישראליות-אמריקאיות מוצהרות",
+                threat: "סיכון גיאופוליטי: קיצוני (יריבה אסטרטגית, לא שוק רכש)", score: "15/100", budget: "$230B (רשמי; אומדנים בלתי רשמיים גבוהים משמעותית)",
+                capital: "בייג'ין", population: "כ-1.41 מיליארד", gdp: "$18.5 טריליון", defenseGdpPct: "כ-1.7% (רשמי)",
+                profileSummary: "סין אינה שוק יעד סביר לרכש כטב\"מים ישראלי. היא מעצמת ייצור ויצוא כטב\"מים עצמאית ומתחרה ישירה של ישראל בשווקים שלישיים (Wing Loong ו-CH-4 מופיעים כבר כמתחרים בפרופילי מרוקו, איחוד האמירויות וערב הסעודית במערכת זו). מעבר לכך, כל שיתוף פעולה ביטחוני-טכנולוגי בין ישראל לסין כפוף לפיקוח הדוק במיוחד מצד ארה\"ב, בעקבות משברים דיפלומטיים משמעותיים בעבר (עסקאות Phalcon ו-Harpy בשנות ה-2000) שהובילו להידוק ניכר של מנגנוני הפיקוח על יצוא ביטחוני ישראלי.",
+                alliances: ["שותפות אסטרטגית הדוקה עם רוסיה (לא ברית פורמלית)", "יחסים דיפלומטיים רשמיים עם ישראל, אך רגישים מאוד בתחום הביטחוני", "יריבה אסטרטגית מוצהרת של ארה\"ב - בעלת הברית המרכזית של ישראל"],
+                geopoliticalThreats: "סין מהווה יריבה אסטרטגית גלובלית של ארה\"ב. כל מהלך ישראלי מול סין בתחום הביטחוני-טכנולוגי נבחן בקפידה רבה על ידי וושינגטון ועלול לפגוע ביחסי ישראל-ארה\"ב עצמם - זהו שיקול מדיני מכריע שגובר על כל פוטנציאל עסקי.",
+                uavFleet: [
+                    { name: "Wing Loong I / II", manufacturer: "AVIC (סין - ייצור מקומי)", desc: "כטב\"ם תקיפה ומודיעין מוביל ביצוא הסיני למדינות שלישיות - מתחרה ישיר של מערכות ישראליות בשווקים כמו איחוד האמירויות ומרוקו.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Wing_Loong_II_side_view.jpg", websiteUrl: "https://www.avic.com/en/" },
+                    { name: "CH-4", manufacturer: "CASC (סין - ייצור מקומי)", desc: "כטב\"ם תקיפה סיני נוסף בייצוא נרחב, מתחרה נוסף של מערכות ישראליות וטורקיות בשווקים מתפתחים.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Wing_Loong_II_side_view.jpg", websiteUrl: "https://www.casc.cn/" }
+                ],
+                localIndustry: "תעשיית כטב\"מים סינית ענקית ועצמאית לחלוטין (AVIC, CASC, Norinco) המייצאת בהיקף נרחב למדינות שלישיות ומהווה יריבה תחרותית ישירה של התעשייה הביטחונית הישראלית - לא שוק יבוא בשום צורה.",
+                gaps: [
+                    { title: "אין פערי רכש רלוונטיים", desc: "סין מפתחת ומייצרת עצמאית את מלוא היכולות הנדרשות לה בתחום הכטב\"מים." }
+                ],
+                competitors: [
+                    { company: "תעשייה מקומית סינית (AVIC, CASC)", role: "שליטה מוחלטת בשוק המקומי וביצוא עצמאי נרחב", share: "100%" }
+                ],
+                policyOffset: "לא רלוונטי - אין מסגרת רכש זרה משמעותית בתחום זה.",
+                policyNato: "אינה חברה בנאט\"ו; יריבה אסטרטגית מוצהרת של ארה\"ב, מה שהופך כל מעורבות ישראלית לרגישה פוליטית ברמה הגבוהה ביותר.",
+                recommendationRating: "לא מומלץ (1.0/10)",
+                recommendationText: "סין אינה שוק יעד עבור BD ביטחוני ישראלי בתחום הכטב\"מים - היא מתחרה עולמית ולא לקוחה פוטנציאלית, ומעבר לכך כל קשר ביטחוני-טכנולוגי עם סין טומן בחובו סיכון ממשי ליחסי ישראל-ארה\"ב עצמם. המלצה: לא לפעול בתחום זה; יש להתייחס לסין כמתחרה בניתוח שווקים שלישיים (כפי שכבר משתקף בפרופילי מרוקו, איחוד האמירויות וערב הסעודית), לא כפוטנציאל מכירה.",
+                recChannel: "אין ערוץ מומלץ - שוק חסום מדינית", recSegment: "לא רלוונטי", recWindow: "לא רלוונטי"
+            },
+            "ארה\"ב": {
+                flag: "🇺🇸", title: "ארה\"ב (United States)",
+                subtitle: "בעלת הברית המרכזית של ישראל, אך יצואנית הכטב\"מים הגדולה בעולם - ההזדמנות ברמת רכיבים ולא פלטפורמות",
+                threat: "סיכון גיאופוליטי: נמוך (עבור ישראל - בעלת ברית אסטרטגית)", score: "70/100", budget: "$850B",
+                capital: "וושינגטון הבירה", population: "כ-335 מיליון", gdp: "$27.7 טריליון", defenseGdpPct: "כ-3.4%",
+                profileSummary: "ארה\"ב היא בעלת הברית האסטרטגית המרכזית של ישראל ומחזיקה בתקציב הביטחון הגדול בעולם, אך היא עצמה יצואנית הכטב\"מים הגדולה והמתקדמת ביותר בעולם (General Atomics, Northrop Grumman, AeroVironment, Anduril) - לא שוק יבוא במובן הקלאסי. ההזדמנות האמיתית לישראל אינה במכירת פלטפורמות שלמות, אלא ברמת רכיבים, חיישנים ושיתופי פיתוח, תוך מינוף נוכחות תעשייתית ישראלית קיימת כבר בשוק האמריקאי.",
+                alliances: ["הברית האסטרטגית המרכזית של ישראל", "מובילה את מסגרת נאט\"ו ושותפויות ביטחוניות גלובליות נוספות", "מסגרת סיוע ביטחוני שנתית (FMF) לישראל"],
+                geopoliticalThreats: "תחרות אסטרטגית גלובלית מול סין ורוסיה; ביטחון פנים ותשתיות קריטיות; מדיניות ITAR מגבילה מאוד יצוא טכנולוגיה רגישה גם כלפי בעלות ברית קרובות.",
+                uavFleet: [
+                    { name: "MQ-9A Reaper", manufacturer: "General Atomics (ארה\"ב - ייצור מקומי)", desc: "כטב\"ם התקיפה והמודיעין המוביל של ארה\"ב, בשירות נרחב בכל זרועות הצבא.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/a/a4/MQ-9_Reaper_in_flight_%282007%29.jpg", websiteUrl: "https://www.ga-asi.com/remotely-piloted-aircraft/mq-9a" },
+                    { name: "RQ-4B Global Hawk", manufacturer: "Northrop Grumman (ארה\"ב - ייצור מקומי)", desc: "מל\"ט HALE אסטרטגי לאיסוף מודיעין ברמה הלאומית.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/4/4d/RQ-4A_%E2%80%9CGlobal_Hawk%E2%80%9D_%2849871332301%29.jpg", websiteUrl: "https://www.northropgrumman.com/air/global-hawk" },
+                    { name: "Hermes 900", manufacturer: "אלביט Systems (ישראל, דרך Elbit Systems of America)", desc: "דוגמה לנוכחות ישראלית קיימת בשוק האמריקאי - פלטפורמות ומערכות אלביט מיוצרות ונתמכות מקומית דרך חברת הבת האמריקאית.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/9/96/Hermes_900_%28Kochav%29_UAV_is_airborne_again_and_joins_the_ranks_of_the_UAV_Division%2C_November_2015._II.jpg", websiteUrl: "https://www.elbitamerica.com/" }
+                ],
+                localIndustry: "תעשיית הביטחון האמריקאית היא הגדולה והמתקדמת בעולם ומייצאת בעצמה בהיקף עצום. לישראל יש כבר דריסת רגל תעשייתית מבוססת בשוק האמריקאי, בעיקר דרך חברות בת מקומיות (Elbit Systems of America, IAI North America) - יתרון משמעותי לכל הרחבה עתידית.",
+                gaps: [
+                    { title: "רכיבי חישה, אלקטרואופטיקה ותת-מערכות", desc: "אספקת רכיבים ל-OEMs אמריקאיים מובילים כמו General Atomics ו-Northrop Grumman." },
+                    { title: "מערכות אימון ופלטפורמות ייעודיות", desc: "הרחבת קיים דרך Elbit Systems of America לתוכניות צבא/ים/חיל אוויר ספציפיות." },
+                    { title: "שיתופי פיתוח משותפים (Co-Development)", desc: "מינוף מסגרת ה-FMF והיחסים הביטחוניים ההדוקים לפיתוח טכנולוגיות דור הבא במשותף." }
+                ],
+                competitors: [
+                    { company: "General Atomics", role: "השחקנית הדומיננטית בשוק המקומי והיצוא האמריקאי", share: "45%" },
+                    { company: "Northrop Grumman", role: "מובילה בפלטפורמות HALE אסטרטגיות", share: "25%" },
+                    { company: "AeroVironment / Anduril", role: "צמיחה מהירה בסגמנט התחמושת המשוטטת הטקטית והאוטונומיה", share: "20%" },
+                    { company: "ישראל (Elbit Systems of America, IAI North America)", role: "נוכחות תעשייתית קיימת ומבוססת", share: "10%" }
+                ],
+                policyOffset: "אין דרישת Offset קלאסית, אך העדפה חזקה מאוד לרכיבים/ייצור מקומי (מגמת Buy American) - נוכחות תעשייתית מקומית קיימת (כמו Elbit Systems of America) היא כמעט תנאי סף לכל שיתוף פעולה משמעותי.",
+                policyNato: "לא חברה בנאט\"ו במובן המסורתי אלא הכוח המוביל בו; מסגרת ITAR אמריקאית מגבילה מאוד יצוא הדדי של טכנולוגיה רגישה, גם מול בעלות ברית קרובות כמו ישראל.",
+                recommendationRating: "כדאיות בינונית - שוק נישה טכנולוגית (6.5/10)",
+                recommendationText: "ארה\"ב אינה שוק \"מכירת פלטפורמות\" קלאסי בשל מעמדה כיצואנית הכטב\"מים הגדולה בעולם. ההזדמנות האמיתית היא במינוף הנוכחות התעשייתית הישראלית הקיימת (Elbit Systems of America, IAI North America) להרחבת מכירות רכיבים, חיישנים ושיתופי פיתוח משותפים, ולא בתחרות ישירה מול General Atomics או Northrop Grumman על פלטפורמות שלמות.",
+                recChannel: "הרחבת נוכחות קיימת (Elbit Systems of America / IAI North America)", recSegment: "Sensors, EO/IR Payloads & Co-Development", recWindow: "מתמשך, לא מוגבל בזמן"
+            },
+            "ישראל": {
+                flag: "🇮🇱", title: "ישראל (Israel)",
+                subtitle: "לא שוק יעד - הבית התעשייתי ופרופיל ייחוס להשוואת פלטפורמות מול מדינות אחרות",
+                threat: "סיכון גיאופוליטי: לא רלוונטי (מדינת מוצא, לא שוק יעד)", score: "-", budget: "$24.0B",
+                capital: "ירושלים", population: "כ-9.8 מיליון", gdp: "$530 מיליארד", defenseGdpPct: "כ-4.5%",
+                profileSummary: "ישראל אינה שוק יעד לרכש כטב\"מים - היא מדינת המוצא ואחת מיצואניות הכטב\"מים המובילות בעולם. תעשיית הביטחון הישראלית (IAI, אלביט Systems, רפאל) מפתחת, מייצרת ומפעילה בעצמה חלק ניכר מהפלטפורמות שמופיעות כמתחרות בפרופילי המדינות האחרות במערכת זו. הפרופיל הזה משמש בעיקר כנקודת ייחוס: היכנסו למצב \"השוואת פלטפורמות\" ובחרו ישראל מול כל מדינה אחרת כדי לראות אילו פלטפורמות ישראליות כבר בשירות שם, לעומת אילו פלטפורמות מתחרות תופסות את מקומן.",
+                alliances: ["שותפות ביטחונית אסטרטגית עם ארה\"ב", "הסכמי אברהם (איחוד האמירויות, בחריין, מרוקו)", "שיתופי פעולה ביטחוניים עם הודו, אזרבייג\"ן, יוון ועוד"],
+                geopoliticalThreats: "זירת איומים רב-חזיתית מתמשכת המהווה גם \"וילון ראווה\" מבצעי חי לטכנולוגיות הכטב\"ם הישראליות, יתרון תחרותי מוכר בשוקי הייצוא.",
+                uavFleet: [
+                    { name: "Hermes 900", manufacturer: "אלביט Systems", desc: "כטב\"ם תקיפה וסיור בינוני (MALE) - עמוד השדרה המבצעי של חיל האוויר, ומיוצא כבר לעשרות מדינות ברחבי העולם.", websiteUrl: "https://elbitsystems.com/landing-page/hermes-900/" },
+                    { name: "Heron TP", manufacturer: "IAI", desc: "כטב\"ם אסטרטגי כבד (HALE) בעל טווח ושהייה ארוכים, מהמתקדמים בעולם בקטגוריה זו.", websiteUrl: "https://www.iai.co.il/p/heron-tp" },
+                    { name: "Harop", manufacturer: "IAI", desc: "תחמושת משוטטת (Loitering Munition) שהוכיחה את עצמה מבצעית במספר זירות, ומיוצאת למדינות כמו אזרבייג\"ן.", websiteUrl: "https://www.iai.co.il/p/harop" }
+                ],
+                localIndustry: "תעשייה ביטחונית עצמאית ומתקדמת (IAI, אלביט Systems, רפאל) עם יכולת פיתוח וייצור מלאה - אחת מ-3-4 יצואניות הכטב\"מים הגדולות בעולם, ולא לקוחה.",
+                gaps: [
+                    { title: "לא רלוונטי כשוק רכש", desc: "ישראל היא מדינת המוצא של רוב הטכנולוגיה - זהו פרופיל ייחוס, לא ניתוח שוק יעד." }
+                ],
+                competitors: [
+                    { company: "IAI", role: "יצרנית מובילה - Heron, Harop ומשפחת מוצרים רחבה", share: "-" },
+                    { company: "אלביט Systems", role: "יצרנית מובילה - Hermes ומשפחת מוצרים רחבה", share: "-" },
+                    { company: "רפאל", role: "מערכות תקיפה מדויקת ומכ\"ם נלווה", share: "-" }
+                ],
+                policyOffset: "לא רלוונטי - ישראל היא המדינה המספקת, לא הרוכשת.",
+                policyNato: "אינה חברה בנאט\"ו; כפופה למשטר הפיקוח הישראלי על יצוא ביטחוני בכל עסקת יצוא.",
+                recommendationRating: "לא רלוונטי כשוק יעד - פרופיל ייחוס",
+                recommendationText: "ישראל אינה שוק BD במובן הרגיל של מערכת זו - היא מקור הטכנולוגיה. השימוש העיקרי בפרופיל זה הוא כבסיס השוואה מול מדינות יעד, במיוחד דרך מצב \"השוואת פלטפורמות\".",
+                recChannel: "לא רלוונטי", recSegment: "פרופיל ייחוס בלבד", recWindow: "לא רלוונטי"
+            },
+            "סרביה": {
+                flag: "🇷🇸", title: "סרביה (Serbia)",
+                subtitle: "שחקנית בלקן ניטרלית עם צריכה גוברת של כטב\"מים - זירת תחרות פעילה מול סין, לצד קשר קיים עם ישראל",
+                threat: "סיכון גיאופוליטי: בינוני", score: "73/100", budget: "$1.3B",
+                capital: "בלגרד", population: "כ-6.6 מיליון", gdp: "$80 מיליארד", defenseGdpPct: "כ-2.2%",
+                profileSummary: "סרביה מנהלת מדיניות ביטחון \"צבאית ניטרלית\" רשמית, תוך איזון בין רוסיה, סין והמערב. המדינה הרחיבה משמעותית את צי הכטב\"מים שלה בעשור האחרון - כולל רכש כטב\"מי תקיפה סינים - ומפתחת בו-זמנית יכולת תעשייתית מקומית. יש לה כבר עבר רכש מוכר מול ישראל, מה שמהווה בסיס להרחבה.",
+                alliances: ["מדיניות \"צבאיות ניטרלית\" רשמית - אינה חברה בנאט\"ו", "מועמדת לאיחוד האירופי", "יחסים היסטוריים הדוקים עם רוסיה", "שיתוף פעולה ביטחוני-תעשייתי גובר עם סין"],
+                geopoliticalThreats: "מתיחות מתמשכת מול קוסובו; רגישות אזורית בבלקן; איזון עדין בין לחצי המערב לקשרים המסורתיים עם רוסיה.",
+                uavFleet: [
+                    { name: "CH-92A", manufacturer: "CASC (סין)", desc: "כטב\"ם תקיפה טקטי סיני שנרכש כדי לחזק יכולות תקיפה מדויקת - סימן ברור להתבססות התעשייה הסינית בשוק המקומי.", websiteUrl: "https://www.casc.cn/" },
+                    { name: "Orbiter 2", manufacturer: "Aeronautics (ישראל)", desc: "כטב\"ם סיור טקטי קטן שנרכש מישראל - דוגמה לקשר תעשייתי-ביטחוני קיים ומוכח מול הספק הישראלי.", websiteUrl: "https://aeronautics-sys.com/" },
+                    { name: "Pegaz", manufacturer: "Yugoimport SDPR (סרביה - ייצור מקומי)", desc: "כטב\"ם סיור מפותח ומיוצר מקומית, המעיד על שאיפה לבניית יכולת עצמאית מקבילה לרכש הזר.", websiteUrl: "https://www.yugoimport.com/" }
+                ],
+                localIndustry: "Yugoimport SDPR מובילה תעשייה מקומית מתפתחת (כטב\"ם Pegaz, פיתוח תחמושת משוטטת Kobac) - סרביה שואפת להפחית תלות ברכש זר לאורך זמן, אך עדיין תלויה משמעותית בייבוא.",
+                gaps: [
+                    { title: "מערכות C-UAV להגנת תשתיות", desc: "הגנה על מתקנים קריטיים ובירת המדינה מפני איום כטב\"מים אזורי מתפתח." },
+                    { title: "תחמושת משוטטת מדויקת", desc: "השלמת הפער מול הפלטפורמה הסינית באמצעות מערכות תקיפה מדויקות נוספות." },
+                    { title: "שדרוג ותחזוקת צי קיים", desc: "תמיכה טכנית ושדרוגים לפלטפורמות הישראליות הקיימות בשירות." }
+                ],
+                competitors: [
+                    { company: "סין (CASC)", role: "ספקית מתבססת של כטב\"מי תקיפה", share: "40%" },
+                    { company: "ישראל (Aeronautics ואחרות)", role: "ספקית קיימת עם קשר תעשייתי מוכח", share: "35%" },
+                    { company: "תעשייה מקומית (Yugoimport)", role: "פיתוח עצמאי הדרגתי", share: "25%" }
+                ],
+                policyOffset: "אין מסגרת Offset נוקשה ומחייבת, אך קיימת העדפה גוברת לשיתוף עם Yugoimport ולהעברת ידע טכנולוגי.",
+                policyNato: "אינה חברה בנאט\"ו; מדיניות רכש עצמאית המאפשרת גמישות רבה מול ספקים שונים ללא הגבלות תיאום נאט\"ו.",
+                recommendationRating: "כדאיות גבוהה-בינונית (7.8/10)",
+                recommendationText: "סרביה מציעה המשך טבעי ליחסי רכש קיימים מול ישראל, בשוק שבו סין כבר מתבססת במקביל. המלצה: מיצוב מהיר סביב C-UAV ותחמושת משוטטת כדי להרחיב את הדריסת רגל הקיימת לפני שהיא נשחקת מול ההתקדמות הסינית.",
+                recChannel: "הרחבת יחסי ביטחון קיימים מול Aeronautics/ישראל", recSegment: "C-UAV & Precision Loitering Munitions", recWindow: "12-18 חודשים"
+            }
+        };
+
+        // ============================================================
+        // ACCESS GATE - a soft, client-side gate so a shared link isn't
+        // wide open. This is NOT real authentication (the code lives in
+        // this file's source, viewable by anyone who inspects it) - it's
+        // a deterrent against random/accidental access, not a security
+        // boundary. Change the code below before distributing the file.
+        // ============================================================
+        const ACCESS_CODE = 'AEROVISION2026'; // TODO: change this before sharing with your department
+        function checkAccessCode() {
+            const val = document.getElementById('accessCodeInput').value.trim();
+            if (val === ACCESS_CODE) {
+                sessionStorage.setItem('aerovision_access', 'granted');
+                document.getElementById('accessGate').classList.add('hidden');
+            } else {
+                document.getElementById('accessGateError').classList.remove('hidden');
+            }
+        }
+        if (sessionStorage.getItem('aerovision_access') === 'granted') {
+            document.addEventListener('DOMContentLoaded', () => {
+                document.getElementById('accessGate').classList.add('hidden');
+            });
+        }
+
+        const availableCountries = Object.keys(presetData);
+        let currentCountryKey = "פולין";
+
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            initTheme();
+            populateSidebar();
+            renderDashboard(presetData["פולין"]);
+        });
+
+        // ============================================================
+        // THEME TOGGLE (dark/light) - persisted in localStorage
+        // ============================================================
+        function initTheme() {
+            const saved = localStorage.getItem('aerovision_theme') || 'dark';
+            applyTheme(saved);
+        }
+        function applyTheme(theme) {
+            if (theme === 'light') {
+                document.documentElement.setAttribute('data-theme', 'light');
+            } else {
+                document.documentElement.removeAttribute('data-theme');
+            }
+            const iconName = theme === 'light' ? 'moon' : 'sun';
+            ['themeIconDesktop', 'themeIconMobile'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.setAttribute('data-lucide', iconName);
+            });
+            lucide.createIcons();
+        }
+        function toggleTheme() {
+            const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+            const next = isLight ? 'dark' : 'light';
+            localStorage.setItem('aerovision_theme', next);
+            applyTheme(next);
+        }
+
+        // ============================================================
+        // SIDEBAR - full country list, filterable, mobile off-canvas
+        // ============================================================
+        function populateSidebar() {
+            const listEl = document.getElementById('sidebarCountryList');
+            listEl.innerHTML = availableCountries.map(name => {
+                const flag = presetData[name].flag || '🌐';
+                return `<button data-country="${escapeHtml(name)}" onclick="selectFromSidebar(this.dataset.country)"
+                    class="sidebar-country-btn w-full text-right px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-slate-800/80 border border-transparent transition flex items-center gap-2 cursor-pointer">
+                    <span>${flag}</span><span>${escapeHtml(name)}</span>
+                </button>`;
+            }).join('');
+            updateSidebarActive();
+        }
+        function selectFromSidebar(name) {
+            loadCountry(name);
+            if (window.innerWidth < 640) toggleSidebar();
+        }
+        function updateSidebarActive() {
+            document.querySelectorAll('.sidebar-country-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-country') === currentCountryKey);
+            });
+        }
+        function filterSidebar() {
+            const q = document.getElementById('sidebarFilter').value.trim();
+            document.querySelectorAll('.sidebar-country-btn').forEach(btn => {
+                const name = btn.getAttribute('data-country');
+                btn.style.display = name.includes(q) ? '' : 'none';
+            });
+        }
+        function toggleSidebar() {
+            const sidebar = document.getElementById('countrySidebar');
+            const backdrop = document.getElementById('sidebarBackdrop');
+            const nowOpen = sidebar.getAttribute('data-open') !== 'true';
+            sidebar.setAttribute('data-open', nowOpen ? 'true' : 'false');
+            if (nowOpen) {
+                sidebar.style.transform = 'translateX(0)';
+                backdrop.classList.remove('hidden');
+            } else {
+                sidebar.style.transform = '';
+                backdrop.classList.add('hidden');
+            }
+        }
+
+        // ============================================================
+        // COMPARE MODE - pick 2-3 countries, render side-by-side table
+        // (country KPIs) or a platform-by-platform breakdown
+        // ============================================================
+        let compareMode = 'countries';
+        function setCompareMode(mode) {
+            compareMode = mode;
+            const countriesBtn = document.getElementById('modeCountriesBtn');
+            const platformsBtn = document.getElementById('modePlatformsBtn');
+            const hint = document.getElementById('comparePickerHint');
+            if (mode === 'countries') {
+                countriesBtn.className = 'flex-1 py-2 rounded-lg text-xs font-semibold border transition cursor-pointer bg-amber-500/15 text-amber-400 border-amber-500/40';
+                platformsBtn.className = 'flex-1 py-2 rounded-lg text-xs font-semibold border transition cursor-pointer bg-slate-800/80 text-slate-300 border-slate-700';
+                hint.textContent = 'בחר 2 עד 3 מדינות להשוואה זו-לצד-זו:';
+            } else {
+                platformsBtn.className = 'flex-1 py-2 rounded-lg text-xs font-semibold border transition cursor-pointer bg-amber-500/15 text-amber-400 border-amber-500/40';
+                countriesBtn.className = 'flex-1 py-2 rounded-lg text-xs font-semibold border transition cursor-pointer bg-slate-800/80 text-slate-300 border-slate-700';
+                hint.textContent = 'בחר 2 עד 3 מדינות כדי להשוות את הפלטפורמות שבשירות בכל אחת מהן (למשל ישראל מול מדינה מתחרה):';
+            }
+        }
+        function openCompareMode() {
+            const grid = document.getElementById('compareCheckboxGrid');
+            grid.innerHTML = availableCountries.map((name, i) => {
+                const flag = presetData[name].flag || '🌐';
+                return `<label class="flex items-center gap-2 px-2.5 py-2 rounded-lg bg-slate-900/80 border border-slate-800 text-xs text-slate-300 cursor-pointer hover:border-amber-500/40">
+                    <input type="checkbox" class="compare-checkbox hidden" value="${escapeHtml(name)}" onchange="enforceCompareLimit(this)">
+                    <span class="compare-check-visual w-4 h-4 rounded border border-slate-600 shrink-0"></span>
+                    <span>${flag} ${escapeHtml(name)}</span>
+                </label>`;
+            }).join('');
+            setCompareMode('countries');
+            document.getElementById('comparePicker').classList.remove('hidden');
+            document.getElementById('compareResultWrap').classList.add('hidden');
+            document.getElementById('compareModal').classList.remove('hidden');
+            lucide.createIcons();
+        }
+        function closeCompareMode() {
+            document.getElementById('compareModal').classList.add('hidden');
+        }
+        function backToPicker() {
+            document.getElementById('comparePicker').classList.remove('hidden');
+            document.getElementById('compareResultWrap').classList.add('hidden');
+        }
+        function enforceCompareLimit(changedBox) {
+            const checked = document.querySelectorAll('.compare-checkbox:checked');
+            if (checked.length > 3) {
+                changedBox.checked = false;
+                showToast('ניתן לבחור עד 3 מדינות להשוואה');
+            }
+        }
+        function renderComparison() {
+            const checked = Array.from(document.querySelectorAll('.compare-checkbox:checked')).map(cb => cb.value);
+            if (checked.length < 2) {
+                showToast('בחר לפחות 2 מדינות להשוואה');
+                return;
+            }
+            document.getElementById('comparePicker').classList.add('hidden');
+            document.getElementById('compareResultWrap').classList.remove('hidden');
+            if (compareMode === 'platforms') {
+                renderPlatformComparison(checked);
+            } else {
+                renderCountryComparison(checked);
+            }
+        }
+        function renderCountryComparison(checked) {
+            document.getElementById('compareTableWrap').classList.remove('hidden');
+            document.getElementById('comparePlatformsWrap').classList.add('hidden');
+            const rows = [
+                { label: 'ציון פוטנציאל שוק', get: d => d.score || '-' },
+                { label: 'תקציב ביטחון', get: d => d.budget || '-' },
+                { label: 'רמת סיכון גיאופוליטי', get: d => d.threat || '-' },
+                { label: 'תקציב ביטחון מה-GDP', get: d => d.defenseGdpPct || '-' },
+                { label: 'פלטפורמה מובילה', get: d => (d.uavFleet && d.uavFleet[0] && d.uavFleet[0].name) || '-' },
+                { label: 'פער מרכזי', get: d => (d.gaps && d.gaps[0] && d.gaps[0].title) || '-' },
+                { label: 'ערוץ חדירה מומלץ', get: d => d.recChannel || '-' },
+                { label: 'כדאיות', get: d => d.recommendationRating || '-' },
+            ];
+            const cols = checked.map(name => presetData[name]);
+            let html = '<thead><tr>';
+            html += `<th class="text-right p-2 text-slate-400 font-semibold sticky right-0 bg-inherit"></th>`;
+            cols.forEach((d, i) => {
+                html += `<th class="text-right p-2 text-white font-bold whitespace-nowrap">${escapeHtml(d.flag || '')} ${escapeHtml(d.title || checked[i])}</th>`;
+            });
+            html += '</tr></thead><tbody>';
+            rows.forEach(row => {
+                html += `<tr class="border-t border-slate-800/60"><td class="p-2 text-slate-400 font-semibold whitespace-nowrap">${row.label}</td>`;
+                cols.forEach(d => {
+                    html += `<td class="p-2 text-slate-200">${escapeHtml(row.get(d))}</td>`;
+                });
+                html += '</tr>';
+            });
+            html += '</tbody>';
+            document.getElementById('compareTable').innerHTML = html;
+        }
+        function renderPlatformComparison(checked) {
+            document.getElementById('compareTableWrap').classList.add('hidden');
+            const wrap = document.getElementById('comparePlatformsWrap');
+            wrap.classList.remove('hidden');
+            wrap.innerHTML = checked.map(name => {
+                const d = presetData[name];
+                const fleet = d.uavFleet || [];
+                const platformCards = fleet.length ? fleet.map(u => `
+                    <div class="p-3 bg-slate-950/80 rounded-lg border border-slate-800 space-y-1.5">
+                        <div class="flex items-center justify-between gap-2">
+                            <span class="text-sm font-bold text-amber-400">${escapeHtml(u.name || '')}</span>
+                        </div>
+                        <span class="text-[10px] text-slate-400 block">${escapeHtml(u.manufacturer || '')}</span>
+                        <p class="text-xs text-slate-300 leading-relaxed">${escapeHtml(u.desc || '')}</p>
+                    </div>
+                `).join('') : `<p class="text-xs text-slate-500">אין נתוני פלטפורמות זמינים</p>`;
+                return `
+                <div class="p-4 bg-slate-900/80 rounded-xl border border-slate-800 space-y-3">
+                    <div class="flex items-center gap-2 border-b border-slate-800 pb-2.5">
+                        <span class="text-xl">${escapeHtml(d.flag || '')}</span>
+                        <h4 class="text-sm font-bold text-white">${escapeHtml(d.title || name)}</h4>
+                    </div>
+                    <div class="space-y-2.5">${platformCards}</div>
+                </div>`;
+            }).join('');
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMessage').textContent = msg;
+            toast.classList.remove('hidden');
+            setTimeout(() => toast.classList.add('hidden'), 3000);
+        }
+
+        function loadCountry(countryName) {
+            document.getElementById('countryInput').value = countryName;
+            if (presetData[countryName]) {
+                document.getElementById('errorState').classList.add('hidden');
+                currentCountryKey = countryName;
+                renderDashboard(presetData[countryName]);
+                updateSidebarActive();
+            } else {
+                handleUnsupportedCountry(countryName);
+            }
+        }
+
+        function handleSearch(event) {
+            event.preventDefault();
+            const countryQuery = document.getElementById('countryInput').value.trim();
+            if (!countryQuery) return;
+            document.getElementById('errorState').classList.add('hidden');
+            if (presetData[countryQuery]) {
+                currentCountryKey = countryQuery;
+                renderDashboard(presetData[countryQuery]);
+                updateSidebarActive();
+            } else {
+                handleUnsupportedCountry(countryQuery);
+            }
+        }
+
+        // No live API call in this build - only the pre-built country
+        // reports below are available. Searching anything else shows a
+        // clear message listing what IS available, instead of failing
+        // silently or requiring any setup.
+        function handleUnsupportedCountry(countryName) {
+            document.getElementById('reportContainer').classList.add('hidden');
+            document.getElementById('loadingState').classList.add('hidden');
+            showError(`אין כרגע דוח זמין עבור "${countryName}". הדוחות הזמינים כרגע הם: ${availableCountries.join(', ')}.`);
+        }
+
+        // ============================================================
+        // CHARTS - circular market-score gauge + competitor donut chart
+        // ============================================================
+        function renderScoreGauge(scoreStr) {
+            const match = /(\d+)\s*\/\s*100/.exec(scoreStr || '');
+            const value = match ? Math.max(0, Math.min(100, parseInt(match[1], 10))) : 0;
+            const circumference = 2 * Math.PI * 32; // r=32
+            const offset = circumference - (value / 100) * circumference;
+            const ring = document.getElementById('gaugeRingFill');
+            const text = document.getElementById('gaugeScoreText');
+            if (ring) {
+                ring.setAttribute('stroke-dasharray', circumference.toFixed(2));
+                ring.setAttribute('stroke-dashoffset', circumference.toFixed(2));
+                // Trigger transition on next frame
+                requestAnimationFrame(() => ring.setAttribute('stroke-dashoffset', offset.toFixed(2)));
+            }
+            if (text) text.textContent = match ? match[1] : '-';
+        }
+
+        const DONUT_COLORS = ['#f59e0b', '#3b82f6', '#a855f7', '#10b981', '#ef4444', '#64748b'];
+        function renderCompetitorsDonut(competitors) {
+            const container = document.getElementById('competitorsDonut');
+            if (!container) return;
+            const parsed = competitors.map(c => {
+                const m = /(\d+(?:\.\d+)?)/.exec(c.share || '');
+                return { label: c.company || '', value: m ? parseFloat(m[1]) : 0 };
+            }).filter(d => d.value > 0);
+
+            if (parsed.length === 0) { container.innerHTML = ''; return; }
+
+            const total = parsed.reduce((s, d) => s + d.value, 0) || 1;
+            const r = 42, cx = 50, cy = 50, circumference = 2 * Math.PI * r;
+            let offsetAccum = 0;
+            const segments = parsed.map((d, i) => {
+                const fraction = d.value / total;
+                const dash = fraction * circumference;
+                const seg = `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${DONUT_COLORS[i % DONUT_COLORS.length]}"
+                    stroke-width="16" stroke-dasharray="${dash.toFixed(2)} ${(circumference - dash).toFixed(2)}"
+                    stroke-dashoffset="${(-offsetAccum).toFixed(2)}" transform="rotate(-90 ${cx} ${cy})"></circle>`;
+                offsetAccum += dash;
+                return seg;
+            }).join('');
+
+            const legend = parsed.map((d, i) => `
+                <div class="flex items-center gap-1.5 text-[10px] text-slate-400">
+                    <span class="w-2 h-2 rounded-full shrink-0" style="background:${DONUT_COLORS[i % DONUT_COLORS.length]}"></span>
+                    <span class="truncate max-w-[110px]">${escapeHtml(d.label)}</span>
+                </div>`).join('');
+
+            container.innerHTML = `
+                <div class="flex flex-col items-center gap-2">
+                    <svg viewBox="0 0 100 100" class="w-28 h-28 sm:w-32 sm:h-32">${segments}</svg>
+                    <div class="grid grid-cols-1 gap-1">${legend}</div>
+                </div>`;
+        }
+
+        function renderDashboard(data) {
+            document.getElementById('loadingState').classList.add('hidden');
+            document.getElementById('errorState').classList.add('hidden');
+            document.getElementById('reportContainer').classList.remove('hidden');
+
+            document.getElementById('countryFlag').textContent = data.flag || "🌐";
+            document.getElementById('countryTitle').textContent = data.title || '';
+            document.getElementById('countrySubtitle').textContent = data.subtitle || '';
+            document.getElementById('threatBadge').textContent = data.threat || '';
+            document.getElementById('marketScore').textContent = data.score || '';
+            document.getElementById('defenseBudget').textContent = data.budget || '';
+            renderScoreGauge(data.score);
+
+            document.getElementById('capital').textContent = data.capital || '';
+            document.getElementById('population').textContent = data.population || '';
+            document.getElementById('gdp').textContent = data.gdp || '';
+            document.getElementById('defenseGdpPct').textContent = data.defenseGdpPct || '';
+            document.getElementById('profileSummary').textContent = data.profileSummary || '';
+
+            document.getElementById('geopoliticalThreats').textContent = data.geopoliticalThreats || '';
+            const alliancesEl = document.getElementById('alliances');
+            // Uses escapeHtml: alliance names may originate from a live AI response.
+            alliancesEl.innerHTML = (data.alliances || []).map(a =>
+                `<span class="px-2.5 py-1 bg-slate-800 text-slate-200 rounded text-xs border border-slate-700 font-medium">${escapeHtml(a)}</span>`
+            ).join('');
+
+            const uavFleetGridEl = document.getElementById('uavFleetGrid');
+            uavFleetGridEl.innerHTML = (data.uavFleet || []).map(u => {
+                let matchedUrl = u.websiteUrl;
+                for (const urlKey in uavUrlMap) {
+                    if ((u.name || '').toLowerCase().includes(urlKey.toLowerCase()) || urlKey.toLowerCase().includes((u.name || '').toLowerCase())) {
+                        matchedUrl = uavUrlMap[urlKey];
+                        break;
+                    }
+                }
+                const finalUrl = safeUrl(matchedUrl || 'https://www.ga-asi.com/', 'https://www.ga-asi.com/');
+                const iconSvg = platformIconSVG(getPlatformCategory(u.name));
+
+                return `
+                <div class="p-3.5 sm:p-4 bg-slate-900/90 rounded-xl border border-slate-800 hover:border-amber-500/40 transition flex flex-col justify-between space-y-3">
+                    <div class="space-y-2.5">
+                        <div class="relative h-44 sm:h-48 w-full rounded-lg overflow-hidden bg-slate-950 border border-slate-800 flex items-center justify-center">
+                            ${iconSvg}
+                            <span class="absolute top-2 right-2 text-[10px] bg-slate-900/95 text-amber-400 font-bold px-2 py-0.5 rounded border border-amber-500/30">${escapeHtml(u.manufacturer || 'פלטפורמה בשירות')}</span>
+                        </div>
+                        <h5 class="text-sm sm:text-base font-bold text-amber-400">${escapeHtml(u.name || '')}</h5>
+                        <p class="text-xs text-slate-300 leading-relaxed">${escapeHtml(u.desc || '')}</p>
+                    </div>
+                    <a href="${finalUrl}" target="_blank" rel="noopener noreferrer"
+                       class="w-full py-2.5 px-3 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow-md hover:shadow-amber-500/20 transition flex items-center justify-center gap-2 mt-auto text-center cursor-pointer">
+                        <i data-lucide="external-link" class="w-4 h-4"></i>
+                        <span>צפה במפרט הטכני באתר היצרנית</span>
+                    </a>
+                </div>`;
+            }).join('');
+
+            document.getElementById('localIndustry').textContent = data.localIndustry || '';
+
+            const gapsEl = document.getElementById('gapsList');
+            gapsEl.innerHTML = (data.gaps || []).map(g => `
+                <div class="p-3.5 sm:p-4 bg-slate-900/80 rounded-xl border border-slate-800 space-y-1">
+                    <div class="flex items-center gap-2 text-emerald-400 font-bold text-xs sm:text-sm">
+                        <i data-lucide="check-circle-2" class="w-4 h-4 shrink-0"></i>
+                        <span>${escapeHtml(g.title || '')}</span>
+                    </div>
+                    <p class="text-xs text-slate-300 leading-relaxed">${escapeHtml(g.desc || '')}</p>
+                </div>
+            `).join('');
+
+            const compEl = document.getElementById('competitors');
+            compEl.innerHTML = (data.competitors || []).map(c => `
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-800/60 pb-2.5">
+                    <div>
+                        <span class="font-bold text-amber-400 text-xs sm:text-sm">${escapeHtml(c.company || '')}</span>
+                        <p class="text-[11px] sm:text-xs text-slate-400">${escapeHtml(c.role || '')}</p>
+                    </div>
+                    <span class="text-[11px] sm:text-xs bg-slate-800 px-2.5 py-1 rounded text-slate-300 mt-1 sm:mt-0 border border-slate-700 font-semibold">נתח שוק: ${escapeHtml(c.share || '')}</span>
+                </div>
+            `).join('');
+            renderCompetitorsDonut(data.competitors || []);
+
+            document.getElementById('policyOffset').textContent = data.policyOffset || '';
+            document.getElementById('policyNato').textContent = data.policyNato || '';
+
+            document.getElementById('recommendationRating').textContent = data.recommendationRating || '';
+            document.getElementById('recommendationText').textContent = data.recommendationText || '';
+            document.getElementById('recChannel').textContent = data.recChannel || '';
+            document.getElementById('recSegment').textContent = data.recSegment || '';
+            document.getElementById('recWindow').textContent = data.recWindow || '';
+
+            lucide.createIcons();
+            document.getElementById('reportContainer').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function showError(msg) {
+            document.getElementById('loadingState').classList.add('hidden');
+            document.getElementById('errorState').classList.remove('hidden');
+            document.getElementById('errorMessage').textContent = msg;
+        }
+
+        function resetToHome() {
+            loadCountry('פולין');
+        }
+
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        async function copyCurrentReport() {
+            const title = document.getElementById('countryTitle').textContent;
+            const summary = document.getElementById('profileSummary').textContent;
+            const recommendation = document.getElementById('recommendationText').textContent;
+
+            const textToCopy = `=== דוח מודיעין שוק כטב"מים - AEROVISION BI ===\nמדינה: ${title}\n\nתמצית מנהלים:\n${summary}\n\nהמלצה עסקית מסכמת:\n${recommendation}\n\nנוצר באמצעות מערכת AeroVision BI.`;
+
+            try {
+                await navigator.clipboard.writeText(textToCopy);
+                showToast('הסקירה הועתקה בהצלחה ללוח!');
+            } catch (e) {
+                // Fallback for older browsers / non-secure contexts
+                const textarea = document.createElement('textarea');
+                textarea.value = textToCopy;
+                textarea.style.position = 'fixed';
+                textarea.style.opacity = '0';
+                document.body.appendChild(textarea);
+                textarea.select();
+                try {
+                    document.execCommand('copy');
+                    showToast('הסקירה הועתקה בהצלחה ללוח!');
+                } catch (e2) {
+                    showToast('לא ניתן להעתיק אוטומטית - סמן ידנית');
+                }
+                document.body.removeChild(textarea);
+            }
+        }
+    </script>
+</body>
+</html>
