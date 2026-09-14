@@ -599,8 +599,8 @@
                                 stroke-dasharray="201.06" stroke-dashoffset="201.06"></circle>
                             <text id="gaugeScoreText" x="40" y="45" text-anchor="middle" font-size="20" font-weight="900" fill="#f59e0b" font-family="Heebo, sans-serif">92</text>
                         </svg>
-                        <div title="מחושב מנוסחה שקופה: 25% גודל תקציב ביטחון + 25% אחוז מהתמ&quot;ג + 30% רמת סיכון גיאופוליטי + 20% פתיחות השוק (חוסר תעשייה מקומית מתחרה) - לא הערכה סובייקטיבית">
-                            <div class="text-[10px] sm:text-xs text-slate-400 font-semibold flex items-center gap-1">ציון פוטנציאל שוק <i data-lucide="info" class="w-3 h-3 text-slate-500"></i></div>
+                        <div>
+                            <button type="button" onclick="toggleScoreMethodology()" class="text-[10px] sm:text-xs text-slate-400 font-semibold flex items-center gap-1 cursor-pointer hover:text-amber-400 transition">ציון פוטנציאל שוק <i data-lucide="info" class="w-3 h-3 text-slate-500"></i></button>
                             <div id="marketScore" class="text-sm sm:text-base font-black text-amber-400">92/100</div>
                         </div>
                     </div>
@@ -609,6 +609,12 @@
                         <div id="defenseBudget" class="text-lg sm:text-xl font-black text-blue-400">$35.0B</div>
                     </div>
                 </div>
+            </div>
+
+            <!-- Score methodology explanation - hidden by default, toggled by the info button above -->
+            <div id="scoreMethodologyPanel" class="hidden -mt-2 p-3 bg-slate-900/80 rounded-xl border border-amber-500/20 text-[11px] sm:text-xs text-slate-300 leading-relaxed no-print">
+                <span class="text-amber-400 font-bold block mb-1">איך הציון מחושב:</span>
+                נוסחה שקופה עם 4 מרכיבים, לא הערכה סובייקטיבית: <b>25%</b> גודל תקציב הביטחון (סולם לוגריתמי) · <b>25%</b> אחוז מהתמ"ג המוקדש לביטחון · <b>30%</b> רמת הסיכון הגיאופוליטי (מסעיף 1 למעלה) · <b>20%</b> פתיחות השוק (הפוך מחוזק התעשייה המקומית שבסעיף 4). כל מרכיב מחושב מנתונים שכבר מוצגים בדוח הזה עצמו.
             </div>
 
             <!-- COMPARE MODE BUTTON (mobile fallback) -->
@@ -722,7 +728,7 @@
 
                 <div class="space-y-4">
                     <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">פלטפורמות פעילות בשירות הביטחון</h4>
-                    <div id="uavFleetGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+                    <div id="uavFleetGrid" class="space-y-5"></div>
                 </div>
             </div>
 
@@ -2645,6 +2651,9 @@
             });
         }
 
+        function toggleScoreMethodology() {
+            document.getElementById('scoreMethodologyPanel').classList.toggle('hidden');
+        }
         function showToast(msg) {
             const toast = document.getElementById('toast');
             document.getElementById('toastMessage').textContent = msg;
@@ -2940,6 +2949,7 @@
             document.getElementById('countrySubtitle').textContent = data.subtitle || '';
             document.getElementById('threatBadge').textContent = data.threat || '';
             document.getElementById('marketScore').textContent = getFormattedScore(data);
+            document.getElementById('scoreMethodologyPanel').classList.add('hidden');
             document.getElementById('defenseBudget').textContent = data.budget || '';
             renderScoreGauge(getFormattedScore(data));
             updateFavoriteToggleButton();
@@ -2969,7 +2979,27 @@
             ).join('');
 
             const uavFleetGridEl = document.getElementById('uavFleetGrid');
-            uavFleetGridEl.innerHTML = (data.uavFleet || []).map(u => {
+            // Group platforms by manufacturer (normalized - the raw
+            // manufacturer field often has extra parenthetical context
+            // like "(ישראל, דרך Elbit Systems of America)" which would
+            // otherwise fragment the same company into separate groups).
+            function normalizeManufacturer(m) {
+                return (m || 'יצרן לא ידוע').split('(')[0].trim();
+            }
+            const fleet = data.uavFleet || [];
+            const groups = [];
+            const groupIndex = {};
+            fleet.forEach(u => {
+                const key = normalizeManufacturer(u.manufacturer);
+                if (!(key in groupIndex)) {
+                    groupIndex[key] = groups.length;
+                    groups.push({ key, label: u.manufacturer || key, items: [] });
+                }
+                groups[groupIndex[key]].items.push(u);
+            });
+
+            uavFleetGridEl.innerHTML = groups.map(group => {
+                const cardsHtml = group.items.map(u => {
                 let matchedUrl = u.websiteUrl;
                 for (const urlKey in uavUrlMap) {
                     if ((u.name || '').toLowerCase().includes(urlKey.toLowerCase()) || urlKey.toLowerCase().includes((u.name || '').toLowerCase())) {
@@ -3018,7 +3048,18 @@
                         <span>צפה במפרט הטכני באתר היצרנית</span>
                     </a>
                 </div>`;
-            }).join('');
+                }).join('');
+
+                return `
+                <div class="space-y-3">
+                    <h4 class="flex items-center gap-2 text-sm font-bold text-white border-r-4 border-amber-500 pr-2.5">
+                        <i data-lucide="factory" class="w-4 h-4 text-amber-400"></i>
+                        ${escapeHtml(group.label)}
+                        <span class="text-[10px] font-normal text-slate-500">(${group.items.length} ${group.items.length === 1 ? 'פלטפורמה' : 'פלטפורמות'})</span>
+                    </h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">${cardsHtml}</div>
+                </div>`;
+            }).join('<div class="border-t border-slate-800/60 my-5"></div>');
 
             const localIndustryEl = document.getElementById('localIndustryList');
             const industryEntries = Array.isArray(data.localIndustry) ? data.localIndustry : [];
