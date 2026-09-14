@@ -124,6 +124,17 @@
             display: none !important;
         }
 
+        /* Real platform photos fade in smoothly once loaded, instead of
+           popping in abruptly - makes the network delay feel intentional. */
+        #uavFleetGrid img {
+            opacity: 0;
+            animation: photoFadeIn 400ms ease forwards;
+        }
+        @keyframes photoFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
         /* SPLASH SCREEN */
         #splashScreen {
             transition: opacity 550ms ease;
@@ -1094,17 +1105,36 @@
             "switchblade 300": "Switchblade_300_in_flight_(200902-M-EU630-1102).jpg",
             "wing loong i / ii": "Wing_Loong_II_side_view.jpg",
             "orbiter 2": "Aeronautics_Orbiter_UAV.jpg",
-            "searcher mk ii": "IAI_Searcher._III.jpg"
+            "searcher mk ii": "IAI_Searcher._III.jpg",
+            "warmate": "Warmate-50_MSPO24.jpg",
+            "ch-4": "CH-4B_UAV_Indonesian_Air_Force_051024_1.jpg",
+            "ch-92a": "CH-92A_Serbia.jpg"
+        };
+        // Manufacturer logos - used when no product photo could be
+        // verified, so platforms without a confirmed photo still show
+        // something branded instead of a plain icon.
+        const PLATFORM_LOGOS = {
+            "bayraktar akinci": "BaykarLogo.png",
+            "tai anka": "Turkish_Aerospace_Industries_logo.svg",
+            "watchkeeper": "Elbit_Systems_logo.svg",
+            "garmoosha": "Edge_Group_Logo.svg"
         };
         function getPlatformPhotoUrl(name) {
             const key = (name || '').toLowerCase().trim();
             const file = PLATFORM_PHOTOS[key];
             return file ? `https://commons.wikimedia.org/wiki/Special:FilePath/${file}?width=400` : null;
         }
+        function getPlatformLogoUrl(name) {
+            const key = (name || '').toLowerCase().trim();
+            const file = PLATFORM_LOGOS[key];
+            return file ? `https://commons.wikimedia.org/wiki/Special:FilePath/${file}?width=300` : null;
+        }
         function handlePlatformImgError(imgEl, category) {
-            // A hotlinked photo failed to load - fall back to the
-            // reliable vector icon instead of leaving a broken-image icon.
-            imgEl.outerHTML = platformIconSVG(category);
+            // A hotlinked photo/logo failed to load - fall back to the
+            // reliable vector icon instead of leaving a broken image or
+            // an empty wrapper box behind.
+            const target = imgEl.closest('.platform-media-wrap') || imgEl;
+            target.outerHTML = platformIconSVG(category);
         }
         function getPlatformCategory(name) {
             const n = (name || '').toLowerCase();
@@ -2751,9 +2781,15 @@
                 const finalUrl = safeUrl(matchedUrl || 'https://www.ga-asi.com/', 'https://www.ga-asi.com/');
                 const category = getPlatformCategory(u.name);
                 const photoUrl = getPlatformPhotoUrl(u.name);
-                const imageHtml = photoUrl
-                    ? `<img src="${photoUrl}" alt="${escapeHtml(u.name || '')}" loading="lazy" class="w-full h-full object-cover" onerror="handlePlatformImgError(this, '${category}')">`
-                    : platformIconSVG(category);
+                const logoUrl = !photoUrl ? getPlatformLogoUrl(u.name) : null;
+                let imageHtml;
+                if (photoUrl) {
+                    imageHtml = `<div class="platform-media-wrap w-full h-full"><img src="${photoUrl}" alt="${escapeHtml(u.name || '')}" loading="lazy" class="w-full h-full object-cover" onerror="handlePlatformImgError(this, '${category}')"></div>`;
+                } else if (logoUrl) {
+                    imageHtml = `<div class="platform-media-wrap w-full h-full bg-white flex items-center justify-center p-6"><img src="${logoUrl}" alt="${escapeHtml(u.name || '')} - ${escapeHtml(u.manufacturer || '')}" loading="lazy" class="max-w-full max-h-full object-contain" onerror="handlePlatformImgError(this, '${category}')"></div>`;
+                } else {
+                    imageHtml = platformIconSVG(category);
+                }
 
                 return `
                 <div class="p-3.5 sm:p-4 bg-slate-900/90 rounded-xl border border-slate-800 hover:border-amber-500/40 transition flex flex-col justify-between space-y-3">
