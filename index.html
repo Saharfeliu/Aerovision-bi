@@ -1071,6 +1071,41 @@
         // "view spec" button still links out to the real manufacturer
         // page/photo.
         // ============================================================
+        // ============================================================
+        // PLATFORM PHOTOS - real images for platforms where a verified,
+        // freely-licensed Wikimedia Commons photo was confirmed. Uses
+        // the stable Special:FilePath redirect (survives internal file
+        // renames/moves on Commons). Platforms not in this map fall
+        // back to the vector icon below - safer than guessing a filename
+        // that might not exist.
+        // ============================================================
+        const PLATFORM_PHOTOS = {
+            "bayraktar tb2": "Bayraktar_TB2.jpg",
+            "hermes 900": "Hermes_900.jpg",
+            "mq-9a reaper": "MQ-9_Reaper_UAV.jpg",
+            "mq-9b skyguardian": "MQ-9_Reaper_UAV.jpg",
+            "mq-9b seaguardian": "MQ-9_Reaper_UAV.jpg",
+            "heron tp": "IAI_Heron_TP_ILA2018.jpg",
+            "heron 1": "IAI_Heron_1_in_flight_2.JPEG",
+            "harop": "IAI_Harop.jpg",
+            "rq-4b global hawk": "RQ-4_Global_Hawk.jpg",
+            "mq-4c triton": "RQ-4_Global_Hawk.jpg",
+            "scaneagle": "Insitu_ScanEagle_X200_%E2%80%98N202SE%E2%80%99.jpg",
+            "switchblade 300": "Switchblade_300_in_flight_(200902-M-EU630-1102).jpg",
+            "wing loong i / ii": "Wing_Loong_II_side_view.jpg",
+            "orbiter 2": "Aeronautics_Orbiter_UAV.jpg",
+            "searcher mk ii": "IAI_Searcher._III.jpg"
+        };
+        function getPlatformPhotoUrl(name) {
+            const key = (name || '').toLowerCase().trim();
+            const file = PLATFORM_PHOTOS[key];
+            return file ? `https://commons.wikimedia.org/wiki/Special:FilePath/${file}?width=400` : null;
+        }
+        function handlePlatformImgError(imgEl, category) {
+            // A hotlinked photo failed to load - fall back to the
+            // reliable vector icon instead of leaving a broken-image icon.
+            imgEl.outerHTML = platformIconSVG(category);
+        }
         function getPlatformCategory(name) {
             const n = (name || '').toLowerCase();
             const loiter = ['warmate', 'harop', 'switchblade', 'skystriker', 'loitering'];
@@ -2714,13 +2749,17 @@
                     }
                 }
                 const finalUrl = safeUrl(matchedUrl || 'https://www.ga-asi.com/', 'https://www.ga-asi.com/');
-                const iconSvg = platformIconSVG(getPlatformCategory(u.name));
+                const category = getPlatformCategory(u.name);
+                const photoUrl = getPlatformPhotoUrl(u.name);
+                const imageHtml = photoUrl
+                    ? `<img src="${photoUrl}" alt="${escapeHtml(u.name || '')}" loading="lazy" class="w-full h-full object-cover" onerror="handlePlatformImgError(this, '${category}')">`
+                    : platformIconSVG(category);
 
                 return `
                 <div class="p-3.5 sm:p-4 bg-slate-900/90 rounded-xl border border-slate-800 hover:border-amber-500/40 transition flex flex-col justify-between space-y-3">
                     <div class="space-y-2.5">
                         <div class="relative h-44 sm:h-48 w-full rounded-lg overflow-hidden bg-slate-950 border border-slate-800 flex items-center justify-center">
-                            ${iconSvg}
+                            ${imageHtml}
                             <span class="absolute top-2 right-2 text-[10px] bg-slate-900/95 text-amber-400 font-bold px-2 py-0.5 rounded border border-amber-500/30">${escapeHtml(u.manufacturer || 'פלטפורמה בשירות')}</span>
                         </div>
                         <h5 class="text-sm sm:text-base font-bold text-amber-400">${escapeHtml(u.name || '')}</h5>
