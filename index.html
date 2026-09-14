@@ -190,6 +190,59 @@
             bottom: max(1.25rem, env(safe-area-inset-bottom));
         }
 
+        /* NATIVE FEEL: a subtle press-down effect on every button gives
+           tactile feedback similar to a native app, works identically on
+           every platform (unlike vibration, which iOS doesn't support). */
+        button:not(:disabled) {
+            transition: transform 100ms ease;
+        }
+        button:not(:disabled):active {
+            transform: scale(0.96);
+        }
+
+        /* Remove the default blue/gray tap-highlight flash on touch -
+           that flash is one of the biggest "this is a website" tells;
+           our own press-scale effect replaces it. */
+        * {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Extend the same press feedback to any tappable card/row that
+           isn't a button element (compare-mode country labels, etc.) -
+           .cursor-pointer is already used consistently as the "this is
+           interactive" marker throughout the app. */
+        .cursor-pointer {
+            transition: transform 100ms ease;
+        }
+        .cursor-pointer:active {
+            transform: scale(0.97);
+        }
+
+        /* Smoother, more native-feeling momentum scrolling inside
+           scrollable panels (sidebar list, modals). */
+        #sidebarCountryList, #glossaryModal, #compareModal {
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Smooth fade+scale for modals instead of an abrupt show/hide -
+           these two use fixed positioning, so staying in the DOM at
+           opacity:0 doesn't affect page layout. */
+        #glossaryModal, #compareModal {
+            transition: opacity 220ms ease;
+        }
+        #glossaryModal.hidden, #compareModal.hidden {
+            display: block !important;
+            opacity: 0;
+            pointer-events: none;
+        }
+        #glossaryModal:not(.hidden) .glass-panel, #compareModal:not(.hidden) .glass-panel {
+            animation: modalPopIn 260ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        @keyframes modalPopIn {
+            from { opacity: 0; transform: scale(0.96) translateY(6px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
         /* Light theme: blanket overrides for the Tailwind slate utility classes
            used throughout the report cards, so we don't have to touch every
            element individually. */
@@ -970,6 +1023,19 @@
             });
         }
         window.lucide = { createIcons: () => renderIcons() };
+
+        // ============================================================
+        // HAPTIC FEEDBACK - a very short vibration on key interactions,
+        // for a more native-app feel. Only works on Android (the
+        // Vibration API isn't implemented in Safari on iOS at all -
+        // an Apple limitation, not something fixable from here). Always
+        // wrapped safely so it's a silent no-op everywhere else.
+        // ============================================================
+        function haptic(ms) {
+            try {
+                if (navigator.vibrate) navigator.vibrate(ms || 8);
+            } catch (e) { /* unsupported - ignore */ }
+        }
 
         // ============================================================
         // SECURITY: HTML escaping for any data injected via innerHTML.
@@ -1986,6 +2052,15 @@
             } else {
                 document.documentElement.removeAttribute('data-theme');
             }
+            // Keep the browser/OS status bar color in sync with the theme -
+            // Android respects theme-color directly; iOS only offers the
+            // coarser black-translucent/default choice, which is the best
+            // control Apple exposes here.
+            const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+            if (themeColorMeta) themeColorMeta.setAttribute('content', theme === 'light' ? '#f8fafc' : '#050811');
+            const appleStatusBar = document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');
+            if (appleStatusBar) appleStatusBar.setAttribute('content', theme === 'light' ? 'default' : 'black-translucent');
+
             const iconName = theme === 'light' ? 'moon' : 'sun';
             ['themeIconDesktop', 'themeIconMobile'].forEach(id => {
                 const el = document.getElementById(id);
@@ -1994,6 +2069,7 @@
             lucide.createIcons();
         }
         function toggleTheme() {
+            haptic(8);
             const isLight = document.documentElement.getAttribute('data-theme') === 'light';
             const next = isLight ? 'dark' : 'light';
             localStorage.setItem('aerovision_theme', next);
@@ -2019,6 +2095,7 @@
         }
         function toggleFavorite(name, event) {
             if (event) event.stopPropagation();
+            haptic(10);
             let favs = getFavorites();
             if (favs.includes(name)) {
                 favs = favs.filter(n => n !== name);
@@ -2057,6 +2134,7 @@
             }
         }
         function setCountryStatus(name, key) {
+            haptic(10);
             try {
                 const current = getCountryStatus(name);
                 if (current === key) {
@@ -2132,6 +2210,7 @@
             });
         }
         function toggleSidebar() {
+            haptic(8);
             const sidebar = document.getElementById('countrySidebar');
             const backdrop = document.getElementById('sidebarBackdrop');
             const nowOpen = sidebar.getAttribute('data-open') !== 'true';
@@ -2166,6 +2245,7 @@
             document.getElementById('comparePickerHint').textContent = COMPARE_MODE_BTNS[mode].hint;
         }
         function openCompareMode() {
+            haptic(10);
             const grid = document.getElementById('compareCheckboxGrid');
             grid.innerHTML = availableCountries.map((name, i) => {
                 const flag = presetData[name].flag || '🌐';
@@ -2214,6 +2294,7 @@
             { term: "Zeitenwende", def: "גרמנית: \"נקודת מפנה\" - המונח לתפנית ההיסטורית במדיניות הביטחון הגרמנית מאז 2022, שכללה הגדלה דרמטית של תקציב הביטחון." }
         ];
         function openGlossary() {
+            haptic(10);
             document.getElementById('glossaryList').innerHTML = GLOSSARY_TERMS.map(g => `
                 <div class="p-3 bg-slate-900/80 rounded-lg border border-slate-800">
                     <span class="text-amber-400 font-bold text-sm">${escapeHtml(g.term)}</span>
@@ -2233,6 +2314,7 @@
         // mode, so it works the same on mobile and desktop.
         // ============================================================
         function toggleFullscreen() {
+            haptic(12);
             const active = document.body.classList.toggle('fullscreen-mode');
             document.getElementById('exitFullscreenBtn').classList.toggle('hidden', !active);
             if (active) {
@@ -2490,6 +2572,7 @@
         function loadCountry(countryName) {
             document.getElementById('countryInput').value = countryName;
             if (presetData[countryName]) {
+                haptic(10);
                 document.getElementById('errorState').classList.add('hidden');
                 currentCountryKey = countryName;
                 transitionToCountry(() => {
