@@ -513,7 +513,7 @@
                     מחקר שוק כטב"מים ומודיעין גיאופוליטי
                 </h2>
                 <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                    בחר מדינה מרשימת הדוחות הזמינים לקבלת דוח מודיעיני מקיף ב-7 צירים אסטרטגיים, כולל מפרט פלטפורמות, תמונות אמיתיות וקישורים ישירים לאתרי היצרניות.
+                    בחר מדינה מרשימת הדוחות הזמינים לקבלת דוח מודיעיני מקיף ב-8 צירים אסטרטגיים, כולל מפרט פלטפורמות, תמונות אמיתיות וקישורים ישירים לאתרי היצרניות.
                 </p>
 
                 <form onsubmit="handleSearch(event)" class="flex flex-col sm:flex-row gap-2 pt-1 sm:pt-2">
@@ -1119,6 +1119,46 @@
             "watchkeeper": "Elbit_Systems_logo.svg",
             "garmoosha": "Edge_Group_Logo.svg"
         };
+        // ============================================================
+        // PLATFORM CAPABILITIES & PAYLOAD - what the manufacturer itself
+        // publishes about what the platform CAN carry (sensors, weapons,
+        // max payload weight). This is the platform's general published
+        // capability profile, NOT a confirmed statement of what any one
+        // country's specific unit is actually configured with - buyers
+        // almost never publish that level of detail, with rare
+        // exceptions (noted directly where found, e.g. via US DSCA
+        // arms-sale notices, which are legally public record).
+        // ============================================================
+        const PLATFORM_PAYLOADS = {
+            "bayraktar akinci": "מטען מרבי כ-1,350 ק\"ג. חימוש: פצצות מונחות Teber-82/83, טילי שיוט SOM-A (בפיתוח/בשירות מוקדם), רקטות לייזר Cirit, תחמושת חכמה זעירה MAM-L/MAM-C. מכ\"ם AESA ומערכות SATCOM. אין אישור פומבי לתצורה מדויקת אצל מדינה ספציפית - זהו הפרופיל שהיצרן (Baykar) מפרסם.",
+            "bayraktar tb2": "מטען מרבי כ-150 ק\"ג (4 נקודות תלייה). חימוש עיקרי: תחמושת חכמה זעירה MAM-L ו-MAM-C (מונחות לייזר). מערכת אלקטרו-אופטית/אינפרא-אדום CATS לזיהוי ותקיפה. גרסאות מתקדמות כוללות גם יכולת SAR. התצורה המדויקת (כמות/סוג תחמושת) משתנה בין מדינות ולרוב אינה מפורסמת.",
+            "ch-4": "מטען מרבי כ-345-450 ק\"ג. חימוש: טילי נ\"ט מונחים AR-1/AR-2, פצצות מונחות FT-9/FT-10, רקטות מונחות BRM1. חיישן אלקטרו-אופטי/אינפרא-אדום וחלק מהגרסאות כוללות מכ\"ם SAR. סין אינה מפרסמת פרטי תצורה ספציפיים למדינות רוכשות.",
+            "ch-92a": "פלטפורמה טקטית קטנה יותר ממשפחת CASC - מטען מוערך עד כ-100 ק\"ג. חימוש: טילים/פצצות קטנות מונחות (משפחת AR), מגדל אלקטרו-אופטי/אינפרא-אדום. פרטי תצורה ספציפיים למדינה אינם מתפרסמים על ידי סין.",
+            "garmoosha": "מטען מאומת מהיצרן (EDGE Group): עד 120 ק\"ג, טווח 150 ק\"מ, סיבולת 8 שעות. פלטפורמת ISR בעיקרה (לא תקיפה) - חיישני EO/IR, מודיעין אלקטרוני (EW), מכ\"ם ימי, וממסר תקשורת. אין פרסום של חימוש תוקפני עבור הדגם הבסיסי.",
+            "harop": "זוהי בעצמה תחמושת משוטטת (לא נושאת מטען נפרד) - ראש קרב מובנה במשקל מוערך 16-23 ק\"ג. פועלת בשני מצבים: פגיעה עצמאית במקורות קרינת מכ\"ם (Anti-Radiation) או הכוונת אדם-בלולאה דרך מצלמה אלקטרו-אופטית.",
+            "hermes 900": "מטען מרבי כ-350 ק\"ג, תא מטען רב-ייעודי. חיישנים: סדרת EO/IR (CoMPASS), מכ\"ם SAR/GMTI, יכולות SIGINT/COMINT/ELINT, מכ\"ם פטרול ימי. גרסת \"הרמס 900 כוכב\" של צה\"ל כוללת גם יכולת נשיאת תחמושת מדויקת. תצורה מדויקת למדינה ספציפית לרוב אינה מפורסמת.",
+            "heron 1": "מטען מרבי כ-250 ק\"ג. חיישנים: EO/IR, מכ\"ם SAR, ציוד COMINT, מכ\"ם פיקוח ימי. פלטפורמת ISR בעיקרה - בדרך כלל אינה חמושה.",
+            "heron tp": "מטען מרבי כ-1,000 ק\"ג ייעודי (עד 2,700 ק\"ג משקל המראה כולל). יכולת נשיאת מספר מטענים במקביל: SAR/GMTI, EO/IR, SIGINT. דווח על יכולת נשיאת תחמושת מדויקת בגרסאות מבצעיות. גובה טיסה קיצוני (עד כ-45,000 רגל).",
+            "mq-4c triton": "מטען ייעודי: מכ\"ם פיקוח ימי רב-תפקודי AN/ZPY-3 (MFAS), חיישן EO/IR, מערכת ESM (איתור אלקטרוני), מקלט AIS. פלטפורמת ISR ימית טהורה - אינה נושאת חימוש.",
+            "mq-9a reaper": "מטען מרבי כ-1,700 ק\"ג (כולל פנימי/חיצוני). חימוש טיפוסי: עד 4 טילי AGM-114 הלפייר ועד 2 פצצות מונחות GBU-12/GBU-38. חיישן MTS-B אלקטרו-אופטי/אינפרא-אדום ומכ\"ם SAR (Lynx). <b>דוגמה מאומתת:</b> פולין רכשה בפועל 800 טילי AGM-114R2 הלפייר במסגרת עסקת DSCA אמריקאית מפורסמת (2024) - זהו אחד המקרים הנדירים שבהם יש אישור פומבי מדויק לתצורת חימוש של מדינה ספציפית.",
+            "mq-9b seaguardian": "גרסה ימית של משפחת MQ-9B. מטען: מכ\"ם פיקוח ימי, EO/IR, יכולת פריסת מצופי סונאר (sonobuoys), מקלט AIS - מיועדת בעיקר לפטרול ימי, עם אפשרות חימוש בתצורות מסוימות.",
+            "mq-9b skyguardian": "גרסת יבשה מתקדמת עם מערכת הימנעות מתנגשויות (DAA) המאפשרת טיסה במרחב אווירי אזרחי. יכולת נשיאת חימוש מדויק דומה ל-MQ-9A (הלפייר/GBU), בכפוף לאישורי יצוא אמריקאיים (ITAR) שמשתנים ממדינה למדינה.",
+            "orbiter 2": "כטב\"ם טקטי זעיר - מטען כ-2-3 ק\"ג, בעיקר ראש מצלמה EO/IR יום/לילה. משוגר-יד, מיועד לסיור טקטי קרוב ולא לנשיאת חימוש.",
+            "pegaz": "פרטי מטען וחימוש מדויקים אינם מתפרסמים בפומבי על ידי סרביה. מדווח על חיישן אלקטרו-אופטי; קיימים דיווחים לא רשמיים על פיתוח יכולת נשיאת תחמושת קלה, אך ללא אישור רשמי.",
+            "rq-4b global hawk": "מטען ייעודי כ-1,360 ק\"ג. חיישנים: EO/IR, מכ\"ם SAR/GMTI, וגרסאות SIGINT ייעודיות (Block 30/40). פלטפורמת ISR אסטרטגית טהורה - אינה נושאת חימוש כלל. טווח וגובה קיצוניים (כ-60,000 רגל, מעל 32 שעות סיבולת).",
+            "scaneagle": "כטב\"ם טקטי זעיר - מטען כ-3.4 ק\"ג, חיישן EO/IR. משוגר בקטפולטה, מיועד לסיור ימי/יבשתי טקטי - אינו נושא חימוש.",
+            "searcher mk ii": "מטען כ-120 ק\"ג. חיישנים: EO/IR, ובגרסאות מסוימות SAR ו-COMINT. פלטפורמת ISR טקטית-בינונית, בדרך כלל אינה חמושה.",
+            "switchblade 300": "זוהי בעצמה תחמושת משוטטת נישאת-תרמיל - ראש קרב קל נגד כוח אדם/שריון קל, משקל כולל כ-2.5-5.5 ק\"ג בהתאם לדגם. הכוונה בלולאת אדם דרך שידור מצלמה חי.",
+            "tai anka": "מטען מרבי כ-200 ק\"ג (עד 350 ק\"ג בגרסת Anka-S). חיישנים: EO/IR, SAR, SIGINT. חימוש: תחמושת חכמה זעירה MAM-L/MAM-C או טילים טורקיים ייעודיים (Bozok, L-UMTAS).",
+            "teng yun": "פרטי מטען וחימוש מדויקים אינם מתפרסמים - טייוואן שומרת על חשאיות מוגברת סביב הפלטפורמה בשל רגישות ביטחונית מול סין. ידוע כי הפלטפורמה מיועדת לתפקידי סיור ותקיפה, בדמיון לגודל ולתפקיד ה-MQ-9 האמריקאי.",
+            "warmate": "זוהי בעצמה תחמושת משוטטת טקטית - משקל כולל כ-1.4-4.5 ק\"ג בהתאם לדגם, ראש קרב HE/HEAT/תרמובארי קטן (כ-200-400 גרם חומר נפץ). הכוונה אלקטרו-אופטית.",
+            "watchkeeper": "מטען: EO/IR ומכ\"ם I-Master (SAR/GMTI) - פלטפורמת ISR בלבד עבור הצבא הבריטי, ללא יכולת נשיאת חימוש.",
+            "wing loong i / ii": "מטען מרבי: כ-100 ק\"ג (Wing Loong I) עד כ-480 ק\"ג (Wing Loong II). חימוש: משפחת טילי Blue Arrow אוויר-קרקע, פצצות מונחות מסדרת GB. מגדל EO/IR. פלטפורמה מיוצאת נרחבות עם תצורות חימוש משתנות בין מדינות, לרוב לא מפורטות פומבית."
+        };
+        function getPlatformPayload(name) {
+            const key = (name || '').toLowerCase().trim();
+            return PLATFORM_PAYLOADS[key] || null;
+        }
         function getPlatformPhotoUrl(name) {
             const key = (name || '').toLowerCase().trim();
             const file = PLATFORM_PHOTOS[key];
@@ -2649,15 +2689,75 @@
             }
         }
 
+        // ============================================================
+        // SEARCH ALIASES - the country data keys are exact Hebrew names,
+        // but people search using variant spellings, different quote
+        // characters, English names, or abbreviations. This normalizes
+        // input and matches against a list of known aliases per country.
+        // ============================================================
+        function normalizeSearchText(s) {
+            return (s || '')
+                .toString()
+                .trim()
+                .toLowerCase()
+                .replace(/["'׳״]/g, '')
+                .replace(/[-–—]+/g, ' ')
+                .replace(/\s+/g, ' ');
+        }
+        const COUNTRY_ALIASES = {
+            'ארה"ב': ['ארהב', 'ארצות הברית', 'ארצות ברית', 'artzot habrit', 'united states', 'united states of america', 'usa', 'u.s.a', 'us', 'u.s', 'america'],
+            'איחוד האמירויות': ['איחוד האמירויות הערביות', 'האמירויות', 'uae', 'united arab emirates', 'emirates'],
+            'יוון': ['greece', 'hellas'],
+            'הודו': ['india', 'bharat'],
+            'יפן': ['japan', 'nippon'],
+            'ערב הסעודית': ['סעודיה', 'סעודיא', 'saudi arabia', 'saudi', 'ksa'],
+            'רומניה': ['romania'],
+            'דרום קוריאה': ['קוריאה', 'korea', 'south korea', 'republic of korea'],
+            'אוקראינה': ['ukraine'],
+            "אזרבייג'ן": ['אזרבייגן', 'azerbaijan'],
+            'מרוקו': ['morocco', 'al maghrib'],
+            'בחריין': ['bahrain'],
+            'וייטנאם': ['vietnam', 'viet nam'],
+            'הפיליפינים': ['פיליפינים', 'philippines'],
+            'קולומביה': ['colombia'],
+            'גרמניה': ['germany', 'deutschland'],
+            'איטליה': ['italy', 'italia'],
+            'בריטניה': ['אנגליה', 'הממלכה המאוחדת', 'uk', 'u.k', 'united kingdom', 'britain', 'great britain', 'england'],
+            'אוסטרליה': ['australia'],
+            'טייוואן': ['taiwan'],
+            'סין': ['china', 'prc'],
+            'ישראל': ['israel'],
+            'סרביה': ['serbia'],
+            'פינלנד': ['finland'],
+            'טורקיה': ['turkey', 'turkiye', 'türkiye']
+        };
+        // Build a flat lookup: normalized alias -> actual country key,
+        // generated once from the alias list plus each country's own name.
+        const COUNTRY_ALIAS_LOOKUP = (() => {
+            const map = {};
+            availableCountries.forEach(key => {
+                map[normalizeSearchText(key)] = key;
+                (COUNTRY_ALIASES[key] || []).forEach(alias => {
+                    map[normalizeSearchText(alias)] = key;
+                });
+            });
+            return map;
+        })();
+        function resolveCountryQuery(query) {
+            if (presetData[query]) return query;
+            const normalized = normalizeSearchText(query);
+            return COUNTRY_ALIAS_LOOKUP[normalized] || null;
+        }
         function handleSearch(event) {
             event.preventDefault();
             const countryQuery = document.getElementById('countryInput').value.trim();
             if (!countryQuery) return;
             document.getElementById('errorState').classList.add('hidden');
-            if (presetData[countryQuery]) {
-                currentCountryKey = countryQuery;
+            const resolvedKey = resolveCountryQuery(countryQuery);
+            if (resolvedKey) {
+                currentCountryKey = resolvedKey;
                 transitionToCountry(() => {
-                    renderDashboard(presetData[countryQuery]);
+                    renderDashboard(presetData[resolvedKey]);
                     updateSidebarActive();
                 });
             } else {
@@ -2782,6 +2882,7 @@
                 const category = getPlatformCategory(u.name);
                 const photoUrl = getPlatformPhotoUrl(u.name);
                 const logoUrl = !photoUrl ? getPlatformLogoUrl(u.name) : null;
+                const payload = getPlatformPayload(u.name);
                 let imageHtml;
                 if (photoUrl) {
                     imageHtml = `<div class="platform-media-wrap w-full h-full"><img src="${photoUrl}" alt="${escapeHtml(u.name || '')}" loading="lazy" class="w-full h-full object-cover" onerror="handlePlatformImgError(this, '${category}')"></div>`;
@@ -2790,6 +2891,16 @@
                 } else {
                     imageHtml = platformIconSVG(category);
                 }
+                // Note: payload text is authored by us (not user input), so it's
+                // inserted directly rather than through escapeHtml, since it
+                // intentionally contains a <b> tag for the one confirmed
+                // country-specific example (Poland/Hellfire via DSCA).
+                const payloadHtml = payload
+                    ? `<div class="mt-2 p-2.5 bg-slate-950/60 rounded-lg border border-slate-800/80">
+                        <span class="text-[10px] font-bold text-slate-500 block mb-1">מטען וחימוש (פרופיל כללי של הפלטפורמה):</span>
+                        <p class="text-[11px] text-slate-300 leading-relaxed">${payload}</p>
+                       </div>`
+                    : '';
 
                 return `
                 <div class="p-3.5 sm:p-4 bg-slate-900/90 rounded-xl border border-slate-800 hover:border-amber-500/40 transition flex flex-col justify-between space-y-3">
@@ -2800,6 +2911,7 @@
                         </div>
                         <h5 class="text-sm sm:text-base font-bold text-amber-400">${escapeHtml(u.name || '')}</h5>
                         <p class="text-xs text-slate-300 leading-relaxed">${escapeHtml(u.desc || '')}</p>
+                        ${payloadHtml}
                     </div>
                     <a href="${finalUrl}" rel="noopener"
                        class="w-full py-2.5 px-3 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow-md hover:shadow-amber-500/20 transition flex items-center justify-center gap-2 mt-auto text-center cursor-pointer">
@@ -2988,7 +3100,7 @@
                 : `<span style="color:#b45309;font-weight:700;">⚠ אומדן ראשוני - טרם אומת מול מקור</span>`;
 
             return `
-            <div dir="rtl" style="font-family: Arial, 'Segoe UI', sans-serif; background:#ffffff; color:${navy}; padding:22mm 16mm; width:760px; box-sizing:border-box;">
+            <div dir="rtl" style="font-family: Arial, 'Segoe UI', sans-serif; background:#ffffff; color:${navy}; padding:22mm 16mm; width:100%; max-width:210mm; box-sizing:border-box;">
                 <div style="display:flex; align-items:center; justify-content:space-between; gap:14px; padding-bottom:16px; border-bottom:3px solid ${gold}; margin-bottom:18px;">
                     <div style="display:flex; align-items:center; gap:14px;">
                         ${logoSvg}
