@@ -194,7 +194,7 @@
         #compareModal {
             padding-top: max(0.75rem, env(safe-area-inset-top));
         }
-        #glossaryModal {
+        #glossaryModal, #simulatorModal {
             padding-top: max(0.75rem, env(safe-area-inset-top));
         }
         #toast {
@@ -231,22 +231,22 @@
 
         /* Smoother, more native-feeling momentum scrolling inside
            scrollable panels (sidebar list, modals). */
-        #sidebarCountryList, #glossaryModal, #compareModal {
+        #sidebarCountryList, #glossaryModal, #compareModal, #simulatorModal {
             -webkit-overflow-scrolling: touch;
         }
 
         /* Smooth fade+scale for modals instead of an abrupt show/hide -
            these two use fixed positioning, so staying in the DOM at
            opacity:0 doesn't affect page layout. */
-        #glossaryModal, #compareModal {
+        #glossaryModal, #compareModal, #simulatorModal {
             transition: opacity 220ms ease;
         }
-        #glossaryModal.hidden, #compareModal.hidden {
+        #glossaryModal.hidden, #compareModal.hidden, #simulatorModal.hidden {
             display: block !important;
             opacity: 0;
             pointer-events: none;
         }
-        #glossaryModal:not(.hidden) .glass-panel, #compareModal:not(.hidden) .glass-panel {
+        #glossaryModal:not(.hidden) .glass-panel, #compareModal:not(.hidden) .glass-panel, #simulatorModal:not(.hidden) .glass-panel {
             animation: modalPopIn 260ms cubic-bezier(0.16, 1, 0.3, 1);
         }
         @keyframes modalPopIn {
@@ -440,6 +440,9 @@
                     <button onclick="event.stopPropagation(); toggleFullscreen()" title="מסך מלא לדוח" class="p-2 rounded-lg bg-slate-800 text-amber-400 hover:bg-slate-700 border border-slate-700">
                         <i data-lucide="maximize" class="w-4 h-4"></i>
                     </button>
+                    <button onclick="event.stopPropagation(); openSimulator()" title="סימולטור התאמת מוצר" class="p-2 rounded-lg bg-slate-800 text-amber-400 hover:bg-slate-700 border border-slate-700">
+                        <i data-lucide="target" class="w-4 h-4"></i>
+                    </button>
                     <button onclick="event.stopPropagation(); openGlossary()" title="מילון מונחים" class="p-2 rounded-lg bg-slate-800 text-amber-400 hover:bg-slate-700 border border-slate-700">
                         <i data-lucide="book-open" class="w-4 h-4"></i>
                     </button>
@@ -460,6 +463,10 @@
                 </button>
                 <button onclick="toggleFullscreen()" title="מסך מלא לדוח" class="p-2 rounded-lg bg-slate-800 text-amber-400 hover:bg-slate-700 border border-slate-700 cursor-pointer">
                     <i data-lucide="maximize" class="w-4 h-4"></i>
+                </button>
+                <button onclick="openSimulator()" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white border border-slate-700 transition flex items-center gap-1.5 cursor-pointer">
+                    <i data-lucide="target" class="w-4 h-4 text-amber-500"></i>
+                    <span>סימולטור מוצר</span>
                 </button>
                 <button onclick="openGlossary()" title="מילון מונחים" class="p-2 rounded-lg bg-slate-800 text-amber-400 hover:bg-slate-700 border border-slate-700 cursor-pointer">
                     <i data-lucide="book-open" class="w-4 h-4"></i>
@@ -611,11 +618,8 @@
                 </div>
             </div>
 
-            <!-- Score methodology explanation - hidden by default, toggled by the info button above -->
-            <div id="scoreMethodologyPanel" class="hidden -mt-2 p-3 bg-slate-900/80 rounded-xl border border-amber-500/20 text-[11px] sm:text-xs text-slate-300 leading-relaxed no-print">
-                <span class="text-amber-400 font-bold block mb-1">איך הציון מחושב:</span>
-                נוסחה שקופה עם 4 מרכיבים, לא הערכה סובייקטיבית: <b>25%</b> גודל תקציב הביטחון (סולם לוגריתמי) · <b>25%</b> אחוז מהתמ"ג המוקדש לביטחון · <b>30%</b> רמת הסיכון הגיאופוליטי (מסעיף 1 למעלה) · <b>20%</b> פתיחות השוק (הפוך מחוזק התעשייה המקומית שבסעיף 4). כל מרכיב מחושב מנתונים שכבר מוצגים בדוח הזה עצמו.
-            </div>
+            <!-- Score methodology + per-country breakdown - hidden by default, toggled by the info button above -->
+            <div id="scoreMethodologyPanel" class="hidden -mt-2 p-3 sm:p-4 bg-slate-900/80 rounded-xl border border-amber-500/20 no-print space-y-3"></div>
 
             <!-- COMPARE MODE BUTTON (mobile fallback) -->
             <button onclick="openCompareMode()" class="sm:hidden w-full py-2.5 rounded-xl bg-slate-800/90 text-amber-400 border border-slate-700 text-xs font-semibold flex items-center justify-center gap-2 no-print">
@@ -711,6 +715,15 @@
                         <h4 class="text-xs font-bold text-red-400">איומים גיאופוליטיים וגבולות רגישים</h4>
                         <p id="geopoliticalThreats" class="text-xs sm:text-sm text-slate-300 leading-relaxed"></p>
                     </div>
+                </div>
+
+                <!-- Israel-specific relations analysis - the central BD lens of this tool -->
+                <div id="israelRelationsPanel" class="p-3.5 sm:p-4 bg-gradient-to-br from-blue-950/40 to-slate-900/80 rounded-xl border border-blue-500/25 space-y-2">
+                    <h4 class="text-xs font-bold text-blue-300 flex items-center gap-1.5">
+                        <i data-lucide="target" class="w-3.5 h-3.5"></i>
+                        זווית ישראלית - יחסים, הזדמנויות ומגבלות
+                    </h4>
+                    <p id="israelRelations" class="text-xs sm:text-sm text-slate-300 leading-relaxed"></p>
                 </div>
             </div>
 
@@ -962,6 +975,22 @@
                 <button onclick="closeGlossary()" class="p-1.5 rounded-lg bg-slate-800/80 text-slate-400 hover:text-white hover:bg-slate-700 cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button>
             </div>
             <div id="glossaryList" class="space-y-2"></div>
+        </div>
+    </div>
+
+    <!-- PRODUCT FIT SIMULATOR -->
+    <div id="simulatorModal" class="hidden fixed inset-0 z-[150] bg-black/75 backdrop-blur-sm p-3 sm:p-6 overflow-y-auto no-print">
+        <div class="glass-panel rounded-2xl max-w-4xl mx-auto my-4 sm:my-8 p-4 sm:p-6 space-y-4 military-glow border-amber-500/20">
+            <div class="sticky top-0 -mt-4 sm:-mt-6 -mx-4 sm:-mx-6 px-4 sm:px-6 pt-4 sm:pt-6 pb-3 z-10 flex items-center justify-between border-b border-slate-800 bg-[var(--panel-bg)] backdrop-blur-xl rounded-t-2xl">
+                <h3 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">
+                    <i data-lucide="target" class="w-5 h-5 text-amber-400"></i>
+                    סימולטור התאמת מוצר
+                </h3>
+                <button onclick="closeSimulator()" class="p-1.5 rounded-lg bg-slate-800/80 text-slate-400 hover:text-white hover:bg-slate-700 cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">בחר סוג מוצר ביטחוני, והמערכת תדרג מחדש את כל שווקי היעד לפי התאמה ספציפית למוצר זה - על בסיס הנתונים שכבר קיימים בדוחות (תקציב, סיכון, פערים מבצעיים ותעשייה מקומית).</p>
+            <div id="simulatorProductGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2"></div>
+            <div id="simulatorResults" class="hidden space-y-3"></div>
         </div>
     </div>
 
@@ -1279,6 +1308,7 @@
                 profileSummary: "פולין מהווה כיום את אחת המדינות בעלות קצב ההתחמשות וההתרחבות הביטחונית הגבוה באירופה. בעקבות המלחמה באוקראינה והמתיחות בגבול בלארוס, המדינה הגדילה דרמטית את תקציב הביטחון מ-2% לכ-4.2% מה-GDP, תוך דגש על רכש מערכות אוטונומיות, כטב\"מים טקטיים ומערכות הגנה אווירית.",
                 alliances: ["חברה בנאט\"ו (NATO)", "איחוד אירופי (EU)", "ברית אסטרטגית הדוקה עם ארה\"ב", "שיתוף פעולה ביטחוני וטכנולוגי עם ישראל"],
                 geopoliticalThreats: "גבול משותף מתוח עם בלארוס ומובלעת קלינינגרד (רוסיה). איום ישיר של חדירת כטב\"מים וטילים, לצד צורך דחוף באבטחת מזרח אגף נאט\"ו (מסדרון סובאלקי - Suwalki Gap).",
+                israelRelations: "יחסי הביטחון עם פולין חיוביים ומתפתחים, עם שיתוף פעולה טכנולוגי קיים. **דריסת רגל קיימת:** כטב\"מי Orbiter של Aeronautics כבר בשירות פולני - בסיס מוכח להרחבה. **הזדמנות:** פולין רכשה TB2 טורקי ו-Reaper אמריקאי, אך עדיין חסרה מענה ל-C-UAV ולניווט עמיד-שיבושים - בדיוק החוזקות הישראליות. **מגבלה:** חברות נאט\"ו מחייבת תאימות תקנים, ודרישת PGZ לשילוב תעשייתי מקומי מחייבת מודל JV ולא מכירה ישירה.",
                 uavFleet: [
                     { name: "Bayraktar TB2", manufacturer: "Baykar Tech (טורקיה)", desc: "כטב\"ם תקיפה וסיור בינוני (MALE) עם יכולת נשיאת חימוש מדויק - 24 יחידות בשירות מבצעי מלא בחיל האוויר הפולני.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/d/d4/Bayraktar_TB2_%22Vanagas%22_03.jpg", websiteUrl: "https://baykartech.com/en/uav/bayraktar-tb2/" },
                     { name: "MQ-9A Reaper", manufacturer: "General Atomics (ארה\"ב)", desc: "חכירה ורכש של כטב\"מי איסוף מודיעין, תקיפה וסיור ארוך טווח בשהייה ממושכת בגובה רב.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/a/a4/MQ-9_Reaper_in_flight_%282007%29.jpg", websiteUrl: "https://www.ga-asi.com/remotely-piloted-aircraft/mq-9a" },
@@ -1319,6 +1349,7 @@
                 profileSummary: "איחוד האמירויות היא מעצמת רכש טכנולוגית במפרץ הפרסי. המדינה משקיעה מיליארדי דולרים באוטונומיה, בינה מלאכותית וכטב\"מים מתקדמים, תוך שאיפה לבנות יכולת ייצור ופיתוח עצמאית דרך תאגיד הענק EDGE Group.",
                 alliances: ["הסכמי אברהם (עם ישראל)", "ברית הדוקה עם ארה\"ב", "חברה ב-GCC", "שותפויות טכנולוגיות עם אסיה ואירופה"],
                 geopoliticalThreats: "איום כטב\"מים וטילים מצד החות'ים בתימן והשפעה איראנית במפרץ הפרסי. צורך קריטי בהגנה על מתקני נפט, נמלים ותשתיות קריטיות.",
+                israelRelations: "הסכמי אברהם (2020) פתחו שוק שהיה סגור לחלוטין, עם נורמליזציה מלאה ושיתופי פעולה ביטחוניים גלויים. **הזדמנות:** תקציב גדול, נכונות לטכנולוגיה מתקדמת, וצורך ב-C-UAV מול איום איראני משותף - אינטרס ביטחוני חופף. **מגבלה מהותית:** EDGE Group המקומית צומחת במהירות והופכת ממתחרה-בכוח למתחרה-בפועל; בנוסף, רגישות סביב העברת טכנולוגיה רגישה למדינה ערבית.",
                 uavFleet: [
                     { name: "Wing Loong I / II", manufacturer: "AVIC (סין)", desc: "כטב\"מי תקיפה ומודיעין ארוכי טווח הפועלים בשירות פעיל בחיל האוויר האמירתי.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Wing_Loong_II_side_view.jpg", websiteUrl: "https://www.catic.cn/" },
                     { name: "Garmoosha", manufacturer: "EDGE Group (איחוד האמירויות)", desc: "כטב\"ם מסוק (VTOL) טקטי בפיתוח וייצור מקומי מתקדם למשימות סיור ימי ויבשתי.", imageUrl: "https://edgegroup.ae/sites/default/files/styles/16_9_1920x1080/public/2021-02/GARMOOSHA.jpg?itok=3zK7sZ_O", websiteUrl: "https://edgegroup.ae/" },
@@ -1353,6 +1384,7 @@
                 profileSummary: "יוון משקיעה רבות בשדרוג צבאה על רקע המתיחות האזורית בים התיכון. המדינה מתמקדת בהצטיידות במל\"טי מודיעין ימי וניטור גבולות ימיים ואוויריים, תוך ניצול קרנות הגנה אירופיות (EDF).",
                 alliances: ["חברה בנאט\"ו", "איחוד אירופי", "ברית אסטרטגית הדוקה עם ישראל וקפריסין"],
                 geopoliticalThreats: "חיכוך ימי ואווירי מתמשך באגן הים התיכון. צורך בניטור רציף של מאות איים וגבולות מים טריטוריאליים.",
+                israelRelations: "יחסי ישראל-יוון התהדקו משמעותית בעשור האחרון, כולל תרגילים אוויריים משותפים והסכמי ביטחון. **הזדמנות מובהקת:** יוון כבר חוכרת Heron של IAI - יחסי אמון קיימים ומוכחים. הצורך בסיור ימי בים התיכון מתאים בדיוק ליכולות הימיות של Hermes 900 ו-Heron. **מגבלה:** מגבלות תקציב ותלות בקרנות EDF אירופיות שמעדיפות ספקים אירופיים.",
                 uavFleet: [
                     { name: "Heron 1", manufacturer: "תעשייה אווירית - IAI (ישראל)", desc: "חכירה ורכש של מל\"טי סיור ימי ואיסוף מודיעין ארוך טווח.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/b/b5/IAI_Heron-1_Maritime_patrol_UAV_Shoval_Yam.jpg", websiteUrl: "https://www.iai.co.il/p/heron" },
                     { name: "MQ-9B SeaGuardian", manufacturer: "General Atomics (ארה\"ב)", desc: "תהליכי רכש למל\"טי סיור ימי מתקדמים לניטור מים כלכליים.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/a/a4/MQ-9_Reaper_in_flight_%282007%29.jpg", websiteUrl: "https://www.ga-asi.com/remotely-piloted-aircraft/mq-9b-seaguardian" },
@@ -1386,6 +1418,7 @@
                 profileSummary: "הודו היא מארבעת תקציבי הביטחון הגדולים בעולם. המדינה עוברת תהליך מודרניזציה מקיף עם מעבר חד לייצור מקומי (Make in India), תוך הצטיידות במאות כטב\"מים מכל הסוגים להגנה על גבולותיה הארוכים.",
                 alliances: ["חברה ב-QUAD (עם ארה\"ב, יפן, אוסטרליה)", "בריתות הגנה עם ישראל וצרפת", "חברה ב-BRICS"],
                 geopoliticalThreats: "עימותים בגבול ההררי עם סין (LAC) ומתיחות מתמשכת בגבול פקיסטן. צורך קריטי בהפעלה בגבהים קיצוניים ותנאי קור קשים.",
+                israelRelations: "הודו היא שותפה אסטרטגית ותיקה ומהלקוחות הגדולים של התעשייה הביטחונית הישראלית. **דריסת רגל עמוקה:** Heron ו-Searcher בשירות הודי כבר שנים, והרכבה מקומית של Hermes 900 בשותפות Adani-אלביט. **הזדמנות:** מדיניות Make in India דווקא מיטיבה עם ישראל בזכות נכונות מוכחת להעברת ידע. **מגבלה:** תחרות גוברת מ-DRDO המקומי ומארה\"ב, ולחץ מתמיד להעמקת הייצור המקומי.",
                 uavFleet: [
                     { name: "Heron TP", manufacturer: "IAI (ישראל)", desc: "עמוד השדרה של צי המל\"טים ההודי מזה עשורים לאיסוף מודיעין וסיור גבולות בגובה רב.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/b/b5/IAI_Heron-1_Maritime_patrol_UAV_Shoval_Yam.jpg", websiteUrl: "https://www.iai.co.il/p/heron-tp" },
                     { name: "MQ-9B SkyGuardian", manufacturer: "General Atomics (ארה\"ב)", desc: "עסקת ענק לרכש 31 מל\"טי תקיפה ומודיעין עבור שלושת זרועות הצבא ההודי.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/a/a4/MQ-9_Reaper_in_flight_%282007%29.jpg", websiteUrl: "https://www.ga-asi.com/remotely-piloted-aircraft/mq-9b-skyguardian" },
@@ -1519,6 +1552,7 @@
                 profileSummary: "דרום קוריאה מחזיקה בתעשיית הגנה עצמאית ומתקדמת מאוד (Hanwha, KAI), אך עדיין רוכשת רכיבים זרים נבחרים - במיוחד בתחומי C-UAV ואלקטרואופטיקה - לאחר חדירות חוזרות של כטב\"מי סיור צפון-קוריאניים למרחב האווירי שלה ב-2022-2023.",
                 alliances: ["ברית הגנה הדוקה עם ארה\"ב", "חברה ב-QUAD Plus / שיתופי פעולה עם יפן ואוסטרליה"],
                 geopoliticalThreats: "חדירות חוזרות של כטב\"מי סיור צפון-קוריאניים דרך אזור המפורז (DMZ); איום טילים בליסטיים מתמשך; מתיחות אזורית מול סין סביב אזור הזיהוי האווירי (ADIZ).",
+                israelRelations: "יחסי ישראל-דרום קוריאה כוללים שיתוף פעולה טכנולוגי, אך קוריאה היא בראש ובראשונה **מתחרה** ולא רק לקוחה. **מגבלה מהותית:** Hanwha ו-KAI מפתחות עצמאית ברמה גבוהה ומייצאות בעצמן לשווקים שלישיים - חפיפה תחרותית ישירה. **הזדמנות מוגבלת:** רכיבים נבחרים בלבד (C-UAV, אלקטרואופטיקה) שבהם יש פער מקומי.",
                 uavFleet: [
                     { name: "RQ-4B Global Hawk", manufacturer: "Northrop Grumman (ארה\"ב)", desc: "מל\"ט HALE אסטרטגי לאיסוף מודיעין ארוך טווח מול צפון קוריאה.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/4/4d/RQ-4A_%E2%80%9CGlobal_Hawk%E2%80%9D_%2849871332301%29.jpg", websiteUrl: "https://www.northropgrumman.com/what-we-do/aircraft/global-hawk" },
                     { name: "Heron 1", manufacturer: "IAI (ישראל)", desc: "כטב\"ם סיור בינוני המשמש להשלמת יכולות מודיעין וגבול לצד פיתוחים מקומיים.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/b/b5/IAI_Heron-1_Maritime_patrol_UAV_Shoval_Yam.jpg", websiteUrl: "https://www.iai.co.il/p/heron" },
@@ -1553,6 +1587,7 @@
                 profileSummary: "אוקראינה מהווה כיום את שוק הכטב\"מים הפעיל והאינטנסיבי ביותר בעולם, עם צריכה של עשרות אלפי כלים בחודש וקצב חדשנות מבצעית חסר תקדים. התעשייה המקומית צמחה בצורה עצומה תחת לחץ המלחמה, לצד תלות מתמשכת בסיוע ותרומות ציוד ממדינות המערב.",
                 alliances: ["שותף מועדף של נאט\"ו (לא חבר)", "מועמדת לאיחוד האירופי", "סיוע ביטחוני נרחב מארה\"ב ובריטניה", "יחסים מוגבלים וזהירים עם ישראל"],
                 geopoliticalThreats: "מלחמה קיומית פעילה מול רוסיה על שטחה הריבוני; איום יומיומי של כטב\"מי שוטטות (Shahed) וטילי שיוט על תשתיות אזרחיות וצבאיות.",
+                israelRelations: "ישראל נקטה עמדה זהירה במיוחד בסוגיית אספקת נשק לאוקראינה, בשל השיקול הרוסי בזירה הסורית. **מגבלה מהותית - זו הנקודה המכרעת:** אין כיום מכירות ביטחוניות ישירות משמעותיות, והמגבלה היא מדינית-אסטרטגית ולא טכנית או מסחרית. **הזדמנות עתידית בלבד:** הצורך המבצעי עצום והביקוש לטכנולוגיה ישראלית גבוה - אך כל תכנון חייב להיות מותנה בשינוי המדיניות הישראלית.",
                 uavFleet: [
                     { name: "Bayraktar TB2", manufacturer: "Baykar Tech (טורקיה)", desc: "כטב\"ם תקיפה שהפך לסמל בשלב הראשון של המלחמה, עדיין בשימוש מבצעי לצד פלטפורמות חדשות.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/d/d4/Bayraktar_TB2_%22Vanagas%22_03.jpg", websiteUrl: "https://baykartech.com/en/uav/bayraktar-tb2/" },
                     { name: "Switchblade 300", manufacturer: "AeroVironment (ארה\"ב)", desc: "תחמושת משוטטת טקטית קלה, חלק מחבילות הסיוע האמריקאיות למטרות דיוק בטווח קצר-בינוני.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/a/a4/MQ-9_Reaper_in_flight_%282007%29.jpg", websiteUrl: "https://www.avinc.com/uas/switchblade" },
@@ -1586,6 +1621,7 @@
                 profileSummary: "אזרבייג'ן היא אחת מלקוחות הביטחון המשמעותיות ביותר של ישראל בתחום הכטב\"מים והתחמושת המשוטטת, עם היסטוריית שיתוף פעולה מוכחת שהוכיחה את עצמה בהצלחה מבצעית במלחמת קרבאך השנייה (2020). קיים כבר מיזם משותף מקומי לייצור תחת רישיון.",
                 alliances: ["שותפות אסטרטגית הדוקה עם טורקיה (\"אומה אחת, שתי מדינות\")", "שותפות ביטחונית עמוקה עם ישראל", "יחסים זהירים עם רוסיה"],
                 geopoliticalThreats: "סכסוך מוקפא/חוזר עם ארמניה סביב נגורנו-קרבאך; צורך באבטחת מסדרון האנרגיה האסטרטגי לאירופה.",
+                israelRelations: "אזרבייג'ן היא אחת הלקוחות המשמעותיות ביותר של ישראל בתחום הכטב\"מים, עם היסטוריית שיתוף פעולה עמוקה ומוכחת. **דריסת רגל חזקה במיוחד:** מיזם משותף פעיל (Azad Systems) המייצר Orbiter ו-Aerostar תחת רישיון, וה-Harop הוכח מבצעית במלחמת קרבאך השנייה (2020). **הזדמנות:** הרחבה טבעית לדורות מתקדמים יותר. **מגבלה:** רגישות דיפלומטית מול טורקיה ואיראן המשפיעה על היקף וסוג העסקאות.",
                 uavFleet: [
                     { name: "Harop", manufacturer: "IAI (ישראל)", desc: "תחמושת משוטטת שהוכיחה יכולת מכרעת במלחמת קרבאך השנייה נגד מערכות שריון וארטילריה ארמניות.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/a/a4/MQ-9_Reaper_in_flight_%282007%29.jpg", websiteUrl: "https://www.iai.co.il/p/harop" },
                     { name: "Bayraktar TB2", manufacturer: "Baykar Tech (טורקיה)", desc: "כטב\"ם תקיפה טורקי המשלים את היכולות הישראליות בצי הפלטפורמות.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/d/d4/Bayraktar_TB2_%22Vanagas%22_03.jpg", websiteUrl: "https://baykartech.com/en/uav/bayraktar-tb2/" },
@@ -1619,6 +1655,7 @@
                 profileSummary: "מרוקו הגדילה משמעותית את תקציב הביטחון על רקע המתיחות המחודשת מול אלג'יריה והלחימה המתמשכת מול חזית הפוליסאריו בסהרה המערבית, שבה כטב\"מים ותחמושת משוטטת כבר משחקים תפקיד מבצעי מרכזי. הסכמי אברהם פתחו ערוץ ישיר ומהיר לשיתוף פעולה עם ישראל.",
                 alliances: ["הסכמי אברהם (עם ישראל, מאז 2020)", "מעמד בעל-ברית מרכזי מחוץ לנאט\"ו של ארה\"ב", "שותפות ביטחונית הדוקה עם צרפת"],
                 geopoliticalThreats: "מתיחות גוברת מול אלג'יריה; לחימה מתמשכת מול כוחות הפוליסאריו בסהרה המערבית, כולל שימוש הדדי בכטב\"מים ותחמושת משוטטת.",
+                israelRelations: "מרוקו נורמלה יחסים עם ישראל במסגרת הסכמי אברהם (2020), והפכה במהירות לשוק פעיל. **דריסת רגל:** דיווחים על רכש מערכות ישראליות כולל Harop ו-Heron. **הזדמנות:** צורך מבצעי פעיל בחזית הסהרה המערבית, תקציב גדל, ואין תעשייה מקומית מתחרה - שוק פתוח. **מגבלה:** תחרות ישירה מטורקיה (TB2) שמציעה מחיר נמוך יותר ופחות מגבלות פוליטיות.",
                 uavFleet: [
                     { name: "Bayraktar TB2", manufacturer: "Baykar Tech (טורקיה)", desc: "כטב\"ם תקיפה בשימוש מבצעי פעיל לאורך קו החזית בסהרה המערבית.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/d/d4/Bayraktar_TB2_%22Vanagas%22_03.jpg", websiteUrl: "https://baykartech.com/en/uav/bayraktar-tb2/" },
                     { name: "Wing Loong I / II", manufacturer: "AVIC (סין)", desc: "כטב\"מי תקיפה ומודיעין סיניים המשלימים את הצי הטורקי.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Wing_Loong_II_side_view.jpg", websiteUrl: "https://www.catic.cn/" },
@@ -2054,6 +2091,7 @@
                 profileSummary: "סרביה מנהלת מדיניות ביטחון \"צבאית ניטרלית\" רשמית, תוך איזון בין רוסיה, סין והמערב. המדינה הרחיבה משמעותית את צי הכטב\"מים שלה בעשור האחרון - כולל רכש כטב\"מי תקיפה סינים - ומפתחת בו-זמנית יכולת תעשייתית מקומית. יש לה כבר עבר רכש מוכר מול ישראל, מה שמהווה בסיס להרחבה.",
                 alliances: ["מדיניות \"צבאיות ניטרלית\" רשמית - אינה חברה בנאט\"ו", "מועמדת לאיחוד האירופי", "יחסים היסטוריים הדוקים עם רוסיה", "שיתוף פעולה ביטחוני-תעשייתי גובר עם סין"],
                 geopoliticalThreats: "מתיחות מתמשכת מול קוסובו; רגישות אזורית בבלקן; איזון עדין בין לחצי המערב לקשרים המסורתיים עם רוסיה.",
+                israelRelations: "יחסי ישראל-סרביה תקינים, עם היסטוריית רכש ביטחוני קיימת. **דריסת רגל:** קשרי ספק קיימים מהעבר. **הזדמנות:** סרביה מחפשת לגוון מקורות ולהפחית תלות; יש חלון לפני שסין מתבססת. **מגבלה מרכזית ודחופה:** סין כבר חדרה עם CH-92A, ויתרון המחיר הסיני משמעותי - חלון ההזדמנויות נסגר.",
                 uavFleet: [
                     { name: "CH-92A", manufacturer: "CASC (סין)", desc: "כטב\"ם תקיפה טקטי סיני שנרכש כדי לחזק יכולות תקיפה מדויקת - סימן ברור להתבססות התעשייה הסינית בשוק המקומי.", websiteUrl: "https://www.catic.cn/" },
                     { name: "Orbiter 2", manufacturer: "Aeronautics (ישראל)", desc: "כטב\"ם סיור טקטי קטן שנרכש מישראל - דוגמה לקשר תעשייתי-ביטחוני קיים ומוכח מול הספק הישראלי.", websiteUrl: "https://aeronautics-sys.com/" },
@@ -2087,6 +2125,7 @@
                 profileSummary: "פינלנד הצטרפה לנאט\"ו ב-2023 בעקבות הפלישה הרוסית לאוקראינה, ומאז מגדילה משמעותית את תקציב הביטחון שלה מתוך גבול יבשתי ארוך במיוחד מול רוסיה. דוקטרינת ה\"הגנה הכוללת\" (Total Defence) הפינית משלבת יכולות צבאיות, ממשלתיות ואזרחיות - ויוצרת ביקוש גובר למערכות סיור גבולות, מודיעין ואיתור פלישות כטב\"ם, גם לנוכח פעילות כטב\"מים חשודים כרוסיים החוזרת ונשנית מעל שטח נאט\"ו.",
                 alliances: ["חברה בנאט\"ו (מאז אפריל 2023)", "הסכם שיתוף פעולה ביטחוני דו-צדדי עם ארה\"ב (DCA)", "NORDEFCO - שיתוף פעולה ביטחוני נורדי", "חברה ב-JEF (Joint Expeditionary Force) בהובלת בריטניה"],
                 geopoliticalThreats: "גבול יבשתי של 1,340 ק\"מ מול רוסיה - הארוך ביותר מבין מדינות נאט\"ו באירופה; אירועי הפרת מרחב אווירי וכטב\"מים חוזרים ונשנים לאורך הגבול; דוקטרינת הגנה כוללת (Total Defence) המשלבת את כלל המגזרים.",
+                israelRelations: "פינלנד ניטרלית היסטורית שהצטרפה לנאט\"ו ב-2023, ללא היסטוריית רכש ביטחוני משמעותית מישראל. **הזדמנות:** שוק חדש ופתוח - אין ספק דומיננטי בתחום הכטב\"מים, ו-Patria המקומית מתמקדת ברכב קרקעי ולא באוויר. הצורך בניטור גבול ארוך מול רוסיה מתאים ליכולות ISR ישראליות. **מגבלה:** העדפה נורדית-אירופית מובנית, ודרישת תאימות נאט\"ו.",
                 uavFleet: [
                     { name: "מל\"טי סיור טקטיים (מגוון ספקים מערביים)", manufacturer: "ספקים שונים - היקף רכש מוגבל יחסית כיום", desc: "פינלנד עדיין בתהליך הרחבת צי כטב\"מי הסיור והגנת הגבולות שלה, בעיקר דרך רכש נקודתי ולא צי אחיד גדול.", websiteUrl: "https://puolustusvoimat.fi/en/frontpage" }
                 ],
@@ -2453,6 +2492,191 @@
         }
         function closeGlossary() {
             document.getElementById('glossaryModal').classList.add('hidden');
+        }
+
+        // ============================================================
+        // PRODUCT FIT SIMULATOR - re-ranks every target market for a
+        // specific product category. Unlike the general market score
+        // (which is product-agnostic), this weighs the factors that
+        // actually matter for that product type, and reads the
+        // country's own stated operational gaps to detect explicit
+        // demand signals.
+        //
+        // Every input comes from data already in the reports - no new
+        // assumptions are introduced here.
+        // ============================================================
+        const PRODUCT_TYPES = [
+            {
+                key: 'loitering', label: 'תחמושת משוטטת', icon: 'target',
+                desc: 'מוצר יחסית זול, נצרך בכמויות, רגיש במיוחד לתחרות מקומית',
+                gapKeywords: ['משוטט', 'תחמושת', 'תקיפה מדויקת', 'loitering'],
+                weights: { budget: 0.10, urgency: 0.40, openness: 0.25, gapMatch: 0.25 },
+                budgetPreference: 'low'
+            },
+            {
+                key: 'isr', label: 'מל"ט איסוף / ISR', icon: 'radar',
+                desc: 'מוצר ליבה לניטור גבולות ומודיעין - ביקוש רחב',
+                gapKeywords: ['סיור', 'ניטור', 'מודיעין', 'ISR', 'גבול', 'ימי', 'תצפית'],
+                weights: { budget: 0.25, urgency: 0.25, openness: 0.20, gapMatch: 0.30 },
+                budgetPreference: 'neutral'
+            },
+            {
+                key: 'cuav', label: 'מערכת C-UAV', icon: 'shield-alert',
+                desc: 'הגנה מפני כטב"מים - ביקוש נגזר מאיום כטב"מי פעיל',
+                gapKeywords: ['C-UAV', 'הגנה מפני', 'נגד כטב', 'יירוט', 'לוחמה אלקטרונית', 'שיבוש'],
+                weights: { budget: 0.20, urgency: 0.30, openness: 0.15, gapMatch: 0.35 },
+                budgetPreference: 'neutral'
+            },
+            {
+                key: 'male', label: 'מל"ט MALE/HALE כבד', icon: 'plane',
+                desc: 'מוצר פרימיום יקר - דורש תקציב גדול ויכולת ספיגה',
+                gapKeywords: ['MALE', 'HALE', 'אסטרטגי', 'טווח ארוך', 'שהייה'],
+                weights: { budget: 0.45, urgency: 0.20, openness: 0.15, gapMatch: 0.20 },
+                budgetPreference: 'high'
+            },
+            {
+                key: 'tactical', label: 'מל"ט טקטי זעיר', icon: 'plane',
+                desc: 'מוצר נפח בעלות נמוכה - תלוי פחות בתקציב, יותר בצורך מיידי',
+                gapKeywords: ['טקטי', 'זעיר', 'רמת הגדוד', 'כוחות יבשה', 'סיור קרוב'],
+                weights: { budget: 0.10, urgency: 0.35, openness: 0.30, gapMatch: 0.25 },
+                budgetPreference: 'low'
+            },
+            {
+                key: 'payload', label: 'מטענים וחיישנים בלבד', icon: 'columns-3',
+                desc: 'רכיבים לשילוב בפלטפורמות קיימות - עוקף מגבלות רכש פלטפורמה',
+                gapKeywords: ['חיישן', 'אלקטרואופטי', 'EO/IR', 'SAR', 'SIGINT', 'ניווט', 'מטען', 'רכיבי'],
+                weights: { budget: 0.20, urgency: 0.15, openness: 0.15, gapMatch: 0.50 },
+                budgetPreference: 'neutral'
+            }
+        ];
+
+        function gapMatchScore(data, keywords) {
+            // Scan the country's own stated gaps AND threat text for
+            // explicit demand signals matching this product category.
+            const haystack = [
+                ...(data.gaps || []).map(g => `${g.title || ''} ${g.desc || ''}`),
+                data.geopoliticalThreats || '',
+                data.subtitle || ''
+            ].join(' ').toLowerCase();
+            let hits = 0;
+            keywords.forEach(k => { if (haystack.includes(k.toLowerCase())) hits++; });
+            if (hits === 0) return { score: 25, hits: 0 };
+            if (hits === 1) return { score: 60, hits: 1 };
+            if (hits === 2) return { score: 82, hits: 2 };
+            return { score: 100, hits: hits };
+        }
+
+        function calculateProductFit(data, product) {
+            if (isReferenceProfile(data)) return null;
+            const w = product.weights;
+            const urgency = threatToUrgencyScore(data.threat);
+            const budgetB = parseBudgetToBillions(data.budget);
+            const rawBudgetScore = budgetB ? Math.min(100, (Math.log10(budgetB + 1) / Math.log10(150)) * 100) : 40;
+            // Cheap, high-volume products don't need a huge budget - a
+            // mid-size budget is actually the sweet spot, so a very large
+            // budget shouldn't dominate the ranking for those categories.
+            const budgetScore = product.budgetPreference === 'low'
+                ? 100 - Math.abs(rawBudgetScore - 60) * 1.2
+                : rawBudgetScore;
+            const openness = localIndustryOpennessScore(data.localIndustry);
+            const gap = gapMatchScore(data, product.gapKeywords);
+
+            const total = Math.round(
+                Math.max(0, budgetScore) * w.budget +
+                urgency * w.urgency +
+                openness * w.openness +
+                gap.score * w.gapMatch
+            );
+            return { total, urgency, budgetScore: Math.round(Math.max(0, budgetScore)), openness, gap };
+        }
+
+        function productFitReason(data, product, fit) {
+            const parts = [];
+            if (fit.gap.hits >= 2) parts.push('הפערים המבצעיים המוצהרים של המדינה תואמים ישירות למוצר זה');
+            else if (fit.gap.hits === 1) parts.push('קיים אזכור חלקי של צורך רלוונטי בפערים');
+            else parts.push('אין אזכור מפורש של צורך במוצר זה בפערים המוצהרים');
+
+            if (fit.urgency >= 85) parts.push('רמת סיכון גבוהה יוצרת דחיפות רכש');
+            else if (fit.urgency <= 25) parts.push('סיכון נמוך - רכש מתוכנן ולא בהול');
+
+            if (fit.openness <= 45) parts.push('תעשייה מקומית מבוססת מקשה על חדירה');
+            else if (fit.openness >= 95) parts.push('אין יצרן מקומי מתחרה');
+
+            if (product.budgetPreference === 'high' && fit.budgetScore < 50) parts.push('התקציב עשוי להיות מגבלה למוצר פרימיום');
+            if (product.budgetPreference === 'low' && fit.budgetScore >= 80) parts.push('גודל התקציב מתאים היטב למוצר בעלות נמוכה');
+
+            return parts.join(' · ');
+        }
+
+        function openSimulator() {
+            haptic(10);
+            const grid = document.getElementById('simulatorProductGrid');
+            grid.innerHTML = PRODUCT_TYPES.map(p => `
+                <button data-product="${escapeHtml(p.key)}" onclick="runSimulator(this.dataset.product)"
+                    class="p-3 rounded-xl bg-slate-900/80 border border-slate-800 hover:border-amber-500/50 text-right transition cursor-pointer">
+                    <div class="flex items-center gap-2 mb-1">
+                        <i data-lucide="${escapeHtml(p.icon)}" class="w-4 h-4 text-amber-400 shrink-0"></i>
+                        <span class="text-xs sm:text-sm font-bold text-white">${escapeHtml(p.label)}</span>
+                    </div>
+                    <p class="text-[11px] text-slate-400 leading-relaxed">${escapeHtml(p.desc)}</p>
+                </button>`).join('');
+            document.getElementById('simulatorResults').classList.add('hidden');
+            document.getElementById('simulatorModal').classList.remove('hidden');
+            lucide.createIcons();
+        }
+        function closeSimulator() {
+            document.getElementById('simulatorModal').classList.add('hidden');
+        }
+        function runSimulator(productKey) {
+            haptic(10);
+            const product = PRODUCT_TYPES.find(p => p.key === productKey);
+            if (!product) return;
+            const ranked = availableCountries
+                .map(name => {
+                    const data = presetData[name];
+                    const fit = calculateProductFit(data, product);
+                    return fit ? { name, data, fit } : null;
+                })
+                .filter(Boolean)
+                .sort((a, b) => b.fit.total - a.fit.total);
+
+            const rowsHtml = ranked.map((r, i) => {
+                // Tailwind's play-CDN can't generate class names built at
+                // runtime, so these must be complete literal strings.
+                const tierClass = r.fit.total >= 70
+                    ? 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30'
+                    : r.fit.total >= 50
+                        ? 'bg-amber-500/15 text-amber-400 border-amber-500/30'
+                        : 'bg-slate-700/40 text-slate-300 border-slate-600/40';
+                return `
+                <div class="p-3 bg-slate-900/80 rounded-xl border ${i === 0 ? 'border-amber-500/40' : 'border-slate-800'}">
+                    <div class="flex items-center justify-between gap-2 flex-wrap mb-1.5">
+                        <div class="flex items-center gap-2">
+                            <span class="text-sm font-black text-slate-600">#${i + 1}</span>
+                            <span class="text-lg">${escapeHtml(r.data.flag || '')}</span>
+                            <span class="text-xs sm:text-sm font-bold text-white">${escapeHtml(r.data.title || r.name)}</span>
+                        </div>
+                        <span class="px-2 py-0.5 rounded-md text-[11px] font-black border ${tierClass} shrink-0">${r.fit.total}/100</span>
+                    </div>
+                    <p class="text-[11px] text-slate-400 leading-relaxed">${escapeHtml(productFitReason(r.data, product, r.fit))}</p>
+                </div>`;
+            }).join('');
+
+            const resEl = document.getElementById('simulatorResults');
+            resEl.innerHTML = `
+                <div class="flex items-center justify-between gap-2 flex-wrap border-t border-slate-800 pt-3">
+                    <div>
+                        <span class="text-sm font-bold text-amber-400">דירוג שווקים: ${escapeHtml(product.label)}</span>
+                        <p class="text-[11px] text-slate-500">${ranked.length} שווקי יעד, ממוינים מהמתאים ביותר</p>
+                    </div>
+                    <button onclick="openSimulator()" class="text-xs text-amber-400 hover:text-amber-300 flex items-center gap-1 cursor-pointer">
+                        <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i> בחר מוצר אחר
+                    </button>
+                </div>
+                <div class="space-y-2">${rowsHtml}</div>
+                <p class="text-[10px] text-slate-500 leading-relaxed pt-1">הדירוג מחושב מנתונים שכבר קיימים בדוחות: תקציב, רמת סיכון, תעשייה מקומית, והתאמה בין הפערים המבצעיים המוצהרים לסוג המוצר. המשקלים משתנים לפי סוג המוצר.</p>`;
+            resEl.classList.remove('hidden');
+            lucide.createIcons();
         }
 
         // ============================================================
@@ -2969,6 +3193,62 @@
             const total = (budgetScore * 0.25) + (pctScore * 0.25) + (urgency * 0.30) + (opennessScore * 0.20);
             return Math.round(total);
         }
+        function getScoreBreakdown(data) {
+            if (isReferenceProfile(data)) return null;
+            const urgency = threatToUrgencyScore(data.threat);
+            const budgetB = parseBudgetToBillions(data.budget);
+            const budgetScore = budgetB ? Math.min(100, (Math.log10(budgetB + 1) / Math.log10(150)) * 100) : 40;
+            const pct = parseDefenseGdpPct(data.defenseGdpPct);
+            const pctScore = pct ? Math.min(100, (pct / 8) * 100) : 40;
+            const opennessScore = localIndustryOpennessScore(data.localIndustry);
+            const industryCount = Array.isArray(data.localIndustry) ? data.localIndustry.length : 0;
+
+            const opennessReason = opennessScore >= 95
+                ? 'אין יצרן כטב"מים מקומי משמעותי - שוק פתוח לחלוטין לספק חיצוני'
+                : opennessScore >= 65
+                    ? `יצרן מקומי אחד (${industryCount}) - שוק פתוח יחסית, אך קיימת העדפה מקומית אפשרית`
+                    : opennessScore >= 45
+                        ? `${industryCount} יצרנים מקומיים - תחרות מקומית בינונית`
+                        : `${industryCount}+ יצרנים מקומיים מבוססים - שוק רווי, קשה לחדור אליו`;
+
+            const urgencyLabel = urgency >= 100 ? 'קיצוני' : urgency >= 85 ? 'גבוה' : urgency >= 70 ? 'בינוני-גבוה' : urgency >= 50 ? 'בינוני' : 'נמוך';
+
+            return [
+                { label: 'תקציב ביטחון', weight: '25%', raw: data.budget || '-', score: Math.round(budgetScore),
+                  reason: budgetB ? `תקציב של ${data.budget} מעניק כוח קנייה ${budgetScore >= 70 ? 'גבוה' : budgetScore >= 50 ? 'בינוני' : 'מוגבל'} יחסית לשווקי יעד אחרים` : 'נתון תקציב לא זמין - ניתן ציון ניטרלי' },
+                { label: 'אחוז מהתמ"ג', weight: '25%', raw: data.defenseGdpPct || '-', score: Math.round(pctScore),
+                  reason: pct ? `השקעה של ${pct}% מהתמ"ג מעידה על תעדוף ביטחוני ${pctScore >= 60 ? 'גבוה מאוד' : pctScore >= 35 ? 'משמעותי' : 'מתון'}` : 'נתון לא זמין - ניתן ציון ניטרלי' },
+                { label: 'דחיפות גיאופוליטית', weight: '30%', raw: urgencyLabel, score: urgency,
+                  reason: `רמת סיכון ${urgencyLabel} - ${urgency >= 85 ? 'יוצרת דחיפות רכש מיידית ומוכנות לעסקאות מהירות' : urgency >= 50 ? 'יוצרת צורך מתמשך אך לא בהול' : 'הרכש מונע משדרוג מתוכנן ולא מאיום מיידי'}` },
+                { label: 'פתיחות השוק', weight: '20%', raw: industryCount === 0 ? 'ללא תעשייה מקומית' : `${industryCount} יצרנים מקומיים`, score: opennessScore,
+                  reason: opennessReason }
+            ];
+        }
+        function renderScoreMethodology(data) {
+            const el = document.getElementById('scoreMethodologyPanel');
+            if (!el) return;
+            const breakdown = getScoreBreakdown(data);
+            if (!breakdown) {
+                el.innerHTML = `<p class="text-[11px] sm:text-xs text-slate-300 leading-relaxed">מדינה זו מוגדרת כ<b>פרופיל ייחוס</b> (מדינת מוצא/מתחרה) ולא כשוק יעד, ולכן לא מחושב עבורה ציון פוטנציאל שוק.</p>`;
+                return;
+            }
+            const total = calculateMarketScore(data);
+            const rows = breakdown.map(b => `
+                <div class="p-2.5 bg-slate-950/60 rounded-lg border border-slate-800/80">
+                    <div class="flex items-center justify-between gap-2 flex-wrap mb-1">
+                        <span class="text-[11px] sm:text-xs font-bold text-amber-400">${escapeHtml(b.label)} <span class="text-slate-500 font-normal">(משקל ${b.weight})</span></span>
+                        <span class="text-[11px] font-black text-white">${b.score}/100</span>
+                    </div>
+                    <div class="text-[10px] text-slate-500 mb-1">נתון בפועל: <span class="text-slate-300">${escapeHtml(b.raw)}</span></div>
+                    <p class="text-[11px] text-slate-300 leading-relaxed">${escapeHtml(b.reason)}</p>
+                </div>`).join('');
+            el.innerHTML = `
+                <div>
+                    <span class="text-amber-400 font-bold text-xs sm:text-sm block mb-1">מדוע ${escapeHtml(data.title || '')} קיבלה ${total}/100</span>
+                    <p class="text-[11px] text-slate-400 leading-relaxed">הציון מחושב מנוסחה שקופה על בסיס נתונים שכבר מופיעים בדוח הזה עצמו - לא הערכה סובייקטיבית. להלן פירוט כל מרכיב עבור מדינה זו:</p>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">${rows}</div>`;
+        }
         function getFormattedScore(data) {
             const score = calculateMarketScore(data);
             return score === null ? '-' : `${score}/100`;
@@ -2985,6 +3265,7 @@
             document.getElementById('threatBadge').textContent = data.threat || '';
             document.getElementById('marketScore').textContent = getFormattedScore(data);
             document.getElementById('scoreMethodologyPanel').classList.add('hidden');
+            renderScoreMethodology(data);
             document.getElementById('defenseBudget').textContent = data.budget || '';
             renderScoreGauge(getFormattedScore(data));
             updateFavoriteToggleButton();
@@ -3007,6 +3288,16 @@
             document.getElementById('profileSummary').textContent = data.profileSummary || '';
 
             document.getElementById('geopoliticalThreats').textContent = data.geopoliticalThreats || '';
+            // Israel-relations panel: only shown for countries where this
+            // analysis has actually been written, rather than showing an
+            // empty box for the rest.
+            const israelPanel = document.getElementById('israelRelationsPanel');
+            if (data.israelRelations) {
+                document.getElementById('israelRelations').textContent = data.israelRelations;
+                israelPanel.classList.remove('hidden');
+            } else {
+                israelPanel.classList.add('hidden');
+            }
             const alliancesEl = document.getElementById('alliances');
             // Uses escapeHtml: alliance names may originate from a live AI response.
             alliancesEl.innerHTML = (data.alliances || []).map(a =>
@@ -3087,10 +3378,10 @@
 
                 return `
                 <div class="space-y-3">
-                    <h4 class="flex items-center gap-2 text-sm font-bold text-white border-r-4 border-amber-500 pr-2.5">
-                        <i data-lucide="factory" class="w-4 h-4 text-amber-400"></i>
-                        ${escapeHtml(group.label)}
-                        <span class="text-[10px] font-normal text-slate-500">(${group.items.length} ${group.items.length === 1 ? 'פלטפורמה' : 'פלטפורמות'})</span>
+                    <h4 class="flex items-center gap-2.5 text-base sm:text-lg font-black text-white bg-gradient-to-l from-transparent to-amber-500/15 border-r-4 border-amber-500 rounded-l-lg py-2.5 pr-3">
+                        <i data-lucide="factory" class="w-5 h-5 text-amber-400 shrink-0"></i>
+                        <span class="gold-gradient-text">${escapeHtml(group.label)}</span>
+                        <span class="text-[11px] font-normal text-slate-400">(${group.items.length} ${group.items.length === 1 ? 'פלטפורמה' : 'פלטפורמות'})</span>
                     </h4>
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">${cardsHtml}</div>
                 </div>`;
@@ -3132,15 +3423,24 @@
             `).join('');
 
             const compEl = document.getElementById('competitors');
-            compEl.innerHTML = (data.competitors || []).map(c => `
-                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-800/60 pb-2.5">
+            compEl.innerHTML = (data.competitors || []).map(c => {
+                // A "-" share means this is a reference/competitor profile
+                // (Israel, USA, China, Turkey) where domestic manufacturers
+                // aren't competing for a share of an import market - showing
+                // a bare dash there reads like a data bug, so label it.
+                const hasShare = c.share && c.share !== '-';
+                const shareBadge = hasShare
+                    ? `<span class="text-[11px] sm:text-xs bg-slate-800 px-2.5 py-1 rounded text-slate-300 mt-1 sm:mt-0 border border-slate-700 font-semibold shrink-0">נתח שוק: ${escapeHtml(c.share)}</span>`
+                    : `<span class="text-[10px] sm:text-[11px] bg-blue-500/15 px-2.5 py-1 rounded text-blue-300 mt-1 sm:mt-0 border border-blue-500/30 font-semibold shrink-0">יצרנית מקומית - לא נתח יבוא</span>`;
+                return `
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-slate-800/60 pb-2.5">
                     <div>
                         <span class="font-bold text-amber-400 text-xs sm:text-sm">${escapeHtml(c.company || '')}</span>
                         <p class="text-[11px] sm:text-xs text-slate-400">${escapeHtml(c.role || '')}</p>
                     </div>
-                    <span class="text-[11px] sm:text-xs bg-slate-800 px-2.5 py-1 rounded text-slate-300 mt-1 sm:mt-0 border border-slate-700 font-semibold">נתח שוק: ${escapeHtml(c.share || '')}</span>
-                </div>
-            `).join('');
+                    ${shareBadge}
+                </div>`;
+            }).join('');
             renderCompetitorsDonut(data.competitors || []);
 
             document.getElementById('policyOffset').textContent = data.policyOffset || '';
