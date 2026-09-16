@@ -429,13 +429,13 @@
     </div>
 
     <!-- HEADER BAR -->
-    <header class="sticky top-0 z-50 glass-panel border-b border-slate-800/80 px-4 lg:px-8 py-2.5 no-print">
-        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+    <header class="sticky top-0 z-50 glass-panel border-b border-slate-800/80 px-3 sm:px-4 lg:px-8 py-2.5 no-print w-full max-w-full overflow-hidden">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 w-full min-w-0">
 
             <!-- Brand & Emblem -->
-            <div class="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-start cursor-pointer" onclick="resetToHome()">
-                <div class="flex items-center gap-3">
-                    <div class="relative w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center filter drop-shadow-[0_0_12px_rgba(217,119,6,0.6)] hover:scale-105 transition-transform">
+            <div class="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-start cursor-pointer min-w-0" onclick="resetToHome()">
+                <div class="flex items-center gap-2 min-w-0">
+                    <div class="relative w-10 h-10 sm:w-16 sm:h-16 shrink-0 flex items-center justify-center filter drop-shadow-[0_0_12px_rgba(217,119,6,0.6)] hover:scale-105 transition-transform">
                         <svg viewBox="0 0 100 100" class="w-full h-full">
                             <defs>
                                 <linearGradient id="brandLogoGold" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -462,28 +462,28 @@
                         </svg>
                     </div>
 
-                    <div>
-                        <h1 class="text-base sm:text-lg font-black tracking-wider gold-gradient-text whitespace-nowrap">AEROVISION BI</h1>
+                    <div class="min-w-0">
+                        <h1 class="text-sm sm:text-lg font-black tracking-wider gold-gradient-text whitespace-nowrap">AEROVISION BI</h1>
                         <p class="text-[11px] sm:text-xs text-slate-400 font-medium">מערכת מודיעין שוק כטב"מים וניתוח גיאופוליטי</p>
                     </div>
                 </div>
 
                 <!-- Action Buttons on Mobile Header -->
-                <div class="flex sm:hidden items-center gap-2">
-                    <button onclick="event.stopPropagation(); toggleFullscreen()" title="מסך מלא לדוח" class="p-2 rounded-lg bg-slate-800 text-amber-400 hover:bg-slate-700 border border-slate-700">
-                        <i data-lucide="maximize" class="w-4 h-4"></i>
+                <div class="flex sm:hidden items-center gap-1 shrink-0">
+                    <button onclick="event.stopPropagation(); toggleFullscreen()" title="מסך מלא לדוח" class="p-1.5 rounded-lg bg-slate-800 text-amber-400 hover:bg-slate-700 border border-slate-700">
+                        <i data-lucide="maximize" class="w-3.5 h-3.5"></i>
                     </button>
-                    <button onclick="event.stopPropagation(); openSimulator()" title="סימולטור התאמת מוצר" class="p-2 rounded-lg bg-slate-800 text-amber-400 hover:bg-slate-700 border border-slate-700">
-                        <i data-lucide="target" class="w-4 h-4"></i>
+                    <button onclick="event.stopPropagation(); openSimulator()" title="סימולטור התאמת מוצר" class="p-1.5 rounded-lg bg-slate-800 text-amber-400 hover:bg-slate-700 border border-slate-700">
+                        <i data-lucide="target" class="w-3.5 h-3.5"></i>
                     </button>
-                    <button onclick="event.stopPropagation(); openGlossary()" title="מילון מונחים" class="p-2 rounded-lg bg-slate-800 text-amber-400 hover:bg-slate-700 border border-slate-700">
-                        <i data-lucide="book-open" class="w-4 h-4"></i>
+                    <button onclick="event.stopPropagation(); openGlossary()" title="מילון מונחים" class="p-1.5 rounded-lg bg-slate-800 text-amber-400 hover:bg-slate-700 border border-slate-700">
+                        <i data-lucide="book-open" class="w-3.5 h-3.5"></i>
                     </button>
-                    <button onclick="event.stopPropagation(); toggleTheme()" title="החלף מצב תצוגה" class="p-2 rounded-lg bg-slate-800 text-amber-400 hover:bg-slate-700 border border-slate-700">
-                        <i data-lucide="sun-moon" class="w-4 h-4" id="themeIconMobile"></i>
+                    <button onclick="event.stopPropagation(); toggleTheme()" title="החלף מצב תצוגה" class="p-1.5 rounded-lg bg-slate-800 text-amber-400 hover:bg-slate-700 border border-slate-700">
+                        <i data-lucide="sun-moon" class="w-3.5 h-3.5" id="themeIconMobile"></i>
                     </button>
-                    <button onclick="event.stopPropagation(); toggleSidebar()" title="רשימת מדינות" class="p-2 rounded-lg bg-slate-800 text-amber-400 hover:bg-slate-700 border border-slate-700">
-                        <i data-lucide="menu" class="w-4 h-4"></i>
+                    <button onclick="event.stopPropagation(); toggleSidebar()" title="רשימת מדינות" class="p-1.5 rounded-lg bg-slate-800 text-amber-400 hover:bg-slate-700 border border-slate-700">
+                        <i data-lucide="menu" class="w-3.5 h-3.5"></i>
                     </button>
                 </div>
             </div>
