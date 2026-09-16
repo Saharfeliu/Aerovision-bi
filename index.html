@@ -209,9 +209,29 @@
             max-width: 100%;
             overflow-x: hidden;
         }
-        #reportContainer, #reportContainer * {
+        /* Break long unbroken strings so they can't widen the page - but
+           EXCLUDE elements explicitly marked whitespace-nowrap (the
+           section-nav chips), which are meant to keep their text on one
+           line and scroll horizontally inside their own container. */
+        #reportContainer p,
+        #reportContainer h2,
+        #reportContainer h3,
+        #reportContainer h4,
+        #reportContainer h5,
+        #reportContainer li,
+        #reportContainer td,
+        #reportContainer div:not(.whitespace-nowrap) {
             min-width: 0;
-            overflow-wrap: anywhere;
+            overflow-wrap: break-word;
+            word-break: normal;
+        }
+        /* The horizontal section-nav must keep its chips intact and scroll */
+        #reportContainer .whitespace-nowrap,
+        #reportContainer .whitespace-nowrap * {
+            white-space: nowrap !important;
+            overflow-wrap: normal !important;
+            word-break: keep-all !important;
+            flex-shrink: 0;
         }
 
         /* NATIVE FEEL: a subtle press-down effect on every button gives
@@ -1159,6 +1179,16 @@
             "searcher mk ii": "IAI_Searcher._III.jpg",
             "warmate": "Warmate-50_MSPO24.jpg",
             "hermes 450": "Hermes_450.jpg",
+            "harpy": "IAI_HARPY_Drawing.png",
+            "heron mk2": "IAI_Heron_1_in_flight_1.JPEG",
+            "flyeye": "WB_Electronics_FlyEye,_Kyiv_2021,_03.jpg",
+            "green dragon": "Green_Dragon_Loitering_Munition_at_ADAS_2018.jpg",
+            "kzo": "Rheinmetall_KZO_-_ILA_2010_(2).jpg",
+            "protector rg mk1": "MQ-9_Reaper_UAV.jpg",
+            "aladin": "2015-06-13_Tag_der_Bundeswehr_EMT_Aladin.jpg",
+            "watchkeeper wk450": "Thales_Watchkeeper_WK450.jpg",
+            "watchkeeper": "Thales_Watchkeeper_WK450.jpg",
+            "skylark": "Elbit_Skylark.jpg",
             "searcher": "UAV-IAI_SearcherII_%26_I-View.jpg",
             "ch-4": "CH-4B_UAV_Indonesian_Air_Force_051024_1.jpg",
             "ch-92a": "CH-92A_Serbia.jpg"
@@ -1179,6 +1209,8 @@
             'edge group': 'Edge_Group_Logo.svg',
             'rheinmetall': 'Rheinmetall_Logo_2021.svg',
             'general atomics': 'General_Atomics_Aeronautical_Systems_logo.svg',
+            'רפאל': 'Rafael_Advanced_Defense_Systems_Logo.svg',
+            'rafael': 'Rafael_Advanced_Defense_Systems_Logo.svg',
             'insitu': 'Insitu_logo.svg',
             'boeing': 'Insitu_logo.svg'
         };
