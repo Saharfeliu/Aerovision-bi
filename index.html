@@ -225,6 +225,19 @@
             overflow-wrap: break-word;
             word-break: normal;
         }
+        /* Section heading rows: allow the title block and any badge beside
+           it to wrap onto separate lines rather than forcing the row wider
+           than the screen (which the overflow guard would then clip). */
+        #reportContainer h3,
+        #reportContainer h4,
+        #reportContainer h5 {
+            overflow-wrap: break-word;
+            hyphens: none;
+        }
+        #reportContainer .glass-panel > div:first-child {
+            flex-wrap: wrap;
+        }
+
         /* The horizontal section-nav must keep its chips intact and scroll */
         #reportContainer .whitespace-nowrap,
         #reportContainer .whitespace-nowrap * {
@@ -719,6 +732,25 @@
                     </div>
                 </div>
 
+                <!-- UAV share of the defense budget - the number a BD lead
+                     actually needs, rather than the headline defense budget -->
+                <div id="uavBudgetPanel" class="p-3.5 sm:p-4 bg-gradient-to-br from-amber-950/30 to-slate-900/80 rounded-xl border border-amber-500/25 space-y-2">
+                    <h4 class="text-xs font-bold text-amber-400 flex items-center gap-1.5">
+                        <i data-lucide="target" class="w-3.5 h-3.5 shrink-0"></i>
+                        נתח הכטב"מים מתוך תקציב הביטחון
+                    </h4>
+                    <p id="uavBudget" class="text-xs sm:text-sm text-slate-300 leading-relaxed"></p>
+                </div>
+
+                <!-- Key military bodies: who the customer actually is -->
+                <div id="militaryBodiesPanel" class="p-3.5 sm:p-4 bg-slate-900/70 rounded-xl border border-slate-800/80 space-y-2">
+                    <h4 class="text-xs font-bold text-amber-400 flex items-center gap-1.5">
+                        <i data-lucide="shield-alert" class="w-3.5 h-3.5 shrink-0"></i>
+                        גופים צבאיים ורכשיים מרכזיים
+                    </h4>
+                    <div id="militaryBodies" class="space-y-2"></div>
+                </div>
+
                 <div class="p-3.5 sm:p-4 bg-slate-900/70 rounded-xl border border-slate-800/80 space-y-2">
                     <h4 class="text-xs font-bold text-amber-400 uppercase tracking-wider">תמצית פרופיל ואסטרטגיית רכש</h4>
                     <p id="profileSummary" class="text-xs sm:text-sm text-slate-300 leading-relaxed">
@@ -757,6 +789,10 @@
                         זווית ישראלית - יחסים, הזדמנויות ומגבלות
                     </h4>
                     <p id="israelRelations" class="text-xs sm:text-sm text-slate-300 leading-relaxed"></p>
+                    <div id="israelInterestWrap" class="pt-2 mt-2 border-t border-blue-500/20">
+                        <h5 class="text-[11px] font-bold text-blue-300 mb-1">מדוע חשוב לישראל לשמר יחסים עם מדינה זו</h5>
+                        <p id="israelInterest" class="text-xs sm:text-sm text-slate-300 leading-relaxed"></p>
+                    </div>
                 </div>
             </div>
 
@@ -866,7 +902,7 @@
                             <p class="text-[11px] sm:text-xs text-slate-400">אסטרטגיית חדירה מומלצת, מודל עסקי והתאמת מוצר</p>
                         </div>
                     </div>
-                    <span id="recommendationRating" class="px-3 py-1 rounded-full text-xs font-black bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 text-center self-start sm:self-auto">
+                    <span id="recommendationRating" class="px-3 py-1 rounded-full text-xs font-black bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 text-center self-start sm:self-auto max-w-full break-words">
                         כדאיות גבוהה מאוד (9.2/10)
                     </span>
                 </div>
@@ -878,18 +914,43 @@
                 <div class="p-4 sm:p-5 bg-gradient-to-br from-slate-900 to-slate-900/90 rounded-xl border border-amber-500/20 space-y-4">
                     <p id="recommendationText" class="text-xs sm:text-sm text-slate-200 leading-relaxed font-medium"></p>
 
+                    <!-- BD-critical fields: what a sales lead actually needs
+                         to decide where to spend effort -->
+                    <div id="bdPanel" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3 pt-1 text-xs">
+                        <div class="p-3 bg-emerald-950/30 rounded-lg border border-emerald-500/25 space-y-0.5 min-w-0">
+                            <span class="text-slate-400 block text-[11px]">אומדן גודל עסקה פוטנציאלי:</span>
+                            <span id="bdDealSize" class="font-bold text-emerald-400 block break-words"></span>
+                        </div>
+                        <div class="p-3 bg-blue-950/30 rounded-lg border border-blue-500/25 space-y-0.5 min-w-0">
+                            <span class="text-slate-400 block text-[11px]">ציר זמן ואירועי מפתח:</span>
+                            <span id="bdTimeline" class="font-bold text-blue-300 block break-words"></span>
+                        </div>
+                        <div class="p-3 bg-rose-950/30 rounded-lg border border-rose-500/25 space-y-0.5 min-w-0">
+                            <span class="text-slate-400 block text-[11px]">נעילת מתחרים בשוק:</span>
+                            <span id="bdLockIn" class="font-bold text-rose-300 block break-words"></span>
+                        </div>
+                        <div class="p-3 bg-amber-950/30 rounded-lg border border-amber-500/25 space-y-0.5 min-w-0">
+                            <span class="text-slate-400 block text-[11px]">סיכון מסחרי:</span>
+                            <span id="bdRisk" class="font-bold text-amber-300 block break-words"></span>
+                        </div>
+                        <div class="p-3 bg-slate-950/90 rounded-lg border border-amber-500/30 space-y-0.5 min-w-0 sm:col-span-2">
+                            <span class="text-slate-400 block text-[11px]">הצעד המעשי הבא:</span>
+                            <span id="bdNextStep" class="font-bold text-amber-400 block break-words"></span>
+                        </div>
+                    </div>
+
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3 pt-2 text-xs">
-                        <div class="p-3 bg-slate-950/90 rounded-lg border border-slate-800 space-y-0.5">
+                        <div class="p-3 bg-slate-950/90 rounded-lg border border-slate-800 space-y-0.5 min-w-0">
                             <span class="text-slate-400 block text-[11px]">ערוץ חדירה מומלץ:</span>
-                            <span id="recChannel" class="font-bold text-amber-400"></span>
+                            <span id="recChannel" class="font-bold text-amber-400 block break-words"></span>
                         </div>
-                        <div class="p-3 bg-slate-950/90 rounded-lg border border-slate-800 space-y-0.5">
+                        <div class="p-3 bg-slate-950/90 rounded-lg border border-slate-800 space-y-0.5 min-w-0">
                             <span class="text-slate-400 block text-[11px]">סגמנט מוביל:</span>
-                            <span id="recSegment" class="font-bold text-amber-400"></span>
+                            <span id="recSegment" class="font-bold text-amber-400 block break-words"></span>
                         </div>
-                        <div class="p-3 bg-slate-950/90 rounded-lg border border-slate-800 space-y-0.5">
+                        <div class="p-3 bg-slate-950/90 rounded-lg border border-slate-800 space-y-0.5 min-w-0">
                             <span class="text-slate-400 block text-[11px]">חלון הזדמנויות:</span>
-                            <span id="recWindow" class="font-bold text-emerald-400"></span>
+                            <span id="recWindow" class="font-bold text-emerald-400 block break-words"></span>
                         </div>
                     </div>
                 </div>
@@ -1181,6 +1242,24 @@
             "hermes 450": "Hermes_450.jpg",
             "harpy": "IAI_HARPY_Drawing.png",
             "heron mk2": "IAI_Heron_1_in_flight_1.JPEG",
+            "reach-s": "כטב\"ם כנף-קבועה בפיתוח - מיועד ליכולת ISR רציפה של 24 שעות. פרטי מטען סופיים טרם פורסמו.",
+            "yabhon united 40": "מטען 1,050 ק\"ג על ארבע נקודות תלייה תת-כנפיות, בתוספת מתקן סיבובי בן 6 יחידות בגוף. מצויד במכ\"ם SAR, מערכות הימנעות משטח ומגדל מצלמה. סיבולת יוצאת דופן - עד 120 שעות בגובה 7,000 מטר.",
+            "predator xp": "גרסת יצוא בלתי חמושה של ה-Predator - חיישני EO/IR ומכ\"ם SAR לסיור ארוך-שהייה. מוגבלת בכוונה ליכולות ISR בלבד בכפוף לאישורי יצוא אמריקאיים.",
+            "albatross (rui yuan)": "כטב\"ם סיור בינוני - חיישני EO/IR המסוגלים לצלם ביום, בלילה ובתנאי עננות. 12 שעות טיסה, טווח הנחיה 150 ק\"מ. פלטפורמת ISR טהורה, אינה נושאת חימוש.",
+            "chien hsiang": "תחמושת משוטטת נגד מכ\"ם - טווח עד 1,000 ק\"מ, מהירות 185 קמ\"ש. משוגרת ממשגר רקטי קצר-בעירה ולאחר מכן נפרש מדחף. מיועדת לפגיעה במקורות קרינת מכ\"ם (SEAD). משוגרת ממשאית עם 12 משגרים.",
+            "cardinal 2 / 3": "משפחת כטב\"מים טקטיים זעירים - חיישני EO/IR לסיור ברמת היחידה. אינם נושאים חימוש.",
+            "altius 600m-v": "תחמושת משוטטת - טווח עד 400 ק\"מ, ראש קרב 15 ק\"ג או פחות. מותאמת לפגיעה בכלי רכב ובנחתות; אינה מספיקה לספינות הובלה אמפיביות גדולות - פער מוכר בדוקטרינה הטייוואנית.",
+            "overkill (fpv)": "כטב\"ם FPV קמיקזה - ראש קרב קל, מונחה בתוכנת תקיפה מבוססת AI של Auterion. מיועד לייצור המוני בעלות נמוכה.",
+            "karayel-su / haboob": "גרסה חמושה עם מוטת כנף 13 מטר - 4 נקודות תלייה תת-כנפיות בקיבולת כוללת 120 ק\"ג, בתוספת מפרץ מטען פנימי של 50 ק\"ג. מנוע 97 כ\"ס, תקן STANAG 4671 של נאט\"ו. הגרסה הסעודית שודרגה עם SATCOM (שליטה מעבר לקו הראייה), מכ\"ם SAR ויכולת אנטי-שיבוש.",
+            "falco": "כטב\"ם סיור MALE - מטען EO/IR, ובגרסאות מסוימות מכ\"ם SAR. פלטפורמת ISR בעיקרה.",
+            "seeker": "כטב\"ם ISR ותיק - חיישן EO/IR לסיור ואיתור מטרות. אינו נושא חימוש בתצורה הבסיסית.",
+            "samoom": "כטב\"ם ISR/תקיפה בייצור סעודי מקומי - פרטי מטען מדויקים אינם מפורסמים במלואם.",
+            "asef": "מערכת VTOL מקומית - אינה דורשת מסלול או מתקן שיגור. מטען חיישני EO/IR לסיור טקטי.",
+            "leleka-100": "כטב\"ם ISR מקומי - מטען קל עם מצלמת EO/IR. סיבולת כשעתיים, טווח עד 45 ק\"מ. שימש כבסיס למערכת RAM II החמושה.",
+            "a1-cm furia": "כטב\"ם סיור טקטי - מצלמת EO/IR להכוונת אש ארטילרית. אינו נושא חימוש.",
+            "ram ii": "תחמושת משוטטת - משקל כולל 8 ק\"ג מתוכם ראש קרב 3 ק\"ג. חימוש: תרמובארי, חודר-שריון או נפיץ-רסס. רדיוס 30 ק\"מ, שהייה עד שעה, מצלמה עם זום פי 10.",
+            "punisher": "כטב\"ם תקיפה-סיור רב-תכליתי - נושא חימוש קל למשימות תקיפה מדויקת, וכן משמש לחיפוש והצלה ולהובלה לוגיסטית.",
+            "כטב\"מי fpv (ייצור המוני מבוזר)": "מטען: ראש קרב קל (בדרך כלל RPG מותאם או מטען מאולתר) עם מצלמה חיה למפעיל. גרסאות מונחות-סיב אופטי אינן ניתנות לשיבוש אלקטרוני - התפתחות מבצעית ייחודית לזירה האוקראינית.",
             "flyeye": "WB_Electronics_FlyEye,_Kyiv_2021,_03.jpg",
             "green dragon": "Green_Dragon_Loitering_Munition_at_ADAS_2018.jpg",
             "kzo": "Rheinmetall_KZO_-_ILA_2010_(2).jpg",
@@ -1377,6 +1456,9 @@
                 threat: "סיכון גיאופוליטי: בינוני-גבוה", score: "92/100", budget: "$44.7B",
                 capital: "ורשה", population: "כ-36.5 מיליון", gdp: "$1.13 טריליון",
                 defenseGdpPct: "כ-4.8% (שיאן נאט\"ו באירופה, 2026)",
+                uavBudget: "הערכה: כ-3-5% מתקציב הביטחון מופנה למערכות בלתי מאוישות (כ-1.3-2.2 מיליארד דולר בשנה). פולין הצהירה על תוכנית רכש רב-שנתית שכוללת מאות מערכות תחמושת משוטטת (400 מערכות Gladius בהזמנה) לצד רכש MQ-9B. שים לב: זהו אומדן - פולין אינה מפרסמת פילוח תקציבי ייעודי לכטב\"מים.",
+                israelInterest: "פולין היא נקודת הכניסה המרכזית של ישראל לשוק ההתחמשות האירופי. היא המדינה עם קצב גידול התקציב המהיר באירופה, חברה משפיעה בנאט\"ו, ומשמשת שער לשווקי מזרח אירופה כולם (רומניה, בלטיות). שימור היחסים חשוב גם משום שפולין היא אחת מהמדינות הבודדות באירופה שמוכנה לרכוש ישראלית למרות הלחץ הציבורי - הצלחה שם מייצרת תקדים לשאר היבשת.",
+                militaryBodies: [{ name: "משרד ההגנה הלאומי (MON)", role: "הגוף המחליט על רכש ביטחוני ותקציב" }, { name: "הסוכנות לחימוש (Agencja Uzbrojenia)", role: "גוף הרכש המרכזי - נקודת הכניסה הרשמית לכל ספק זר" }, { name: "PGZ", role: "הקונצרן הביטחוני הממשלתי - שותף חובה כמעט בכל עסקה גדולה" }, { name: "כוחות ההגנה הטריטוריאלית (WOT)", role: "זרוע חדשה יחסית עם ביקוש גבוה למערכות טקטיות זעירות" }],
                 verifiedDate: "13.09.2026",
                 profileSummary: "פולין מהווה כיום את אחת המדינות בעלות קצב ההתחמשות וההתרחבות הביטחונית הגבוה באירופה. בעקבות המלחמה באוקראינה והמתיחות בגבול בלארוס, המדינה הגדילה דרמטית את תקציב הביטחון מ-2% לכ-4.2% מה-GDP, תוך דגש על רכש מערכות אוטונומיות, כטב\"מים טקטיים ומערכות הגנה אווירית.",
                 alliances: ["חברה בנאט\"ו (NATO)", "איחוד אירופי (EU)", "ברית אסטרטגית הדוקה עם ארה\"ב", "שיתוף פעולה ביטחוני וטכנולוגי עם ישראל"],
@@ -1411,7 +1493,8 @@
                 policyNato: "תאימות מלאה לפרוטוקולי תקשורת Stanag של נאט\"ו, ועמידה ברגולציות יצוא ביטחוני קפדניות (חובת היתרי אפכ\"א / ITAR במקרים רלוונטיים).",
                 recommendationRating: "כדאיות גבוהה מאוד (9.2/10)",
                 recommendationText: "השוק הפולני מציע הזדמנות צמיחה יוצאת דופן עקב גידול דרמטי בתקציבי הביטחון. האסטרטגיה המומלצת: הגשת הצעה משותפת (Joint Venture) עם חברות מקומיות כדוגמת WB Group או PGZ, תוך התמקדות באספקת רכיבי ליבה עמידי חסימות לטילים וכטב\"מים, מערכות יירוט רכות (Anti-Drone) ותחנות שליטה וקרקע (GCS).",
-                recChannel: "שותפות תעשייתית (JV / Offset)", recSegment: "C-UAV & Navigation Payload", recWindow: "מיידי (12-24 חודשים)"
+                recChannel: "שותפות תעשייתית (JV / Offset)", recSegment: "C-UAV & Navigation Payload", recWindow: "מיידי (12-24 חודשים)",
+                bd: { dealSize: "אומדן 150-400 מיליון דולר על פני 3-5 שנים (מבוסס על היקף תוכנית Gladius של ~400 מערכות ורכש MQ-9B)", timeline: "פולין באמצע תוכנית רכש רב-שנתית; 400 מערכות Gladius בהזמנה מצמצמות את החלון לתחמושת משוטטת. חלון פתוח בעיקר ל-C-UAV וניווט עמיד-שיבושים", lockIn: "WB Group נעלה את שוק התחמושת המשוטטת המקומית; Baykar (TB2) ו-General Atomics (MQ-9B) כבר בפנים. הנישה הפנויה: C-UAV", risk: "נמוך - פולין חברת נאט\"ו עם היסטוריית תשלומים תקינה ותקציב יציב וגדל", nextStep: "פנייה ל-Agencja Uzbrojenia (סוכנות החימוש) עם הצעת JV מובנית מול PGZ - שילוב תעשייתי מקומי הוא תנאי סף בפועל" }
             },
             "איחוד האמירויות": {
                 flag: "🇦🇪", title: "איחוד האמירויות (UAE)",
@@ -1424,9 +1507,13 @@
                 geopoliticalThreats: "איום הכטב\"מים הוא המרכזי והמוחשי ביותר עבור האמירויות: התקפות כטב\"מים ומל\"טי התאבדות מצד החות'ים בתימן פגעו בפועל בשטח אמירתי (כולל אבו דאבי, ינואר 2022) - תקדים שהפך את C-UAV מנושא תיאורטי לצורך מבצעי דחוף. איום נוסף: מיצרי הורמוז ותשתיות נפט/גז חופיות חשופות לכטב\"מים ולכלי שיט בלתי מאוישים (USV) איראניים. הריכוז הגבוה של תשתיות קריטיות (נמלים, מתקני אנרגיה, שדות תעופה בינלאומיים) בשטח קטן יחסית יוצר צורך בהגנה רב-שכבתית צפופה. מימד נוסף: תחרות אזורית על השפעה מול איראן ומול טורקיה בזירות לוב וקרן אפריקה.",
                 israelRelations: "הסכמי אברהם (2020) פתחו שוק שהיה סגור לחלוטין, עם נורמליזציה מלאה ושיתופי פעולה ביטחוניים גלויים. **הזדמנות:** תקציב גדול, נכונות לטכנולוגיה מתקדמת, וצורך ב-C-UAV מול איום איראני משותף - אינטרס ביטחוני חופף. **מגבלה מהותית:** EDGE Group המקומית צומחת במהירות והופכת ממתחרה-בכוח למתחרה-בפועל; בנוסף, רגישות סביב העברת טכנולוגיה רגישה למדינה ערבית.",
                 uavFleet: [
-                    { name: "Wing Loong I / II", manufacturer: "AVIC (סין)", desc: "כטב\"מי תקיפה ומודיעין ארוכי טווח הפועלים בשירות פעיל בחיל האוויר האמירתי.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Wing_Loong_II_side_view.jpg", websiteUrl: "https://www.catic.cn/" },
-                    { name: "Garmoosha", manufacturer: "EDGE Group (איחוד האמירויות)", desc: "כטב\"ם מסוק (VTOL) טקטי בפיתוח וייצור מקומי מתקדם למשימות סיור ימי ויבשתי.", imageUrl: "https://edgegroup.ae/sites/default/files/styles/16_9_1920x1080/public/2021-02/GARMOOSHA.jpg?itok=3zK7sZ_O", websiteUrl: "https://edgegroup.ae/" },
-                    { name: "Hermes 900", manufacturer: "אלביט Systems (ישראל)", desc: "שילוב סנסורים, מכלולי מודיעין ואלקטרואופטיקה מתקדמת בפלטפורמות אסטרטגיות.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/9/96/Hermes_900_%28Kochav%29_UAV_is_airborne_again_and_joins_the_ranks_of_the_UAV_Division%2C_November_2015._II.jpg", websiteUrl: "https://www.elbitsystems.com/autonomous/aerial/male-unmanned-aircraft-systems/hermes-900" }
+                    { name: "Garmoosha", manufacturer: "EDGE Group / ADASI (איחוד האמירויות)", desc: "כטב\"ם VTOL (מסוק ללא טייס) מקומי - חוזה בשווי 239 מיליון דירהם ממשרד ההגנה. כל ערכה כוללת שני כלים, תחנת שליטה קרקעית ומכולת הובלה.", websiteUrl: "https://edgegroup.ae/" },
+                    { name: "REACH-S", manufacturer: "EDGE Group / ADASI (איחוד האמירויות)", desc: "100 יחידות בהזמנה - הרכש הראשון מסוגו של כטב\"ם כנף-קבועה מתוצרת אמירתית. מיועד ליכולת ISR רציפה של 24 שעות. עדיין בפיתוח.", websiteUrl: "https://edgegroup.ae/" },
+                    { name: "Yabhon United 40", manufacturer: "Adcom Systems (איחוד האמירויות)", desc: "כטב\"ם MALE מקומי בעל סיבולת יוצאת דופן - עד 120 שעות (5 ימים) בגובה 7,000 מטר. נחשף בתערוכת דובאי 2013.", websiteUrl: "https://edgegroup.ae/" },
+                    { name: "Wing Loong I", manufacturer: "CAIG / AVIC (סין)", desc: "כטב\"ם תקיפה MALE סיני בשירות חיל האוויר האמירתי - מטען כולל של 200 ק\"ג לחיישנים ולחימוש.", websiteUrl: "https://www.catic.cn/" },
+                    { name: "Bayraktar TB2", manufacturer: "Baykar (טורקיה)", desc: "כטב\"ם תקיפה-סיור טורקי בשירות אמירתי - דוגמה נוספת לחדירה הטורקית לשווקי המפרץ.", websiteUrl: "https://baykartech.com/en/uav/bayraktar-tb2/" },
+                    { name: "Predator XP", manufacturer: "General Atomics (ארה\"ב)", desc: "גרסת יצוא בלתי חמושה של ה-Predator, שאושרה למכירה לאמירויות - פלטפורמת ISR ארוכת-שהייה.", websiteUrl: "https://www.ga-asi.com/" },
+                    { name: "Seeker", manufacturer: "Denel Dynamics (דרום אפריקה)", desc: "כטב\"ם ISR ותיק בשירות אמירתי.", websiteUrl: "https://www.denel.co.za/" }
                 ],
                 localIndustry: [
                     { name: "EDGE Group", specialty: "פיתוח וייצור מל\"טי VTOL טקטיים, מערכות נשק מונחה ופלטפורמות אוטונומיות מתקדמות, בגיבוי תקציבי ממשלתי ישיר וצמיחה מואצת", supplies: "כוחות הביטחון האמירתיים, וייצוא הולך וגדל למדינות ערביות ואפריקאיות", products: "Garmoosha (כטב\"ם VTOL), משפחת מערכות נשק מונחה, מערכות C-UAV", website: "https://edgegroup.ae/" }
@@ -1487,6 +1574,9 @@
                 subtitle: "ענקית רכש ביטחוני, מדיניות Make in India ופערים קריטיים בגבול ההימלאיה",
                 threat: "סיכון גיאופוליטי: גבוה", score: "88/100", budget: "$87.0B",
                 capital: "ניו דלהי", population: "כ-1.43 מיליארד", gdp: "$4.4 טריליון", defenseGdpPct: "כ-2.0% (תקציב 2026-27)",
+                uavBudget: "הערכה: כ-2-3% מתקציב הביטחון. עסקת 31 יחידות MQ-9B לבדה מוערכת בכ-3.5 מיליארד דולר (פרוסה על שנים). הודו מקצה תקציבים משמעותיים גם לפיתוח מקומי (DRDO) - TAPAS ו-Archer-NG.",
+                israelInterest: "הודו היא מהלקוחות הגדולים של התעשייה הביטחונית הישראלית והשוק בעל הפוטנציאל הגדול ביותר באסיה. שימור היחסים חיוני משום שהודו מוכיחה בפועל נכונות למודל \"ייצור מקומי בשותפות ישראלית\" (Drishti-10) - מודל שניתן לשכפל בשווקים נוספים. בנוסף, הודו היא משקל נגד אסטרטגי לסין באזור.",
+                militaryBodies: [{ name: "משרד ההגנה (MoD)", role: "מאשר רכש ותקציבים" }, { name: "DRDO", role: "ארגון המו\"פ הביטחוני - מפתח פלטפורמות מקומיות ומהווה גם מתחרה" }, { name: "DAC - ועדת הרכש", role: "הגוף המאשר עסקאות גדולות" }, { name: "שלוש הזרועות בנפרד", role: "כל זרוע מפעילה כטב\"מים עצמאית עם דרישות שונות" }],
                 verifiedDate: "13.09.2026",
                 profileSummary: "הודו היא מארבעת תקציבי הביטחון הגדולים בעולם. המדינה עוברת תהליך מודרניזציה מקיף עם מעבר חד לייצור מקומי (Make in India), תוך הצטיידות במאות כטב\"מים מכל הסוגים להגנה על גבולותיה הארוכים.",
                 alliances: ["חברה ב-QUAD (עם ארה\"ב, יפן, אוסטרליה)", "בריתות הגנה עם ישראל וצרפת", "חברה ב-BRICS"],
@@ -1520,7 +1610,8 @@
                 policyNato: "מדיניות רכש עצמאית ולא-מיושרת, הדורשת גמישות רבה.",
                 recommendationRating: "כדאיות גבוהה עם מורכבות (8.8/10)",
                 recommendationText: "השוק ההודי ענקי אך דורש סבלנות ושותף מקומי חזק. המלצה: הקמת JV עם חברה הודית מובילה (Adani/Tata/Alpha Design) להעברת טכנולוגיה וייצור מקומי של רכיבי מל\"ט עמידים לתנאי קצה.",
-                recChannel: "Make in India Joint Venture", recSegment: "High-Altitude UAV & Swarm Tech", recWindow: "18-36 חודשים"
+                recChannel: "Make in India Joint Venture", recSegment: "High-Altitude UAV & Swarm Tech", recWindow: "18-36 חודשים",
+                bd: { dealSize: "אומדן 300-800 מיליון דולר (להשוואה: עסקת 31 MQ-9B ~3.5 מיליארד; Drishti-10 בייצור מקומי)", timeline: "מדיניות Make in India מחייבת ייצור מקומי. Archer-NG המקומי מתקדם לייצור - חלון נסגר בהדרגה בקטגוריית MALE", lockIn: "ישראל חזקה מאוד (Heron, Searcher, Harop, Drishti-10). התחרות האמיתית היא DRDO המקומי, לא ספק זר", risk: "בינוני - תהליכי רכש הודיים ארוכים ובירוקרטיים; לחץ מתמיד להעמקת אחוז הייצור המקומי", nextStep: "הרחבת מודל Adani-אלביט לפלטפורמות נוספות; עבודה מול DAC (ועדת הרכש) ולא רק מול הזרועות" }
             },
             "יפן": {
                 flag: "🇯🇵", title: "יפן (Japan)",
@@ -1561,15 +1652,23 @@
                 subtitle: "Vision 2030 ולוקליזציה ביטחונית אגרסיבית תחת GAMI, בצל איום כטב\"מים חות'י מתמשך",
                 threat: "סיכון גיאופוליטי: גבוה", score: "89/100", budget: "$85.5B",
                 capital: "ריאד", population: "כ-36 מיליון", gdp: "$1.39 טריליון", defenseGdpPct: "כ-6.3%",
+                uavBudget: "הערכה: כ-3-6% מתקציב הביטחון (כ-2.5-5 מיליארד דולר). עסקת 60 יחידות Bayraktar Akinci לבדה מוערכת במיליארדי דולרים. תחת Vision 2030 מופנה תקציב גדל ללוקליזציה - כולל ייצור מקומי של Karayel-SU תחת השם HABOOB.",
+                israelInterest: "אין יחסים דיפלומטיים רשמיים, אך סעודיה היא השוק הגדול ביותר במזרח התיכון ובעלת אינטרס ביטחוני חופף מול איראן. שימור ערוצים (גם לא רשמיים) חיוני משום שנורמליזציה עתידית תפתח שוק בהיקף של מיליארדים - והמתחרים הטורקיים והסיניים כבר מתבססים שם בזמן שישראל ממתינה.",
+                militaryBodies: [{ name: "GAMI", role: "הרשות הכללית לתעשיות צבאיות - הרגולטור שקובע דרישות לוקליזציה" }, { name: "SAMI", role: "התאגיד הביטחוני הממשלתי - שותף חובה בייצור מקומי" }, { name: "משרד ההגנה", role: "מאשר רכש" }, { name: "חיל האוויר המלכותי (RSAF)", role: "המפעיל המרכזי - טייסת 202 מפעילה CH-4B" }],
                 verifiedDate: "13.09.2026",
                 profileSummary: "ערב הסעודית מנהלת את אחד מתקציבי הביטחון הגדולים בעולם, עם דגש הולך וגובר על לוקליזציה תחת תוכנית Vision 2030 ורגולטור הרכש GAMI. התקפות כטב\"מים וטילי שוטטות חוזרות מתימן הפכו את ה-C-UAV לעדיפות לאומית עליונה.",
                 alliances: ["ברית אסטרטגית הדוקה עם ארה\"ב", "חברה במועצת שיתוף הפעולה המפרצית (GCC)", "שיתופי פעולה ביטחוניים מתרחבים עם סין וצרפת"],
                 geopoliticalThreats: "איום הכטב\"מים הוא הדומיננטי והמוכח: מתקפת אבקייק (ספטמבר 2019) שבה כטב\"מים וטילי שיט פגעו במתקני הנפט הגדולים בעולם והשביתו כ-5% מתפוקת הנפט העולמית - האירוע שהגדיר מחדש את תפיסת ההגנה הסעודית. מאז, מאות מתקפות כטב\"מים וטילים מצד החות'ים בתימן על שדות תעופה, מתקני אנרגיה ומרכזים אזרחיים. הבעיה המבצעית: מערכות הגנה אווירית קונבנציונליות (פטריוט) יקרות מדי ביחס לכטב\"ם של אלפי דולרים - יחס עלות-תועלת הפוך שמחייב פתרונות C-UAV ייעודיים וזולים. בנוסף: גבול יבשתי ארוך ופתוח עם תימן ועיראק, ומתיחות ישירה מול איראן.",
                 israelRelations: "אין יחסים דיפלומטיים רשמיים בין ישראל לערב הסעודית, אך קיימים דיווחים רחבים על שיתוף פעולה ביטחוני-מודיעיני שקט על רקע האיום האיראני המשותף. **דריסת רגל:** אין מכירות ישירות מוכרות. **הזדמנות משמעותית:** הצורך הסעודי ב-C-UAV הוא הדחוף ביותר באזור (אבקייק, מתקפות החות'ים), והניסיון הישראלי המבצעי המצטבר בהגנה מפני כטב\"מים הוא בדיוק המענה. **מגבלה מכרעת:** ללא נורמליזציה רשמית, כל עסקה ישירה בלתי אפשרית מעשית. תרחיש ריאלי היחיד הוא דרך צד שלישי אמריקאי או במסגרת הסדר נורמליזציה עתידי - תכנון חייב להיות מותנה בכך.",
                 uavFleet: [
-                    { name: "CH-4", manufacturer: "CASC (סין)", desc: "כטב\"ם תקיפה ומודיעין בינוני-גבוה (MALE) המשמש למשימות סיור ותקיפה בגבול הדרומי.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Wing_Loong_II_side_view.jpg", websiteUrl: "https://www.catic.cn/" },
-                    { name: "Wing Loong I / II", manufacturer: "AVIC (סין)", desc: "פלטפורמות תקיפה ומודיעין סיניות נוספות בשירות פעיל, לצד תוכניות לייצור מקומי משותף.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Wing_Loong_II_side_view.jpg", websiteUrl: "https://www.catic.cn/" },
-                    { name: "ScanEagle", manufacturer: "Insitu / Boeing (ארה\"ב)", desc: "כטב\"ם טקטי לסיור גבולות ואבטחת מתקני נפט קריטיים לאורך התשתית האנרגטית.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Insitu_ScanEagle_X200_%E2%80%98N202SE%E2%80%99.jpg", websiteUrl: "https://www.insitu.com/products/scaneagle" }
+                    { name: "CH-4", manufacturer: "CASC (סין)", desc: "כטב\"ם תקיפה MALE - טייסת 202 של חיל האוויר הסעודי בבסיס המלך ח\'אלד. סבל מאבדות משמעותיות בתימן (מעל תריסר הופלו), מה שהוביל לחיפוש חלופות.", websiteUrl: "https://www.catic.cn/" },
+                    { name: "Wing Loong I / II", manufacturer: "AVIC / CAIG (סין)", desc: "כטב\"ם תקיפה MALE שנרכש בכמויות משמעותיות מאמצע שנות ה-2010 - עמוד השדרה הסיני של הצי הסעודי. גם הוא ספג אבדות בתימן.", websiteUrl: "https://www.catic.cn/" },
+                    { name: "Karayel-SU / HABOOB", manufacturer: "Lentatek (טורקיה) - בייצור מקומי", desc: "כטב\"ם תקיפה טקטי שנרכש ב-2019 (6 יחידות + 40 מתוכננות), מיוצר כיום בסעודיה תחת השם HABOOB. שודרג עם SATCOM, מכ\"ם SAR ויכולת אנטי-שיבוש - דוגמה מובהקת ללוקליזציה תחת Vision 2030.", websiteUrl: "https://www.lentatek.com/" },
+                    { name: "Bayraktar Akinci", manufacturer: "Baykar (טורקיה)", desc: "כטב\"ם HALE כבד - לפחות 60 יחידות בהזמנה לחיל האוויר ולחיל הים הסעודי (מנה ראשונה). מהעסקאות הגדולות של Baykar אי פעם.", websiteUrl: "https://baykartech.com/en/" },
+                    { name: "Falco", manufacturer: "Leonardo (איטליה)", desc: "כטב\"ם סיור MALE בשירות מאז אמצע שנות ה-2010 - אחד ממקורות ה-ISR המערביים בצי הסעודי.", websiteUrl: "https://www.leonardo.com/" },
+                    { name: "Seeker", manufacturer: "Denel Dynamics (דרום אפריקה)", desc: "כטב\"ם ISR ותיק בשירות סעודי, פעל מעל תימן מאז תחילת ההתערבות ב-2015.", websiteUrl: "https://www.denel.co.za/" },
+                    { name: "Samoom", manufacturer: "IDT - Intra Defense Technologies (סעודיה)", desc: "כטב\"ם ISR/תקיפה בפיתוח וייצור מקומי - חלק ממאמץ הלוקליזציה הסעודי.", websiteUrl: "https://intra.com.sa/" },
+                    { name: "Asef", manufacturer: "IDT - Intra Defense Technologies (סעודיה)", desc: "מערכת כטב\"ם VTOL מקומית (2021) - אינה דורשת מסלול, מתאימה לפעילות משטח מוגבל.", websiteUrl: "https://intra.com.sa/" }
                 ],
                 localIndustry: [
                     { name: "SAMI (Saudi Arabian Military Industries)", specialty: "לוקליזציה מואצת בחסות ממשלתית ישירה תחת רגולטור GAMI - כרגע בעיקר הרכבה ואינטגרציה, פחות פיתוח עצמאי מלא", supplies: "כוחות הביטחון הסעודיים", products: "הרכבת כטב\"מים תחת רישיון, רכיבי אלקטרוניקה ותחזוקה; יעד רשמי של 50% תוצרת מקומית עד 2030", website: "https://sami.com.sa/" }
@@ -1588,7 +1687,8 @@
                 policyNato: "לא חברה בנאט\"ו; פועלת תחת מסגרת רכש עצמאית עם דרישות אבטחת מידע והיתרי ייצוא אמריקאים (ITAR) במקרים רבים.",
                 recommendationRating: "כדאיות גבוהה (8.7/10)",
                 recommendationText: "השוק הסעודי מציע תקציבים עצומים לצד דרישת לוקליזציה נוקשה. המלצה: הקמת שותפות עם SAMI להעברת טכנולוגיית C-UAV והגנה על תשתיות אנרגיה, כערוץ כניסה שעוקף חלק ניכר מהחיכוך הפוליטי.",
-                recChannel: "שותפות עם SAMI תחת GAMI", recSegment: "C-UAV & Critical Infrastructure Protection", recWindow: "12-24 חודשים"
+                recChannel: "שותפות עם SAMI תחת GAMI", recSegment: "C-UAV & Critical Infrastructure Protection", recWindow: "12-24 חודשים",
+                bd: { dealSize: "אומדן פוטנציאלי 500 מיליון - 2 מיליארד דולר (השוק הגדול באזור), אך חסום כיום", timeline: "🔴 השוק נסגר בזמן אמת: 60 Akinci בהזמנה + Karayel בייצור מקומי. כל שנה ללא נורמליזציה = נתח שוק אבוד", lockIn: "טורקיה מתבססת אגרסיבית (Akinci + HABOOB מקומי); סין נחלשה אחרי כשלונות CH-4/Wing Loong בתימן - זו הנישה שנפתחה, וטורקיה תפסה אותה", risk: "🔴 גבוה - אין יחסים דיפלומטיים. כל תכנון מותנה בנורמליזציה; סיכון לביטול עסקה משיקולים פוליטיים", nextStep: "הכנת תיק מוכנות לתרחיש נורמליזציה; בחינת מסלול עקיף דרך יצרן אמריקאי כצד שלישי" }
             },
             "רומניה": {
                 flag: "🇷🇴", title: "רומניה (Romania)",
@@ -1664,15 +1764,25 @@
                 subtitle: "שוק המלחמה הפעיל הגדול בעולם לכטב\"מים - צריכה וחדשנות בקצב חסר תקדים",
                 threat: "סיכון גיאופוליטי: קיצוני (מלחמה פעילה)", score: "78/100", budget: "$84.0B (כולל סיוע חוץ)",
                 capital: "קייב", population: "כ-33 מיליון (אומדן זמן מלחמה)", gdp: "$225 מיליארד", defenseGdpPct: "כ-31% (כלכלת מלחמה, 2026)",
+                uavBudget: "ייחודי: אוקראינה הקצתה כ-2.6 מיליארד דולר לרכש כטב\"מים ב-2024 לבדה, ומייצרת מיליוני כלים בשנה. זהו ככל הנראה הפילוח התקציבי הגבוה בעולם לכטב\"מים כאחוז מהתקציב - תוצאה ישירה של דוקטרינת לחימה שבה הכטב\"ם הוא הכלי המרכזי.",
+                israelInterest: "אוקראינה היא מעבדת הלחימה החשובה בעולם ללוחמת כטב\"מים - הלקחים משם מעצבים את כל התעשייה העולמית. גם ללא מכירות ישירות (שחסומות מדינית), שימור קשרים טכנולוגיים חיוני להבנת האיומים המתפתחים, בעיקר בתחום השיבוש האלקטרוני והמענה לו.",
+                militaryBodies: [{ name: "משרד ההגנה", role: "מאשר רכש ותקציב" }, { name: "כוחות המערכות הבלתי מאוישות (USF)", role: "זרוע ייעודית שהוקמה 2024 - ראשונה מסוגה בעולם" }, { name: "Brave1", role: "פלטפורמת חדשנות ביטחונית ממשלתית לפיתוח מהיר" }, { name: "SSO - כוחות מיוחדים", role: "מפעיל Punisher ומערכות תקיפה מדויקות" }],
                 verifiedDate: "13.09.2026",
                 profileSummary: "אוקראינה מהווה כיום את שוק הכטב\"מים הפעיל והאינטנסיבי ביותר בעולם, עם צריכה של עשרות אלפי כלים בחודש וקצב חדשנות מבצעית חסר תקדים. התעשייה המקומית צמחה בצורה עצומה תחת לחץ המלחמה, לצד תלות מתמשכת בסיוע ותרומות ציוד ממדינות המערב.",
                 alliances: ["שותף מועדף של נאט\"ו (לא חבר)", "מועמדת לאיחוד האירופי", "סיוע ביטחוני נרחב מארה\"ב ובריטניה", "יחסים מוגבלים וזהירים עם ישראל"],
                 geopoliticalThreats: "מלחמה בעצימות גבוהה - הזירה שהגדירה מחדש את לוחמת הכטב\"מים המודרנית. איומים: מתקפות המוניות של כטב\"מי שאהד/גרן איראניים על ערים ותשתיות אנרגיה; כטב\"מי FPV בכל חזית קרקעית; לוחמה אלקטרונית רוסית אינטנסיבית שהופכת ניווט לוויני ללא אמין באזורים נרחבים - מה שהוביל לפיתוח מהיר של ניווט אינרציאלי, ניווט ויזואלי וכטב\"מים מונחי-סיב אופטי שאינם ניתנים לשיבוש כלל. מאפיין ייחודי: מחזור החדשנות המבצעית התקצר משנים לשבועות, והפער בין פיתוח לשדה הקרב כמעט התאפס.",
                 israelRelations: "ישראל נקטה עמדה זהירה במיוחד בסוגיית אספקת נשק לאוקראינה, בשל השיקול הרוסי בזירה הסורית. **מגבלה מהותית - זו הנקודה המכרעת:** אין כיום מכירות ביטחוניות ישירות משמעותיות, והמגבלה היא מדינית-אסטרטגית ולא טכנית או מסחרית. **הזדמנות עתידית בלבד:** הצורך המבצעי עצום והביקוש לטכנולוגיה ישראלית גבוה - אך כל תכנון חייב להיות מותנה בשינוי המדיניות הישראלית.",
                 uavFleet: [
-                    { name: "Bayraktar TB2", manufacturer: "Baykar Tech (טורקיה)", desc: "כטב\"ם תקיפה שהפך לסמל בשלב הראשון של המלחמה, עדיין בשימוש מבצעי לצד פלטפורמות חדשות.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/d/d4/Bayraktar_TB2_%22Vanagas%22_03.jpg", websiteUrl: "https://baykartech.com/en/uav/bayraktar-tb2/" },
-                    { name: "Switchblade 300", manufacturer: "AeroVironment (ארה\"ב)", desc: "תחמושת משוטטת טקטית קלה, חלק מחבילות הסיוע האמריקאיות למטרות דיוק בטווח קצר-בינוני.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/a/a4/MQ-9_Reaper_in_flight_%282007%29.jpg", websiteUrl: "https://www.avinc.com/uas/switchblade" },
-                    { name: "ScanEagle", manufacturer: "Insitu / Boeing (ארה\"ב)", desc: "כטב\"ם טקטי לסיור ואיתור מטרות לצורך כיוונון אש ארטילרית מדויקת.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Insitu_ScanEagle_X200_%E2%80%98N202SE%E2%80%99.jpg", websiteUrl: "https://www.insitu.com/products/scaneagle" }
+                    { name: "Bayraktar TB2", manufacturer: "Baykar (טורקיה)", desc: "כטב\"ם תקיפה-סיור MALE שנרכש ב-2019 ונכנס לשירות מבצעי ב-2021. עיצב את התודעה הציבורית בתחילת הפלישה, אך במרחב אווירי מוגן ומשובש הפך פחות מרכזי מול מערכות FPV קטנות וזולות יותר.", websiteUrl: "https://baykartech.com/en/uav/bayraktar-tb2/" },
+                    { name: "Leleka-100", manufacturer: "Ukrspecsystems (אוקראינה)", desc: "כטב\"ם ISR מקומי - אחת הפלטפורמות המקומיות הנפוצות והמוכחות ביותר בשדה הקרב. שימש גם כבסיס לפיתוח תחמושת משוטטת (RAM II).", websiteUrl: "https://ukrspecsystems.com/" },
+                    { name: "A1-CM Furia", manufacturer: "Athlon Avia (אוקראינה)", desc: "כטב\"ם סיור טקטי שפותח ב-2014 ואומץ רשמית ב-2019-20 - משמש בעיקר לאיתור מטרות והכוונת אש ארטילרית.", websiteUrl: "https://athlonavia.com/" },
+                    { name: "RAM II", manufacturer: "Ukrspecsystems (אוקראינה)", desc: "תחמושת משוטטת המבוססת על מבנה Leleka-100 - משוגרת בקטפולטה מהקרקע או מטנדר, זמן פריסה 10 דקות. מיועדת להשמדת מערכות נ\"מ, רק\"ם וריכוזי כוח אדם.", websiteUrl: "https://ukrspecsystems.com/" },
+                    { name: "Punisher", manufacturer: "UA Dynamics (אוקראינה)", desc: "כטב\"ם תקיפה-סיור רב-תכליתי שאושר על ידי משרד ההגנה לשימוש כוחות המבצעים המיוחדים (SSO) - משמש גם לחיפוש והצלה ולוגיסטיקה.", websiteUrl: "https://uadynamics.com/" },
+                    { name: "Switchblade 300", manufacturer: "AeroVironment (ארה\"ב)", desc: "תחמושת משוטטת טקטית שסופקה בסיוע אמריקאי - נישאת בתרמיל להפעלה מיידית ברמת החוליה.", websiteUrl: "https://www.avinc.com/" },
+                    { name: "ScanEagle", manufacturer: "Insitu / Boeing (ארה\"ב)", desc: "כטב\"ם ISR טקטי משוגר-קטפולטה שסופק בסיוע אמריקאי.", websiteUrl: "https://www.insitu.com/products/scaneagle" },
+                    { name: "Puma", manufacturer: "AeroVironment (ארה\"ב)", desc: "כטב\"ם ISR זעיר משוגר-יד שסופק בסיוע אמריקאי לסיור טקטי קרוב.", websiteUrl: "https://www.avinc.com/" },
+                    { name: "Vector", manufacturer: "Quantum Systems (גרמניה)", desc: "כטב\"ם VTOL שסופק בהיקפים גדולים מגרמניה - אינו דורש מסלול או מתקן שיגור, יתרון מבצעי משמעותי בתנאי חזית.", websiteUrl: "https://quantum-systems.com/" },
+                    { name: "כטב\"מי FPV (ייצור המוני מבוזר)", manufacturer: "עשרות יצרנים מקומיים (אוקראינה)", desc: "ליבת לוחמת הכטב\"מים האוקראינית - מאות אלפי כלים בשנה בעלות נמוכה קיצונית. כולל גרסאות מונחות-סיב אופטי שאינן ניתנות לשיבוש אלקטרוני כלל.", websiteUrl: "https://ukrspecsystems.com/" }
                 ],
                 localIndustry: [
                     { name: "תעשייה מבוזרת של מאות חברות קטנות ובינוניות", specialty: "ייצור המוני מהיר בעלות נמוכה קיצונית של כטב\"מי FPV ותחמושת משוטטת, עם מחזורי חדשנות מבצעית של שבועות במקום שנים - תוצר ישיר של לחץ המלחמה", supplies: "צבא אוקראינה בלבד כרגע, בשל מגבלות ייצוא בזמן מלחמה", products: "כטב\"מי FPV התקפיים בייצור המוני, Leleka-100 (סיור), Punisher (תחמושת משוטטת) ועוד עשרות דגמים זולים" }
@@ -1691,7 +1801,8 @@
                 policyNato: "תיאום הדוק עם תקני נאט\"ו לצורך אינטגרציה עם ציוד מערבי; רגולציית יצוא מערבית (ITAR ואחרות) משפיעה משמעותית על זמינות טכנולוגיה.",
                 recommendationRating: "כדאיות בינונית עם רגישות גבוהה (6.5/10)",
                 recommendationText: "השוק האוקראיני מציג צורך עצום וקצב חדשנות ייחודי, אך מעורבות ישירה דורשת בחינה זהירה של השלכות מדיניות החוץ והיחסים עם רוסיה. המלצה: מיקוד ברכיבים לא-קטלניים (חיישנים, אלקטרואופטיקה, מערכות ניווט עמידות) דרך ערוצים עקיפים, תוך תיאום צמוד עם משרד הביטחון.",
-                recChannel: "רכיבים עקיפים / שיתוף פעולה עם ספקים מערביים", recSegment: "GPS-Denied Navigation & Sensors", recWindow: "תלוי התפתחויות מדיניות"
+                recChannel: "רכיבים עקיפים / שיתוף פעולה עם ספקים מערביים", recSegment: "GPS-Denied Navigation & Sensors", recWindow: "תלוי התפתחויות מדיניות",
+                bd: { dealSize: "לא רלוונטי כיום - אין מכירות ישירות. השוק עצמו עצום (2.6 מיליארד דולר לכטב\"מים ב-2024 לבדה)", timeline: "מותנה כולו בשינוי מדיניות ישראלית; אין ציר זמן מסחרי צפוי", lockIn: "ייצור מקומי מבוזר שולט (5 מתוך 10 פלטפורמות); ספקים מערביים נכנסים דרך סיוע ממשלתי ולא דרך מכירה", risk: "🔴 חסם מדיני מלא - לא סיכון מסחרי אלא החלטת מדיניות ישראלית", nextStep: "מעקב טכנולוגי בלבד - הלקחים מהזירה חשובים לפיתוח מוצר, גם ללא מכירה" }
             },
             "אזרבייג'ן": {
                 flag: "🇦🇿", title: "אזרבייג'ן (Azerbaijan)",
@@ -1897,6 +2008,9 @@
                 subtitle: "תקציב ענק לאחר ה-Zeitenwende, אך רגישות פוליטית גבוהה סביב כטב\"מים חמושים",
                 threat: "סיכון גיאופוליטי: בינוני-גבוה", score: "82/100", budget: "$120.0B",
                 capital: "ברלין", population: "כ-84 מיליון", gdp: "$4.5 טריליון", defenseGdpPct: "כ-2.8% (יעד: 3.5% עד 2029)",
+                uavBudget: "הערכה: כ-2-4% מתקציב הביטחון (כ-2.4-4.8 מיליארד דולר). גרמניה הגדילה משמעותית את ההשקעה במערכות בלתי מאוישות תחת Zeitenwende, כולל הזמנת 12 מערכות LUNA NG ורכש Vector לכוחות מיוחדים. חכירת Heron TP לבדה מוערכת במאות מיליוני יורו.",
+                israelInterest: "גרמניה היא הלקוחה הביטחונית הגדולה ביותר של ישראל באירופה (עסקת ארו 3, 2023 - הגדולה בתולדות ישראל) והמחויבות ההיסטורית שלה מייצרת יציבות פוליטית נדירה ליחסים. שימור היחסים חיוני משום שגרמניה היא המנוע הכלכלי של אירופה ומשפיעה על מדיניות הרכש של האיחוד כולו - כולל תוכניות \"Buy European\" שעלולות לחסום ספקים ישראליים.",
+                militaryBodies: [{ name: "BAAINBw", role: "המשרד הפדרלי לציוד, טכנולוגיית מידע ותמיכה מבצעית - גוף הרכש המרכזי" }, { name: "הבונדסטאג", role: "אישור פרלמנטרי נדרש לרכש כטב\"מים חמושים - חסם פוליטי ייחודי לגרמניה" }, { name: "משרד ההגנה (BMVg)", role: "קובע מדיניות ותעדוף" }, { name: "הבונדסוור - כוחות היבשה והאוויר", role: "המפעילים בפועל" }],
                 verifiedDate: "13.09.2026",
                 profileSummary: "גרמניה מבצעת שינוי היסטורי בתפיסת הביטחון שלה (\"Zeitenwende\") מאז 2022, עם הגדלה דרמטית של תקציב הביטחון. עם זאת, השימוש בכטב\"מים חמושים נותר נושא רגיש פוליטית הדורש אישור פרלמנטרי, מה שמעצב את אופי הרכש.",
                 alliances: ["חברה בנאט\"ו", "איחוד אירופי - כוח מוביל", "ברית אסטרטגית הדוקה עם ארה\"ב וצרפת"],
@@ -1929,7 +2043,8 @@
                 policyNato: "תאימות מלאה לנאט\"ו; חברה מובילה בעיצוב מדיניות ההגנה האירופית המשותפת.",
                 recommendationRating: "כדאיות בינונית-גבוהה עם מורכבות פוליטית (7.6/10)",
                 recommendationText: "גרמניה מציעה תקציב עצום אך עם רגישות פוליטית משמעותית סביב כטב\"מים חמושים והעדפה ל-\"Buy European\". המלצה: התמקדות ברכיבי משנה, חיישנים ומערכות C-UAV במקום פלטפורמות מלאות, תוך שיתוף פעולה אפשרי עם תעשיות אירופיות מקומיות.",
-                recChannel: "רכיבי משנה / שת\"פ עם תעשייה אירופית", recSegment: "Sensors, Payloads & C-UAV", recWindow: "18-36 חודשים"
+                recChannel: "רכיבי משנה / שת\"פ עם תעשייה אירופית", recSegment: "Sensors, Payloads & C-UAV", recWindow: "18-36 חודשים",
+                bd: { dealSize: "אומדן 200-600 מיליון יורו (חכירת Heron TP לבדה במאות מיליונים; תקציב Zeitenwende מרחיב משמעותית)", timeline: "תוכנית Zeitenwende פעילה עד 2029 עם יעד 3.5% מהתמ\"ג. החלטות רכש מרכזיות צפויות בשנים הקרובות", lockIn: "IAI כבר בפנים (Heron TP/1 בחכירה) - יתרון ישראלי קיים. Rheinmetall שולטת בשוק הטקטי המקומי (5 מתוך 7 פלטפורמות)", risk: "נמוך מסחרית, אך גבוה פוליטית - רכש כטב\"ם חמוש דורש אישור בונדסטאג, תהליך ארוך ובלתי צפוי", nextStep: "עבודה מול BAAINBw (גוף הרכש) + הכנה מוקדמת לתהליך האישור הפרלמנטרי, שהוא החסם האמיתי" }
             },
             "איטליה": {
                 flag: "🇮🇹", title: "איטליה (Italy)",
@@ -1969,6 +2084,9 @@
                 subtitle: "שוק פרימיום עם דריסת רגל ישראלית קיימת (Elbit UK) דרך תוכנית Watchkeeper",
                 threat: "סיכון גיאופוליטי: בינוני", score: "86/100", budget: "$89.0B",
                 capital: "לונדון", population: "כ-69.3 מיליון", gdp: "$4.26 טריליון", defenseGdpPct: "כ-2.1%",
+                uavBudget: "הערכה: כ-2-3% מתקציב הביטחון. תוכנית Protector RG Mk1 (16 כלים) מוערכת בכ-1.1 מיליארד ליש\"ט. פרויקט Corvus להחלפת Watchkeeper נמצא בשלבי הגדרה - חלון הזדמנויות מוגדר בזמן.",
+                israelInterest: "בריטניה מהווה את הדוגמה המוצלחת ביותר בעולם למודל \"ייצור מקומי מבוסס טכנולוגיה ישראלית\" (Watchkeeper מבוסס Hermes 450, מיוצר על ידי Thales UK). שימור היחסים חיוני משום שהמודל הזה הוא נכס אסטרטגי לשכפול, ובריטניה היא חברת Five Eyes - הצלחה שם מעניקה לגיטימציה מול ארה\"ב, קנדה ואוסטרליה.",
+                militaryBodies: [{ name: "DE&S", role: "ארגון הציוד והתמיכה הביטחונית - גוף הרכש המרכזי" }, { name: "משרד ההגנה (MoD)", role: "קובע מדיניות ותקציב" }, { name: "RAF", role: "מפעיל Protector ו-MQ-9A" }, { name: "צבא היבשה", role: "מפעיל Watchkeeper - בהארכה עד מרץ 2027 בלבד" }],
                 verifiedDate: "13.09.2026",
                 profileSummary: "בריטניה מחזיקה בתקציב ביטחון גדול ותעשייה מקומית מפותחת, לצד קשר תעשייתי ישיר וקיים עם ישראל דרך חברת הבת Elbit UK ותוכנית ה-Watchkeeper (מבוססת על Hermes 450). זהו יתרון תחרותי משמעותי לכניסה להזדמנויות עתידיות.",
                 alliances: ["חברה בנאט\"ו", "שותפות AUKUS (עם ארה\"ב ואוסטרליה)", "Five Eyes", "יחסי ביטחון-תעשייתי הדוקים עם ישראל"],
@@ -1999,7 +2117,8 @@
                 policyNato: "תאימות מלאה לנאט\"ו ולסטנדרטים של Five Eyes.",
                 recommendationRating: "כדאיות גבוהה (8.7/10)",
                 recommendationText: "בריטניה מציעה בסיס תעשייתי קיים דרך Elbit UK - יתרון משמעותי על פני מתחרים ללא דריסת רגל מקומית. המלצה: מינוף תוכנית ה-Watchkeeper הקיימת כקרש קפיצה לתוכניות דור הבא, כולל נחילי כטב\"מים ו-C-UAV.",
-                recChannel: "הרחבת נוכחות Elbit UK הקיימת", recSegment: "Next-Gen Autonomy & C-UAV", recWindow: "18-30 חודשים"
+                recChannel: "הרחבת נוכחות Elbit UK הקיימת", recSegment: "Next-Gen Autonomy & C-UAV", recWindow: "18-30 חודשים",
+                bd: { dealSize: "אומדן 100-300 מיליון ליש\"ט (להשוואה: תוכנית Protector, 16 כלים, ~1.1 מיליארד ליש\"ט)", timeline: "🔴 חלון מוגדר: Watchkeeper בהארכה עד מרץ 2027 בלבד. פרויקט Corvus להחלפתו בשלבי הגדרה כעת - זהו רגע הכניסה", lockIn: "General Atomics נעלה את הקטגוריה הכבדה (Protector). אלביט כבר בפנים דרך Watchkeeper - יתרון מובנה לקראת Corvus", risk: "נמוך מסחרית; סיכון מוניטין/לחץ ציבורי תקופתי סביב רכש מישראל", nextStep: "מיצוב מיידי מול DE&S לקראת פרויקט Corvus, תוך מינוף המודל הקיים של Elbit Systems UK" }
             },
             "אוסטרליה": {
                 flag: "🇦🇺", title: "אוסטרליה (Australia)",
@@ -2045,8 +2164,14 @@
                 geopoliticalThreats: "האיום הקיומי המובהק ביותר במערכת: לחץ צבאי סיני יומיומי הכולל חציית קו האמצע במיצר טייוואן, תרגילי הקפה, וכניסות המוניות לאזור זיהוי ההגנה האווירית (ADIZ) - מאות אירועים בחודש. איום כטב\"מים ספציפי: כטב\"מים סיניים (BZK-005, TB-001) מקיפים את האי באופן שגרתי, וכטב\"מים זעירים חדרו לאיי קינמן הסמוכים לסין. דוקטרינת ההגנה הטייוואנית (\"אסטרטגיית הדרבן\") מתבססת על כמויות גדולות של מערכות זולות ומבוזרות במקום מעט מערכות יקרות - מה שהופך תחמושת משוטטת לרכיב מרכזי. אתגר ייחודי: בידוד דיפלומטי המגביל קשות את מגוון הספקים הזמינים.",
                 israelRelations: "אין יחסים דיפלומטיים רשמיים בין ישראל לטייוואן (ישראל מכירה בסין העממית), אך קיימים קשרי מסחר וטכנולוגיה. **דריסת רגל:** מוגבלת מאוד בתחום הביטחוני. **הזדמנות תיאורטית:** הצורך הטייוואני בתחמושת משוטטת זולה ובכמויות (דוקטרינת הדרבן) מתאים בדיוק למוצרים ישראליים כמו Harop ו-Skystriker. **מגבלה מכרעת:** מכירת נשק לטייוואן תיצור משבר דיפלומטי חמור מול סין, שהיא שותפת סחר משמעותית של ישראל - בפועל זהו חסם כמעט מוחלט. ישראל גם כפופה ללחץ אמריקאי היסטורי בנוגע למכירות נשק באזור.",
                 uavFleet: [
-                    { name: "Teng Yun", manufacturer: "NCSIST (טייוואן - פיתוח מקומי)", desc: "כטב\"ם סיור ומודיעין אסטרטגי מפותח באופן מקומי כחלק ממדיניות עצמאות טכנולוגית.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Wing_Loong_II_side_view.jpg", websiteUrl: "https://www.ncsist.org.tw/" },
-                    { name: "MQ-9B SkyGuardian", manufacturer: "General Atomics (ארה\"ב)", desc: "רכש מוגבל שאושר על ידי ארה\"ב במסגרת מכירות נשק תמיכה מוגבלות.", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/a/a4/MQ-9_Reaper_in_flight_%282007%29.jpg", websiteUrl: "https://www.ga-asi.com/remotely-piloted-aircraft/mq-9b-skyguardian" }
+                    { name: "Teng Yun", manufacturer: "NCSIST (טייוואן)", desc: "כטב\"ם MALE מקומי בגודל דומה ל-MQ-9 - סיבולת עד 20 שעות בטווח כ-1,100 ק\"מ, תואם טילי Hellfire. מימון אב-טיפוס Teng Yun II נמחק מהתקציב המיוחד ב-2026 - מגבלה פוליטית ולא טכנית.", websiteUrl: "https://www.ncsist.org.tw/" },
+                    { name: "Albatross (Rui Yuan)", manufacturer: "NCSIST (טייוואן)", desc: "כטב\"ם סיור בינוני בשירות חיל הים הטייוואני כ-15 שנה - 12 שעות טיסה, טווח הנחיה 150 ק\"מ, חיישני EO/IR. פלטפורמת ה-ISR המקומית הוותיקה ביותר.", websiteUrl: "https://www.ncsist.org.tw/" },
+                    { name: "Chien Hsiang", manufacturer: "NCSIST (טייוואן)", desc: "תחמושת משוטטת נגד מכ\"ם בייצור סדרתי - טווח עד 1,000 ק\"מ, מהירות 185 קמ\"ש. משוגרת ממשאית עם 12 משגרים. הנכס הארוך-טווח המקומי היחיד של טייוואן.", websiteUrl: "https://www.ncsist.org.tw/" },
+                    { name: "Cardinal 2 / 3", manufacturer: "NCSIST (טייוואן)", desc: "משפחת כטב\"מים טקטיים זעירים מקומיים לסיור ברמת היחידה.", websiteUrl: "https://www.ncsist.org.tw/" },
+                    { name: "MQ-9B SeaGuardian", manufacturer: "General Atomics (ארה\"ב)", desc: "4 יחידות ברכש - שתי הראשונות נמסרו במרץ 2026 והגיעו לאי ביוני. מבנה מוכן-לחימוש, אך העסקה כללה מכ\"ם ימי וחיישנים בלבד ולא תחמושת. נפרסות לאורך החוף המזרחי.", websiteUrl: "https://www.ga-asi.com/" },
+                    { name: "Switchblade 300", manufacturer: "AeroVironment (ארה\"ב)", desc: "685 יחידות במסגרת חבילת נשק אמריקאית בשווי 360 מיליון דולר (2024) - תחמושת משוטטת טקטית נישאת-תרמיל.", websiteUrl: "https://www.avinc.com/" },
+                    { name: "ALTIUS 600M-V", manufacturer: "Anduril (ארה\"ב)", desc: "תחמושת משוטטת בטווח עד 400 ק\"מ שמסוגלת לחצות את המיצר - ראש קרב 15 ק\"ג או פחות, מותאם לכלי רכב ונחתות ולא לספינות הובלה גדולות.", websiteUrl: "https://www.anduril.com/" },
+                    { name: "Overkill (FPV)", manufacturer: "Thunder Tiger + NCSIST (טייוואן)", desc: "כטב\"ם FPV קמיקזה מקומי עם תוכנת תקיפה מבוססת AI של Auterion - רישיונות תוכנה לעד 25,000 יחידות. חלק ממכרז 48,750 כטב\"מים מקומיים (2026-2027, כ-1.4 מיליארד דולר).", websiteUrl: "https://www.ncsist.org.tw/" }
                 ],
                 localIndustry: [
                     { name: "NCSIST", specialty: "פיתוח וייצור המוני ממשלתי בעדיפות לאומית עליונה, דגש על תחמושת משוטטת זולה וניווט עמיד בפני שיבושים סיניים", supplies: "צבא טייוואן בלבד - אין ייצוא בשל רגישות דיפלומטית מול סין", products: "Teng Yun (כטב\"ם סיור אסטרטגי), Chien Hsiang (תחמושת משוטטת), תוכנית לאומית לייצור אלפי יחידות", website: "https://www.ncsist.org.tw/" }
@@ -2142,6 +2267,9 @@
                 subtitle: "לא שוק יעד - הבית התעשייתי ופרופיל ייחוס להשוואת פלטפורמות מול מדינות אחרות",
                 threat: "סיכון גיאופוליטי: לא רלוונטי (מדינת מוצא, לא שוק יעד)", score: "-", budget: "$34.7B",
                 capital: "ירושלים", population: "כ-9.8 מיליון", gdp: "$530 מיליארד", defenseGdpPct: "כ-7% (תקציב 2026 שאושר)",
+                uavBudget: "ישראל אינה מפרסמת פילוח תקציבי ייעודי לכטב\"מים. ידוע כי כטב\"מים מהווים מעל 80% משעות הטיסה של חיל האוויר - אינדיקציה למרכזיותם. מרבית ההשקעה מופנית לפיתוח מקומי ולא לרכש חיצוני.",
+                israelInterest: "פרופיל הבית - לא רלוונטי כשוק יעד. משמש כבסיס השוואה: אילו פלטפורמות ישראליות כבר בשירות במדינה נתונה, ומהו הפער מול המתחרים.",
+                militaryBodies: [{ name: "מפא\"ת", role: "מנהלת המחקר ופיתוח אמצעי לחימה - אחראית על פיתוח טכנולוגי" }, { name: "אפכ\"א", role: "אגף פיקוח על היצוא הביטחוני - מאשר כל עסקת יצוא" }, { name: "סיב\"ט", role: "מינהלת שיתוף פעולה ביטחוני - מקדמת יצוא ביטחוני" }, { name: "חיל האוויר - מערך הכטב\"מים", role: "המפעיל המרכזי, כולל טייסות ייעודיות" }],
                 verifiedDate: "13.09.2026",
                 profileSummary: "ישראל אינה שוק יעד לרכש כטב\"מים - היא מדינת המוצא ואחת מיצואניות הכטב\"מים המובילות בעולם. תעשיית הביטחון הישראלית (IAI, אלביט Systems, רפאל) מפתחת, מייצרת ומפעילה בעצמה חלק ניכר מהפלטפורמות שמופיעות כמתחרות בפרופילי המדינות האחרות במערכת זו. הפרופיל הזה משמש בעיקר כנקודת ייחוס: היכנסו למצב \"השוואת פלטפורמות\" ובחרו ישראל מול כל מדינה אחרת כדי לראות אילו פלטפורמות ישראליות כבר בשירות שם, לעומת אילו פלטפורמות מתחרות תופסות את מקומן.",
                 alliances: ["שותפות ביטחונית אסטרטגית עם ארה\"ב", "הסכמי אברהם (איחוד האמירויות, בחריין, מרוקו)", "שיתופי פעולה ביטחוניים עם הודו, אזרבייג\"ן, יוון ועוד"],
@@ -2181,7 +2309,8 @@
                 policyNato: "אינה חברה בנאט\"ו; כפופה למשטר הפיקוח הישראלי על יצוא ביטחוני בכל עסקת יצוא.",
                 recommendationRating: "לא רלוונטי כשוק יעד - פרופיל ייחוס",
                 recommendationText: "ישראל אינה שוק BD במובן הרגיל של מערכת זו - היא מקור הטכנולוגיה. השימוש העיקרי בפרופיל זה הוא כבסיס השוואה מול מדינות יעד, במיוחד דרך מצב \"השוואת פלטפורמות\".",
-                recChannel: "לא רלוונטי", recSegment: "פרופיל ייחוס בלבד", recWindow: "לא רלוונטי"
+                recChannel: "לא רלוונטי", recSegment: "פרופיל ייחוס בלבד", recWindow: "לא רלוונטי",
+                bd: { dealSize: "לא רלוונטי - פרופיל בית", timeline: "לא רלוונטי", lockIn: "לא רלוונטי", risk: "לא רלוונטי", nextStep: "שימוש כבסיס השוואה במצב \"השוואת פלטפורמות\" מול שווקי יעד" }
             },
             "סרביה": {
                 flag: "🇷🇸", title: "סרביה (Serbia)",
@@ -3400,6 +3529,35 @@
             } else {
                 israelPanel.classList.add('hidden');
             }
+            // "Why this relationship matters to Israel" - strategic rationale
+            const interestWrap = document.getElementById('israelInterestWrap');
+            if (data.israelInterest) {
+                document.getElementById('israelInterest').textContent = data.israelInterest;
+                interestWrap.classList.remove('hidden');
+            } else {
+                interestWrap.classList.add('hidden');
+            }
+            // UAV share of the defense budget
+            const uavBudgetPanel = document.getElementById('uavBudgetPanel');
+            if (data.uavBudget) {
+                document.getElementById('uavBudget').textContent = data.uavBudget;
+                uavBudgetPanel.classList.remove('hidden');
+            } else {
+                uavBudgetPanel.classList.add('hidden');
+            }
+            // Key military / procurement bodies
+            const bodiesPanel = document.getElementById('militaryBodiesPanel');
+            const bodies = Array.isArray(data.militaryBodies) ? data.militaryBodies : [];
+            if (bodies.length) {
+                document.getElementById('militaryBodies').innerHTML = bodies.map(b => `
+                    <div class="p-2.5 bg-slate-950/60 rounded-lg border border-slate-800/80">
+                        <span class="text-xs font-bold text-slate-100 block">${escapeHtml(b.name || '')}</span>
+                        <span class="text-[11px] text-slate-400 leading-relaxed">${escapeHtml(b.role || '')}</span>
+                    </div>`).join('');
+                bodiesPanel.classList.remove('hidden');
+            } else {
+                bodiesPanel.classList.add('hidden');
+            }
             const alliancesEl = document.getElementById('alliances');
             // Uses escapeHtml: alliance names may originate from a live AI response.
             alliancesEl.innerHTML = (data.alliances || []).map(a =>
@@ -3550,6 +3708,19 @@
 
             document.getElementById('recommendationRating').textContent = data.recommendationRating || '';
             document.getElementById('recommendationText').textContent = data.recommendationText || '';
+            // BD panel - only shown for countries where it's been written
+            const bdPanel = document.getElementById('bdPanel');
+            const bd = data.bd;
+            if (bd) {
+                document.getElementById('bdDealSize').textContent = bd.dealSize || '-';
+                document.getElementById('bdTimeline').textContent = bd.timeline || '-';
+                document.getElementById('bdLockIn').textContent = bd.lockIn || '-';
+                document.getElementById('bdRisk').textContent = bd.risk || '-';
+                document.getElementById('bdNextStep').textContent = bd.nextStep || '-';
+                bdPanel.classList.remove('hidden');
+            } else {
+                bdPanel.classList.add('hidden');
+            }
             document.getElementById('recChannel').textContent = data.recChannel || '';
             document.getElementById('recSegment').textContent = data.recSegment || '';
             document.getElementById('recWindow').textContent = data.recWindow || '';
