@@ -1313,12 +1313,18 @@
             "mq-9b seaguardian": "MQ-9_Reaper_UAV.jpg",
             "heron tp": "IAI_Heron_TP_ILA2018.jpg",
             "heron 1": "IAI_Heron_1_in_flight_2.JPEG",
+            "heron": "IAI_Heron_1_in_flight_2.JPEG",
             "harop": "IAI_Harop.jpg",
             "rq-4b global hawk": "RQ-4_Global_Hawk.jpg",
             "mq-4c triton": "RQ-4_Global_Hawk.jpg",
             "scaneagle": "Insitu_ScanEagle_X200_%E2%80%98N202SE%E2%80%99.jpg",
             "switchblade 300": "Switchblade_300_in_flight_(200902-M-EU630-1102).jpg",
             "wing loong i / ii": "Wing_Loong_II_side_view.jpg",
+            "wing loong i": "Wing_Loong_II_side_view.jpg",
+            "camcopter s-100": "Schiebel_Camcopter_S-100_at_ILA_2010.jpg",
+            "black hornet": "Black_Hornet_Nano_Helicopter_UAV.jpg",
+            "vector": "UA_Quantum_Vector_02.jpg",
+            "bayraktar akinci": "Baykar_Akinci.jpg",
             "orbiter 2": "Aeronautics_Orbiter_UAV.jpg",
             "searcher mk ii": "IAI_Searcher._III.jpg",
             "warmate": "Warmate-50_MSPO24.jpg",
@@ -1423,7 +1429,12 @@
             'רפאל': 'Rafael_Advanced_Defense_Systems_Logo.svg',
             'rafael': 'Rafael_Advanced_Defense_Systems_Logo.svg',
             'insitu': 'Insitu_logo.svg',
-            'boeing': 'Insitu_logo.svg'
+            'boeing': 'Insitu_logo.svg',
+            'leonardo': 'Logo_Leonardo.svg',
+            'aerovironment': 'AeroVironment_Logo.png',
+            'northrop grumman': 'Northrop_Grumman_logo_blue-on-clear_2020.svg',
+            'textron': 'Textron.svg',
+            'honeywell': 'Honeywell_logo.svg'
         };
         // ============================================================
         // PLATFORM CAPABILITIES & PAYLOAD - what the manufacturer itself
@@ -1691,8 +1702,8 @@
                     { name: "Archytas", manufacturer: "Ucandrone / EFA Group + HAI (יוון)", desc: "כטב\"ם VTOL היברידי מקומי - הראשון מתוצרת יוונית המשלב המראה אנכית עם טיסת כנף קבועה. שולב בחיל הים ופועל מפריגטות מסוג MEKO 200HN. השתתף במבצע ASPIDES האירופי בים האדום מ-2024 להגנת ספנות מסחרית מפני כטב\"מים חות\'ים.", websiteUrl: "https://www.haicorp.com/en/" },
                     { name: "Archytas II", manufacturer: "Ucandrone / EFA Group + HAI (יוון)", desc: "גרסה חמושה וגדולה יותר בפיתוח - שלב הבא בתוכנית הדגל היוונית לפיתוח כטב\"מים מקומיים.", websiteUrl: "https://www.haicorp.com/en/" },
                     { name: "ATLAS (משפחה)", manufacturer: "ALTUS LSA (יוון)", desc: "משפחת כטב\"מי VTOL בעלי כושר נשיאה גבוה למשימות ISR - יצרן יווני פרטי מוביל בתחום.", websiteUrl: "https://altus-lsa.com/" },
-                    { name: "SARISA", manufacturer: "SAS Technology (יוון)", desc: "כטב\"ם רב-רוטורי חמוש מתוצרת מקומית - חלק ממאמץ יווני לסגור את הפער מול טורקיה בכטב\"מים חמושים.", websiteUrl: "https://www.sastechnology.gr/" },
-                    { name: "EMPUSA", manufacturer: "SAS Technology (יוון)", desc: "סדרת כטב\"מים טקטיים מקומיים לסיור ותמיכה ביחידות שדה.", websiteUrl: "https://www.sastechnology.gr/" },
+                    { name: "SARISA", manufacturer: "SAS Technology (יוון)", desc: "כטב\"ם רב-רוטורי חמוש מתוצרת מקומית - חלק ממאמץ יווני לסגור את הפער מול טורקיה בכטב\"מים חמושים.", websiteUrl: "https://sas-tech.gr/" },
+                    { name: "EMPUSA", manufacturer: "SAS Technology (יוון)", desc: "סדרת כטב\"מים טקטיים מקומיים לסיור ותמיכה ביחידות שדה.", websiteUrl: "https://sas-tech.gr/" },
                     { name: "V-BAT", manufacturer: "Shield AI (ארה\"ב)", desc: "שתי מערכות VTOL שהתקבלו כתרומה (2025) לניטור האגן האגאי - אינן דורשות מסלול, מתאימות להפעלה מספינות ומאיים קטנים.", websiteUrl: "https://shield.ai/" },
                     { name: "LOTUS", manufacturer: "Intracom Defense Electronics (יוון)", desc: "פרויקט פיתוח של נחיל כטב\"מים חמקניים במימון הנציבות האירופית (9.7 מיליון יורו) - עדיין בשלבי פיתוח, לא מבצעי.", websiteUrl: "https://www.intracomdefense.com/" }
                 ],
@@ -1737,7 +1748,7 @@
                     { name: "Drishti-10", manufacturer: "Adani Defence / אלביט (ישראל)", desc: "כטב\"ם פיקוח ימי המיוצר בהודו על בסיס מבנה Hermes 900 של אלביט - דוגמה מובהקת למודל Make in India עם טכנולוגיה ישראלית.", websiteUrl: "https://www.adanidefence.com/" },
                     { name: "TAPAS-BH-201", manufacturer: "DRDO (הודו)", desc: "כטב\"ם MALE מקומי (לשעבר Rustom-II) שנכנס לשירות מוגבל ב-2024 - 24 שעות סיבולת, תקרה 25,000-30,000 רגל, מטעני SAR ו-EO. התקשה לעמוד בדרישות האיכותיות המשותפות של הזרועות.", websiteUrl: "https://www.drdo.gov.in/" },
                     { name: "Archer-NG", manufacturer: "DRDO (הודו)", desc: "כטב\"ם MALE חמוש מקומי הממוטב לפעילות בגובה רב לאורך קו LAC מול סין - השלים טיסות ראשוניות ונמצא בניסויי משתמש לקראת ייצור (כולל אצווֹת ייצור של BEL).", websiteUrl: "https://www.drdo.gov.in/" },
-                    { name: "MQ-9B SkyGuardian", manufacturer: "General Atomics (ארה\"ב)", desc: "31 כלים בהזמנה (10 לכל זרוע + 1 רזרבה) - עסקת הדגל האמריקאית שתעניק להודו יכולת HALE חמושה ארוכת-טווח.", websiteUrl: "https://www.ga-asi.com/" }
+                    { name: "MQ-9B SkyGuardian", manufacturer: "General Atomics (ארה\"ב)", desc: "31 כלים בהזמנה (10 לכל זרוע + 1 רזרבה) - עסקת הדגל האמריקאית שתעניק להודו יכולת HALE חמושה ארוכת-טווח. <b>דוגמה מאומתת:</b> הודעת DSCA רשמית (פברואר 2024, כ-3.99 מיליארד דולר) מפרטת 170 טילי AGM-114R הלפייר, 16 טילי אימון Hellfire מדגם M36E9, ו-310 פצצות Laser Small Diameter Bomb - אחד המקרים הבודדים עם פירוט חימוש רשמי מלא לפי מדינה.", websiteUrl: "https://www.ga-asi.com/" }
                 ],
                 localIndustry: [
                     { name: "DRDO", specialty: "מחקר ופיתוח ביטחוני ממשלתי, אחראי על פלטפורמות אסטרטגיות מקומיות בשלבי הבשלה מתקדמים", supplies: "צבא הודו בלבד כרגע", products: "TAPAS-BH (כטב\"ם MALE), Rustom-2", website: "https://www.drdo.gov.in/" },
@@ -1864,7 +1875,10 @@
                 uavFleet: [
                     { name: "Watchkeeper X", manufacturer: "U-TacS - אלביט (51%) + Thales (ישראל/בריטניה)", desc: "<b>עסקת הדגל:</b> חוזה בהיקף כ-410 מיליון דולר שנחתם בדצמבר 2022 - 7 מערכות (6 יבשתיות, 1 ימית). הזמנה ראשונה של 3 מערכות ב-180 מיליון דולר (יוני 2023). גובר על Hermes 450 ועל Heron במכרז. מבוסס Hermes 450, נושא EO/IR ומכ\"ם I-Master.", websiteUrl: "https://www.elbitsystems-uk.com/" },
                     { name: "Shadow 600", manufacturer: "AAI / Textron (ארה\"ב)", desc: "כטב\"ם סיור טקטי ותיק בשירות חיל האוויר הרומני - הפלטפורמה שקדמה לעסקת ה-Watchkeeper X.", websiteUrl: "https://www.textron.com/" },
-                    { name: "ScanEagle", manufacturer: "Insitu / Boeing (ארה\"ב)", desc: "כטב\"ם טקטי זעיר בשירות לסיור ימי ויבשתי, כולל ניטור הדנובה והים השחור.", websiteUrl: "https://www.insitu.com/products/scaneagle" }
+                    { name: "ScanEagle", manufacturer: "Insitu / Boeing (ארה\"ב)", desc: "כטב\"ם טקטי זעיר בשירות לסיור ימי ויבשתי, כולל ניטור הדנובה והים השחור.", websiteUrl: "https://www.insitu.com/products/scaneagle" },
+                    { name: "Bayraktar TB2", manufacturer: "Baykar (טורקיה)", desc: "עסקה מאומתת ומסופקת בפועל (בניגוד ל-Watchkeeper X שנתקע) - 3 מערכות/18 כלי טיס, כ-321 מיליון דולר. נרכשה על רקע המצב הביטחוני מול גבול אוקראינה (650 ק\"מ) וחדירות רסיסי כטב\"מים/טילים רוסיים לשטח רומניה.", websiteUrl: "https://baykartech.com/en/uav/bayraktar-tb2/" },
+                    { name: "MQ-9B SeaGuardian", manufacturer: "General Atomics (ארה\"ב)", desc: "כטב\"ם MALE ימי-אסטרטגי שנרכש מארה\"ב - חלק ממאמץ בניית \"חומת הכטב\\\"מים\" האירופית לאורך גבול הים השחור.", websiteUrl: "https://www.ga-asi.com/" },
+                    { name: "Switchblade 300/600", manufacturer: "AeroVironment (ארה\"ב)", desc: "תחמושת משוטטת (Loitering Munition) שנרכשה מארה\"ב - שני הדגמים (טקטי קל ואנטי-שריון כבד יותר).", websiteUrl: "https://www.avinc.com/" }
                 ],
                 localIndustry: [
                     { name: "ROMARM", specialty: "תעשייה ממשלתית מסורתית המתמקדת בעיקר בנשק קל, תחמושת וכלי רכב משוריינים - יכולת מוגבלת מאוד בתחום הכטב\"מים המתקדמים", supplies: "צבא רומניה", products: "אין כרגע פלטפורמת כטב\"ם מקומית משמעותית; רומניה נשענת על רכש זר וקרנות מימון EDF אירופיות", website: "https://romarm.ro/en/" }
@@ -1904,7 +1918,10 @@
                     { name: "MUAV / KUS-FS", manufacturer: "Korean Air (KAL-ASD) + Hanwha + LIG Nex1 (קוריאה)", desc: "כטב\"ם MALE מקומי שפותח במקור כתגובה לסירוב אמריקאי למכור Global Hawk. מוטת כנף 26 מטר, סיבולת מעל 30 שעות, גובה 10-12 ק\"מ, מכ\"ם בטווח גילוי כ-100-110 ק\"מ. הרכבה הושלמה בפברואר 2026, מסירה ראשונה צפויה 2027. 10 כלים בהזמנה.", websiteUrl: "https://www.koreanair.com/" },
                     { name: "RQ-101 Songgolmae", manufacturer: "KAI + ADD (קוריאה)", desc: "כטב\"ם סיור מקומי בשירות צבא היבשה מאז 2002 - מיועד לרמת הקורפוס לאיסוף מודיעין. אינו חמוש. החליף את ה-Searcher הישראלי ששימש קודם.", websiteUrl: "https://www.koreaaero.com/" },
                     { name: "Heron", manufacturer: "IAI (ישראל)", desc: "כטב\"ם MALE ישראלי בשירות - דוגמה לנוכחות ישראלית קיימת בשוק הקוריאני.", websiteUrl: "https://www.iai.co.il/p/heron" },
-                    { name: "Searcher", manufacturer: "IAI (ישראל)", desc: "כטב\"ם סיור טקטי ישראלי ששימש את צבא היבשה הקוריאני לפני פיתוח ה-Songgolmae המקומי.", websiteUrl: "https://www.iai.co.il/" }
+                    { name: "Searcher", manufacturer: "IAI (ישראל)", desc: "כטב\"ם סיור טקטי ישראלי ששימש את צבא היבשה הקוריאני לפני פיתוח ה-Songgolmae המקומי.", websiteUrl: "https://www.iai.co.il/" },
+                    { name: "Devil Killer", manufacturer: "KAI (קוריאה)", desc: "תחמושת משוטטת/כטב\"ם \"התאבדות קרבי\" מקומי - מהירות 350-400 קמ\"ש, ניווט GPS ו-Data Link, תקיפה ידנית או אוטומטית לאחר זיהוי מטרה.", websiteUrl: "https://www.koreaaero.com/" },
+                    { name: "K-LUCAS", manufacturer: "מקומי (קוריאה)", desc: "תחמושת משוטטת ארוכת-טווח חדשה (הוכרזה יוני 2026) - מבוססת על תפיסת ה-Lucas האמריקאי (עצמו מבוסס Shahed-136 איראני). חלק ממהלך רחב לפריסת מעל 20,000 מל\"טים חד-פעמיים עד 2030.", websiteUrl: "https://www.koreaaero.com/" },
+                    { name: "Camcopter S-100", manufacturer: "Schiebel (אוסטריה)", desc: "כטב\"ם רוטור מאומת בשירות חיל הים - פחות מ-10 יחידות, מופעלות מ-2 ספינות מודיעין (Shinsegi, Shinkiwon) לאיסוף מודיעין על צפון קוריאה.", websiteUrl: "https://schiebel.net/" }
                 ],
                 localIndustry: [
                     { name: "Hanwha Systems", specialty: "מערכות חישה מתקדמות, אלקטרואופטיקה ורכיבי לוחמה אלקטרונית ברמה גבוהה לשילוב בכטב\"מים ובמערכות C-UAV", supplies: "צבא דרום קוריאה, עם ייצוא גדל לשווקים שלישיים", products: "מערכות חיישנים ותקשורת לכטב\"מים, רכיבי גילוי ויירוט כטב\"מים קטנים", website: "https://www.hanwhasystems.com/" },
@@ -2122,7 +2139,10 @@
                 uavFleet: [
                     { name: "Orbiter 2 / Orbiter 3", manufacturer: "Aeronautics Group (ישראל)", desc: "נרכשו בין 2014 ל-2015 לשיפור המודעות המצבית ויכולת איתור המטרות של יחידות הארטילריה וטילי החוף - נוכחות ישראלית קיימת בשוק הווייטנאמי.", websiteUrl: "https://aeronautics-sys.com/" },
                     { name: "ScanEagle", manufacturer: "Insitu / Boeing (ארה\"ב)", desc: "שישה כלים שהתקבלו במסגרת תוכנית Maritime Security Initiative האמריקאית (425 מיליון דולר) - נועדה לצמצם את פער הפיקוח הימי במדינות דרום-מזרח אסיה.", websiteUrl: "https://www.insitu.com/products/scaneagle" },
-                    { name: "Patrol VT", manufacturer: "Viettel Group (וייטנאם)", desc: "כטב\"ם טקטי מקומי שנחשף ב-2014 - טווח 50 ק\"מ, מצלמת אינפרא-אדום אופטית עם שידור תמונה באיכות גבוהה בזמן אמת. מבטא את המעבר הווייטנאמי לפיתוח יכולות עצמאיות.", websiteUrl: "https://viettel.com.vn/en/" }
+                    { name: "Patrol VT", manufacturer: "Viettel Group (וייטנאם)", desc: "כטב\"ם טקטי מקומי שנחשף ב-2014 - טווח 50 ק\"מ, מצלמת אינפרא-אדום אופטית עם שידור תמונה באיכות גבוהה בזמן אמת. מבטא את המעבר הווייטנאמי לפיתוח יכולות עצמאיות.", websiteUrl: "https://viettel.com.vn/en/" },
+                    { name: "VT-Swift", manufacturer: "Viettel Group (וייטנאם)", desc: "כטב\"ם מקומי הדומה מאוד מבחינה עיצובית ל-Orbiter 3 הישראלי - וייטנאם רכשה בעבר Orbiter 2/3 והביעה עניין בהעברת טכנולוגיה; ה-VT-Swift (נחשף 2017) נחשד כמבוסס על ידע שנרכש כך.", websiteUrl: "https://viettel.com.vn/en/" },
+                    { name: "VU-MALE", manufacturer: "Viettel Group (וייטנאם)", desc: "כטב\"ם MALE ארוך-טווח מקומי - טווח טיסה מעל 1,000 ק\"מ, מיועד לצרכי סיור אסטרטגי על שטחים נרחבים.", websiteUrl: "https://viettel.com.vn/en/" },
+                    { name: "VU-C2", manufacturer: "Viettel Group (וייטנאם)", desc: "תחמושת משוטטת מקומית מבוססת בינה מלאכותית - איתור וזיהוי נעילה אוטומטיים במהירויות תקיפה מעל 130 קמ\"ש. מוצגת כמתחרה ל-Shahed-136 האיראני ול-Bayraktar TB2 הטורקי.", websiteUrl: "https://viettel.com.vn/en/" }
                 ],
                 localIndustry: [
                     { name: "תעשייה מקומית בראשית דרכה", specialty: "שלבים ראשוניים מאוד של פיתוח עצמי, עם דגש על קבלת ידע טכנולוגי מספקים זרים ולא פיתוח עצמאי בשל", supplies: "צבא וייטנאם", products: "עדיין אין פלטפורמת כטב\"ם מקומית מוכחת בשירות מבצעי מלא" }
@@ -2161,7 +2181,9 @@
                 uavFleet: [
                     { name: "Hermes 900", manufacturer: "אלביט Systems (ישראל)", desc: "לפחות שמונה כלים כשירי טיסה בחיל האוויר הפיליפיני - הפלטפורמה החזקה ביותר בצי, לניטור ימי מול סין ולמשימות ביטחון פנים.", websiteUrl: "https://www.elbitsystems.com/" },
                     { name: "Hermes 450", manufacturer: "אלביט Systems (ישראל)", desc: "כטב\"ם ISR טקטי בשירות - הפיליפינים היא אחת משלוש המדינות היחידות בעולם שמפעילות אותו (לצד ישראל ותאילנד).", websiteUrl: "https://www.elbitsystems.com/" },
-                    { name: "ScanEagle", manufacturer: "Insitu / Boeing (ארה\"ב)", desc: "18 כלים פעילים - שמונה הועברו לחיל הים ב-2020 בהיקף 14.79 מיליון דולר במסגרת תוכנית Maritime Security Initiative האמריקאית, ונוספים לכנף המודיעין ה-300 בבסיס פלוואן הסמוך לאזורים השנויים במחלוקת.", websiteUrl: "https://www.insitu.com/products/scaneagle" }
+                    { name: "ScanEagle", manufacturer: "Insitu / Boeing (ארה\"ב)", desc: "18 כלים פעילים - שמונה הועברו לחיל הים ב-2020 בהיקף 14.79 מיליון דולר במסגרת תוכנית Maritime Security Initiative האמריקאית, ונוספים לכנף המודיעין ה-300 בבסיס פלוואן הסמוך לאזורים השנויים במחלוקת.", websiteUrl: "https://www.insitu.com/products/scaneagle" },
+                    { name: "Skylark I-LEX / III", manufacturer: "אלביט Systems (ישראל)", desc: "עסקה מאומתת בהיקף כ-180 מיליון דולר - כטב\"מים טקטיים משוגרי-יד/קטפולטה לצבא הפיליפיני.", websiteUrl: "https://www.elbitsystems.com/" },
+                    { name: "Thor", manufacturer: "אלביט Systems (ישראל)", desc: "תחמושת משוטטת VTOL - עסקה מאומתת בהיקף כ-153 מיליון דולר, כ-533 מערכות (2 כלי טיס כל אחת - כ-1,066 יחידות).", websiteUrl: "https://www.elbitsystems.com/" }
                 ],
                 localIndustry: [
                     { name: "אין יצרן מקומי משמעותי", specialty: "יכולת פיתוח וייצור מקומית כמעט אפסית", supplies: "לא רלוונטי", products: "תלות כמעט מוחלטת ברכש חיצוני ובסיוע ביטחוני אמריקאי" }
@@ -2201,7 +2223,9 @@
                     { name: "Hermes 450", manufacturer: "אלביט Systems (ישראל)", desc: "שישה כלים שנרכשו בעסקת חבילה מ-2012. <b>🔴 מיועדים להוצאה משירות</b> - קולומביה מתכננת להחליפם בפלטפורמות טורקיות.", websiteUrl: "https://www.elbitsystems.com/" },
                     { name: "Hermes 900", manufacturer: "אלביט Systems (ישראל)", desc: "שני כלים מאותה עסקת 2012. <b>🔴 גם הם מיועדים להוצאה משירות.</b> סיבה טכנית מרכזית: בשירות הקולומביאני הם משמשים ל-ISR בלבד ואינם חמושים - מגבלה שהפכה למניע מרכזי להחלפה.", websiteUrl: "https://www.elbitsystems.com/" },
                     { name: "ScanEagle", manufacturer: "Insitu / Boeing (ארה\"ב)", desc: "כטב\"ם טקטי זעיר בשירות לסיור מעל אזורי ג\'ונגל והרים קשי גישה.", websiteUrl: "https://www.insitu.com/products/scaneagle" },
-                    { name: "Bayraktar TB2 / TB3", manufacturer: "Baykar (טורקיה)", desc: "<b>🔴 בתהליך רכש מתקדם כמחליפים</b> - נוכחות Baykar בתערוכת Expodefensa 2025 קושרה ישירות למהלך. היתרון המכריע: אפשרויות חימוש (MAM-L, Bozok, Kayi, Kemankes) לעומת ה-Hermes הבלתי חמוש.", websiteUrl: "https://baykartech.com/en/uav/bayraktar-tb2/" }
+                    { name: "Bayraktar TB2 / TB3", manufacturer: "Baykar (טורקיה)", desc: "<b>🔴 בתהליך רכש מתקדם כמחליפים</b> - נוכחות Baykar בתערוכת Expodefensa 2025 קושרה ישירות למהלך. היתרון המכריע: אפשרויות חימוש (MAM-L, Bozok, Kayi, Kemankes) לעומת ה-Hermes הבלתי חמוש.", websiteUrl: "https://baykartech.com/en/uav/bayraktar-tb2/" },
+                    { name: "Quimbaya X-003", manufacturer: "CIAC (קולומביה - ייצור מקומי)", desc: "כטב\"ם טקטי מקומי שפותח ע\"י חיל האוויר הקולומביאני ו-CIAC - עסקה מאומתת של כ-2.5 מיליון דולר, סיבולת עד 10 שעות, לסיור ואבטחת תשתיות אנרגיה.", websiteUrl: "https://ciac.gov.co/" },
+                    { name: "Dragom", manufacturer: "CIAC (קולומביה - ייצור מקומי)", desc: "כטב\"ם מקומי חדש (הוצג ב-Expodefensa 2025) לסיור ותקיפה מדויקת - הנדסה קולומביאנית מלאה (100%), מיועד לעלות ייצור נמוכה משמעותית מפלטפורמות זרות מקבילות.", websiteUrl: "https://ciac.gov.co/" }
                 ],
                 localIndustry: [
                     { name: "CIAC (תאגיד התעשייה האווירית הקולומביאני)", specialty: "יכולת הרכבה ותחזוקה (MRO) מתפתחת בהדרגה, לא פיתוח עצמאי של פלטפורמות כטב\"ם חדשות", supplies: "הכוחות המזוינים של קולומביה", products: "תחזוקת הצי הקיים (Hermes, Heron); שאיפה עתידית להרכבה מקומית מורחבת", website: "https://www.ciac.gov.co/" }
@@ -2325,7 +2349,9 @@
                 israelRelations: "יחסי ישראל-בריטניה ביטחוניים חזקים ומבוססים. **דריסת רגל חזקה במיוחד:** אלביט מפעילה חברת בת בריטית (Elbit Systems UK) המייצרת את Watchkeeper - מבוסס על Hermes 450 הישראלי - עבור הצבא הבריטי. זוהי אחת הדוגמאות המוצלחות בעולם למודל \"ייצור מקומי מבוסס טכנולוגיה ישראלית\". **הזדמנות:** הרחבת המודל הקיים לדורות מתקדמים יותר; צורך גובר ב-C-UAV לאחר חדירות מעל בסיסי RAF. **מגבלה:** לחץ ציבורי ופוליטי תקופתי סביב יצוא/יבוא נשק מישראל, ותחרות מ-BAE המקומית.",
                 uavFleet: [
                     { name: "Protector RG Mk1", manufacturer: "General Atomics (ארה\"ב) / אינטגרציה בריטית", desc: "גרסה בריטית של MQ-9B SkyGuardian - נכנס לשירות ביוני 2025, 16 כלים. הכטב\"ם הראשון המוסמך לטוס בכל סוגי המרחב האווירי הבריטי, כולל אזרחי. מבוסס RAF Waddington.", websiteUrl: "https://www.ga-asi.com/" },
-                    { name: "Watchkeeper WK450", manufacturer: "Thales UK / אלביט (ישראל)", desc: "כטב\"ם ISTAR טקטי המיוצר על ידי Thales UK תחת רישיון מאלביט, מבוסס Hermes 450. בשירות מאז 2014, בהארכה עד מרץ 2027 עד להחלפה בפרויקט Corvus.", websiteUrl: "https://www.elbitsystems-uk.com/" },
+                    { name: "Watchkeeper WK450", manufacturer: "Thales UK / אלביט (ישראל)", desc: "כטב\"ם ISTAR טקטי המיוצר על ידי Thales UK תחת רישיון מאלביט, מבוסס Hermes 450. <b>🔴 עדכון: פרישה מוקדמת הוכרזה (נובמבר 2024) - רק 11 מתוך 54 כלים עדיין כשירים.</b> הוחלף רשמית ב-Tekever AR5 הפורטוגלי תחת פרויקט Corvus (עד 400 מיליון ליש\"ט, 6 כלים ראשונים מתוך עד 24).", websiteUrl: "https://www.elbitsystems-uk.com/" },
+                    { name: "Tekever AR5", manufacturer: "Tekever (פורטוגל)", desc: "הכטב\"ם הנבחר להחליף את Watchkeeper תחת פרויקט Corvus - חוזה של עד 400 מיליון ליש\"ט. סנסורים EO/IR, מכ\"ם ימי, יכולות SIGINT וחיפוש-והצלה. ייצור באתר חדש בסווינדון.", websiteUrl: "https://www.avinc.com/" },
+                    { name: "Black Hornet", manufacturer: "Teledyne FLIR Defense (נורווגיה)", desc: "מיקרו-כטב\"ם סיור אישי משוגר-יד - אחת משלוש מערכות הליבה של צבא היבשה הבריטי (לצד Watchkeeper ו-Desert Hawk III), לפי דוח בית הנבחרים הבריטי.", websiteUrl: "https://defense.flir.com/defense-products/black-hornet-4-prs/" },
                     { name: "MQ-9A Reaper", manufacturer: "General Atomics (ארה\"ב)", desc: "בשירות RAF מאז 2007 במשימות ISR ותקיפה, בתהליך החלפה הדרגתית ב-Protector RG Mk1.", websiteUrl: "https://www.ga-asi.com/" },
                     { name: "Puma", manufacturer: "AeroVironment (ארה\"ב)", desc: "כטב\"ם ISR טקטי זעיר משוגר-יד בשירות הזרוע הימית - מעל 1,000 יחידות יוצרו למדינות המערב.", websiteUrl: "https://www.avinc.com/" },
                     { name: "Desert Hawk", manufacturer: "Lockheed Martin (ארה\"ב)", desc: "כטב\"ם זעיר להגנה היקפית על בסיסים, בשירות צבא בריטניה.", websiteUrl: "https://www.lockheedmartin.com/" }
@@ -2368,10 +2394,14 @@
                 israelRelations: "יחסי ישראל-אוסטרליה טובים ויציבים, עם שיתוף פעולה ביטחוני וטכנולוגי. **דריסת רגל קיימת:** אוסטרליה רכשה מערכות ישראליות, כולל כטב\"מי Skylark של אלביט לצבא היבשה ומערכות נוספות; לאלביט יש נוכחות מקומית (Elbit Systems of Australia). **הזדמנות:** הצורך בפיקוח ימי אסטרטגי על מרחב עצום, ודרישת \"יכולת ריבונית\" תחת AUKUS Pillar II שמעודדת שותפויות ייצור מקומיות. **מגבלה:** העדפה מובנית לספקים מברית Five Eyes (ארה\"ב/בריטניה), ומחויבות ל-AUKUS שמכוונת רכש לכיוונים מסוימים.",
                 uavFleet: [
                     { name: "MQ-4C Triton", manufacturer: "Northrop Grumman (ארה\"ב)", desc: "ארבעה כלים ברכש - הראשון נחת בבסיס טינדל (יוני 2024). סורק עשרות אלפי קמ\"ר במשימה אחת בת 28 שעות, טווח כ-15,000 ק\"מ. מיועד לניטור הגישות הצפוניות והמערביות, דרום האוקיינוס השקט ועד אנטארקטיקה.", websiteUrl: "https://www.northropgrumman.com/what-we-do/aircraft/triton" },
+                    { name: "MQ-9B SkyGuardian", manufacturer: "General Atomics (ארה\"ב)", desc: "עסקת FMS בהיקף כ-1.6 מיליארד דולר, כולל מכ\"ם ימי AESA של Leonardo ומערכות EO/IR. <b>דוגמה מאומתת:</b> הודעת DSCA נפרדת (דצמבר 2021, כ-108 מיליון דולר) לרכישת 800 טילי AGM-114R2 הלפייר - הודעה עצמאית ומפורשת, בדומה לעסקת פולין.", websiteUrl: "https://www.ga-asi.com/" },
                     { name: "MQ-28A Ghost Bat", manufacturer: "Boeing Australia (אוסטרליה)", desc: "כטב\"ם קרב חמקני מסוג \"כנף נאמנה\" - פותח בחוזה של מיליארד דולר אוסטרלי. השלים 150 שעות טיסה ומעל 20,000 שעות בדיקה וירטואלית. הוצב במסגרת תרגיל Valiant Shield 2026. Block 2 בייצור, Block 3 בפיתוח. כניסה לשירות מתוכננת ל-2028.", websiteUrl: "https://www.boeing.com.au/" },
                     { name: "Integrator (RQ-21A Blackjack)", manufacturer: "Insitu / Boeing (ארה\"ב)", desc: "כ-24 כלים בשירות - כטב\"ם ISR טקטי משוגר-קטפולטה לסיור ימי ויבשתי.", websiteUrl: "https://www.insitu.com/" },
                     { name: "ScanEagle", manufacturer: "Insitu / Boeing (ארה\"ב)", desc: "כטב\"ם טקטי זעיר בשירות לסיור ומודיעין.", websiteUrl: "https://www.insitu.com/products/scaneagle" },
-                    { name: "Skylark", manufacturer: "אלביט Systems (ישראל)", desc: "כטב\"ם טקטי זעיר משוגר-יד בשירות צבא היבשה - דוגמה לנוכחות ישראלית קיימת בשוק האוסטרלי.", websiteUrl: "https://www.elbitsystems.com/" }
+                    { name: "Skylark", manufacturer: "אלביט Systems (ישראל)", desc: "כטב\"ם טקטי זעיר משוגר-יד בשירות צבא היבשה - דוגמה לנוכחות ישראלית קיימת בשוק האוסטרלי.", websiteUrl: "https://www.elbitsystems.com/" },
+                    { name: "RQ-7B Shadow 200", manufacturer: "AAI / Textron (ארה\"ב)", desc: "כטב\"ם טקטי בשירות צבא היבשה (מאושר באתר הרשמי) - סיבולת כ-8 שעות, שיגור במסילה, מוטת כנף כ-5 מ׳, משקל כ-208 ק\"ג.", websiteUrl: "https://www.textron.com/" },
+                    { name: "Black Hornet", manufacturer: "Teledyne FLIR Defense (נורווגיה)", desc: "מיקרו-כטב\"ם סיור אישי משוגר-יד - מאושר באתר משרד ההגנה הרשמי, בשימוש ביחידות חי\"ר.", websiteUrl: "https://defense.flir.com/defense-products/black-hornet-4-prs/" },
+                    { name: "Wasp AE", manufacturer: "AeroVironment (ארה\"ב)", desc: "כטב\"ם קטן משוגר-יד ברמת צוות הלחימה - בתהליך החלפה בדגמי Quantum Vector 2-in-1 ו-SYPAQ CorvoX (חוזה מעל 100 מיליון דולר אוסטרלי, 2025).", websiteUrl: "https://www.avinc.com/" }
                 ],
                 localIndustry: [
                     { name: "Boeing Australia", specialty: "פיתוח כלי טיס אוטונומיים משתפי פעולה (Loyal Wingman) בתמיכת מסגרת AUKUS, דגש על בינה מלאכותית ואוטונומיה מתקדמת", supplies: "חיל האוויר האוסטרלי", products: "MQ-28 Ghost Bat", website: "https://www.boeing.com.au/" }
@@ -2537,8 +2567,12 @@
                     { name: "Harop", manufacturer: "IAI", desc: "תחמושת משוטטת (Loitering Munition) שהוכיחה את עצמה מבצעית במספר זירות, ומיוצאת למדינות כמו אזרבייג\"ן.", websiteUrl: "https://www.iai.co.il/p/harop" },
                     { name: "Hermes 450", manufacturer: "אלביט Systems", desc: "כטב\"ם טקטי רב-מטען, כינוי צה\"לי \"זיק\" - הכטב\"ם החמוש הראשון שפיתחה אלביט, בשירות מעל 20 שנה, בהדרגה מוחלף ב-Hermes 900.", websiteUrl: "https://www.elbitsystems.com/" },
                     { name: "Heron 1", manufacturer: "IAI", desc: "כטב\"ם MALE, כינוי צה\"לי \"שובל\" - פלטפורמת סיור ומודיעין ותיקה ומוכחת, עדיין בשירות פעיל לצד הפלטפורמות המתקדמות יותר.", websiteUrl: "https://www.iai.co.il/p/heron" },
-                    { name: "Skylark", manufacturer: "אלביט Systems", desc: "כטב\"ם טקטי זעיר משוגר-יד ברמת הגדוד, לסיור קרוב ומודיעין טקטי מיידי לכוחות היבשה.", websiteUrl: "https://www.elbitsystems.com/" },
+                    { name: "Skylark I", manufacturer: "אלביט Systems", desc: "כטב\"ם טקטי זעיר משוגר-יד ברמת הגדוד/פלוגה - בשירות חיל היבשה מ-2008, בהדרגה מוחלף בדגם eVTOL חדש. מאומת בשירות פעיל (חיל התותחנים ויחידות נוספות).", websiteUrl: "https://www.elbitsystems.com/" },
+                    { name: "Skylark III", manufacturer: "אלביט Systems", desc: "כטב\"ם טקטי גדול יותר מ-Skylark I - טווח וסיבולת מורחבים. מאומת בשירות פעיל לצד Skylark I כחלק ממשפחת ה-STUAS של חיל היבשה.", websiteUrl: "https://www.elbitsystems.com/" },
                     { name: "Skystriker", manufacturer: "אלביט Systems", desc: "תחמושת משוטטת טקטית קלה, מיועדת לפגיעה מדויקת במטרות בטווח קצר-בינוני עם הכוונת מפעיל.", websiteUrl: "https://www.elbitsystems.com/" },
+                    { name: "Maoz", manufacturer: "מקומי (ייצור ישראלי)", desc: "תחמושת משוטטת טקטית קלה - צוידו בה כל כוחות היבשה, נכנסה לשירות מבצעי חודש לפני מלחמת חרבות ברזל (2023) ושימשה בהיקף נרחב במהלכה.", websiteUrl: "https://www.iai.co.il/" },
+                    { name: "Orbiter 4 (ניצוץ)", manufacturer: "Aeronautics Group", desc: "כטב\"ם טקטי ארוך-טווח - מאומת בשירות פעיל תחת הכינוי הצה\"לי \"ניצוץ\": חיל האוויר הפעיל מחדש את טייסת 144 בבסיס חצור (2022) להטסתו במסגרת תוכנית \"עננת סערה\". משמש כשכבה אווירית לכוחות יבשה וים.", websiteUrl: "https://aeronautics-sys.com/systems/orbiter-4/" },
+                    { name: "AIR Cargo", manufacturer: "AIR (חברה ישראלית)", desc: "כטב\"ם/eVTOL הובלה לוגיסטית (\"האמר האווירי\") - עד כ-250 ק\"ג מטען, המראה/נחיתה אנכית. בשימוש מבצעי בפועל של חיל האוויר וכוחות היבשה. זהו הדגם הישראלי לתחמושת/רכב מטען לוגיסטי אווירי.", websiteUrl: "https://www.iai.co.il/" },
                     { name: "Green Dragon", manufacturer: "IAI", desc: "תחמושת משוטטת חדשה יחסית (2017), מיועדת למשימות תקיפה מדויקת ברמת הגדוד והחטיבה.", websiteUrl: "https://www.iai.co.il/" },
                     { name: "ROTEM L", manufacturer: "IAI", desc: "תחמושת משוטטת קוואדקופטר קלה וניידת, לשימוש טקטי מיידי ברמת הפלוגה/המחלקה.", websiteUrl: "https://www.iai.co.il/" },
                     { name: "Searcher", manufacturer: "IAI", desc: "כטב\"ם סיור טקטי-בינוני ותיק ומוכח, עדיין בשירות ומיוצא למדינות רבות.", websiteUrl: "https://www.iai.co.il/" },
@@ -3544,6 +3578,7 @@
         function transitionToCountry(renderFn) {
             const container = document.getElementById('reportContainer');
             const bar = document.getElementById('loadingBar');
+            window.scrollTo(0, 0);
             bar.style.opacity = '1';
             bar.style.width = '65%';
             container.classList.add('report-transitioning');
@@ -4013,7 +4048,7 @@
                         <p class="text-xs text-slate-300 leading-relaxed">${escapeHtml(u.desc || '')}</p>
                         ${payloadHtml}
                     </div>
-                    <a href="${finalUrl}" rel="noopener"
+                    <a href="${finalUrl}" target="_blank" rel="noopener noreferrer"
                        class="w-full py-2.5 px-3 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow-md hover:shadow-amber-500/20 transition flex items-center justify-center gap-2 mt-auto text-center cursor-pointer">
                         <i data-lucide="external-link" class="w-4 h-4"></i>
                         <span>צפה במפרט הטכני באתר היצרנית</span>
@@ -4037,7 +4072,7 @@
             if (industryEntries.length) {
                 localIndustryEl.innerHTML = industryEntries.map(co => {
                     const websiteBtn = co.website ? `
-                        <a href="${safeUrl(co.website, '')}" rel="noopener"
+                        <a href="${safeUrl(co.website, '')}" target="_blank" rel="noopener noreferrer"
                            class="inline-flex items-center gap-1.5 mt-1 px-2.5 py-1.5 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 text-[11px] font-semibold border border-amber-500/30 transition">
                             <i data-lucide="external-link" class="w-3 h-3"></i> אתר החברה - מוצרים נוספים
                         </a>` : '';
@@ -4112,7 +4147,7 @@
 
             lucide.createIcons();
             if (!skipScroll) {
-                document.getElementById('reportContainer').scrollIntoView({ behavior: 'smooth' });
+                window.scrollTo(0, 0);
             }
         }
 
