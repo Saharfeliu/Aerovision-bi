@@ -563,8 +563,14 @@
                         class="w-full py-1.5 px-2 rounded-lg bg-slate-900/90 border border-slate-700 text-slate-200 text-[11px] focus:outline-none focus:border-amber-500 cursor-pointer">
                         <option value="alpha">א-ב (ברירת מחדל)</option>
                         <option value="budget">תקציב ביטחון - מהגבוה</option>
-                        <option value="fleet">גודל צי פלטפורמות</option>
-                        <option value="threat">רמת איום אסטרטגית</option>
+                        <option value="threat">רמת איום אסטרטגית - מהגבוה</option>
+                    </select>
+                </div>
+                <div class="mt-2">
+                    <label class="text-[10px] text-slate-500 font-semibold block mb-1">סנן לפי יצרן פלטפורמות (מדינת מקור):</label>
+                    <select id="sidebarManufacturerFilter" onchange="filterSidebar()"
+                        class="w-full py-1.5 px-2 rounded-lg bg-slate-900/90 border border-slate-700 text-slate-200 text-[11px] focus:outline-none focus:border-amber-500 cursor-pointer">
+                        <option value="">כל היצרנים</option>
                     </select>
                 </div>
             </div>
@@ -772,7 +778,7 @@
                 <div id="militaryBodiesPanel" class="p-3.5 sm:p-4 bg-slate-900/70 rounded-xl border border-slate-800/80 space-y-2">
                     <h4 class="text-xs font-bold text-amber-400 flex items-center gap-1.5">
                         <i data-lucide="shield-alert" class="w-3.5 h-3.5 shrink-0"></i>
-                        גופים צבאיים ורכשיים מרכזיים
+                        גופים ביטחוניים ורכשיים מרכזיים
                     </h4>
                     <div id="militaryBodies" class="space-y-2"></div>
                 </div>
@@ -1324,8 +1330,24 @@
             "camcopter s-100": "Schiebel_Camcopter_S-100_at_ILA_2010.jpg",
             "black hornet": "Black_Hornet_Nano_Helicopter_UAV.jpg",
             "vector": "UA_Quantum_Vector_02.jpg",
+            "teng yun": "NCSIST_ASRD_MALE_UAV_Display_at_Hsinchu_Air_Force_Base_20151121a.jpg",
+            "chien hsiang": "Chien_hsiang_loitering_munition.jpg",
+            "albatross (rui yuan)": "NCSIST_Albatross_UAV_9714.jpg",
+            "seeker": "Denel_UAV_Seeker_400_(10825858576).jpg",
+            "v-bat": "Moving_V-BAT_during_Kamdag_2022.jpg",
+            "hero-120": "HERO_DSEI_IMG_6905.jpg",
+            "aerostar": "Aerostar.jpg",
+            "thunderb": "Bluebird_ThunderB_at_Paris_Air_Show_2013.jpg",
+            "tekever ar5": "StormShroud_(Tekever_AR3)_of_216_Squadron_RAF,_May_2025.jpg",
+            "כטב\"מי fpv (ייצור המוני מבוזר)": "UA_military_FPV_drones_05.jpg",
+            "ch-95": "CH-95.jpg",
             "bayraktar akinci": "Baykar_Akinci.jpg",
             "orbiter 2": "Aeronautics_Orbiter_UAV.jpg",
+            "orbiter 4": "Aeronautics_Orbiter_UAV.jpg",
+            "orbiter 1km": "Aeronautics_Orbiter_UAV.jpg",
+            "orbiter 2 / 3 / 4 / 5": "Aeronautics_Orbiter_UAV.jpg",
+            "orbiter 2 / orbiter 3": "Aeronautics_Orbiter_UAV.jpg",
+            "orbiter 4 (ניצוץ)": "Aeronautics_Orbiter_UAV.jpg",
             "searcher mk ii": "IAI_Searcher._III.jpg",
             "warmate": "Warmate-50_MSPO24.jpg",
             "hermes 450": "Hermes_450.jpg",
@@ -1431,6 +1453,13 @@
             'insitu': 'Insitu_logo.svg',
             'boeing': 'Insitu_logo.svg',
             'leonardo': 'Logo_Leonardo.svg',
+            'iai': 'Iai_mlm_logo.jpg',
+            'viettel': 'Viettel_logo_2021.svg',
+            'lockheed martin': 'Lockheed_Martin_logo_(2).svg',
+            'anduril': 'Anduril_Industries_Logo.svg',
+            'eads': 'Airbus_Defense_and_Space.svg',
+            'airbus': 'Airbus_Defense_and_Space.svg',
+            'yamaha': 'Yamaha_Motor_logo.svg',
             'aerovironment': 'AeroVironment_Logo.png',
             'northrop grumman': 'Northrop_Grumman_logo_blue-on-clear_2020.svg',
             'textron': 'Textron.svg',
@@ -2805,6 +2834,7 @@
             lucide.createIcons();
             initTheme();
             populateSidebar();
+            buildManufacturerOriginFilter();
             populateSectionSources();
             renderDashboard(presetData["פולין"], true);
 
@@ -2965,9 +2995,6 @@
             if (mode === 'budget') {
                 return arr.sort((a, b) => (parseBudgetToBillions(presetData[b].budget) || 0) - (parseBudgetToBillions(presetData[a].budget) || 0));
             }
-            if (mode === 'fleet') {
-                return arr.sort((a, b) => ((presetData[b].uavFleet || []).length) - ((presetData[a].uavFleet || []).length));
-            }
             if (mode === 'threat') {
                 return arr.sort((a, b) => threatToUrgencyScore(presetData[b].threat) - threatToUrgencyScore(presetData[a].threat));
             }
@@ -3004,12 +3031,46 @@
                 btn.classList.toggle('active', btn.getAttribute('data-country') === currentCountryKey);
             });
         }
+        // ============================================================
+        // MANUFACTURER-ORIGIN FILTER - lets the user pick a source
+        // country (e.g. Turkey) and see only the countries that field
+        // at least one platform made by a manufacturer from there.
+        // Manufacturer strings follow the convention "Name (Country)",
+        // so this is a plain substring check against a curated list
+        // of the real origin countries that actually appear in the
+        // data (built once at load time, junk-free).
+        // ============================================================
+        const MANUFACTURER_ORIGIN_CANDIDATES = [
+            "ישראל", "טורקיה", "ארה\"ב", "סין", "רוסיה", "איטליה", "גרמניה",
+            "בריטניה", "צרפת", "אוסטריה", "אוסטרליה", "אוקראינה",
+            "איחוד האמירויות", "דרום אפריקה", "הודו", "וייטנאם", "טייוואן",
+            "יוון", "יפן", "נורווגיה", "סינגפור", "סעודיה", "סרביה",
+            "פולין", "פורטוגל", "קוריאה", "קולומביה", "פינלנד", "רומניה"
+        ];
+        function countryHasManufacturerFrom(countryName, origin) {
+            const fleet = (presetData[countryName] || {}).uavFleet || [];
+            return fleet.some(u => (u.manufacturer || '').includes(origin));
+        }
+        function buildManufacturerOriginFilter() {
+            const sel = document.getElementById('sidebarManufacturerFilter');
+            if (!sel) return;
+            const present = MANUFACTURER_ORIGIN_CANDIDATES.filter(origin =>
+                availableCountries.some(c => countryHasManufacturerFrom(c, origin))
+            ).sort((a, b) => a.localeCompare(b, 'he'));
+            sel.innerHTML = '<option value="">כל היצרנים</option>' +
+                present.map(o => `<option value="${escapeHtml(o)}">${escapeHtml(o)}</option>`).join('');
+        }
         function filterSidebar() {
             const q = document.getElementById('sidebarFilter').value.trim();
+            const originSel = document.getElementById('sidebarManufacturerFilter');
+            const origin = originSel ? originSel.value : '';
             document.querySelectorAll('.sidebar-country-btn').forEach(btn => {
                 const name = btn.getAttribute('data-country');
                 const row = btn.closest('div');
-                if (row) row.style.display = name.includes(q) ? '' : 'none';
+                if (!row) return;
+                const matchesText = name.includes(q);
+                const matchesOrigin = !origin || countryHasManufacturerFrom(name, origin);
+                row.style.display = (matchesText && matchesOrigin) ? '' : 'none';
             });
         }
         function toggleSidebar() {
