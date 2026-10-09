@@ -2,7 +2,10 @@
 <html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self'; manifest-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'none'">
     <title>AeroVision BI - מערכת מודיעין כטב"מים וניתוח מדינות</title>
 
     <!-- PWA: installable on iPhone (Safari "Add to Home Screen") and Android/Samsung (Chrome "Install app") -->
@@ -35,7 +38,7 @@
             --panel-border: rgba(15, 23, 42, 0.08);
             --text-primary: #0f172a;
             --text-body: #1e293b;
-            --text-muted: #64748b;
+            --text-muted: #3f4b5b;
             --card-bg: rgba(255, 255, 255, 0.85);
             --card-border: rgba(15, 23, 42, 0.08);
             --scrollbar-track: #e2e8f0;
@@ -285,7 +288,7 @@
         [data-theme="light"] .text-slate-200,
         [data-theme="light"] .text-slate-300 { color: var(--text-body) !important; }
         [data-theme="light"] .text-slate-400 { color: var(--text-muted) !important; }
-        [data-theme="light"] .text-slate-500 { color: #94a3b8 !important; }
+        [data-theme="light"] .text-slate-500 { color: #556274 !important; }
         [data-theme="light"] .bg-slate-900,
         [data-theme="light"] .bg-slate-900\/70,
         [data-theme="light"] .bg-slate-900\/80,
@@ -384,8 +387,10 @@
         </div>
     </div>
 
+    <a href="#main-content" class="skip-link">דלג לתוכן הראשי</a>
+    <div id="a11yLive" class="sr-only" aria-live="polite" aria-atomic="true"></div>
     <!-- ACCESS GATE (soft gate, not real security - see README) -->
-    <div id="accessGate" class="fixed inset-0 z-[200] bg-[#050811] flex items-center justify-center p-4">
+    <div id="accessGate" role="dialog" aria-modal="true" aria-labelledby="accessGateTitle" class="fixed inset-0 z-[200] bg-[#050811] flex items-center justify-center p-4">
         <div class="glass-panel rounded-2xl p-6 sm:p-8 max-w-sm w-full text-center space-y-4 military-glow border-amber-500/20">
             <div class="w-16 h-16 mx-auto flex items-center justify-center">
                 <svg viewBox="0 0 100 100" class="w-full h-full">
@@ -409,14 +414,14 @@
                 </svg>
             </div>
             <div>
-                <h2 class="text-lg font-black text-white gold-gradient-text">AEROVISION BI</h2>
+                <h2 id="accessGateTitle" class="text-lg font-black text-white gold-gradient-text">AEROVISION BI</h2>
                 <p class="text-xs text-slate-400 mt-1">כלי מחלקתי - הזן קוד גישה להמשך</p>
             </div>
-            <input type="password" id="accessCodeInput" placeholder="קוד גישה"
+            <input type="password" id="accessCodeInput" placeholder="קוד גישה" aria-label="קוד גישה" aria-describedby="accessGateError" autocomplete="off"
                 class="w-full px-3.5 py-2.5 rounded-lg bg-slate-900/90 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 text-sm text-center tracking-widest"
                 onkeydown="if(event.key==='Enter') checkAccessCode()">
             <button onclick="checkAccessCode()" class="w-full py-2.5 rounded-lg bg-gradient-to-r from-amber-600 to-amber-500 text-slate-950 font-bold text-sm cursor-pointer">כניסה</button>
-            <p id="accessGateError" class="hidden text-xs text-red-400">קוד שגוי, נסה שוב</p>
+            <p id="accessGateError" role="alert" class="hidden text-xs text-red-400">קוד שגוי, נסה שוב</p>
         </div>
     </div>
 
@@ -511,7 +516,7 @@
     </button>
 
     <!-- Floating exit button, shown only in fullscreen mode -->
-    <button id="exitFullscreenBtn" onclick="toggleFullscreen()" style="top: max(0.75rem, calc(env(safe-area-inset-top) + 0.5rem));" class="hidden fixed left-3 z-[250] p-2.5 rounded-lg bg-slate-900/95 text-amber-400 border border-amber-500/40 shadow-lg cursor-pointer no-print">
+    <button id="exitFullscreenBtn" aria-label="יציאה ממסך מלא" onclick="toggleFullscreen()" style="top: max(0.75rem, calc(env(safe-area-inset-top) + 0.5rem));" class="hidden fixed left-3 z-[250] p-2.5 rounded-lg bg-slate-900/95 text-amber-400 border border-amber-500/40 shadow-lg cursor-pointer no-print">
         <i data-lucide="minimize" class="w-5 h-5"></i>
     </button>
 
@@ -526,19 +531,19 @@
                     <i data-lucide="globe-2" class="w-4 h-4 text-amber-400"></i>
                     <span id="sidebarCountryCount"></span> מדינות זמינות
                 </h3>
-                <button onclick="toggleSidebar()" class="sm:hidden p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-white">
+                <button aria-label="סגירה" onclick="toggleSidebar()" class="sm:hidden p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-white">
                     <i data-lucide="x" class="w-4 h-4"></i>
                 </button>
             </div>
             <div class="p-3">
                 <div class="relative">
                     <i data-lucide="search" class="absolute right-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-500"></i>
-                    <input type="text" id="sidebarFilter" oninput="filterSidebar()" placeholder="סנן רשימה..."
+                    <input type="text" id="sidebarFilter" aria-label="סינון רשימת המדינות" oninput="filterSidebar()" placeholder="סנן רשימה..."
                         class="w-full pr-9 pl-3 py-2 rounded-lg bg-slate-900/90 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 text-xs">
                 </div>
                 <div class="mt-2">
                     <label class="text-[10px] text-slate-500 font-semibold block mb-1">מיון לפי:</label>
-                    <select id="sidebarSort" onchange="populateSidebar()"
+                    <select id="sidebarSort" aria-label="מיון רשימת המדינות" onchange="populateSidebar()"
                         class="w-full py-1.5 px-2 rounded-lg bg-slate-900/90 border border-slate-700 text-slate-200 text-[11px] focus:outline-none focus:border-amber-500 cursor-pointer">
                         <option value="alpha">א-ב (ברירת מחדל)</option>
                         <option value="budget">תקציב ביטחון - מהגבוה</option>
@@ -547,7 +552,7 @@
                 </div>
                 <div class="mt-2">
                     <label class="text-[10px] text-slate-500 font-semibold block mb-1">סנן לפי יצרן פלטפורמות (מדינת מקור):</label>
-                    <select id="sidebarManufacturerFilter" onchange="filterSidebar()"
+                    <select id="sidebarManufacturerFilter" aria-label="סינון לפי מדינת מקור של יצרן הפלטפורמות" onchange="filterSidebar()"
                         class="w-full py-1.5 px-2 rounded-lg bg-slate-900/90 border border-slate-700 text-slate-200 text-[11px] focus:outline-none focus:border-amber-500 cursor-pointer">
                         <option value="">כל היצרנים</option>
                     </select>
@@ -556,7 +561,7 @@
             <div id="sidebarCountryList" class="flex-grow overflow-y-auto px-3 pb-4 space-y-1"></div>
         </aside>
 
-        <main class="flex-grow min-w-0 max-w-5xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6 space-y-4 sm:space-y-6">
+        <main id="main-content" tabindex="-1" class="flex-grow min-w-0 max-w-5xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6 space-y-4 sm:space-y-6">
 
         <!-- SEARCH HERO SECTION -->
         <section class="glass-panel rounded-2xl p-4 sm:p-6 relative overflow-hidden military-glow border-amber-500/20 no-print">
@@ -574,7 +579,7 @@
                 <form onsubmit="handleSearch(event)" class="flex flex-col sm:flex-row gap-2 pt-1 sm:pt-2">
                     <div class="relative flex-grow">
                         <i data-lucide="search" class="absolute right-3.5 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-slate-400"></i>
-                        <input type="text" id="countryInput" placeholder="הכנס שם מדינה (למשל: פולין, איחוד האמירויות, יוון, הודו, יפן)..."
+                        <input type="text" id="countryInput" aria-label="חיפוש מדינה" placeholder="הכנס שם מדינה (למשל: פולין, איחוד האמירויות, יוון, הודו, יפן)..."
                             class="w-full pr-10 sm:pr-12 pl-4 py-3 sm:py-3.5 rounded-xl bg-slate-900/90 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 text-xs sm:text-sm font-medium transition shadow-inner">
                     </div>
                     <button type="submit" id="searchBtn" class="px-6 py-3 sm:py-3.5 rounded-xl bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-slate-950 font-black text-xs sm:text-sm tracking-wide shadow-lg transition transform active:scale-95 flex items-center justify-center gap-2 cursor-pointer">
@@ -1044,7 +1049,7 @@
                     <h3 class="text-sm font-bold text-white">הערות אישיות</h3>
                     <span class="text-[10px] text-slate-500">(נשמר רק בדפדפן שלך, לא משותף)</span>
                 </div>
-                <textarea id="personalNotes" oninput="savePersonalNotes()" rows="3" placeholder="לדוגמה: דיברתי עם X ב-15.9, מחכה לתשובה..."
+                <textarea id="personalNotes" aria-label="הערות אישיות על המדינה" oninput="savePersonalNotes()" rows="3" placeholder="לדוגמה: דיברתי עם X ב-15.9, מחכה לתשובה..."
                     class="w-full bg-slate-900/80 border border-slate-800 rounded-lg p-2.5 text-xs sm:text-sm text-slate-200 placeholder-slate-600 resize-y focus:outline-none focus:border-amber-500/50"></textarea>
             </div>
 
@@ -1137,7 +1142,7 @@
                     <i data-lucide="book-open" class="w-5 h-5 text-amber-400"></i>
                     מילון מונחים
                 </h3>
-                <button onclick="closeGlossary()" class="p-1.5 rounded-lg bg-slate-800/80 text-slate-400 hover:text-white hover:bg-slate-700 cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button>
+                <button aria-label="סגירה" onclick="closeGlossary()" class="p-1.5 rounded-lg bg-slate-800/80 text-slate-400 hover:text-white hover:bg-slate-700 cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button>
             </div>
             <div id="glossaryList" class="space-y-2"></div>
         </div>
@@ -1151,7 +1156,7 @@
                     <i data-lucide="target" class="w-5 h-5 text-amber-400 shrink-0"></i>
                     <span class="truncate">סימולטור התאמת מוצר</span>
                 </h3>
-                <button onclick="closeSimulator()" class="p-1.5 rounded-lg bg-slate-800/80 text-slate-400 hover:text-white hover:bg-slate-700 cursor-pointer shrink-0"><i data-lucide="x" class="w-5 h-5"></i></button>
+                <button aria-label="סגירה" onclick="closeSimulator()" class="p-1.5 rounded-lg bg-slate-800/80 text-slate-400 hover:text-white hover:bg-slate-700 cursor-pointer shrink-0"><i data-lucide="x" class="w-5 h-5"></i></button>
             </div>
             <div class="overflow-y-auto p-4 sm:p-6 space-y-4">
                 <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">בחר סוג מוצר ביטחוני, והמערכת תדרג מחדש את כל שווקי היעד לפי התאמה ספציפית למוצר זה - על בסיס הנתונים שכבר קיימים בדוחות (תקציב, סיכון, פערים מבצעיים ותעשייה מקומית).</p>
@@ -1169,11 +1174,68 @@
             </div>
             <div>
                 © 2026 כל הזכויות שמורות - פרויקט ניתוח BI מדינות
+                · <button type="button" onclick="openPrivacyInfo()" class="underline underline-offset-2 hover:text-amber-400 cursor-pointer">פרטיות ונגישות</button>
             </div>
         </div>
     </footer>
 
-    <script src="data.js?v=20261009"></script>
+
+    <!-- PRIVACY & ACCESSIBILITY INFO -->
+    <div id="privacyModal" class="hidden fixed inset-0 z-[150] bg-black/75 backdrop-blur-sm p-3 sm:p-6 overflow-y-auto no-print" role="dialog" aria-modal="true" aria-labelledby="privacyModalTitle">
+        <div class="glass-panel rounded-2xl max-w-2xl mx-auto my-4 sm:my-8 p-4 sm:p-6 space-y-4 military-glow border-amber-500/20 text-sm text-slate-300 leading-relaxed">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                <h3 id="privacyModalTitle" class="text-base sm:text-lg font-bold text-white">פרטיות ונגישות</h3>
+                <button type="button" onclick="closePrivacyInfo()" aria-label="סגירה" class="p-1.5 rounded-lg bg-slate-800/80 text-slate-400 hover:text-white hover:bg-slate-700 cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button>
+            </div>
+            <h4 class="font-bold text-white">מה נשמר ואיפה</h4>
+            <p>המערכת לא אוספת מידע על המשתמשים ולא שולחת אותו לשום שרת. אין בה עוגיות, אין כלי מעקב ואין רישום פעולות.</p>
+            <p>כמה העדפות נשמרות רק בדפדפן שלך, במכשיר שבו אתה עובד: מצב תצוגה (כהה או בהיר), מדינות מועדפות, סטטוס מעקב לכל מדינה והערות אישיות. אף אחד אחר לא רואה אותן, והן לא עוברות למכשיר אחר. אפשר למחוק אותן כאן:</p>
+            <button type="button" onclick="clearLocalData()" class="px-3 py-2 rounded-lg bg-slate-800 border border-slate-700 text-white hover:bg-slate-700 cursor-pointer">מחיקת הנתונים שנשמרו בדפדפן הזה</button>
+            <p id="clearLocalDataMsg" role="status" class="hidden text-emerald-400"></p>
+            <p>בזמן השימוש הדפדפן טוען גופן מ-Google Fonts ותמונות של פלטפורמות מאתרים חיצוניים, בעיקר Wikimedia Commons. באופן הזה האתרים האלה מקבלים את כתובת ה-IP שלך, כמו בכל גלישה. המערכת לא מעבירה להם את כתובת הדף שממנו הגעת.</p>
+            <h4 class="font-bold text-white pt-2">נגישות</h4>
+            <p>במערכת בוצעו התאמות נגישות לפי עקרונות התקן הישראלי ת"י 5568 (הנחיות WCAG ברמה AA). אפשר להגדיל את התצוגה בטלפון, לנווט במקלדת עם Tab, Enter ו-Esc, להשתמש בקורא מסך ולדלג ישירות לתוכן הראשי. הניגודיות בין הטקסט לרקע הותאמה בשני מצבי התצוגה. כשמוגדרת במכשיר העדפה להפחתת תנועה, האנימציות מבוטלות. עדיין לא בוצעה למערכת בדיקת נגישות מלאה על ידי מורשה נגישות.</p>
+            <p>אם נתקלת בבעיית נגישות, פנה לבעלי המערכת במחלקה.</p>
+        </div>
+    </div>
+
+    <style>
+        .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+        .skip-link { position:fixed; top:-60px; right:12px; z-index:300; background:#f59e0b; color:#0b0f1a; font-weight:700; padding:8px 14px; border-radius:8px; transition:top .15s; }
+        .skip-link:focus { top:12px; }
+        :focus-visible { outline: 2px solid #f59e0b !important; outline-offset: 2px !important; }
+        main:focus { outline: none; }
+        /* Hidden modals stay in the DOM for the fade animation - also take
+           them out of the tab order and the accessibility tree. */
+        #glossaryModal.hidden, #compareModal.hidden, #simulatorModal.hidden { visibility: hidden; transition: opacity 220ms ease, visibility 0s linear 220ms; }
+        #glossaryModal:not(.hidden), #compareModal:not(.hidden), #simulatorModal:not(.hidden) { visibility: visible; }
+        :root:not([data-theme="light"]) .text-slate-500 { color: #8a9ab0; }
+        /* Light theme: the accent text colours were tuned for the dark
+           background; on light panels they need the darker shades. */
+        [data-theme="light"] .text-slate-500 { color: #45515f !important; }
+        [data-theme="light"] .bg-slate-900\/95 { background-color: rgba(248,250,252,0.95) !important; }
+        [data-theme="light"] .text-amber-300, [data-theme="light"] .text-amber-400, [data-theme="light"] .text-amber-500 { color: #92400e !important; }
+        [data-theme="light"] .text-emerald-400 { color: #065f46 !important; }
+        [data-theme="light"] .text-red-400 { color: #b91c1c !important; }
+        [data-theme="light"] .text-blue-300, [data-theme="light"] .text-blue-400 { color: #1d4ed8 !important; }
+        [data-theme="light"] .text-rose-300, [data-theme="light"] .text-rose-400 { color: #be123c !important; }
+        [data-theme="light"] .text-purple-400 { color: #7e22ce !important; }
+        :root:not([data-theme="light"]) .placeholder-slate-500::placeholder { color: #8a9ab0; }
+        /* iOS zooms into inputs below 16px; keep them at 16px on phones now that zoom is allowed */
+        @media (max-width: 640px) { input[type="text"], input[type="password"], select, textarea { font-size: 16px !important; } }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+        }
+    </style>
+    <script src="data.js?v=20261009-4"></script>
+    <script>
+        // If data.js did not load (e.g. index.html opened alone in a file preview), show a clear message instead of a frozen splash.
+        if (typeof presetData === 'undefined') {
+            document.addEventListener('DOMContentLoaded', function () {
+                document.body.innerHTML = '<div dir="rtl" style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:#050811;color:#e2e8f0;font-family:Heebo,Arial,sans-serif;padding:24px;text-align:center"><div style="max-width:420px"><div style="color:#f59e0b;font-weight:900;font-size:22px;letter-spacing:2px;margin-bottom:12px">AEROVISION BI</div><p style="font-size:16px;line-height:1.7">קובץ הנתונים data.js לא נטען.</p><p style="font-size:14px;line-height:1.7;color:#94a3b8">האפליקציה בנויה משני קבצים, index.html ו-data.js, וחייבים להיות באותה תיקייה. בתצוגה מקדימה של קובץ בודד היא לא תעבוד; באתר ב-GitHub, אחרי העלאת שני הקבצים, היא תיטען כרגיל.</p></div></div>';
+            });
+        }
+    </script>
     <script>
         // ============================================================
         // ICONS - self-contained replacement for the Lucide CDN script.
@@ -1399,13 +1461,46 @@
         // a deterrent against random/accidental access, not a security
         // boundary. Change the code below before distributing the file.
         // ============================================================
-        const ACCESS_CODE = 'AEROVISION2026'; // TODO: change this before sharing with your department
+        // The code itself is no longer stored in the file - only its SHA-256
+        // hash. This hides it from casual reading of the source, but it is
+        // still NOT real authentication: replace with Cloudflare Access
+        // (option A in the costs document) before any wider sharing.
+        const ACCESS_CODE_SHA256 = '619ca03877a72e4e093d06c2869f6f4b4eb9858a0fca3c0cce4d905e99cfe85e';
+        function sha256Hex(str) {
+            function rr(n, x) { return (x >>> n) | (x << (32 - n)); }
+            const K = [0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3,0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2];
+            const H = [0x6a09e667,0xbb67ae85,0x3c6ef372,0xa54ff53a,0x510e527f,0x9b05688c,0x1f83d9ab,0x5be0cd19];
+            const bytes = Array.from(new TextEncoder().encode(str));
+            const bitLen = bytes.length * 8;
+            bytes.push(0x80);
+            while (bytes.length % 64 !== 56) bytes.push(0);
+            for (let i = 7; i >= 0; i--) bytes.push(i >= 4 ? 0 : (bitLen >>> (i * 8)) & 0xff);
+            for (let o = 0; o < bytes.length; o += 64) {
+                const w = new Array(64);
+                for (let i = 0; i < 16; i++) w[i] = (bytes[o+i*4] << 24) | (bytes[o+i*4+1] << 16) | (bytes[o+i*4+2] << 8) | bytes[o+i*4+3];
+                for (let i = 16; i < 64; i++) {
+                    const s0 = rr(7, w[i-15]) ^ rr(18, w[i-15]) ^ (w[i-15] >>> 3);
+                    const s1 = rr(17, w[i-2]) ^ rr(19, w[i-2]) ^ (w[i-2] >>> 10);
+                    w[i] = (w[i-16] + s0 + w[i-7] + s1) | 0;
+                }
+                let [a,b,c,d,e,f,g,h] = H;
+                for (let i = 0; i < 64; i++) {
+                    const t1 = (h + (rr(6,e) ^ rr(11,e) ^ rr(25,e)) + ((e & f) ^ (~e & g)) + K[i] + w[i]) | 0;
+                    const t2 = ((rr(2,a) ^ rr(13,a) ^ rr(22,a)) + ((a & b) ^ (a & c) ^ (b & c))) | 0;
+                    h = g; g = f; f = e; e = (d + t1) | 0; d = c; c = b; b = a; a = (t1 + t2) | 0;
+                }
+                H[0]=(H[0]+a)|0; H[1]=(H[1]+b)|0; H[2]=(H[2]+c)|0; H[3]=(H[3]+d)|0; H[4]=(H[4]+e)|0; H[5]=(H[5]+f)|0; H[6]=(H[6]+g)|0; H[7]=(H[7]+h)|0;
+            }
+            return H.map(x => (x >>> 0).toString(16).padStart(8, '0')).join('');
+        }
         function checkAccessCode() {
-            const val = document.getElementById('accessCodeInput').value.trim();
-            if (val.toUpperCase() === ACCESS_CODE.toUpperCase()) {
+            const val = document.getElementById('accessCodeInput').value.trim().toUpperCase();
+            if (sha256Hex(val) === ACCESS_CODE_SHA256) {
                 sessionStorage.setItem('aerovision_access', 'granted');
                 document.getElementById('accessGate').classList.add('hidden');
                 window.scrollTo(0, 0);
+                const main = document.getElementById('main-content');
+                if (main) main.focus({ preventScroll: true });
             } else {
                 document.getElementById('accessGateError').classList.remove('hidden');
             }
@@ -3049,5 +3144,115 @@
          instead of a printout of the dark app UI. -->
     <div id="pdfPrintTemplate"></div>
 
+
+    <script>
+        // ============================================================
+        // ACCESSIBILITY LAYER - names, keyboard access and dialogs for
+        // controls that are created both in the markup and at runtime.
+        // ============================================================
+        (function () {
+            const MODALS = [
+                { id: 'privacyModal', close: () => closePrivacyInfo() },
+                { id: 'simulatorModal', close: () => typeof closeSimulator === 'function' && closeSimulator() },
+                { id: 'compareModal', close: () => typeof closeCompareMode === 'function' && closeCompareMode() },
+                { id: 'glossaryModal', close: () => typeof closeGlossary === 'function' && closeGlossary() },
+            ];
+            function labelControls(root) {
+                (root || document).querySelectorAll('button, [role="button"], a[href]').forEach(el => {
+                    if (el.hasAttribute('aria-label')) return;
+                    const text = (el.textContent || '').trim();
+                    const title = el.getAttribute('title');
+                    if (!text && title) el.setAttribute('aria-label', title);
+                    else if (!text && !title) {
+                        const icon = el.querySelector('[data-lucide], svg[class*="lucide-"]');
+                        let iconName = icon && icon.getAttribute('data-lucide');
+                        if (icon && !iconName) { const m = (icon.getAttribute('class') || '').match(/lucide-([a-z0-9-]+)/); iconName = m && m[1]; }
+                        const map = { x: 'סגירה', menu: 'רשימת מדינות', 'panel-right': 'רשימת מדינות', list: 'רשימת מדינות', 'minimize-2': 'יציאה ממסך מלא', minimize: 'יציאה ממסך מלא', 'arrow-up': 'חזרה למעלה', star: 'מועדפים' };
+                        const n = iconName && map[iconName];
+                        if (n) el.setAttribute('aria-label', n);
+                        else if (el.id === 'exitFullscreenBtn') el.setAttribute('aria-label', 'יציאה ממסך מלא');
+                    }
+                });
+                const backdrop = document.getElementById('sidebarBackdrop');
+                if (backdrop) backdrop.setAttribute('aria-hidden', 'true');
+                (root || document).querySelectorAll('[onclick]:not(button):not(a):not(input):not(select):not(textarea):not(label):not(#sidebarBackdrop)').forEach(el => {
+                    if (!el.hasAttribute('role')) el.setAttribute('role', 'button');
+                    if (!el.hasAttribute('tabindex')) el.setAttribute('tabindex', '0');
+                });
+                (root || document).querySelectorAll('svg:not([aria-hidden]):not([role])').forEach(svg => {
+                    if (!svg.closest('button, a')) return;
+                    svg.setAttribute('aria-hidden', 'true');
+                });
+            }
+            document.addEventListener('keydown', e => {
+                if ((e.key === 'Enter' || e.key === ' ') && e.target.getAttribute && e.target.getAttribute('role') === 'button' && e.target.tagName !== 'BUTTON') {
+                    e.preventDefault(); e.target.click();
+                }
+                if (e.key === 'Escape') {
+                    for (const m of MODALS) {
+                        const el = document.getElementById(m.id);
+                        if (el && !el.classList.contains('hidden')) { m.close(); e.preventDefault(); return; }
+                    }
+                    if (document.body.classList.contains('fullscreen-mode') && typeof toggleFullscreen === 'function') toggleFullscreen();
+                }
+            });
+            // Focus moves into a dialog when it opens and back to the opener when it closes.
+            let lastFocus = null;
+            function watchModal(id) {
+                const el = document.getElementById(id); if (!el) return;
+                el.setAttribute('role', 'dialog'); el.setAttribute('aria-modal', 'true');
+                const h = el.querySelector('h3'); if (h) { if (!h.id) h.id = id + 'Title'; el.setAttribute('aria-labelledby', h.id); }
+                new MutationObserver(() => {
+                    const open = !el.classList.contains('hidden');
+                    if (open && !el.dataset.a11yOpen) {
+                        el.dataset.a11yOpen = '1'; lastFocus = document.activeElement;
+                        setTimeout(() => { const f = el.querySelector('button, [href], input, select, textarea, [tabindex="0"]'); if (f) f.focus(); }, 60);
+                    } else if (!open && el.dataset.a11yOpen) {
+                        delete el.dataset.a11yOpen;
+                        if (lastFocus && document.contains(lastFocus)) lastFocus.focus();
+                    }
+                }).observe(el, { attributes: true, attributeFilter: ['class'] });
+            }
+            document.addEventListener('DOMContentLoaded', () => {
+                labelControls();
+                MODALS.forEach(m => watchModal(m.id));
+                let pending = false;
+                new MutationObserver(() => {
+                    if (pending) return; pending = true;
+                    requestAnimationFrame(() => { pending = false; labelControls(); });
+                }).observe(document.body, { childList: true, subtree: true });
+                // Announce country changes to screen readers.
+                if (typeof renderDashboard === 'function') {
+                    const orig = renderDashboard;
+                    window.renderDashboard = function (data) {
+                        const r = orig.apply(this, arguments);
+                        const live = document.getElementById('a11yLive');
+                        const nm = data && data.title;
+                        if (live && nm) live.textContent = 'נטען פרופיל: ' + nm;
+                        return r;
+                    };
+                }
+                const gateInput = document.getElementById('accessCodeInput');
+                const gate = document.getElementById('accessGate');
+                if (gateInput && gate && !gate.classList.contains('hidden')) gateInput.focus();
+            });
+        })();
+
+        function openPrivacyInfo() {
+            const m = document.getElementById('privacyModal');
+            m.classList.remove('hidden');
+            if (window.lucide) lucide.createIcons();
+        }
+        function closePrivacyInfo() { document.getElementById('privacyModal').classList.add('hidden'); }
+        function clearLocalData() {
+            let n = 0;
+            try {
+                Object.keys(localStorage).filter(k => k.startsWith('aerovision_')).forEach(k => { localStorage.removeItem(k); n++; });
+            } catch (e) {}
+            const msg = document.getElementById('clearLocalDataMsg');
+            msg.textContent = n ? 'נמחקו ' + n + ' פריטים. רענן את הדף כדי לראות את השינוי.' : 'לא נמצאו נתונים שמורים בדפדפן הזה.';
+            msg.classList.remove('hidden');
+        }
+    </script>
 </body>
 </html>
