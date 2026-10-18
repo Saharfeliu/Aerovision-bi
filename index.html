@@ -2,7 +2,7 @@
 <html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <meta name="referrer" content="no-referrer">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self'; manifest-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'none'">
@@ -32,6 +32,7 @@
             --scrollbar-track: #050811;
             --scrollbar-thumb: #1e293b;
         }
+        .bio-link { color: #f59e0b; text-decoration: underline; }
         [data-theme="light"] {
             --bg: #f4f6fb;
             --panel-bg: rgba(255, 255, 255, 0.92);
@@ -417,11 +418,27 @@
                 <h2 id="accessGateTitle" class="text-lg font-black text-white gold-gradient-text">AEROVISION BI</h2>
                 <p class="text-xs text-slate-400 mt-1">כלי מחלקתי - הזן קוד גישה להמשך</p>
             </div>
+            <div id="gateBioArea" class="hidden space-y-2">
+                <button id="bioLoginBtn" type="button" onclick="bioLogin()" class="w-full py-3 rounded-lg bg-gradient-to-r from-amber-600 to-amber-500 text-slate-950 font-bold text-sm cursor-pointer flex items-center justify-center gap-2">
+                    <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2"/><path d="M9 9v1M15 9v1M12 9v4h-1M9 16c1.7 1.3 4.3 1.3 6 0"/></svg>
+                    <span>כניסה עם <span id="bioLabelText">Face ID</span></span>
+                </button>
+                <p id="bioError" role="alert" class="hidden text-xs text-red-400">האימות לא הושלם. אפשר לנסות שוב או להיכנס עם הקוד. <a href="#" onclick="bioReset(event)" class="bio-link">איפוס הכניסה הביומטרית</a></p>
+                <p class="text-xs text-slate-500">או עם קוד גישה:</p>
+            </div>
+            <div id="bioOffer" class="hidden space-y-3">
+                <p class="text-sm text-white font-bold">להפעיל כניסה עם <span class="bio-label">Face ID</span> במכשיר הזה?</p>
+                <p class="text-xs text-slate-400">בפעם הבאה תיכנס בלי להקליד קוד. הקוד נשאר תמיד כגיבוי.</p>
+                <button type="button" onclick="bioEnroll()" class="w-full py-2.5 rounded-lg bg-gradient-to-r from-amber-600 to-amber-500 text-slate-950 font-bold text-sm cursor-pointer">הפעל</button>
+                <button type="button" onclick="bioDecline()" class="w-full py-2.5 rounded-lg bg-slate-900/90 border border-slate-700 text-slate-300 text-sm cursor-pointer">לא עכשיו</button>
+            </div>
+            <div id="gateCodeArea" class="space-y-4">
             <input type="password" id="accessCodeInput" placeholder="קוד גישה" aria-label="קוד גישה" aria-describedby="accessGateError" autocomplete="off"
                 class="w-full px-3.5 py-2.5 rounded-lg bg-slate-900/90 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 text-sm text-center tracking-widest"
                 onkeydown="if(event.key==='Enter') checkAccessCode()">
             <button onclick="checkAccessCode()" class="w-full py-2.5 rounded-lg bg-gradient-to-r from-amber-600 to-amber-500 text-slate-950 font-bold text-sm cursor-pointer">כניסה</button>
             <p id="accessGateError" role="alert" class="hidden text-xs text-red-400">קוד שגוי, נסה שוב</p>
+            </div>
         </div>
     </div>
 
@@ -1194,7 +1211,7 @@
             <p id="clearLocalDataMsg" role="status" class="hidden text-emerald-400"></p>
             <p>בזמן השימוש הדפדפן טוען גופן מ-Google Fonts ותמונות של פלטפורמות מאתרים חיצוניים, בעיקר Wikimedia Commons. באופן הזה האתרים האלה מקבלים את כתובת ה-IP שלך, כמו בכל גלישה. המערכת לא מעבירה להם את כתובת הדף שממנו הגעת.</p>
             <h4 class="font-bold text-white pt-2">נגישות</h4>
-            <p>במערכת בוצעו התאמות נגישות לפי עקרונות התקן הישראלי ת"י 5568 (הנחיות WCAG ברמה AA). אפשר להגדיל את התצוגה בטלפון, לנווט במקלדת עם Tab, Enter ו-Esc, להשתמש בקורא מסך ולדלג ישירות לתוכן הראשי. הניגודיות בין הטקסט לרקע הותאמה בשני מצבי התצוגה. כשמוגדרת במכשיר העדפה להפחתת תנועה, האנימציות מבוטלות. עדיין לא בוצעה למערכת בדיקת נגישות מלאה על ידי מורשה נגישות.</p>
+            <p>במערכת בוצעו התאמות נגישות לפי עקרונות התקן הישראלי ת"י 5568 (הנחיות WCAG ברמה AA). אפשר לנווט במקלדת עם Tab, Enter ו-Esc, להשתמש בקורא מסך ולדלג ישירות לתוכן הראשי. הניגודיות בין הטקסט לרקע הותאמה בשני מצבי התצוגה. כשמוגדרת במכשיר העדפה להפחתת תנועה, האנימציות מבוטלות. עדיין לא בוצעה למערכת בדיקת נגישות מלאה על ידי מורשה נגישות.</p>
             <p>אם נתקלת בבעיית נגישות, פנה לבעלי המערכת במחלקה.</p>
         </div>
     </div>
@@ -1221,13 +1238,11 @@
         [data-theme="light"] .text-rose-300, [data-theme="light"] .text-rose-400 { color: #be123c !important; }
         [data-theme="light"] .text-purple-400 { color: #7e22ce !important; }
         :root:not([data-theme="light"]) .placeholder-slate-500::placeholder { color: #8a9ab0; }
-        /* iOS zooms into inputs below 16px; keep them at 16px on phones now that zoom is allowed */
-        @media (max-width: 640px) { input[type="text"], input[type="password"], select, textarea { font-size: 16px !important; } }
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
         }
     </style>
-    <script src="data.js?v=20261009-4"></script>
+    <script src="data.js?v=20261016"></script>
     <script>
         // If data.js did not load (e.g. index.html opened alone in a file preview), show a clear message instead of a frozen splash.
         if (typeof presetData === 'undefined') {
@@ -1493,18 +1508,122 @@
             }
             return H.map(x => (x >>> 0).toString(16).padStart(8, '0')).join('');
         }
-        function checkAccessCode() {
+        function grantAccess() {
+            try { sessionStorage.setItem('aerovision_access', 'granted'); } catch (e) {}
+            document.getElementById('accessGate').classList.add('hidden');
+            window.scrollTo(0, 0);
+            const main = document.getElementById('main-content');
+            if (main) main.focus({ preventScroll: true });
+        }
+
+        // ============================================================
+        // BIOMETRIC SIGN-IN (Face ID / Touch ID / Windows Hello) via
+        // WebAuthn passkeys. A convenience layer on top of the access
+        // code: after a successful code entry the user may register a
+        // platform passkey on this device; later visits unlock with it.
+        // Without a server there is nothing to verify the signature
+        // against, so this is NOT stronger than the code gate itself -
+        // it only replaces typing. Real auth comes with server-side
+        // access control (e.g. Cloudflare Access).
+        // ============================================================
+        const BIO_KEY = 'aerovision_bio_id';
+        const BIO_DECLINED = 'aerovision_bio_declined';
+        function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+        function lsSet(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+        function lsDel(k) { try { localStorage.removeItem(k); } catch (e) {} }
+        function b64uEncode(buf) {
+            let s = ''; new Uint8Array(buf).forEach(b => s += String.fromCharCode(b));
+            return btoa(s).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+        }
+        function b64uDecode(str) {
+            const s = atob(str.replace(/-/g, '+').replace(/_/g, '/'));
+            return Uint8Array.from(s, c => c.charCodeAt(0));
+        }
+        function randomBytes(n) { const a = new Uint8Array(n); crypto.getRandomValues(a); return a; }
+        function bioLabel() {
+            const ua = navigator.userAgent || '';
+            if (/iPhone|iPod/.test(ua)) return 'Face ID';
+            if (/iPad/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1)) return 'Face ID / Touch ID';
+            if (/Macintosh/.test(ua)) return 'Touch ID';
+            if (/Android/.test(ua)) return 'זיהוי ביומטרי';
+            if (/Windows/.test(ua)) return 'Windows Hello';
+            return 'זיהוי ביומטרי';
+        }
+        async function bioAvailable() {
+            try {
+                return !!(window.PublicKeyCredential && window.isSecureContext &&
+                    await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable());
+            } catch (e) { return false; }
+        }
+        function setBioLabels() {
+            const l = bioLabel();
+            const t = document.getElementById('bioLabelText'); if (t) t.textContent = l;
+            document.querySelectorAll('.bio-label').forEach(el => el.textContent = l);
+        }
+        async function initBioGate() {
+            setBioLabels();
+            if (lsGet(BIO_KEY) && await bioAvailable()) {
+                document.getElementById('gateBioArea').classList.remove('hidden');
+            }
+        }
+        async function bioEnroll() {
+            try {
+                const cred = await navigator.credentials.create({ publicKey: {
+                    challenge: randomBytes(32),
+                    rp: { name: 'AeroVision BI' },
+                    user: { id: randomBytes(16), name: 'aerovision-user', displayName: 'AeroVision BI' },
+                    pubKeyCredParams: [{ type: 'public-key', alg: -7 }, { type: 'public-key', alg: -257 }],
+                    authenticatorSelection: { authenticatorAttachment: 'platform', userVerification: 'required', residentKey: 'preferred' },
+                    timeout: 60000
+                } });
+                lsSet(BIO_KEY, b64uEncode(cred.rawId));
+                grantAccess();
+                showToast('כניסה עם ' + bioLabel() + ' הופעלה במכשיר הזה');
+            } catch (e) {
+                grantAccess();
+                showToast('לא הצלחנו להפעיל ' + bioLabel() + ' - אפשר לנסות שוב בכניסה הבאה');
+            }
+        }
+        function bioDecline() { lsSet(BIO_DECLINED, '1'); grantAccess(); }
+        async function bioLogin() {
+            document.getElementById('bioError').classList.add('hidden');
+            const id = lsGet(BIO_KEY);
+            if (!id) return;
+            try {
+                await navigator.credentials.get({ publicKey: {
+                    challenge: randomBytes(32),
+                    allowCredentials: [{ type: 'public-key', id: b64uDecode(id) }],
+                    userVerification: 'required',
+                    timeout: 60000
+                } });
+                grantAccess();
+            } catch (e) {
+                document.getElementById('bioError').classList.remove('hidden');
+            }
+        }
+        function bioReset(ev) {
+            if (ev) ev.preventDefault();
+            lsDel(BIO_KEY); lsDel(BIO_DECLINED);
+            document.getElementById('gateBioArea').classList.add('hidden');
+            showToast('הכניסה הביומטרית אופסה - היכנס עם הקוד כדי להפעיל מחדש');
+        }
+
+        async function checkAccessCode() {
             const val = document.getElementById('accessCodeInput').value.trim().toUpperCase();
             if (sha256Hex(val) === ACCESS_CODE_SHA256) {
-                sessionStorage.setItem('aerovision_access', 'granted');
-                document.getElementById('accessGate').classList.add('hidden');
-                window.scrollTo(0, 0);
-                const main = document.getElementById('main-content');
-                if (main) main.focus({ preventScroll: true });
+                document.getElementById('accessGateError').classList.add('hidden');
+                if (!lsGet(BIO_KEY) && !lsGet(BIO_DECLINED) && await bioAvailable()) {
+                    document.getElementById('gateCodeArea').classList.add('hidden');
+                    document.getElementById('gateBioArea').classList.add('hidden');
+                    document.getElementById('bioOffer').classList.remove('hidden');
+                    return;
+                }
+                grantAccess();
             } else {
                 document.getElementById('accessGateError').classList.remove('hidden');
             }
         }
+        document.addEventListener('DOMContentLoaded', () => { initBioGate(); });
         if (sessionStorage.getItem('aerovision_access') === 'granted') {
             document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById('accessGate').classList.add('hidden');
