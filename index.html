@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-fc3SN2wKECMjg6GOmFD9C3TyMSAX8JwkeP0h4JzlFjg=' 'sha256-qbZNsGrlD2/HdxJt3N4PZOLgd+Ne8Za4iAIv2ffkwh0=' 'sha256-2puripQGTKP6gcst0qWG4DRNVprA4KRxGdWXAY0rMnU=' 'sha256-HKuUHe5UPdE44LnEn4a4BYxUM+XvKzWjo4rc4+gaOKY='; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: https:; connect-src 'self'; manifest-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-fc3SN2wKECMjg6GOmFD9C3TyMSAX8JwkeP0h4JzlFjg=' 'sha256-F1ufZlxXBjJYOrvxz4/vC5IKPH6YkwOy6pWrL22VZjQ=' 'sha256-2puripQGTKP6gcst0qWG4DRNVprA4KRxGdWXAY0rMnU=' 'sha256-HKuUHe5UPdE44LnEn4a4BYxUM+XvKzWjo4rc4+gaOKY='; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: https:; connect-src 'self'; manifest-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'none'">
     <title>AeroVision BI - מערכת מודיעין כטב"מים וניתוח מדינות</title>
 
     <!-- PWA: installable on iPhone (Safari "Add to Home Screen") and Android/Samsung (Chrome "Install app") -->
@@ -1501,7 +1501,7 @@
         // hash. This hides it from casual reading of the source, but it is
         // still NOT real authentication: replace with Cloudflare Access
         // (option A in the costs document) before any wider sharing.
-        const ACCESS_CODE_SHA256 = '12c9d0f1c4b35043c50b4b9c09f56d677d6cc86806868f288b37c098dd775fd1'; // replaced 26.10.2026; input is upper-cased before hashing, so the code is case-insensitive
+        const ACCESS_CODE_SHA256 = '24dd67f15e70eba2adfcdbd950a760ef934efb301a4eb114eb4a685147ef04c7'; // replaced 27.10.2026; input is normalised (case, spaces) before hashing
         function sha256Hex(str) {
             function rr(n, x) { return (x >>> n) | (x << (32 - n)); }
             const K = [0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3,0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2];
@@ -1569,8 +1569,8 @@
         // it only replaces typing. Real auth comes with server-side
         // access control (e.g. Cloudflare Access).
         // ============================================================
-        const BIO_KEY = 'aerovision_bio_id_v2'; // bumped with the 26.10.2026 code change so old biometric enrolments must re-enter the new code
-        const BIO_DECLINED = 'aerovision_bio_declined_v2';
+        const BIO_KEY = 'aerovision_bio_id_v3'; // bumped with the 26.10.2026 code change so old biometric enrolments must re-enter the new code
+        const BIO_DECLINED = 'aerovision_bio_declined_v3';
         function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
         function lsSet(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
         function lsDel(k) { try { localStorage.removeItem(k); } catch (e) {} }
