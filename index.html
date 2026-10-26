@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-fc3SN2wKECMjg6GOmFD9C3TyMSAX8JwkeP0h4JzlFjg=' 'sha256-yb7+Z6fSpH9zSjOgEbf8FOEuwSGt8cC5Ksu918VlOA8=' 'sha256-2puripQGTKP6gcst0qWG4DRNVprA4KRxGdWXAY0rMnU=' 'sha256-jTB+Y6cnF+oK1Q6ag8HwkDvGpf087Squ2n08HiytzLc='; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: https:; connect-src 'self'; manifest-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-fc3SN2wKECMjg6GOmFD9C3TyMSAX8JwkeP0h4JzlFjg=' 'sha256-qbZNsGrlD2/HdxJt3N4PZOLgd+Ne8Za4iAIv2ffkwh0=' 'sha256-2puripQGTKP6gcst0qWG4DRNVprA4KRxGdWXAY0rMnU=' 'sha256-HKuUHe5UPdE44LnEn4a4BYxUM+XvKzWjo4rc4+gaOKY='; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: https:; connect-src 'self'; manifest-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'none'">
     <title>AeroVision BI - מערכת מודיעין כטב"מים וניתוח מדינות</title>
 
     <!-- PWA: installable on iPhone (Safari "Add to Home Screen") and Android/Samsung (Chrome "Install app") -->
@@ -434,9 +434,15 @@
                 <button type="button" data-click="bioDecline" class="w-full py-2.5 rounded-lg bg-slate-900/90 border border-slate-700 text-slate-300 text-sm cursor-pointer">לא עכשיו</button>
             </div>
             <div id="gateCodeArea" class="space-y-4">
-            <input type="password" id="accessCodeInput" placeholder="קוד גישה" aria-label="קוד גישה" aria-describedby="accessGateError" autocomplete="off"
+            <div class="relative">
+            <input type="password" id="accessCodeInput" dir="ltr" placeholder="קוד גישה" aria-label="קוד גישה" aria-describedby="accessGateError" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"
                 class="w-full px-3.5 py-2.5 rounded-lg bg-slate-900/90 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 text-sm text-center tracking-widest"
+                style="padding-left:44px;padding-right:44px"
                 data-enter="checkAccessCode">
+            <button type="button" id="togglePwBtn" data-click="toggleCodeVisibility" aria-label="הצג קוד" aria-pressed="false"
+                class="absolute text-slate-400 hover:text-amber-400 cursor-pointer flex items-center justify-center"
+                style="left:4px;top:50%;transform:translateY(-50%);width:40px;height:40px;background:none;border:0"><svg class="eye-on" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg><svg class="eye-off hidden" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 19c-6.5 0-10-7-10-7a18.5 18.5 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c6.5 0 10 7 10 7a18.5 18.5 0 0 1-2.16 3.19"/><path d="M14.12 14.12a3 3 0 1 1-4.24-4.24"/><line x1="2" y1="2" x2="22" y2="22"/></svg></button>
+            </div>
             <button data-click="checkAccessCode" class="w-full py-2.5 rounded-lg bg-gradient-to-r from-amber-600 to-amber-500 text-slate-950 font-bold text-sm cursor-pointer">כניסה</button>
             <p id="accessGateError" role="alert" class="hidden text-xs text-red-400">קוד שגוי, נסה שוב</p>
             </div>
@@ -1523,6 +1529,28 @@
             }
             return H.map(x => (x >>> 0).toString(16).padStart(8, '0')).join('');
         }
+        // Show / hide the typed access code (eye button next to the field).
+        function toggleCodeVisibility() {
+            const inp = document.getElementById('accessCodeInput');
+            const btn = document.getElementById('togglePwBtn');
+            const show = inp.type === 'password';
+            inp.type = show ? 'text' : 'password';
+            btn.setAttribute('aria-pressed', show ? 'true' : 'false');
+            btn.setAttribute('aria-label', show ? 'הסתר קוד' : 'הצג קוד');
+            btn.querySelector('.eye-on').classList.toggle('hidden', show);
+            btn.querySelector('.eye-off').classList.toggle('hidden', !show);
+            inp.focus();
+        }
+        // Normalise what was typed before hashing (26.10.2026): case-insensitive,
+        // ignores any spaces (phone keyboards sometimes auto-insert them), unifies
+        // look-alike characters, and accepts the code typed by mistake on a Hebrew
+        // keyboard layout (same physical keys).
+        const HE_TO_EN = {'ש':'A','נ':'B','ב':'C','ג':'D','ק':'E','כ':'F','ע':'G','י':'H','ן':'I','ח':'J','ל':'K','ך':'L','צ':'M','מ':'N','ם':'O','פ':'P','/':'Q','ר':'R','ד':'S','א':'T','ו':'U','ה':'V',"'":'W','ס':'X','ט':'Y','ז':'Z'};
+        function normalizeAccessCode(raw) {
+            let v = (raw || '').normalize('NFKC').replace(/[\s\u200B-\u200F\u202A-\u202E\u2066-\u2069]/g, '');
+            if (/[\u0590-\u05FF]/.test(v)) v = Array.from(v).map(ch => HE_TO_EN[ch] || ch).join('');
+            return v.replace(/\uFF01/g, '!').toUpperCase();
+        }
         function grantAccess() {
             try { sessionStorage.setItem('aerovision_access', 'granted'); } catch (e) {}
             document.getElementById('accessGate').classList.add('hidden');
@@ -1624,7 +1652,7 @@
         }
 
         async function checkAccessCode() {
-            const val = document.getElementById('accessCodeInput').value.trim().toUpperCase();
+            const val = normalizeAccessCode(document.getElementById('accessCodeInput').value);
             if (sha256Hex(val) === ACCESS_CODE_SHA256) {
                 document.getElementById('accessGateError').classList.add('hidden');
                 if (!lsGet(BIO_KEY) && !lsGet(BIO_DECLINED) && await bioAvailable()) {
@@ -3399,7 +3427,7 @@
         // optional data-arg; data-stop="1" stops the click from bubbling.
         // ============================================================
         (function () {
-            const ALLOWED = new Set(["backToPicker", "bioDecline", "bioEnroll", "bioLogin", "bioReset", "checkAccessCode", "clearLocalData", "closeCompareMode", "closeGlossary", "closePrivacyInfo", "closeSimulator", "copyCurrentReport", "copySummaryText", "enforceCompareLimit", "filterSidebar", "handleSearch", "loadCountry", "openCompareMode", "openGlossary", "openPrivacyInfo", "openSimulator", "populateSidebar", "printCountryReport", "renderComparison", "resetToHome", "savePersonalNotes", "scrollToSection", "scrollToTop", "setCompareMode", "shareCountryQuick", "showSectionSources", "toggleFullscreen", "toggleScoreMethodology", "toggleSidebar", "toggleTheme"]);
+            const ALLOWED = new Set(["toggleCodeVisibility", "backToPicker", "bioDecline", "bioEnroll", "bioLogin", "bioReset", "checkAccessCode", "clearLocalData", "closeCompareMode", "closeGlossary", "closePrivacyInfo", "closeSimulator", "copyCurrentReport", "copySummaryText", "enforceCompareLimit", "filterSidebar", "handleSearch", "loadCountry", "openCompareMode", "openGlossary", "openPrivacyInfo", "openSimulator", "populateSidebar", "printCountryReport", "renderComparison", "resetToHome", "savePersonalNotes", "scrollToSection", "scrollToTop", "setCompareMode", "shareCountryQuick", "showSectionSources", "toggleFullscreen", "toggleScoreMethodology", "toggleSidebar", "toggleTheme"]);
             const SPECIAL = {
                 favCurrent: (el, ev) => toggleFavorite(currentCountryKey),
                 setStatus: (el, ev) => setCountryStatus(currentCountryKey, el.dataset.statusKey),
